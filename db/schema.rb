@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110923021002) do
+ActiveRecord::Schema.define(:version => 20110923191223) do
+
+  create_table "packages", :force => true do |t|
+    t.integer  "worker_id"
+    t.integer  "recipient_id"
+    t.string   "delivered_by"
+    t.text     "comment"
+    t.date     "received"
+    t.datetime "signed_out_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "packages", ["recipient_id"], :name => "index_packages_on_recipient_id"
+  add_index "packages", ["worker_id"], :name => "index_packages_on_worker_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                          :null => false

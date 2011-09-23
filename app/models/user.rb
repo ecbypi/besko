@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
+  has_many :received_packages, :class_name => 'Package', :foreign_key => :recipient_id
+  has_many :mailed_packages, :class_name => 'Package', :foreign_key => :worker_id
+
   attr_accessible :email, :password, :password_confirmation
 
   validates_confirmation_of :password
