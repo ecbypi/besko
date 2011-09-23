@@ -1,4 +1,9 @@
 Besko::Application.routes.draw do
+  root :to => 'home#index'
+
+  get 'login' => 'user_sessions#new'
+  post 'login' => 'user_sessions#create'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
