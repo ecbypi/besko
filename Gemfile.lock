@@ -1,3 +1,9 @@
+GIT
+  remote: gitolite@eddd.mit.edu:edd_d/ldapsearch.git
+  revision: c55a877c3cf6c1e45cbf5f0aeaa77e66281f0b51
+  specs:
+    ldapsearch (0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -201,6 +207,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   launchy
+  ldapsearch!
   mysql2
   paperclip
   rails (= 3.1.0)
