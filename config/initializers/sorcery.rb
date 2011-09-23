@@ -2,7 +2,7 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me, 
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = [:reset_password, :session_timout, :brute_force_protection, :activity_logging]
+Rails.application.config.sorcery.submodules = []
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -82,7 +82,7 @@ Rails.application.config.sorcery.configure do |config|
                                                                                       # Useful for ActiveRecord's STI.
                                                                                       
     # -- user_activation --                                                           
-    user.activation_state_attribute_name = :approved                        # the attribute name to hold
+    # user.activation_state_attribute_name = :activation_state                        # the attribute name to hold
                                                                                       # activation state
                                                                                       # (active/pending).
                                                                                       
@@ -104,7 +104,7 @@ Rails.application.config.sorcery.configure do |config|
     # user.activation_success_email_method_name = :activation_success_email           # activation success email method
                                                                                       # on your mailer class.
                                                                                       
-    user.prevent_non_active_users_to_login = true                                   # do you want to prevent or allow
+    # user.prevent_non_active_users_to_login = true                                   # do you want to prevent or allow
                                                                                       # users that did not activate by
                                                                                       # email to login?                     
                                                                   
