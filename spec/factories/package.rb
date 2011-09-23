@@ -12,6 +12,6 @@ FactoryGirl.define do
   end
 
   factory :signed_out_package, :parent => :package do |package|
-    package.signed_out_at DateTime.today - 5.days
+    package.signed_out_at DateTime.now - 5.days
   end
 end
