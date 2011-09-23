@@ -17,4 +17,14 @@ describe User do
       user.should be_new_record
     end
   end
+
+  describe ".find_by_email_or_login" do
+    it "finds user with email" do
+      User.find_by_email_or_login(user.email).should eq(user)
+    end
+
+    it "finds user with login" do
+      User.find_by_email_or_login(user.login).should eq(user)
+    end
+  end
 end
