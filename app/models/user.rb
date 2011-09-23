@@ -1,12 +1,8 @@
 class User < ActiveRecord::Base
-  authenticates_with_sorcery!
+  acts_as_authentic
 
   has_many :received_packages, :class_name => 'Package', :foreign_key => :recipient_id
   has_many :mailed_packages, :class_name => 'Package', :foreign_key => :worker_id
-
-  attr_accessible :email, :password, :password_confirmation
-
-  validates_confirmation_of :password
 
   def self.find_with_ldap(query, filters=[:uid, :mail, :cn, :givenName, :sn], options={})
     users = []
