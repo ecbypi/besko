@@ -20,4 +20,13 @@ describe "UserSessions" do
     current_path.should eq(root_path)
     page.should have_content("Login Successful")
   end
+
+  it "fails with incorrect username/password" do
+    visit login_path
+    fill_in "Email or Login", :with => "blah"
+    fill_in "Password", :with => "blahblah"
+    click_button "Login"
+    current_path.should eq(login_path)
+    page.should have_content("Invalid credentials")
+  end
 end
