@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
-  expose(:user_session) { UserSession.new }
+  expose(:user_session) { UserSession.new(params[:user_session]) }
   def create
-    if UserSession.create(params[:user_session])
+    if user_session.save!
       redirect_to :root, :notice => "Login Successful"
     else
       render :action => :new

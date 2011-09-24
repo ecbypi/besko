@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  acts_as_authentic
+  acts_as_authentic do |config|
+    config.maintain_sessions = false
+  end
 
   has_many :received_packages, :class_name => 'Package', :foreign_key => :recipient_id
   has_many :mailed_packages, :class_name => 'Package', :foreign_key => :worker_id

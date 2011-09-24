@@ -1,4 +1,4 @@
 = simple_form_for :user_session, :url => :login do |f|
-  = f.input :email
+  = f.input :login, :label => "Email or Login"
   = f.input :password
   = f.submit "Login"
