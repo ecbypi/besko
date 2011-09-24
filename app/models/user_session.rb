@@ -1,3 +1,3 @@
 class UserSession < Authlogic::Session::Base
-  find_by_login_method = :find_by_email_or_login
+  find_by_login_method :find_by_email_or_login
 end
