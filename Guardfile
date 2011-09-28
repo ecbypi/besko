@@ -1,7 +1,15 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'rspec', :version => 2 do
+guard 'spork', :cucumber => false, :test_unit => false, :rspec_env => { 'RAILS_ENV' => 'test' }, :notifications => false do
+  watch('config/application.rb')
+  watch('config/environment.rb')
+  watch(%r{^config/environments/.+\.rb$})
+  watch(%r{^config/initializers/.+\.rb$})
+  watch('spec/spec_helper.rb')
+end
+
+guard 'rspec', :version => 2, :all_on_start => false, :all_after_pass => false, :notifications => false, :cli => '--drb' do
   watch(%r{^spec/factories/.*\.rb})
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
@@ -14,4 +22,5 @@ guard 'rspec', :version => 2 do
   # Capybara request specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
 end
+
 

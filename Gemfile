@@ -6,7 +6,7 @@ gem 'rails', '3.1.0'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'authlogic', :git => 'https://github.com/AndreasWurm/authlogic.git'
+gem 'authlogic'
 gem 'cancan'
 gem 'paperclip'
 gem 'simple_form'
@@ -41,10 +41,12 @@ group :development, :test do
 end
 
 group :test do
+  gem 'spork', '0.9.0.rc'
   gem 'capybara'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
+  gem 'guard-spork'
   gem 'database_cleaner'
   gem 'turn', :require => false
 end

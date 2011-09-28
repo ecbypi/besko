@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110923202209) do
+ActiveRecord::Schema.define(:version => 20110928190330) do
 
   create_table "packages", :force => true do |t|
     t.integer  "worker_id"
     t.integer  "recipient_id"
     t.string   "delivered_by"
     t.text     "comment"
-    t.date     "received"
+    t.date     "received_on"
     t.datetime "signed_out_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20110923202209) do
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.datetime "last_request_at"
-    t.boolean  "approved"
+    t.boolean  "approved",                           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
