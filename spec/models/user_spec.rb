@@ -27,4 +27,10 @@ describe User do
       User.find_by_email_or_login(user.login).should eq(user)
     end
   end
+
+  describe "#name" do
+    it "joins first and last names" do
+      user.name.should eq("First Last Name")
+    end
+  end
 end

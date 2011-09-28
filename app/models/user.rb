@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   acts_as_authentic do |config|
-    config.maintain_sessions = false
+    #config.maintain_sessions = false
   end
 
   has_many :received_packages, :class_name => 'Package', :foreign_key => :recipient_id
@@ -23,5 +23,9 @@ class User < ActiveRecord::Base
       users << User.new(:first_name => result["givenName"], :last_name => result["sn"], :email => result["mail"], :address => result["street"])
     end
     users
+  end
+
+  def name
+    "#{first_name} #{last_name}"
   end
 end
