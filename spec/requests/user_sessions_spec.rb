@@ -10,6 +10,7 @@ describe "UserSessions" do
     click_button "Login"
     current_path.should eq(root_path)
     page.should have_content("Login Successful")
+    current_user.should be_instance_of(User)
   end
 
   it "logs user in when correct email/password are supplied" do
@@ -19,6 +20,7 @@ describe "UserSessions" do
     click_button "Login"
     current_path.should eq(root_path)
     page.should have_content("Login Successful")
+    current_user.should be_instance_of(User)
   end
 
   it "fails with incorrect username/password" do
@@ -28,5 +30,6 @@ describe "UserSessions" do
     click_button "Login"
     current_path.should eq(login_path)
     page.should have_content("Invalid credentials")
+    current_user.should be_nil
   end
 end
