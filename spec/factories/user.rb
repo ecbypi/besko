@@ -21,4 +21,8 @@ FactoryGirl.define do
       Factory(:base_package, :worker => user, :recipient => Factory(:approved_user))
     end
   end
+
+  factory :besk_worker, :parent => :user do |user|
+    user.roles { [Role.find_by_title("Besk Worker") || Factory(:worker_role)] }
+  end
 end

@@ -5,6 +5,7 @@ describe User do
 
   it { should have_many(:received_packages) }
   it { should have_many(:mailed_packages) }
+  it { should have_and_belong_to_many(:roles) }
 
   describe ".find_with_ldap" do
     let(:user) { User.find_with_ldap("edd_d").first }
