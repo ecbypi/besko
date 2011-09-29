@@ -43,7 +43,7 @@ end
 group :test do
   gem 'spork', '0.9.0.rc'
   gem 'timecop'
-  gem 'capybara'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'guard-rspec'

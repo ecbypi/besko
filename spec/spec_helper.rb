@@ -29,6 +29,9 @@ Spork.prefork do
     # instead of true.
     config.use_transactional_fixtures = false
     config.include(Authlogic::TestCase)
+    config.before(:each) do
+      Capybara.javascript_driver = :webkit
+    end
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
