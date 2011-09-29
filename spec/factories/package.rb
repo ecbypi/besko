@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :base_package, :class => 'Package' do |package|
     package.delivered_by "UPS"
-    package.comment "Perishable.  Come pick up soon"
+    package.comment "Perishable"
     package.received_on Time.zone.now.to_date - 1.day
     package.signed_out_at nil
   end

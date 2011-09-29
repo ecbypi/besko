@@ -11,10 +11,14 @@ class Package < ActiveRecord::Base
   end
 
   def signed_out?
-    !(signed_out_at).nil?
+    !(read_attribute(:signed_out_at)).nil?
   end
 
   def sign_out!
     self.signed_out_at = Time.zone.now and save
+  end
+
+  def received_at
+    created_at.strftime("%Y-%m-%d at %r")
   end
 end

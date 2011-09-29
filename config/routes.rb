@@ -4,6 +4,8 @@ Besko::Application.routes.draw do
   get 'login' => 'user_sessions#new'
   post 'login' => 'user_sessions#create'
 
+  resources :packages, :only => [:update, :index]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
