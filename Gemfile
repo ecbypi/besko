@@ -15,6 +15,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'yaml_db'
 gem 'ldapsearch', :git => 'gitolite@eddd.mit.edu:edd_d/ldapsearch.git'
+gem 'meta_search'
 
 # Gems used only for assets and not required
 # in production environments by default.
