@@ -7,6 +7,7 @@ Spork.prefork do
   # need to restart spork for it take effect.
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
   require 'rspec/rails'
   require 'authlogic/test_case'
 
@@ -23,6 +24,11 @@ Spork.prefork do
     # config.mock_with :flexmock
     # config.mock_with :rr
     config.mock_with :rspec
+
+    # Allow only desired specs to run by adding filters to spec definition
+    config.treat_symbols_as_metadata_keys_with_true_values = true
+    config.filter_run :focus => true
+    config.run_all_when_everything_filtered = true
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
@@ -56,5 +62,6 @@ Spork.each_run do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
   RSpec.configure do |config|
     config.include(UserSessionMacros)
+    config.include(PackageMacros)
   end
 end
