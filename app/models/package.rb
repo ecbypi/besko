@@ -2,8 +2,8 @@ class Package < ActiveRecord::Base
   belongs_to :worker, :class_name => 'User'
   belongs_to :recipient, :class_name => 'User'
 
-  def self.for_date(date)
-    where(:received_on => date)
+  def self.for_date(date=nil)
+    where(:received_on => date || Time.zone.now.to_date)
   end
 
   def received_by

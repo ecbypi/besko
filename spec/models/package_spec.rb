@@ -43,10 +43,15 @@ describe Package do
   end
 
   describe ".for_date" do
-    let(:today) { Time.zone.now.to_date }
-    let(:new_package) { Factory(:package, :received_on => Time.zone.now.to_date) }
+    let(:date) { (Time.zone.now.to_date - 5.days).to_date }
     it "returns packages released on the provided date" do
-      Package.for_date(today).should eq([new_package])
+      package = Factory(:package, :received_on => date)
+      Package.for_date(date).should eq([package])
+    end
+
+    it" returns packages released on the current date if date == nil" do
+      package = Factory(:package, :received_on => Time.zone.now.to_date)
+      Package.for_date.should eq([package])
     end
   end
 end
