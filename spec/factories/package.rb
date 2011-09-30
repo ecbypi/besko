@@ -7,8 +7,8 @@ FactoryGirl.define do
   end
 
   factory :package, :parent => :base_package do |package|
-    package.association :worker, :factory => :user
-    package.association :recipient, :factory => :user
+    package.association :worker, :factory => :approved_user
+    package.association :recipient, :factory => :approved_user
   end
 
   factory :signed_out_package, :parent => :package do |package|
