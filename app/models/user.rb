@@ -29,10 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def has_role?(title)
-    if title.is_a? Symbol
-      title = title.to_s.titleize
-    end
-
+    title = title.to_s.titleize if title.is_a?(Symbol)
     roles.collect { |role| role.title }.include?(title)
   end
 end
