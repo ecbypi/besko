@@ -6,6 +6,10 @@ Besko::Application.routes.draw do
 
   resources :packages, :only => [:update, :index]
 
+  scope '/worker', :as => :worker do
+    resources :packages, :controller => :worker_packages
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

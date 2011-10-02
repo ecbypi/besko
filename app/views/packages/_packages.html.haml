@@ -1,0 +1,19 @@
+%table#packageList
+  %tr
+    - if controller.controller_name == "worker_packages"
+      %th Recipient
+    %th Received By
+    %th Received At
+    %th Delivered By
+    %th Comment
+    %th
+  - packages.each do |package|
+    %tr.package{:class => "package#{package.id}"}
+      - if controller.controller_name == "worker_packages"
+        %td= package.recipient.name
+      %td= mail_to package.worker.email, package.worker.name
+      %td= package.received_at
+      %td= package.delivered_by
+      %td= package.comment
+      - if can? :update, Package
+        %td= package.signed_out? ? signed_out_at(package) : button_to("Sign Out", package_path(package), :method => :put, :remote => true)
