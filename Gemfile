@@ -39,6 +39,7 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'cucumber-rails'
 end
 
 group :test do
@@ -49,6 +50,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'guard-cucumber'
   gem 'database_cleaner'
-  gem 'turn', :require => false
+  gem 'turn', '< 0.8.3', :require => false
 end
