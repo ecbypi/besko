@@ -10,6 +10,8 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+    when /^the packages page for recipients*/
+      '/packages'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
