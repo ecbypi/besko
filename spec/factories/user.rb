@@ -22,7 +22,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :besk_worker, :parent => :user do |user|
+  factory :besk_worker, :parent => :approved_user do |user|
     user.roles { [Role.find_by_title("Besk Worker") || Factory(:worker_role)] }
   end
 end

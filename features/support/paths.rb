@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /^the packages page for recipients*/
       '/packages'
+    when /^the worker packages page*/
+      '/worker/packages'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

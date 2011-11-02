@@ -1,8 +1,3 @@
-Given /^I am a user who has received packages$/ do
-  @user = Factory(:user)
-  @packages = @user.received_packages
-end
-
 Given /^I am logged in$/ do
   visit login_path
   fill_in "Login", :with => @user.email
