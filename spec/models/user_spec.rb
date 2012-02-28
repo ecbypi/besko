@@ -7,15 +7,6 @@ describe User do
   it { should have_many(:mailed_packages) }
   it { should have_and_belong_to_many(:roles) }
 
-  describe ".find_by_email_or_login" do
-    it "finds user with email" do
-      User.find_by_email_or_login(user.email).should eq(user)
-    end
-
-    it "finds user with login" do
-      User.find_by_email_or_login(user.login).should eq(user)
-    end
-  end
 
   describe "#name" do
     it "joins first and last names" do

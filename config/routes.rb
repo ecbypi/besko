@@ -1,8 +1,14 @@
 Besko::Application.routes.draw do
-  root :to => 'home#index'
+  devise_for :users,
+    path: '',
+    path_names: {
+      sign_in: 'login',
+      sign_out: 'logout',
+      sign_up: 'signup',
+      registration: 'accounts'
+    }
 
-  get 'login' => 'user_sessions#new'
-  post 'login' => 'user_sessions#create'
+  root :to => 'home#index'
 
   resources :packages, :only => [:update, :index]
 

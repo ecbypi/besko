@@ -9,7 +9,6 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
   require 'rspec/rails'
-  require 'authlogic/test_case'
 
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -34,10 +33,6 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = false
-    config.include(Authlogic::TestCase)
-    config.before(:each) do
-      Capybara.javascript_driver = :webkit
-    end
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
@@ -57,11 +52,6 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-  FactoryGirl.factories.clear
-  FactoryGirl.find_definitions
+  FactoryGirl.reload
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-  RSpec.configure do |config|
-    config.include(UserSessionMacros)
-    config.include(PackageMacros)
-  end
 end

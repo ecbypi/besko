@@ -1,13 +1,24 @@
 class User < ActiveRecord::Base
-  acts_as_authentic
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :trackable,
+         :validatable,
+         :lockable,
+         :timeoutable,
+         :token_authenticatable,
+         :confirmable
 
   has_many :received_packages, :class_name => 'Package', :foreign_key => :recipient_id
   has_many :mailed_packages, :class_name => 'Package', :foreign_key => :worker_id
   has_and_belongs_to_many :roles
 
-  def self.find_by_email_or_login(field)
-    find_by_email(field) || find_by_login(field)
-  end
+  attr_accessible :first_name,
+                  :last_name,
+                  :login,
+                  :email,
+                  :password,
+                  :password_confirmation
 
   def name
     "#{first_name} #{last_name}"
