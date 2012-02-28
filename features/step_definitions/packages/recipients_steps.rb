@@ -3,7 +3,7 @@ Given /^I am on the packages page for recipients$/ do
 end
 
 Then /^I should see the package information:$/ do |table|
-  within '[data-collection="packages"]' do
+  within packages_collection do
     table.hashes.each do |attributes|
       worker = User.find_by_email!(attributes[:received_by])
       page.should have_css('td', text: worker.name)
