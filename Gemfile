@@ -11,9 +11,11 @@ gem 'decent_exposure'
 gem 'haml'
 gem 'haml-rails'
 gem 'yaml_db'
-gem 'ldapsearch', :git => 'gitolite@eddd.mit.edu:edd_d/ldapsearch.git'
 gem 'meta_search'
 gem 'jquery-rails'
+gem 'ldaptic'
+gem 'ruby-ldap'
+gem 'ldap-filter'
 
 group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
