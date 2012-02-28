@@ -1,0 +1,8 @@
+%h1 Sign in
+
+= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  .inputs
+    = f.input :email, :autofocus => true
+    = f.input :password
+  .actions
+    = f.button :submit, "Sign In"
