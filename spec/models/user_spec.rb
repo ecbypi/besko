@@ -16,7 +16,9 @@ describe User do
 
   describe "#has_role?" do
     it "returns true if user's roles include the provided attribute" do
-      user = Factory(:besk_worker)
+      user = Factory(:user)
+      role = Factory(:role, title: 'Besk Worker')
+      user.roles << role
       user.has_role?(:besk_worker).should be(true)
     end
 
