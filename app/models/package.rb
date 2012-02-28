@@ -19,6 +19,6 @@ class Package < ActiveRecord::Base
   end
 
   def received_at
-    created_at.strftime("%Y-%m-%d at %r")
+    created_at.strftime("%B %d, %Y at %r")
   end
 end

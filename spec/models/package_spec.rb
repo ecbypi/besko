@@ -31,7 +31,7 @@ describe Package do
       time = Time.zone.local(2011, 1, 1, 12, 30, 30)
       Timecop.freeze(time) do
         package = Factory(:package)
-        package.received_at.should eq("2011-01-01 at 12:30:30 PM")
+        package.received_at.should eq("January 01, 2011 at 12:30:30 PM")
       end
     end
   end
