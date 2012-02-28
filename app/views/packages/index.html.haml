@@ -1,1 +1,14 @@
-= render :partial => 'packages', :locals => { :packages => received_packages }
+%table{data: { collection: :packages }}
+  %tr
+    %th Received By
+    %th Received At
+    %th Delivered By
+    %th Comment
+    %th
+  - packages.each do |package|
+    %tr{data: { 'resource-id' => package.id }}
+      %td= mail_to package.worker.email, package.worker.name
+      %td= package.received_at
+      %td= package.delivered_by
+      %td= package.comment
+      %td= package.signed_out? ? signed_out_at(package) : button_to("Sign Out", package_path(package), :method => :put, :remote => true)
