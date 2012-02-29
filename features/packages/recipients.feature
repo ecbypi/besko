@@ -4,7 +4,7 @@ Feature: Manage Received Packages
   I want to review and see a list of packages received for me
 
   Background:
-    Given I am logged in as user with the email "packy@mit.edu"
+    Given I am logged in with the email "packy@mit.edu"
     And the following packages exist:
       | recipient            | worker                | delivered_by | comment | created_at |
       | email: packy@mit.edu | email: besker@mit.edu | UPS          | Fragile | 2010-10-30 |

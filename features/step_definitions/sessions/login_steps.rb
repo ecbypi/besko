@@ -16,7 +16,7 @@ Then /^I should see the login page$/ do
   current_path.should eq new_user_session_path
 end
 
-Given /^I am logged in as user with the email "([^"]*)"$/ do |email|
+Given /^I am logged in with the email "([^"]*)"$/ do |email|
   steps %{
     Given a user exists with an email of "#{email}"
     Given I am on the login page
