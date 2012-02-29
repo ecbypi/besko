@@ -33,6 +33,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'jasminerice'
+  gem 'guard-rails'
+  gem 'guard-livereload'
 end
 
 group :test do
