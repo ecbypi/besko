@@ -19,7 +19,7 @@ describe PackageDecorator do
 
   describe "#received_at" do
     it "formats #created_at into something pretty" do
-      decorator.received_at.should eq 'October 30, 2010 at 12:00:00 PM'
+      decorator.received_at.should eq 'October 30, 2010 at 12:00 PM'
     end
   end
 
@@ -30,10 +30,24 @@ describe PackageDecorator do
     end
   end
 
-  describe "recipient_name" do
+  describe "#recipient_name" do
     it "proxies recipient's name" do
       recipient.should_receive(:name)
       decorator.recipient_name
+    end
+  end
+
+  describe "#sign_out_button" do
+    it "displays button to signout package if not signed out already" do
+      decorator.sign_out_button.should match 'Sign Out'
+    end
+
+    it "displays signout timestamp if signed out" do
+      time = Time.zone.local(2011, 12, 25, 13, 30, 30)
+      Timecop.freeze(time) do
+        package.sign_out!
+        decorator.sign_out_button.should match 'December 25, 2011 at  1:30 PM'
+      end
     end
   end
 end
