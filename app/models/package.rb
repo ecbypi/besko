@@ -17,8 +17,4 @@ class Package < ActiveRecord::Base
   def sign_out!
     self.signed_out_at = Time.zone.now and save
   end
-
-  def received_at
-    created_at.strftime("%B %d, %Y at %r")
-  end
 end

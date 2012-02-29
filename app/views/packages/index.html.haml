@@ -5,10 +5,10 @@
     %th Delivered By
     %th Comment
     %th
-  - packages.each do |package|
+  - collection.each do |package|
     %tr{data: { 'resource-id' => package.id }}
-      %td= mail_to package.worker.email, package.worker.name
+      %td= package.mail_to_worker
       %td= package.received_at
       %td= package.delivered_by
       %td= package.comment
-      %td= package.signed_out? ? signed_out_at(package) : button_to("Sign Out", package_path(package), :method => :put, :remote => true)
+      %td= package.sign_out_button

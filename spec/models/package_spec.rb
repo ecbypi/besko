@@ -26,16 +26,6 @@ describe Package do
     end
   end
 
-  describe "#received_at" do
-    it "formats created_at" do
-      time = Time.zone.local(2011, 1, 1, 12, 30, 30)
-      Timecop.freeze(time) do
-        package = Factory(:package)
-        package.received_at.should eq("January 01, 2011 at 12:30:30 PM")
-      end
-    end
-  end
-
   describe "#received_by" do
     it "is an alias for #worker" do
       package.received_by.should eq(package.worker)

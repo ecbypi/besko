@@ -17,8 +17,8 @@
   %tbody
     - packages.each do |package|
       %tr
-        %td= mail_to package.worker.email, package.worker.name
-        %td= package.recipient.name
+        %td= package.recipient_name
+        %td= package.mail_to_worker
         %td= package.delivered_by
         %td= package.received_at
         %td= package.comment
