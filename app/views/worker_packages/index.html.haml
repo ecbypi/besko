@@ -1,31 +1,24 @@
-#packageSearch
+= form_for search, url: :worker_packages, method: :get do |f|
+  = f.hidden_field :received_on_equals, value: date - 1.day
+  = f.submit "Previous Day"
 
-  #searchOptions
-    = radio_button_tag :search_by, 'date', :checked => true
-    = label_tag :search_by_date, "Search by Date"
-    = radio_button_tag :search_by, 'recipient_name_or_email'
-    = label_tag :search_by_recipient_name_or_email, "Search by Recipient Name or Email"
+= form_for search, url: :worker_packages, method: :get do |f|
+  = f.hidden_field :received_on_equals, value: date + 1.day
+  = f.submit "Next Day"
 
-  #dateSearch
-    = form_for search, :url => :worker_packages, :method => :get, :remote => true, :html => { :id => 'toDate', :class => 'packageSearch' } do |f|
-      .field
-        = f.label :received_on_equals, "Select Date: "
-        = f.date_select :received_on_equals, :start_year => 2010, :prompt => true
-      = f.submit "Go"
-
-    = form_for search, :url => :worker_packages, :method => :get, :remote => true, :html => {:id => 'previousDay', :class => 'packageSearch'} do |f|
-      = f.hidden_field :received_on_equals, :value => date - 1.day
-      = f.submit "Previous Day"
-
-    = form_for search, :url => :worker_packages, :method => :get, :remote => true, :html => { :id => 'nextDay', :class => 'packageSearch' } do |f|
-      = f.hidden_field :received_on_equals, :value => date + 1.day
-      = f.submit "Next Day"
-
-  = simple_form_for search, :url => :worker_packages, :method => :get, :remote => true, :html => {:id => 'byResident', :class => 'packageSearch'} do |f|
-    = f.input :recipient_email_like, :label => "Name or Email", :class => 'recipientAttribute', :id => 'recipientEmail', :required => false
-    .input
-      = f.hidden_field :recipient_first_name_like, :class => 'recipientAttribute', :id => 'recipientFirstName'
-      = f.hidden_field :recipient_last_name_like, :class => 'recipientAttribute', :id => 'recipientLastName'
-    = f.submit "Search"
-
-#packages= render :partial => 'packages/packages', :locals => { :packages => packages }
+%table{ data: { collection: :packages }}
+  %thead
+    %tr
+      %th Recipient
+      %th Received By
+      %th Delivered By
+      %th Received At
+      %th Note / Comment
+  %tbody
+    - packages.each do |package|
+      %tr
+        %td= mail_to package.worker.email, package.worker.name
+        %td= package.recipient.name
+        %td= package.delivered_by
+        %td= package.received_at
+        %td= package.comment
