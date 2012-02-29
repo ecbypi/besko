@@ -31,15 +31,21 @@ easier to build from scratch (and more fun).
 
 ## Why is this here?
 
-I decided to put this here as an example of a non-standard Rails app to demo
-some common and uncommon functionality/practices like:
+I decided to put this here as a non-blog example Rails app to demo some common
+and uncommon functionality/practices found in Rails apps:
 
-* Backbone
+* Backbone (to be implemented).
 * Authententication using Touchstone (MIT's internal deployment Shibboleth)
-  headers (mostly configured via Apache)
-* Authentication via LDAP (still considering)
-* Cucumber/Rspec to drive development
-* More as time passes and integrate more for the dorm's benefit
+  headers (mostly configured via Apache) (to be implemented, but working on
+  existing production).
+* Cucumber/Rspec to drive development.
+* Paperclip integration (for posters and pictures from dorm events) (in progress).
+* Tool rental management for the dorm shop (in progress).
+* More as time passes and integrate more for the dorm's benefit.
 
 Anyone intersted in Rails can take a peek and hopefully learn something (or
 help me learn something).
+
+## Still in deep progress
+
+A lot of this is still under development so what's here isn't much yet.
