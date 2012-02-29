@@ -4,6 +4,7 @@ This application was a hobby project I worked on while at MIT for my dorm to
 replace a terrible paradigm of doing things for one that's easier and better.
 
 The old way of doing things:
+
 * Look up recipients one at a time on the horrible directory search on `web.mit.edu`
 * Add emails one by one
 * Check for duplicate emails and update the body of the email to indicate that
@@ -12,6 +13,7 @@ The old way of doing things:
 
 
 The new way of doing things:
+
 * Type in the name on the package
 * Click on you typed in when it appears
 * Add some package details (how many, who delivered it)
