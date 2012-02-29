@@ -17,6 +17,9 @@ gem 'jquery-rails'
 gem 'ldaptic'
 gem 'ruby-ldap'
 gem 'ldap-filter'
+gem 'rails-backbone'
+gem 'backbone-support'
+gem 'backbone-forms-rails', git: 'https://github.com/ecbypi/backbone-forms-rails.git'
 
 group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
