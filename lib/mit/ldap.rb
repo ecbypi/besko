@@ -10,12 +10,12 @@ module MIT
     def self.build_filter search
       arguments = search.split
       mail_key = search =~ /@mit\.edu/ ? :mail : :uid
-      filters = []
-      filters << ::LDAP::Filter::OrFilter.new(mail_key, *arguments)
-      filters << ::LDAP::Filter::Base.new(:cn, arguments.join('*'))
-      filters << ::LDAP::Filter::Base.new(:givenName, arguments.first)
-      filters << ::LDAP::Filter::Base.new(:sn, arguments.last)
-      ::LDAP::Filter::OrFilter.new filters
+      filter = {}
+      filter[:mail_key] = arguments
+      filter[:cn] = arguments.join('*')
+      filter[:givenName] = arguments.first
+      filter[:sn] = arguments.last
+      ::LDAP::Filter::OrFilter.new filter
     end
 
     class InetOrgPerson
