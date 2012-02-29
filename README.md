@@ -1,4 +1,4 @@
-# besko package mailer
+# Besko Package Mailer
 
 This application was a hobby project I worked on while at MIT for my dorm to
 replace a terrible paradigm of doing things for one that's easier and better.
@@ -27,7 +27,7 @@ ActiveRecord models and broken `remote: true` AJAX calls. I started writing
 tests to work on fixing functionality, but everything was such a tangled mess it was
 easier to build from scratch (and more fun).
 
-## why is this here?
+## Why is this here?
 
 I decided to put this here as an example of a non-standard Rails app to demo
 some common and uncommon functionality/practices like:
