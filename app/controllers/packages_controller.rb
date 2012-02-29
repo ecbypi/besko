@@ -1,6 +1,6 @@
-class PackagesController < ApplicationController
   expose(:package)
   expose(:packages) { current_user.received_packages.includes(:worker) }
+class PackagesController < InheritedResources::Base
 
   def update
     package.sign_out!
