@@ -10,6 +10,13 @@ FactoryGirl.define do
 
   factory :user, parent: :unapproved_user do
     confirmed_at 1.month.ago
+
+    factory :mrhalp do
+      first_name 'Micro'
+      last_name 'Helpline'
+      email 'mrhalp@mit.edu'
+      login 'mrhalp'
+    end
   end
 
 end
