@@ -8,6 +8,10 @@ module DataManipulationHelper
     Time.zone.parse("#{date} 12:30:30")
   end
 
+  def indexify number
+    number.to_i - 1
+  end
+
   def package_date_format
     '%B %d, %Y'
   end
