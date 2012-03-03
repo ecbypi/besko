@@ -20,6 +20,24 @@ class User < ActiveRecord::Base
                   :password,
                   :password_confirmation
 
+  def self.recipients search, options={}
+    options.reverse_merge! use_ldap: false
+    args = search.split
+    return [] if args.empty?
+
+    first = args.first
+    last = args.size > 1 ? args[1..-1].join(' ') : first
+    results = where {
+      ( first_name.eq first ) |
+      ( last_name.eq  last  ) |
+      ( email.in_any  args  ) |
+      ( login.in_any  args  )
+    }
+
+    results.concat(MIT::LDAP.build_users(search)) if results.empty? || options[:use_ldap]
+    results.uniq { |user| user.login }
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
