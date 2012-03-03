@@ -19,4 +19,11 @@ describe MIT::LDAP do
       user.email.should eq 'mrhalp@mit.edu'
     end
   end
+
+  describe "#build_filters" do
+    it "doesn't choke on one word string" do
+      stub_mit_ldap_search_results
+      expect { MIT::LDAP.build_users('mrhalp') }.not_to raise_error
+    end
+  end
 end

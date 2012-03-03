@@ -11,7 +11,7 @@ module MIT
       arguments = search.split
       mail_key = search =~ /@mit\.edu/ ? :mail : :uid
       filter = {}
-      filter[:mail_key] = arguments
+      filter[:mail_key] = arguments.size.eql?(1) ? arguments.first : arguments
       filter[:cn] = arguments.join('*')
       filter[:givenName] = arguments.first
       filter[:sn] = arguments.last
