@@ -65,4 +65,7 @@ Spork.each_run do
   # This code will be run each time you run your specs.
   FactoryGirl.reload
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+  RSpec.configure do |config|
+    config.include LDAPSearchStubbing
+  end
 end
