@@ -24,10 +24,4 @@ class ReceiptDecorator < ApplicationDecorator
       h.button_to 'Sign Out', h.receipt_path(model), method: :put, remote: true
     end
   end
-
-  private
-
-  def time_format
-    '%B %d, %Y at %l:%M %p'
-  end
 end
