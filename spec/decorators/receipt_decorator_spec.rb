@@ -17,12 +17,6 @@ describe ReceiptDecorator do
 
   let(:decorator) { ReceiptDecorator.new(receipt) }
 
-  describe "#delivered_by" do
-    it "proxies to delivery.deliverer" do
-      decorator.delivered_by.should eq delivery.deliverer
-    end
-  end
-
   describe "#recipient_name" do
     it "proxies recipient's name" do
       recipient.should_receive(:name)

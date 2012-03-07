@@ -1,10 +1,6 @@
 class ReceiptDecorator < ApplicationDecorator
   decorates :receipt
 
-  def delivered_by
-    model.delivery.deliverer
-  end
-
   def recipient_name
     model.recipient.name
   end

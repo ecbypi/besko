@@ -3,7 +3,7 @@ class Receipt < ActiveRecord::Base
   belongs_to :delivery
   belongs_to :recipient, class_name: 'User'
 
-  delegate :worker, to: :delivery
+  delegate :worker, :deliverer, to: :delivery
 
   def signed_out?
     !(read_attribute(:signed_out_at)).nil?

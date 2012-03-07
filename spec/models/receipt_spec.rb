@@ -21,6 +21,12 @@ describe Receipt do
     end
   end
 
+  describe "#deliverer" do
+    it "proxies to delivery.deliverer" do
+      receipt.deliverer.should eq receipt.delivery.deliverer
+    end
+  end
+
   describe "#signed_out?" do
     it "is false when receipt's packages is not signed out" do
       receipt.signed_out?.should eq(false)
