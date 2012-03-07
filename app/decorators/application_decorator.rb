@@ -1,35 +1,17 @@
 class ApplicationDecorator < Draper::Base
 
+  def created_at
+    model.created_at.strftime(time_format)
+  end
+
+  def mail_to_worker
+    return '' unless model.respond_to? :worker
+    h.mail_to model.worker.email, model.worker.name
+  end
+
   private
 
   def time_format
     '%B %d, %Y at %l:%M %p'
   end
-
-  # Lazy Helpers
-  #   PRO: Call Rails helpers without the h. proxy
-  #        ex: number_to_currency(model.price)
-  #   CON: Add a bazillion methods into your decorator's namespace
-  #        and probably sacrifice performance/memory
-  #  
-  #   Enable them by uncommenting this line:
-  #   lazy_helpers
-
-  # Shared Decorations
-  #   Consider defining shared methods common to all your models.
-  #   
-  #   Example: standardize the formatting of timestamps
-  #
-  #   def formatted_timestamp(time)
-  #     h.content_tag :span, time.strftime("%a %m/%d/%y"), 
-  #                   :class => 'timestamp' 
-  #   end
-  # 
-  #   def created_at
-  #     formatted_timestamp(model.created_at)
-  #   end
-  # 
-  #   def updated_at
-  #     formatted_timestamp(model.updated_at)
-  #   end
 end
