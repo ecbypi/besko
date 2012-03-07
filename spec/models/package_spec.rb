@@ -6,6 +6,7 @@ describe Package do
 
   it { should belong_to(:recipient) }
   it { should belong_to(:worker) }
+  it { should belong_to(:receipt) }
 
   describe "#sign_out!" do
     it "signs out the package" do
