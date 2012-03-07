@@ -1,4 +1,4 @@
-class PackagesController < InheritedResources::Base
+class ReceiptsController < InheritedResources::Base
   actions :all, except: [:show]
 
   def update
@@ -9,6 +9,6 @@ class PackagesController < InheritedResources::Base
   private
 
   def collection
-    PackageDecorator.decorate(current_user.received_packages.includes(:worker))
+    ReceiptDecorator.decorate(current_user.receipts.includes{delivery.worker})
   end
 end

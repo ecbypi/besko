@@ -10,7 +10,7 @@ Besko::Application.routes.draw do
 
   root :to => 'home#index'
 
-  resources :packages, :only => [:update, :index]
+  resources :receipts, :only => [:update, :index]
 
   scope '/worker', :as => :worker do
     resources :packages, :controller => :worker_packages

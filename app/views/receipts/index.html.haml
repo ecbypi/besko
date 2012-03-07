@@ -1,0 +1,16 @@
+%table{data: { collection: :receipts }}
+  %tr
+    %th Received By
+    %th Number of Packages
+    %th Received At
+    %th Delivered By
+    %th Comment
+    %th
+  - collection.each do |receipt|
+    %tr{data: { 'resource-id' => receipt.id }}
+      %td= receipt.mail_to_worker
+      %td= receipt.number_packages
+      %td= receipt.received_at
+      %td= receipt.delivered_by
+      %td= receipt.comment
+      %td= receipt.sign_out_button
