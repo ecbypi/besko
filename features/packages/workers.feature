@@ -11,30 +11,29 @@ Feature: Manage Package Notifications
       | Micro      | Helpline  | mrhalp@mit.edu |
       | Besk       | Worker    | besker@mit.edu |
 
-  Scenario: View today's packages
-    Given the following package was received today by "besker@mit.edu" for "mrhalp@mit.edu":
-      | delivered_by | comment         |
-      | USPS         | In your mailbox |
-    When I visit the worker packages page
-    Then I should the package was received by "Besk Worker" and a link to email them at "besker@mit.edu"
-    And I should see the package was sent to "Micro Helpline"
-    And I should see the package's received-on timestamp for "today"
-    Then I should see the package's details:
-      | delivered_by | comment         |
-      | USPS         | In your mailbox |
+  Scenario: View today's deliveries
+    Given the following delivery exists:
+      | Deliverer | worker                |
+      | USPS      | email: besker@mit.edu |
+    When I visit the deliveries page
+    Then I should see a link to email "Besk Worker" at "besker@mit.edu"
+    And I should see the delivery's received-on timestamp for "today"
+    And I should see the delivery was by "USPS"
 
-  Scenario: Navigate packages by previous day button
-    Given the following package was received yesterday by "besker@mit.edu" for "mrhalp@mit.edu":
+    @wip
+  Scenario: Navigate deliveries by previous day button
+    Given 3 packages were received yesterday by "besker@mit.edu" for "mrhalp@mit.edu":
       | delivered_by | comment |
       | UPS          | Heavy   |
-    And I visit the worker packages page
-    When I go to the previous day of packages
-    Then I should see the package's received-on timestamp for "yesterday"
+    And I visit the deliveries page
+    When I go to the previous day of deliveries
+    Then I should see the delivery's received-on timestamp for "yesterday"
 
-   Scenario: Navigate packages by next day button
-    Given the following package was received tomorrow by "besker@mit.edu" for "mrhalp@mit.edu":
+    @wip
+   Scenario: Navigate deliveries by next day button
+    Given 3 packages were received tomorrow by "besker@mit.edu" for "mrhalp@mit.edu":
       | delivered_by | comment                               |
       | FedEx        | Some legal document.  Looks important |
-    And I visit the worker packages page
-    When I go to the next day of packages
-    Then I should see the package's received-on timestamp for "tomorrow"
+    And I visit the deliveries page
+    When I go to the next day of deliveries
+    Then I should see the delivery's received-on timestamp for "tomorrow"

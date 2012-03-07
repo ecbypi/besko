@@ -1,0 +1,7 @@
+- content_for :title do
+  Send Notifications
+
+%label{for: 'search'} Search
+%input#search{data: { autocomplete: :remote }, autofocus: true}/
+
+%div{data: { collection: :recipients }}

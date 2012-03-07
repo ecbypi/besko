@@ -11,10 +11,7 @@ Besko::Application.routes.draw do
   root :to => 'home#index'
 
   resources :receipts, :only => [:update, :index]
-
-  scope '/worker', :as => :worker do
-    resources :packages, :controller => :worker_packages
-  end
+  resources :deliveries
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,22 @@
+= simple_form_for search, url: :deliveries, method: :get, html: { id: 'previous-delivery-date' } do |f|
+  = f.hidden_field :created_at_eq, value: previous_delivery_date(search.base[:created_at_eq])
+  = f.button :submit, value: "Previous Day"
+
+= simple_form_for search, url: :deliveries, method: :get, html: { id: 'next-delivery-date' } do |f|
+  = f.hidden_field :created_at_eq, value: next_delivery_date(search.base[:created_at_eq])
+  = f.button :submit, value: "Next Day"
+
+%table{ data: { collection: :deliveries }}
+  %thead
+    %tr
+      %th Delivered At
+      %th Received By
+      %th Delivered By
+      %th Total Packages
+  %tbody
+    - deliveries.each do |delivery|
+      %tr
+        %td= delivery.created_at
+        %td= delivery.mail_to_worker
+        %td= delivery.deliverer
+        %td= delivery.package_count

@@ -13,24 +13,25 @@ Given /^the following package was received (\w+) by "([^"]*)" for "([^"]*)":$/ d
                     )
 end
 
-When /^I visit the worker packages page$/ do
-  visit worker_packages_path
+When /^I visit the deliveries page$/ do
+  visit deliveries_path
 end
 
-When /^I go to the previous day of packages$/ do
+When /^I go to the previous day of deliveries$/ do
   click_button 'Previous Day'
 end
 
-When /^I go to the next day of packages$/ do
+When /^I go to the next day of deliveries$/ do
   click_button 'Next Day'
 end
 
-Then /^I should see the package's received\-on timestamp for "([^"]*)"$/ do |day|
+Then /^I should see the delivery's received\-on timestamp for "([^"]*)"$/ do |day|
   time = determine_day(day).strftime(package_timestamp_format)
+  within deliveries_collection do
+    page.should have_css('td', text: time)
+  end
 end
 
-Then /^I should see the package was sent to "([^"]*)"$/ do |recipient_name|
-  within packages_collection do
-    page.should have_css('td', text: recipient_name)
-  end
+Then /^I should see the delivery was by "([^"]*)"$/ do |company_name|
+  page.should have_content company_name
 end
