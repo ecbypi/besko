@@ -11,15 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307035917) do
+ActiveRecord::Schema.define(:version => 20120307212211) do
 
   create_table "deliveries", :force => true do |t|
     t.string   "deliverer"
     t.integer  "worker_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "delivered_on"
   end
 
+  add_index "deliveries", ["delivered_on"], :name => "index_deliveries_on_delivered_on"
   add_index "deliveries", ["worker_id"], :name => "index_deliveries_on_worker_id"
 
   create_table "packages", :force => true do |t|

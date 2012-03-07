@@ -5,6 +5,10 @@ class Delivery < ActiveRecord::Base
 
   validates :deliverer, presence: true
 
+  before_save do
+    self.delivered_on = Date.today unless self.delivered_on
+  end
+
   def package_count
     receipts.map(&:number_packages).reduce(:+)
   end
