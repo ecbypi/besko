@@ -25,20 +25,18 @@ Feature: Manage Package Notifications
     And I should see a total package count of 545
     And I should see the delivery was by "USPS"
 
-    @wip
   Scenario: Navigate deliveries by previous day button
-    Given 3 packages were received yesterday by "besker@mit.edu" for "mrhalp@mit.edu":
+    Given packages were received yesterday by "besker@mit.edu" for "mrhalp@mit.edu":
       | delivered_by | comment |
       | UPS          | Heavy   |
     And I visit the deliveries page
     When I go to the previous day of deliveries
-    Then I should see the delivery's received-on timestamp for "yesterday"
+    Then I should see the delivery was by "UPS"
 
-    @wip
-   Scenario: Navigate deliveries by next day button
-    Given 3 packages were received tomorrow by "besker@mit.edu" for "mrhalp@mit.edu":
+  Scenario: Navigate deliveries by next day button
+    Given packages were received tomorrow by "besker@mit.edu" for "mrhalp@mit.edu":
       | delivered_by | comment                               |
       | FedEx        | Some legal document.  Looks important |
     And I visit the deliveries page
     When I go to the next day of deliveries
-    Then I should see the delivery's received-on timestamp for "tomorrow"
+    Then I should see the delivery was by "FedEx"

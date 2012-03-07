@@ -1,15 +1,18 @@
-Given /^the following package was received (\w+) by "([^"]*)" for "([^"]*)":$/ do |day, worker_email, recipient_email, table|
+Given /^packages were received (\w+) by "([^"]*)" for "([^"]*)":$/ do |day, worker_email, recipient_email, table|
   attributes = table.hashes.first
   time = determine_day(day)
   worker = User.find_by_email!(worker_email)
   recipient = User.find_by_email!(recipient_email)
-  FactoryGirl.create(:package,
-                     worker: worker,
+  delivery = FactoryGirl.create(:delivery,
+                                worker: worker,
+                                created_at: time,
+                                delivered_on: time.to_date,
+                                deliverer: attributes[:delivered_by]
+                               )
+  FactoryGirl.create(:receipt,
                      recipient: recipient,
-                     delivered_by: attributes[:delivered_by],
                      comment: attributes[:comment],
-                     created_at: time,
-                     received_on: time.to_date
+                     delivery: delivery
                     )
 end
 

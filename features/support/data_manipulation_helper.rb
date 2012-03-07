@@ -1,10 +1,11 @@
 module DataManipulationHelper
   def determine_day(day_word)
-    case day_word
-    when 'yesterday' then 1.day.ago
-    when 'today' then Time.zone.now
-    when 'tomorrow' then 1.day.from_now
-    end
+    date = case day_word
+           when 'yesterday' then 1.day.ago
+           when 'today' then Time.zone.now
+           when 'tomorrow' then 1.day.from_now
+           end.to_date.to_s
+    Time.zone.parse("#{date} 12:30:30")
   end
 
   def package_date_format

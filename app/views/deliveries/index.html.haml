@@ -1,9 +1,9 @@
 = simple_form_for search, url: :deliveries, method: :get, html: { id: 'previous-delivery-date' } do |f|
-  = f.hidden_field :created_at_eq, value: previous_delivery_date(search_attribute)
+  = f.hidden_field :delivered_on_eq, value: previous_delivery_date(search_attribute)
   = f.button :submit, value: "Previous Day"
 
 = simple_form_for search, url: :deliveries, method: :get, html: { id: 'next-delivery-date' } do |f|
-  = f.hidden_field :created_at_eq, value: next_delivery_date(search_attribute)
+  = f.hidden_field :delivered_on_eq, value: next_delivery_date(search_attribute)
   = f.button :submit, value: "Next Day"
 
 %h2= current_delivery_date search_attribute
