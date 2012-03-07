@@ -25,13 +25,24 @@ When /^I go to the next day of deliveries$/ do
   click_button 'Next Day'
 end
 
-Then /^I should see the delivery's received\-on timestamp for "([^"]*)"$/ do |day|
-  time = determine_day(day).strftime(package_timestamp_format)
-  within deliveries_collection do
-    page.should have_css('td', text: time)
-  end
+Then /^I should see (\w+)'s date$/ do |day|
+  time = determine_day(day).strftime(package_date_format)
+  page.should have_css('h2', text: time)
+end
+
+Then /^I should see the timestamp for the delivery from "([^"]*)"$/ do |company_name|
+  timestamp_cell = model_resource(company_name).all('td').first
+  timestamp_cell.text.should match(/\d{1,2}:\d{2} (A|P)M/)
 end
 
 Then /^I should see the delivery was by "([^"]*)"$/ do |company_name|
-  page.should have_content company_name
+  within deliveries_collection do
+    page.should have_content company_name
+  end
+end
+
+Then /^I should see a total package count of (\d+)$/ do |package_count|
+  within deliveries_collection do
+    page.should have_css('td', text: package_count)
+  end
 end

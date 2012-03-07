@@ -1,5 +1,9 @@
 module DeliveriesHelper
 
+  def current_delivery_date attribute
+    delivery_date(attribute).strftime('%B %d, %Y')
+  end
+
   def previous_delivery_date attribute
     delivery_date(attribute) - 1.day
   end

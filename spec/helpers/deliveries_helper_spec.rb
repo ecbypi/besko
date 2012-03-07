@@ -33,4 +33,10 @@ describe DeliveriesHelper do
       helper.next_delivery_date(attribute).should eq time + 1.day
     end
   end
+
+  describe "#current_delivery_date" do
+    it "formats the date on the search object" do
+      helper.current_delivery_date(attribute).should eq 'October 30, 2010'
+    end
+  end
 end

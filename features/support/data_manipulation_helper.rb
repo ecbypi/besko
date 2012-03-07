@@ -7,8 +7,12 @@ module DataManipulationHelper
     end
   end
 
-  def package_timestamp_format
+  def package_date_format
     '%B %d, %Y'
+  end
+
+  def package_timestamp_format
+    '%r'
   end
 end
 

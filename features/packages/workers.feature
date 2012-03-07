@@ -13,11 +13,16 @@ Feature: Manage Package Notifications
 
   Scenario: View today's deliveries
     Given the following delivery exists:
-      | Deliverer | worker                |
-      | USPS      | email: besker@mit.edu |
+      | ID | Deliverer | worker                |
+      | 1  | USPS      | email: besker@mit.edu |
+    And the following receipt exists:
+      | Delivery ID | Comment | Number Packages |
+      | 1           | Heavy!  | 545             |
     When I visit the deliveries page
-    Then I should see a link to email "Besk Worker" at "besker@mit.edu"
-    And I should see the delivery's received-on timestamp for "today"
+    Then I should see today's date
+    And I should see a link to email "Besk Worker" at "besker@mit.edu"
+    And I should see the timestamp for the delivery from "USPS"
+    And I should see a total package count of 545
     And I should see the delivery was by "USPS"
 
     @wip
