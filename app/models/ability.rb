@@ -2,12 +2,10 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if !user.received_packages.empty?
-      can [:read, :update], Package, :recipient_id => user.id
-    end
+    can [:read, :update], Receipt, :recipient_id => user.id
 
     if user.has_role? :besk_worker
-      can [:review, :create], :packages
+      can [:read, :create], Delivery
     end
   end
 end

@@ -3,8 +3,8 @@ require 'spec_helper'
 describe User do
   let(:user) { Factory(:user) }
 
-  it { should have_many(:received_packages) }
-  it { should have_many(:mailed_packages) }
+  it { should have_many(:receipts) }
+  it { should have_many(:deliveries) }
   it { should have_and_belong_to_many(:roles) }
 
 

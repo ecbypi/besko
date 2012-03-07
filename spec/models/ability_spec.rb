@@ -8,13 +8,13 @@ describe Ability do
     let(:ability) { Ability.new(user) }
 
     it "can see and sign out their own packages" do
-      package = Factory(:package, recipient: user)
+      package = Factory(:receipt, recipient: user)
       ability.should be_able_to(:read, package)
       ability.should be_able_to(:update, package)
     end
 
     it "cannot see or sign out other users' packages" do
-      package = Factory(:package)
+      package = Factory(:receipt)
       ability.should_not be_able_to(:read, package)
       ability.should_not be_able_to(:update, package)
     end
@@ -30,8 +30,8 @@ describe Ability do
     end
 
     it "can review and create packages" do
-      ability.should be_able_to(:create, :packages)
-      ability.should be_able_to(:review, :packages)
+      ability.should be_able_to(:create, Delivery)
+      ability.should be_able_to(:read, Delivery)
     end
   end
 end

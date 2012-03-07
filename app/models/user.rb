@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
          :token_authenticatable,
          :confirmable
 
-  has_many :received_packages, :class_name => 'Package', :foreign_key => :recipient_id
-  has_many :mailed_packages, :class_name => 'Package', :foreign_key => :worker_id
+  has_many :receipts, :foreign_key => :recipient_id
+  has_many :deliveries, :foreign_key => :worker_id
   has_and_belongs_to_many :roles
 
   attr_accessible :first_name,
