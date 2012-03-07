@@ -23,19 +23,6 @@ describe ReceiptDecorator do
     end
   end
 
-  describe "#received_at" do
-    it "formats #created_at into something pretty" do
-      decorator.received_at.should eq 'October 30, 2010 at 12:00 PM'
-    end
-  end
-
-  describe "#mail_to_worker" do
-    it "creates mailto anchor to worker who received the packages" do
-      decorator.mail_to_worker.should match 'Besk Worker'
-      decorator.mail_to_worker.should match 'mailto:besker@mit.edu'
-    end
-  end
-
   describe "#recipient_name" do
     it "proxies recipient's name" do
       recipient.should_receive(:name)
