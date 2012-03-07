@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307031345) do
+ActiveRecord::Schema.define(:version => 20120307035917) do
 
   create_table "deliveries", :force => true do |t|
     t.string   "deliverer"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20120307031345) do
     t.integer  "recipient_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "number_packages"
+    t.datetime "signed_out_at"
   end
 
   add_index "receipts", ["delivery_id"], :name => "index_receipts_on_delivery_id"
