@@ -147,6 +147,9 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
+    mit-ldap (0.0.1)
+      ldaptic (~> 0.2)
+      ruby-ldap (~> 0.9)
     multi_json (1.0.3)
     mysql2 (0.3.7)
     nokogiri (1.5.0)
@@ -276,13 +279,12 @@ DEPENDENCIES
   jquery-rails
   launchy
   ldap-filter
-  ldaptic
+  mit-ldap
   mysql2
   paperclip
   rails (= 3.1.0)
   ransack
   rspec-rails
-  ruby-ldap
   sass-rails (~> 3.1.0)
   shoulda-matchers
   simple_form

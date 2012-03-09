@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
       ( login.in_any  args  )
     }
 
-    results.concat(MIT::LDAP.build_users(search)) if results.empty? || options[:use_ldap]
+    results.concat(MIT::LDAP::UserAdapter.build_users(search)) if results.empty? || options[:use_ldap]
     results.uniq { |user| user.login }
   end
 
