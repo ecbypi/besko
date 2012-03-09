@@ -19,7 +19,7 @@ gem 'jquery-rails'
 gem 'ldaptic'
 gem 'ruby-ldap'
 gem 'ldap-filter'
-gem 'rails-backbone'
+gem 'backbone-on-rails'
 gem 'backbone-support'
 gem 'backbone-forms-rails', git: 'https://github.com/ecbypi/backbone-forms-rails.git'
 
