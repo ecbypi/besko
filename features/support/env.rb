@@ -18,4 +18,8 @@ end
 Spork.each_run do
   FactoryGirl.reload
   DatabaseCleaner.clean
+
+  Before '@selenium' do
+    Capybara.javascript_driver = :selenium
+  end
 end

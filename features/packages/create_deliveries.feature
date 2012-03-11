@@ -1,4 +1,4 @@
-@javascript
+@javascript @selenium
 Feature: Mail received packages
   Given some packages arrived at besk
   In order to be a responsible besk worker
