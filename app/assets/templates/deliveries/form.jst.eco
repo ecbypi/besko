@@ -1,1 +1,3 @@
+<button data-role="commit">Send Notifications</button>
+<button data-role="cancel">Cancel</button>
 <ul data-collection="receipts"></ul>

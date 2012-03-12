@@ -7,6 +7,10 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
   attributes:
     'data-resource': 'delivery'
 
+  events:
+    'click button[data-role=commit]' : 'submit'
+    'click button[data-role=cancel]' : 'reset'
+
   render: ->
     form = new Backbone.Form model: @model, schema: @schema
     this.$el.append form.render().el
@@ -31,11 +35,23 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     this.$('ul[data-collection=receipts]').append child.el
     this
 
+  submit: ->
+    receipts_attributes = []
+    @children.map (child) -> receipts_attributes.push child.form.getValue()
+    @model.save receipts_attributes: receipts_attributes
+    @reset()
+
+  reset: ->
+    @children.map (child) -> child.leave()
+    this.$('select').val('')
+    this
+
   schema:
     deliverer:
       title: 'Delivery Company'
       type: 'Select'
       options: [
+        { val: '', label: '' }
         { val: 'UPS', label: 'UPS' },
         { val: 'USPS', label: 'USPS' },
         { val: 'FedEx', label: 'FedEx' },
