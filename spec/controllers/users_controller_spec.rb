@@ -25,7 +25,12 @@ describe UsersController do
 
     it "includes the #to_json versions of the users" do
       json_body.size.should eq 1
-      json_body.should eq [{'first_name' => 'Micro', 'last_name' => 'Helpline', 'login' => 'mrhalp', 'email' => 'mrhalp@mit.edu'}]
+      user = json_body.first
+      user.should have_key 'first_name'
+      user.should have_key 'last_name'
+      user.should have_key 'login'
+      user.should have_key 'email'
+      user.should have_key 'id'
     end
   end
 end
