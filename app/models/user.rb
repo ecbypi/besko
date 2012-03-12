@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   has_many :deliveries, :foreign_key => :worker_id
   has_and_belongs_to_many :roles
 
-  attr_accessible :first_name,
+  attr_accessible :id,
+                  :first_name,
                   :last_name,
                   :login,
                   :email,
