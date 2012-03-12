@@ -15,7 +15,7 @@ describe ReceiptDecorator do
                       )
   end
 
-  let(:decorator) { ReceiptDecorator.new(receipt) }
+  let!(:decorator) { ReceiptDecorator.new(receipt) }
 
   describe "#recipient_name" do
     it "proxies recipient's name" do
