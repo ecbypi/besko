@@ -38,4 +38,9 @@ describe Receipt do
     end
   end
 
+  it "sends a confirmation email to recipient after creation" do
+    Receipt.create! receipt.attributes
+    last_email.to.should include receipt.recipient.email
+  end
+
 end
