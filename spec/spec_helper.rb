@@ -57,6 +57,9 @@ Spork.prefork do
       DatabaseCleaner.clean
     end
 
+    config.include(EmailSpec::Matchers)
+    config.include(EmailSpec::Helpers)
+
   end
   
 end
