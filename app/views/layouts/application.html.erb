@@ -10,8 +10,16 @@
 <body>
 
   <div id="notifications">
-    <div class="message notice"><%= notice %></div>
-    <div class="message error"><%= alert %></div>
+    <% if alert %>
+      <div class="notice">
+        <span class="message"><%= alert %></span>
+      </div>
+    <% end %>
+    <% if notice %>
+      <div class="error">
+        <span class="message"><%= notice %></span>
+      </div>
+    <% end %>
   </div>
 
   <div id="content">
