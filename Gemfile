@@ -47,4 +47,5 @@ group :test do
   gem 'guard-spork'
   gem 'database_cleaner'
   gem 'turn', '< 0.8.3', :require => false
+  gem 'email_spec'
 end
