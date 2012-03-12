@@ -5,6 +5,8 @@ class Delivery < ActiveRecord::Base
 
   validates :deliverer, presence: true
 
+  accepts_nested_attributes_for :receipts
+
   before_save do
     self.delivered_on = Date.today unless self.delivered_on
   end
