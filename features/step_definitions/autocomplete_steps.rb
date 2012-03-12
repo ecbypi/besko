@@ -9,3 +9,7 @@ When /^I click on "([^"]*)" in the autocomplete list$/ do |name|
     find('a', text: name).click
   end
 end
+
+Then /^I should not see "([^"]*)" in the autocomplete form$/ do |name|
+  find('.ui-autocomplete-input').value.should be_empty
+end

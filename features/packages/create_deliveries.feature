@@ -28,6 +28,7 @@ Feature: Mail received packages
     When I search for "Jon Snow"
     And I click on "Jon Snow" in the autocomplete list
     Then I should see a receipt form for "Jon Snow"
+    And I should not see "Jon Snow" in the autocomplete form
 
   Scenario: Send notifications
     Given I am on the page to log deliveries
@@ -37,6 +38,6 @@ Feature: Mail received packages
     And I add the comment "Fragile" to "Jon Snow"'s delivery receipt
     And I submit the notifications
     Then I should see the notice "Notifications Sent"
-    And an email should be sent to "snow@thewall.kingdom"
+    And a delivery notification should be sent to "snow@thewall.kingdom"
     And I visit the deliveries page
     And I should see the delivery was by "FedEx"

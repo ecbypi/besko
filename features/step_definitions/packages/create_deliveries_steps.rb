@@ -38,3 +38,7 @@ end
 When /^I specify the delivery is from "([^"]*)"$/ do |company_name|
   select company_name, from: 'Delivery Company'
 end
+
+Then /^a delivery notification should be sent to "([^"]*)"$/ do |email|
+  last_email.to.should include email
+end

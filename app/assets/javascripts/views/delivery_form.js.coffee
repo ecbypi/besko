@@ -21,6 +21,8 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
   selectRecipient: (elem, ui) =>
     recipient = @search.users.find (user) -> user.get('login') is ui.item.value
     @addReceipt recipient
+    this.$('#user-search').val('')
+    false
 
   addReceipt: (recipient) ->
     receipt = new Besko.Models.Receipt recipient: recipient
