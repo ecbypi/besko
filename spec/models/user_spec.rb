@@ -61,4 +61,18 @@ describe User do
       User.recipients('micro helpline', use_ldap: true).should eq [result]
     end
   end
+
+  describe ".create_without_or_without_password" do
+    let(:attributes) { FactoryGirl.attributes_for(:user) }
+    it "creates the user password parameters are provided" do
+      user = User.create_with_or_without_password(attributes)
+      user.valid_password?('password').should eq true
+    end
+
+    it "autogenerates password if the details are missing " do
+      attributes.delete(:password) and attributes.delete(:password_confirmation)
+      user = User.create_with_or_without_password(attributes)
+      user.should be_persisted
+    end
+  end
 end

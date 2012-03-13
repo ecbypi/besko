@@ -39,6 +39,15 @@ class User < ActiveRecord::Base
     results.uniq { |user| user.login }
   end
 
+  def self.create_with_or_without_password attributes
+    unless attributes[:password] and attributes[:password_confirmation]
+      password = send :generate_token, 'encrypted_password'
+      password.slice! 13 - rand(5)..password.length
+      attributes[:password] = attributes[:password_confirmation] = password
+    end
+    User.create attributes
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
