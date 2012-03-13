@@ -12,7 +12,7 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     'click button[data-role=cancel]' : 'reset'
 
   render: ->
-    form = new Backbone.Form model: @model, schema: @schema
+    @form = new Backbone.Form model: @model, schema: @schema
     this.$el.append form.render().el
 
     @search = new Besko.Views.UserSearch select: @selectRecipient
@@ -38,8 +38,10 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
   submit: ->
     receipts_attributes = []
     @children.map (child) -> receipts_attributes.push child.form.getValue()
+    @form.commit()
     @model.save receipts_attributes: receipts_attributes
     @reset()
+    Notification.notice 'Notifications Sent'
 
   reset: ->
     @children.map (child) -> child.leave()
@@ -50,6 +52,7 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     deliverer:
       title: 'Delivery Company'
       type: 'Select'
+      validators: ['required']
       options: [
         { val: '', label: '' }
         { val: 'UPS', label: 'UPS' },
