@@ -20,6 +20,7 @@ Spork.each_run do
   DatabaseCleaner.clean
 
   Before '@selenium' do
-    Capybara.javascript_driver = :selenium
+    Capybara.current_driver = :selenium
+    Capybara.default_wait_time = 5
   end
 end
