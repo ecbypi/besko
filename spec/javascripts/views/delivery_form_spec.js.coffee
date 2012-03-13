@@ -46,6 +46,12 @@ describe "Besko.Views.DeliveryForm", ->
     beforeEach ->
       @form.addReceipt(@recipient)
 
+    it "saves recipient if unpersisted", ->
+      recipient = new Besko.Models.User()
+      sinon.spy(recipient, 'save')
+      @form.addReceipt(recipient)
+      expect(recipient.save).toHaveBeenCalled()
+
     it "adds a ReceiptForm to unordered list", ->
       $list = @form.$el.find('ul[data-collection=receipts]')
       expect($list).toContain('li')

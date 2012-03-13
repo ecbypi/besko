@@ -29,6 +29,7 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     false
 
   addReceipt: (recipient) ->
+    recipient.save() unless recipient.id?
     receipt = new Besko.Models.Receipt recipient: recipient
     child = new Besko.Views.ReceiptForm model: receipt
     @renderChild(child)
