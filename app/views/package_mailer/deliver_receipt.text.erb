@@ -1,0 +1,14 @@
+Hi <%= @recipient.name %>,
+
+A delivery was received for you at besk by <%= @worker.name %> (<%= @worker.email %>). Details are:
+
+Delivered By: <%= @delivery.deliverer %>
+Number of Packages: <%= @receipt.number_packages %>
+Delivered At: <%= @delivery.created_at.strftime('%B %d, %Y at %r') %>
+Comment:
+<%= @receipt.comment %>
+
+You can view details for this and other deliveries at:
+<%= receipts_url %>
+
+- Besko Package Mailer
