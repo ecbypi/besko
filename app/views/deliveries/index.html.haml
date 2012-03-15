@@ -1,24 +1,6 @@
-= simple_form_for search, url: :deliveries, method: :get, html: { id: 'previous-delivery-date' } do |f|
-  = f.hidden_field :delivered_on_eq, value: previous_delivery_date(search_attribute)
-  = f.button :submit, value: "Previous Day"
+- content_for :title do
+  Deliveries
 
-= simple_form_for search, url: :deliveries, method: :get, html: { id: 'next-delivery-date' } do |f|
-  = f.hidden_field :delivered_on_eq, value: next_delivery_date(search_attribute)
-  = f.button :submit, value: "Next Day"
-
-%h2= current_delivery_date search_attribute
-
-%table{data: { collection: :deliveries }}
-  %thead
-    %tr
-      %th Delivered At
-      %th Received By
-      %th Delivered By
-      %th Total Packages
-  %tbody
-    - deliveries.each do |delivery|
-      %tr{data: { 'resource-id' => delivery.id }}
-        %td= delivery.created_at
-        %td= delivery.mail_to_worker
-        %td= delivery.deliverer
-        %td= delivery.package_count
+- content_for :bootstrap do
+  %script#deliveries{type: 'text/json'}
+    { "data" : #{ collection.to_json } }

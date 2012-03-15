@@ -1,3 +1,4 @@
+@javascript
 Feature: Manage Package Notifications
   In order to effectively send and check package notifications
   As a besk worker

@@ -34,7 +34,7 @@ Then /^I should see (\w+)'s date$/ do |day|
 end
 
 Then /^I should see the timestamp for the delivery from "([^"]*)"$/ do |company_name|
-  timestamp_cell = model_resource(company_name).all('td').first
+  timestamp_cell = delivery_element(company_name).all('td').first
   timestamp_cell.text.should match(/\d{1,2}:\d{2} (A|P)M/)
 end
 
