@@ -18,6 +18,7 @@
   Routers: {}
   Views: {}
   init: ->
+    new Besko.Routers.Registrations()
     new Besko.Routers.Deliveries()
     unless Backbone.history.started?
       Backbone.history.start pushState: true

@@ -1,0 +1,10 @@
+<td><%= @user.name() %></td>
+<td><%= @user.escape('email') %></td>
+<td><%= @user.escape('login') %></td>
+<td>
+  <% unless @user.id?: %>
+    <button data-role="commit">This Is Me</button>
+  <% else: %>
+    Account Exists
+  <% end %>
+</td>
