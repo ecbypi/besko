@@ -1,0 +1,4 @@
+<td><%= @delivery.escape('delivered_at') %></td>
+<td><a href="mailto:<%= @delivery.worker.escape('email') %>"><%= @delivery.worker.name() %></a></td>
+<td><%= @delivery.escape('deliverer') %></td>
+<td><%= @delivery.escape('package_count') %></td>
