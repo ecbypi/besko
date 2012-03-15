@@ -1,0 +1,17 @@
+<button class="prev">Previous Day</button>
+<button class="next">Next Day</button>
+
+<h2><%= @date.getUTCDayName() %>, <%= @date.getUTCMonthName() %> <%= @date.getUTCDate() %>, <%= @date.getUTCFullYear() %></h2>
+
+<table data-collection="deliveries">
+  <thead>
+    <tr>
+      <th>Delivered At</th>
+      <th>Received By</th>
+      <th>Delivered By</th>
+      <th>Total Packages</th>
+    </tr>
+  </thead>
+
+  <tbody></tbody>
+</table>
