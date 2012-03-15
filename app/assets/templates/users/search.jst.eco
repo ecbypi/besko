@@ -1,2 +1,0 @@
-<label for="user-search">Search</label>
-<input type="search" id="user-search" autofocus placeholder="Enter name, email or kerberos" name="search"/>

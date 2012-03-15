@@ -1,3 +1,5 @@
+<label for="user-search">Search</label>
+<input id="user-search" name="search" type="search" autofocus placeholder="Enter name, email or kerberos"/>
+<ul data-collection="receipts"></ul>
 <button data-role="commit">Send Notifications</button>
 <button data-role="cancel">Cancel</button>
-<ul data-collection="receipts"></ul>

@@ -2,6 +2,7 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
 
   initialize: ->
     @model ||= new Besko.Models.Delivery()
+    @users = new Besko.Collections.Users()
 
   tagName: 'section'
   attributes:
@@ -13,25 +14,35 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
 
   render: ->
     @form = new Backbone.Form model: @model, schema: @schema
-    this.$el.append form.render().el
-
-    @search = new Besko.Views.UserSearch select: @selectRecipient
-    @search.render()
-    this.$el.append @search.el
-
+    this.$el.append @form.render().el
     this.$el.append window.JST['deliveries/form']
+    this.$('#user-search').autocomplete(
+      source: @searchForRecipient
+      select: @selectRecipient
+      minLength: 3
+    )
     this
 
-  selectRecipient: (elem, ui) =>
-    recipient = @search.users.find (user) -> user.get('login') is ui.item.value
-    @addReceipt recipient
+  searchForRecipient: (request, callback) =>
+    request.search_ldap = true
+    @users.fetch
+      data: request
+      success: (users, status, xhr) ->
+        callback users.autocompleteResults()
+
+  selectRecipient: (event, ui) =>
+    recipient = @users.find (user) -> user.get('login') is ui.item.value
+    @addRecipient recipient
     this.$('#user-search').val('')
     false
 
-  addReceipt: (recipient) ->
+  addRecipient: (recipient) ->
     recipient.save() unless recipient.id?
-    receipt = new Besko.Models.Receipt recipient: recipient
-    child = new Besko.Views.ReceiptForm model: receipt
+    child = new Besko.Views.ReceiptForm(
+      model: new Besko.Models.Receipt(
+        recipient: recipient
+      )
+    )
     @renderChild(child)
     this.$('ul[data-collection=receipts]').append child.el
     this

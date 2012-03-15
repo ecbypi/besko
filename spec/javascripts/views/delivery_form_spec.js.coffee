@@ -2,15 +2,21 @@
 
 describe "Besko.Views.DeliveryForm", ->
   beforeEach ->
-    @recipient = new Besko.Models.User(
-      id: 1
-      first_name: 'Micro'
-      last_name: 'Helpline'
-      email: 'mrhalp@mit.edu'
-      login: 'mrhalp'
-    )
     @form = new Besko.Views.DeliveryForm()
     @form.render()
+    @recipient = new Besko.Models.User(
+      first_name: 'Micro'
+      last_name: 'Helpline'
+      login: 'mrhalp'
+      email: 'mrhalp@mit.edu'
+    )
+
+    @requests = requests = []
+    @xhr = sinon.useFakeXMLHttpRequest()
+    @xhr.onCreate = (xhr) -> requests.push(xhr)
+
+  afterEach ->
+    @xhr.restore()
 
   it "initializes a delivery instance one isn't passed in", ->
     expect(@form.model).not.toEqual(undefined)
@@ -18,6 +24,17 @@ describe "Besko.Views.DeliveryForm", ->
   it "is a section", ->
     expect(@form.$el).toBe('section')
     expect(@form.$el).toHaveAttr('data-resource', 'delivery')
+
+  it "creates an empty array to cache users", ->
+    expect(@form.users).not.toEqual(undefined)
+
+  it "sets custom source callback for building recipients list", ->
+    callback = @form.$('#user-search').autocomplete('option', 'source')
+    expect(callback).toEqual(@form.searchForRecipient)
+
+  it "adds a custom select callback for autocomplete", ->
+    callback = @form.$('#user-search').autocomplete('option', 'select')
+    expect(callback).toEqual(@form.selectRecipient)
 
   describe "it contains a(n)", ->
     it "empty unordered list of receipts", ->
@@ -42,29 +59,30 @@ describe "Besko.Views.DeliveryForm", ->
     it "button to cancel all receipts", ->
       expect(@form.$el).toContain('button[data-role=cancel]')
 
-  describe "#addReceipt", ->
+  describe "#addRecipient", ->
     beforeEach ->
-      @form.addReceipt(@recipient)
+      sinon.spy(@recipient, 'save')
+      @form.addRecipient @recipient
 
-    it "saves recipient if unpersisted", ->
-      recipient = new Besko.Models.User()
-      sinon.spy(recipient, 'save')
-      @form.addReceipt(recipient)
-      expect(recipient.save).toHaveBeenCalled()
+    afterEach ->
+      @recipient.save.restore()
+
+    it "saves a user if unpersisted", ->
+      expect(@recipient.save).toHaveBeenCalled()
 
     it "adds a ReceiptForm to unordered list", ->
       $list = @form.$el.find('ul[data-collection=receipts]')
       expect($list).toContain('li')
       expect($list.children().length).toEqual(1)
 
-    it "stores instances of ReceiptForm", ->
+    it "adds instances of ReceiptForm to #children", ->
       expect(@form.children.size()).toEqual(1)
 
   describe "#submit", ->
     beforeEach ->
       sinon.spy(@form, 'reset')
       sinon.spy(@form.model, 'save')
-      @form.addReceipt(@recipient)
+      @form.addRecipient(new Besko.Models.User())
       @form.$('button[data-role=commit]').click()
 
     it "calls #reset", ->
@@ -79,7 +97,7 @@ describe "Besko.Views.DeliveryForm", ->
 
   describe "#reset", ->
     beforeEach ->
-      @form.addReceipt(@recipient)
+      @form.addRecipient(@recipient)
       @form.$('button[data-role=cancel]').click()
 
     it "removes all children", ->
