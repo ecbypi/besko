@@ -1,5 +1,6 @@
 class ReceiptsController < InheritedResources::Base
   actions :all, except: [:show]
+  load_and_authorize_resource
 
   def update
     resource.sign_out!

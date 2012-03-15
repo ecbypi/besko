@@ -4,11 +4,12 @@ Then /^I should see a link to email "([^"]*)" at "([^"]*)"$/ do |worker_name, wo
   end
 end
 
-Then /^I should see the receipt(?:'s|s') details:$/ do |table|
+Then /^I should( not)? see (?:others'|the) receipt(?:'s|s')? details:$/ do |negate, table|
+  method = determine_should(negate)
   within receipts_collection do
     table.hashes.each do |attributes|
       attributes.each do |key, value|
-        page.should have_css('td', text: value)
+        page.send(method, have_css('td', text: value))
       end
     end
   end

@@ -12,6 +12,10 @@ module DataManipulationHelper
     number.to_i - 1
   end
 
+  def determine_should negate
+    negate.present? ? :should_not : :should
+  end
+
   def package_date_format
     '%B %d, %Y'
   end

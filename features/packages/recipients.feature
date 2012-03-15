@@ -28,3 +28,21 @@ Feature: Manage Received Packages
     When I sign out the packages received by "Besk Worker"
     Then I should see the notice "Package Signed Out"
     And I should not see the sign out button for that receipt
+
+  Scenario: Users view only their own receipts
+    Given I am logged in with the email "packy-roommate@mit.edu"
+    And the following receipt exists:
+      | recipient                     | Comment     | Created At | Number Packages |
+      | email: packy-roommate@mit.edu | Smells good | 2010-10-31 | 8               |
+    And I am on the receipts page
+    Then I should see the receipt's details:
+      | delivered_by | comment     | received_on      | number_packages |
+      | FedEx        | Smells good | October 31, 2010 | 8               |
+    But I should not see others' receipt details:
+      | delivered_by | comment | received_on      | number_packages |
+      | UPS          | Fragile | October 30, 2010 | 5               |
+
+  Scenario: Allow access only to logged in users
+    Given no one is logged in
+    When I am on the receipts page
+    Then I should be redirected to the home page
