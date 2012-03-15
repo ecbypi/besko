@@ -7,6 +7,10 @@ describe User do
   it { should have_many(:deliveries) }
   it { should have_and_belong_to_many(:roles) }
 
+  it "sends confirmation instructions to besko@mit.edu" do
+    headers = user.headers_for(:confirmation_instructions)
+    headers[:to].should eq 'besko@mit.edu'
+  end
 
   describe "#name" do
     it "joins first and last names" do

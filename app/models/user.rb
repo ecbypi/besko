@@ -56,4 +56,10 @@ class User < ActiveRecord::Base
     title = title.to_s.titleize if title.is_a?(Symbol)
     roles.collect { |role| role.title }.include?(title)
   end
+
+  def headers_for action
+    headers = {}
+    headers[:to] = 'besko@mit.edu' if action == :confirmation_instructions
+    headers
+  end
 end
