@@ -9,6 +9,14 @@
 </head>
 <body>
 
+  <header>
+    <% if current_user %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Log In', new_user_session_path %>
+    <% end %>
+  </header>
+
   <div id="notifications">
     <% if alert %>
       <div class="notice">
@@ -22,6 +30,7 @@
     <% end %>
   </div>
 
+  <h1><%= yield :title %></h1>
   <div id="content">
     <%= yield %>
   </div>

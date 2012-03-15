@@ -17,6 +17,9 @@ Then /^I should see the login page$/ do
 end
 
 Given /^I am logged in with the email "([^"]*)"$/ do |email|
+  if page.has_link? 'Logout'
+    click_link 'Logout'
+  end
   steps %{
     Given a user exists with an email of "#{email}"
     Given I am on the login page
