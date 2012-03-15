@@ -24,4 +24,23 @@ describe Delivery do
       delivery.package_count.should eq 9
     end
   end
+
+  describe ".delivered_on" do
+    before :each do
+      Delivery.delete_all
+    end
+
+    let(:todays_delivery) { FactoryGirl.create(:delivery) }
+    let(:old_delivery) { FactoryGirl.create(:delivery, delivered_on: '2010-10-30', created_at: '2010-10-30') }
+
+    it "defaults to today's deliveries" do
+      Delivery.delivered_on.should include todays_delivery
+      Delivery.delivered_on.should_not include old_delivery
+    end
+
+    it "finds packages on the supplied date otherwise" do
+      Delivery.delivered_on('2010-10-30').should include old_delivery
+      Delivery.delivered_on('2010-10-30').should_not include todays_delivery
+    end
+  end
 end

@@ -11,6 +11,11 @@ class Delivery < ActiveRecord::Base
     self.delivered_on = Date.today unless self.delivered_on
   end
 
+  def self.delivered_on date=nil
+    date ||= Date.today
+    where{delivered_on.eq date}
+  end
+
   def package_count
     receipts.map(&:number_packages).reduce(:+)
   end
