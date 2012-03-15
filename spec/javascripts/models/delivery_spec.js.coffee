@@ -2,12 +2,19 @@
 
 describe "Besko.Models.Delivery", ->
   beforeEach ->
-    @delivery = new Besko.Models.Delivery()
+    @delivery = new Besko.Models.Delivery(
+      worker:
+        first_name: 'Micro'
+        last_name: 'Helpline'
+    )
 
   it "is persited and loaded from /deliveries", ->
     expect(@delivery.url()).toEqual '/deliveries'
     @delivery.set('id', 1)
     expect(@delivery.url()).toEqual '/deliveries/1'
+
+  it "initializes a user model if one is passed in during initialization", ->
+    expect(@delivery.worker).not.toEqual(undefined)
 
   it "defaults receipts_attributes to empty array", ->
     expect(@delivery.get('receipts_attributes')).toEqual([])
