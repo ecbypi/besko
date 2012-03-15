@@ -18,11 +18,18 @@
   Routers: {}
   Views: {}
   init: ->
+
     new Besko.Routers.Registrations()
     new Besko.Routers.Deliveries()
     unless Backbone.history.started?
       Backbone.history.start pushState: true
       Backbone.history.started = true
+
+  parse: (text, ctor) ->
+    tmp = document.createElement('div')
+    tmp.innerHTML = text
+    json = JSON.parse(tmp.innerHTML)
+    new ctor json.data
 
 $ ->
   Besko.init()
