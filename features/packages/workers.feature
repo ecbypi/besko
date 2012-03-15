@@ -40,3 +40,8 @@ Feature: Manage Package Notifications
     And I visit the deliveries page
     When I go to the next day of deliveries
     Then I should see the delivery was by "FedEx"
+
+  Scenario: Authorize access to besk workers only
+    Given I am logged in with the email "just-a-resident@mit.edu"
+    When I visit the deliveries page
+    Then I should be redirected to the home page

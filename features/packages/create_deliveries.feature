@@ -41,3 +41,8 @@ Feature: Mail received packages
     And I visit the deliveries page
     And I should see the delivery was by "FedEx"
     And a delivery notification should be sent to "snow@thewall.kingdom"
+
+  Scenario: Ensure only besk workers can create deliveries
+    Given I am logged in with the email "just-a-resident@mit.edu"
+    When I am on the page to log deliveries
+    Then I should be redirected to the home page
