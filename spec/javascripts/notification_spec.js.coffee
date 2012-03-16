@@ -10,16 +10,23 @@ describe "Notification", ->
     it "updates the notification area as an error message", ->
       Notification.error('Warning!')
       expect(@notifications).toContain('.error')
-      expect(@notifications).toHaveText('Warning!')
+      expect(@notifications).toHaveText(/Warning!/)
 
   describe ".notice", ->
     it "updates the notification area as a notice message", ->
       Notification.notice('Hey there!')
       expect(@notifications).toContain('.notice')
-      expect(@notifications).toHaveText('Hey there!')
+      expect(@notifications).toHaveText(/Hey there!/)
 
   describe ".clear", ->
-    it "empties the notification container", ->
+    it "hides the message container", ->
       Notification.notice('Hey!')
       Notification.clear()
-      expect(@notifications).toBeEmpty()
+      expect(@notifications).toBeHidden()
+
+  it "adds an anchor tag to hide the message", ->
+    Notification.notice('Hey there!')
+    $link = @notifications.children('a.close-message')
+    expect($link).toExist()
+    $link.click()
+    expect(@notifications).toBeHidden()

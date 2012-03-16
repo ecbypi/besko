@@ -19,13 +19,13 @@
 
   <div id="notifications">
     <% if alert %>
-      <div class="notice">
-        <span class="message"><%= alert %></span>
+      <div class="message notice">
+        <%= alert %>
       </div>
     <% end %>
     <% if notice %>
-      <div class="error">
-        <span class="message"><%= notice %></span>
+      <div class="message error">
+        <%= notice %>
       </div>
     <% end %>
   </div>

@@ -3,20 +3,25 @@
   container: $ '#notifications'
   error: (message) -> @insert message, 'error'
   notice: (message) -> @insert message, 'notice'
-  clear: -> @container.empty()
+  clear: -> @container.hide()
 
   insert: (message, klass) ->
     @initialize klass unless @initialized
-    @messageContainer.toggleClass('error notice') unless @messageContainer.hasClass klass
+    @message.toggleClass('error notice') unless @message.hasClass klass
     @message.text(message)
 
   initialize: (klass) ->
     @container = $('#notifications')
     if @container.children().length is 0
-      @messageContainer = $('<div>').addClass klass
-      @message = $('<span>').addClass 'message'
-      @container.append @messageContainer.append @message
+      @message = $('<div>').addClass "message #{klass}"
+      @container.append @message
+      @container.append $('<a>').
+        attr('href', 'javascript:void(0)').
+        text('Close').
+        addClass('close-message')
     else
-      @message = @container.find('span.message')
-      @messageContainer = @message.parent()
+      @message = @container.children('div.message')
+    @container.children('a.close-message').click (event) ->
+      Notification.clear()
     @initialized = true
+    this
