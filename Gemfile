@@ -36,7 +36,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', '~> 1.0', :require => false
   gem 'spork', ' ~> 0.9.0.rc'
   gem 'timecop'
   gem 'capybara-webkit'
