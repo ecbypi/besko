@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     }
 
     results.concat(MIT::LDAP::UserAdapter.build_users(search)) if results.empty? || options[:use_ldap]
-    results.uniq { |user| user.login }
+    results.to_a.uniq { |user| user.login }
   end
 
   def self.create_with_or_without_password attributes
