@@ -24,7 +24,6 @@ describe UsersController do
     end
 
     it "includes the #to_json versions of the users" do
-      json_body.size.should eq 1
       user = json_body.first
       user.should have_key 'first_name'
       user.should have_key 'last_name'

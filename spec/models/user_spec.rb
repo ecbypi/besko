@@ -31,38 +31,46 @@ describe User do
     end
   end
 
-  describe ".recipients" do
+  describe ".lookup" do
     let!(:result) { FactoryGirl.create(:mrhalp) }
 
-    it "searches for applicants based on search string containing the name" do
-      User.recipients('micro helpline').should include result
+    before :each do
+      stub_mit_ldap_search_results
     end
 
-    it "returns empty array if arguments are empty" do
-      User.recipients('').should eq []
+    it "searches for applicants based on search string containing the name" do
+      User.lookup('micro helpline').should include result
+    end
+
+    it "returns empty array if arguments are empty or nil" do
+      User.lookup('').should eq []
+      User.lookup.should eq []
     end
 
     it "can find applicants based on login" do
-      User.recipients('mrhalp').should include result
+      User.lookup('mrhalp').should include result
     end
 
     it "can find applicants based on email" do
-      User.recipients('mrhalp@mit.edu').should include result
+      User.lookup('mrhalp@mit.edu').should include result
     end
 
-    it "checks ldap server if :use_ldap is true" do
-      stub_mit_ldap_search_results
-      User.recipients('micro helpline', use_ldap: true)
+    it "does not check ldap if :skip_ldap_search is true" do
+      MIT::LDAP::Search.should_receive(:search).exactly(0).times
+      User.lookup('micro helpline', skip_ldap_search: true)
+    end
+
+    it "only checks ldap server is :ldap_search_only is true" do
+      User.should_receive(:where).exactly(0).times
+      User.lookup('micro helpline', ldap_search_only: true)
     end
 
     it "checks ldap server if no records are found in the database" do
-      stub_mit_ldap_search_results
-      User.recipients('mshalp')
+      User.lookup('mshalp')
     end
 
     it "returns uniq results if it checks the ldap server" do
-      stub_mit_ldap_search_results
-      User.recipients('micro helpline', use_ldap: true).should eq [result]
+      User.lookup('micro helpline', use_ldap: true).should eq [result]
     end
   end
 

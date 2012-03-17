@@ -21,21 +21,31 @@ class User < ActiveRecord::Base
                   :password,
                   :password_confirmation
 
-  def self.recipients search, options={}
-    options.reverse_merge! use_ldap: false
+  def self.lookup search=nil, options={}
+    options.reverse_merge!(
+      skip_ldap_search: false,
+      ldap_search_only: false
+    )
+
+    return [] if search.blank?
     args = search.split
-    return [] if args.empty?
+    results = []
 
-    first = args.first
-    last = args.size > 1 ? args[1..-1].join(' ') : first
-    results = where {
-      ( first_name.eq first ) |
-      ( last_name.eq  last  ) |
-      ( email.in_any  args  ) |
-      ( login.in_any  args  )
-    }
+    unless options[:ldap_search_only]
+      first = args.first
+      last = args.size > 1 ? args[1..-1].join(' ') : first
+      results.concat where {
+        ( first_name.eq first ) |
+        ( last_name.eq  last  ) |
+        ( email.in_any  args  ) |
+        ( login.in_any  args  )
+      }
+    end
 
-    results.concat(MIT::LDAP::UserAdapter.build_users(search)) if results.empty? || options[:use_ldap]
+    unless options[:skip_ldap_search]
+      results.concat MIT::LDAP::UserAdapter.build_users(search)
+    end
+
     results.to_a.uniq { |user| user.login }
   end
 
