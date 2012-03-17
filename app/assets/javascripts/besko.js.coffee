@@ -3,6 +3,7 @@
 #= require backbone.authtokenadapter
 #= require backbone-forms-rails/backbone-forms
 #= require backbone-forms-rails/jquery-ui-editors
+#= require backbone-form-templates
 #= require backbone-support
 
 #= require_self
