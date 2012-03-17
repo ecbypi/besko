@@ -3,6 +3,8 @@ class Receipt < ActiveRecord::Base
   belongs_to :delivery
   belongs_to :recipient, class_name: 'User'
 
+  accepts_nested_attributes_for :recipient
+
   delegate :worker, :deliverer, to: :delivery
 
   after_create do
