@@ -17,24 +17,15 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     this.$el.append @form.render().el
     this.$el.append window.JST['deliveries/form']
     this.$('#user-search').autocomplete(
-      source: @searchForRecipient
-      select: @selectRecipient
+      source: '/users?autocomplete=true'
+      select: (event, ui) =>
+        delete ui.item.value
+        delete ui.item.label
+        user = new Besko.Models.User(ui.item)
+        @addRecipient user
       minLength: 3
     )
     this
-
-  searchForRecipient: (request, callback) =>
-    request.search_ldap = true
-    @users.fetch
-      data: request
-      success: (users, status, xhr) ->
-        callback users.autocompleteResults()
-
-  selectRecipient: (event, ui) =>
-    recipient = @users.find (user) -> user.get('login') is ui.item.value
-    @addRecipient recipient
-    this.$('#user-search').val('')
-    false
 
   addRecipient: (recipient) ->
     recipient.save() unless recipient.id?
