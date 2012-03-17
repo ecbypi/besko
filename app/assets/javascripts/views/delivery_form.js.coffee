@@ -1,9 +1,5 @@
 class @Besko.Views.DeliveryForm extends Support.CompositeView
 
-  initialize: ->
-    @model ||= new Besko.Models.Delivery()
-    @users = new Besko.Collections.Users()
-
   tagName: 'section'
   attributes:
     'data-resource': 'delivery'

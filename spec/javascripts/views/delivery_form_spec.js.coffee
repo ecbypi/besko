@@ -2,7 +2,9 @@
 
 describe "Besko.Views.DeliveryForm", ->
   beforeEach ->
-    @form = new Besko.Views.DeliveryForm()
+    @form = new Besko.Views.DeliveryForm(
+      model: new Besko.Models.Delivery()
+    )
     @form.render()
     @recipient = new Besko.Models.User(
       first_name: 'Micro'
@@ -18,15 +20,9 @@ describe "Besko.Views.DeliveryForm", ->
   afterEach ->
     @xhr.restore()
 
-  it "initializes a delivery instance one isn't passed in", ->
-    expect(@form.model).not.toEqual(undefined)
-
   it "is a section", ->
     expect(@form.$el).toBe('section')
     expect(@form.$el).toHaveAttr('data-resource', 'delivery')
-
-  it "creates an empty array to cache users", ->
-    expect(@form.users).not.toEqual(undefined)
 
   describe "it contains a(n)", ->
     it "empty unordered list of receipts", ->

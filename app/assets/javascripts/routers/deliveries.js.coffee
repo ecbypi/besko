@@ -13,4 +13,4 @@ class @Besko.Routers.Deliveries extends Support.SwappingRouter
     @swap new Besko.Views.DeliveriesSearch collection: @collection, date: date
 
   newDelivery: ->
-    @swap new Besko.Views.DeliveryForm()
+    @swap new Besko.Views.DeliveryForm model: new Besko.Models.Delivery()
