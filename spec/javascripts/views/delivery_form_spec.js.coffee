@@ -28,14 +28,6 @@ describe "Besko.Views.DeliveryForm", ->
   it "creates an empty array to cache users", ->
     expect(@form.users).not.toEqual(undefined)
 
-  it "sets custom source callback for building recipients list", ->
-    callback = @form.$('#user-search').autocomplete('option', 'source')
-    expect(callback).toEqual(@form.searchForRecipient)
-
-  it "adds a custom select callback for autocomplete", ->
-    callback = @form.$('#user-search').autocomplete('option', 'select')
-    expect(callback).toEqual(@form.selectRecipient)
-
   describe "it contains a(n)", ->
     it "empty unordered list of receipts", ->
       expect(@form.$el).toContain('ul[data-collection=receipts]')
