@@ -31,6 +31,13 @@ describe UsersController do
       user.should have_key 'email'
       user.should have_key 'id'
     end
+
+    it "includes 'label' and 'value' attributes if autocomplete param is passed in" do
+      get :index, format: :json, term: 'micro helpline', autocomplete: true
+      user = json_body.first
+      user.should have_key 'value'
+      user.should have_key 'label'
+    end
   end
 
   describe "POST create.json" do
