@@ -13,7 +13,7 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     'click button[data-role=cancel]' : 'reset'
 
   render: ->
-    @form = new Backbone.Form model: @model, schema: @schema
+    @form = new Backbone.Form model: @model
     this.$el.append @form.render().el
     this.$el.append window.JST['deliveries/form']
     this.$('#user-search').autocomplete(
@@ -50,20 +50,3 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     @children.map (child) -> child.leave()
     this.$('select').val('')
     this
-
-  schema:
-    deliverer:
-      title: 'Delivery Company'
-      type: 'Select'
-      validators: ['required']
-      options: [
-        { val: '', label: '' }
-        { val: 'UPS', label: 'UPS' },
-        { val: 'USPS', label: 'USPS' },
-        { val: 'FedEx', label: 'FedEx' },
-        { val: 'LaserShip', label: 'LaserShip' },
-        { val: 'Other', label: 'Other' }
-      ]
-      editorClass: 'select input required'
-      fieldClass: 'select required'
-      help: 'usually on package label'
