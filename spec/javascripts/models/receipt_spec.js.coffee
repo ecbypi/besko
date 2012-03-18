@@ -50,3 +50,17 @@ describe "Besko.Models.Receipt.initialize", ->
       recipient: user
     )
     expect(receipt.recipient).toEqual(user)
+
+describe "Besko.Models.Receipt.schema", ->
+  beforeEach ->
+    @receipt = new Besko.Models.Receipt(recipient: { id: 1 })
+    @schema = @receipt.schema()
+
+  it "includes information for number_packages", ->
+    expect(_.isObject(@schema.number_packages)).toBeTruthy()
+
+  it "includes information for comment", ->
+    expect(_.isObject(@schema.comment)).toBeTruthy()
+
+  it "includes information for recipient_id", ->
+    expect(_.isObject(@schema.recipient_id)).toBeTruthy()
