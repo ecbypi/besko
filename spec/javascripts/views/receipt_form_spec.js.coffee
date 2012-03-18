@@ -3,12 +3,16 @@
 describe "Besko.Views.ReceiptForm", ->
 
   beforeEach ->
-    receipt = new Besko.Models.Receipt(recipient_id: 1)
+    receipt = new Besko.Models.Receipt(
+      recipient:
+        id: 1
+        first_name: 'Micro'
+        last_name: 'Helpline'
+        email: 'mrhalp@mit.edu'
+        login: 'mrhalp'
+    )
     @form = new Besko.Views.ReceiptForm(model: receipt)
     @form.render()
-
-  it "has the attribute [data-recipient] with value pointing to the recipient's name", ->
-    expect(@form.$el).toBe('[data-recipient="Micro Helpline"]')
 
   it "has a number input for number of packages, defaulting to 1", ->
     expect(@form.$el).toContain('input[type=number][value=1][min=1]')
@@ -27,7 +31,6 @@ describe "Besko.Views.ReceiptForm", ->
     expect($button).toHaveText(/Remove/)
 
   describe "clicking the Remove button", ->
-
     beforeEach ->
       @parent = new Support.CompositeView()
       @parent.appendChild(@form)

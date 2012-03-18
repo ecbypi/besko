@@ -8,8 +8,7 @@ class @Besko.Views.ReceiptForm extends Support.CompositeView
     'click button[data-cancel]': 'leave'
 
   render: ->
-    @form = new Backbone.Form schema: @schema, model: @model
-    this.$el.attr('data-recipient', @model.get('recipient').name())
-    this.$el.html window.JST['receipts/form'] recipient: @model.get('recipient')
-    this.$('span').after @form.render().el
+    @form = new Backbone.Form(model: @model)
+    this.$el.append @form.render().el
+    this.$el.append $('<button>').attr('data-cancel', true).text('Remove')
     this

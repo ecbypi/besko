@@ -1,3 +1,0 @@
-<span><%= this.recipient.name() %></span>
-
-<button data-cancel>Remove</button>
