@@ -18,7 +18,6 @@ gem 'mit-ldap'
 gem 'ldap-filter'
 gem 'backbone-on-rails'
 gem 'backbone-support'
-gem 'backbone-forms-rails', git: 'https://github.com/ecbypi/backbone-forms-rails.git'
 
 group :assets do
   gem 'sass-rails', "  ~> 3.2.3"

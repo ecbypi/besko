@@ -1,8 +1,8 @@
 #= require underscore
 #= require backbone
 #= require backbone.authtokenadapter
-#= require backbone-forms-rails/backbone-forms
-#= require backbone-forms-rails/jquery-ui-editors
+#= require backbone-forms
+#= require jquery-ui-editors
 #= require backbone-form-templates
 #= require backbone-support
 
