@@ -17,10 +17,6 @@ describe UserDecorator do
       json.should have_key 'login'
     end
 
-    it "includes the result of the name method" do
-      json.should have_key 'name'
-    end
-
     it "includes 'value' and 'label' keys if :as_autocomplete is true" do
       json = decorator.as_json as_autocomplete: true
       json.should have_key 'value'
