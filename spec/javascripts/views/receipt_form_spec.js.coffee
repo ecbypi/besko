@@ -3,13 +3,8 @@
 describe "Besko.Views.ReceiptForm", ->
 
   beforeEach ->
-    user = new Besko.Models.User(
-      id: 1
-      first_name: 'Micro'
-      last_name: 'Helpline'
-    )
-    receipt = new Besko.Models.Receipt recipient: user
-    @form = new Besko.Views.ReceiptForm model: receipt
+    receipt = new Besko.Models.Receipt(recipient_id: 1)
+    @form = new Besko.Views.ReceiptForm(model: receipt)
     @form.render()
 
   it "has the attribute [data-recipient] with value pointing to the recipient's name", ->
