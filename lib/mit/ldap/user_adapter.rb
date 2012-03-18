@@ -31,7 +31,8 @@ module MIT
             first_name: givenName[0],
             last_name: sn[0],
             login: uid[0],
-            email: mail[0]
+            email: mail[0],
+            street: street[0]
           )
         end
       end

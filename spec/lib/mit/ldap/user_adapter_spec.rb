@@ -15,6 +15,7 @@ module MIT
           user.last_name.should eq 'Helpline'
           user.login.should eq 'mrhalp'
           user.email.should eq 'mrhalp@mit.edu'
+          user.street.should eq 'N42'
         end
 
         it "filters out things that aren't InetOrgPerson" do

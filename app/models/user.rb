@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
                   :last_name,
                   :login,
                   :email,
+                  :street,
                   :password,
                   :password_confirmation
 

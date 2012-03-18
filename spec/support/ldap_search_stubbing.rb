@@ -8,7 +8,8 @@ module LDAPSearchStubbing
       sn: attributes[:last_name],
       uid: attributes[:login],
       mail: attributes[:email],
-      cn: name
+      cn: name,
+      street: attributes[:street]
     )
   end
 
