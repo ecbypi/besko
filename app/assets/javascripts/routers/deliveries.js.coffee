@@ -10,7 +10,7 @@ class @Besko.Routers.Deliveries extends Support.SwappingRouter
     "deliveries/new": "newDelivery"
 
   search: (date) ->
-    @swap new Besko.Views.DeliveriesSearch(
+    @swap new Besko.Views.DeliverySearch(
       collection: @collection
       date: date
     )

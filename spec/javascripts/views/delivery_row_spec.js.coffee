@@ -1,6 +1,6 @@
 #= require application
 
-describe "Besko.Views.DeliveriesTableRow", ->
+describe "Besko.Views.DeliveryRow", ->
   beforeEach ->
     @delivery = new Besko.Models.Delivery(
       id: 1
@@ -12,7 +12,7 @@ describe "Besko.Views.DeliveriesTableRow", ->
         last_name: 'Helpline'
         email: 'mrhalp@mit.edu'
     )
-    @view = new Besko.Views.DeliveriesTableRow model: @delivery
+    @view = new Besko.Views.DeliveryRow model: @delivery
     @view.render()
 
   it "is a tr", ->

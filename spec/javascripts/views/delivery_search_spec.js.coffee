@@ -1,8 +1,8 @@
 #= require application
 
-describe "Besko.Views.DeliveriesSearch", ->
+describe "Besko.Views.DeliverySearch", ->
   beforeEach ->
-    @view = new Besko.Views.DeliveriesSearch(
+    @view = new Besko.Views.DeliverySearch(
       collection: new Besko.Collections.Deliveries()
       date: '2010-10-30'
     )

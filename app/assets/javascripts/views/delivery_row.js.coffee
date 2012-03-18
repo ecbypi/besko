@@ -1,4 +1,4 @@
-class @Besko.Views.DeliveriesTableRow extends Support.CompositeView
+class @Besko.Views.DeliveryRow extends Support.CompositeView
 
   tagName: 'tr'
   attributes:

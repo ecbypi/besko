@@ -1,4 +1,4 @@
-class @Besko.Views.DeliveriesSearch extends Support.CompositeView
+class @Besko.Views.DeliverySearch extends Support.CompositeView
 
   initialize: (attributes) ->
     @date = if attributes.date then new Date(attributes.date) else new Date()
@@ -20,7 +20,7 @@ class @Besko.Views.DeliveriesSearch extends Support.CompositeView
   renderDeliveries: ->
     $tbody = this.$('tbody')
     @collection.each (delivery) =>
-      child = new Besko.Views.DeliveriesTableRow(model: delivery)
+      child = new Besko.Views.DeliveryRow(model: delivery)
       @renderChild(child)
       $tbody.append child.el
     this
