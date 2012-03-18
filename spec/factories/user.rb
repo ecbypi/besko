@@ -6,6 +6,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "name#{n}@email.com" }
     password "password"
     password_confirmation "password"
+    street "77 Mass Ave"
   end
 
   factory :user, parent: :unapproved_user do
@@ -16,6 +17,7 @@ FactoryGirl.define do
       last_name 'Helpline'
       email 'mrhalp@mit.edu'
       login 'mrhalp'
+      street 'N42'
     end
   end
 
