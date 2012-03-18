@@ -7,7 +7,7 @@ When /^I search for "([^"]*)"$/ do |search|
 end
 
 Then /^I should see a receipt form for "([^"]*)"$/ do |name|
-  within recipient_section(name) do
+  within receipt_element(name) do
     page.should have_content name
   end
 end
@@ -20,13 +20,13 @@ When /^I add "([^"]*)" to the list of recipient receipts$/ do |name|
 end
 
 When /^I specify "([^"]*)" received (\d+) packages?$/ do |name, number|
-  within recipient_section(name) do
+  within receipt_element(name) do
     fill_in 'Number of Packages', with: number
   end
 end
 
 When /^I add the comment "([^"]*)" to "([^"]*)"'s delivery receipt$/ do |comment, name|
-  within recipient_section(name) do
+  within receipt_element(name) do
     fill_in 'Comment', with: comment
   end
 end
