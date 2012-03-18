@@ -7,6 +7,7 @@ describe "Besko.Views.DeliveryForm", ->
     )
     @form.render()
     @recipient = new Besko.Models.User(
+      id: 1
       first_name: 'Micro'
       last_name: 'Helpline'
       login: 'mrhalp'
@@ -28,6 +29,7 @@ describe "Besko.Views.DeliveryForm", ->
       expect(@form.$el).toContain('select[name=deliverer]')
 
     it "select with delivery company options for FedEx, USPS, UPS, LaserShip and Other", ->
+      expect(@form.$el).toContain('option[value=""]')
       expect(@form.$el).toContain('option[value=FedEx]')
       expect(@form.$el).toContain('option[value=USPS]')
       expect(@form.$el).toContain('option[value=UPS]')
@@ -42,14 +44,7 @@ describe "Besko.Views.DeliveryForm", ->
 
   describe "#addRecipient", ->
     beforeEach ->
-      sinon.spy(@recipient, 'save')
       @form.addRecipient @recipient
-
-    afterEach ->
-      @recipient.save.restore()
-
-    it "saves a user if unpersisted", ->
-      expect(@recipient.save).toHaveBeenCalled()
 
     it "adds a ReceiptForm to unordered list", ->
       $list = @form.$el.find('ul[data-collection=receipts]')
