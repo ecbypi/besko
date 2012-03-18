@@ -22,3 +22,6 @@ describe "custom Backbone.Form.templates", ->
     it "adds default rails/simple_form error class", ->
       @form.validate()
       expect(@form.$el).toContain('div.input.field_with_errors')
+
+    it "retains the label", ->
+      expect(@form.$el).toContain('label')

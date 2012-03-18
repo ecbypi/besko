@@ -10,7 +10,7 @@ templates =
     """
     <div class="input">
       <label for="{{id}}">{{title}}</label>
-      {{editor}}
+      <span>{{editor}}</span>
     </div>
     """
 
