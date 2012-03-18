@@ -13,13 +13,6 @@ describe "Besko.Views.DeliveryForm", ->
       email: 'mrhalp@mit.edu'
     )
 
-    @requests = requests = []
-    @xhr = sinon.useFakeXMLHttpRequest()
-    @xhr.onCreate = (xhr) -> requests.push(xhr)
-
-  afterEach ->
-    @xhr.restore()
-
   it "is a section", ->
     expect(@form.$el).toBe('section')
     expect(@form.$el).toHaveAttr('data-resource', 'delivery')
