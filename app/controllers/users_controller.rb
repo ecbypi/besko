@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    respond_with User.create_with_or_without_password(params[:user])
+    user = User.create_with_or_without_password(params[:user])
+    respond_with UserDecorator.new(user)
   end
 end
