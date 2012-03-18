@@ -8,7 +8,8 @@ class @Besko.Views.SignupSearchResult extends Support.CompositeView
     'click button[data-role=commit]' : 'save'
 
   render: ->
-    this.$el.html window.JST['registrations/result'] user: @model
+    html = window.JST['registrations/result'](user: @model)
+    this.$el.html(html)
     this
 
   save: ->

@@ -27,10 +27,10 @@
 
         model.set authOptions, silent: true
 
-      Backbone._sync method, model, options
+      Backbone._sync(method, model, options)
 
   # restore back sync
   restoreSync: (Backbone) ->
     Backbone.sync = Backbone._sync
 
-@BackboneRailsAuthTokenAdapter.fixSync Backbone
+@BackboneRailsAuthTokenAdapter.fixSync(Backbone)

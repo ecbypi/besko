@@ -12,15 +12,16 @@ class @Besko.Views.DeliveriesSearch extends Support.CompositeView
 
   render: ->
     @_leaveChildren()
-    this.$el.html window.JST['deliveries/search'] date: @date
+    html = window.JST['deliveries/search'](date: @date)
+    this.$el.html(html)
     @renderDeliveries()
     this
 
   renderDeliveries: ->
     $tbody = this.$('tbody')
     @collection.each (delivery) =>
-      child = new Besko.Views.DeliveriesTableRow model: delivery
-      @renderChild child
+      child = new Besko.Views.DeliveriesTableRow(model: delivery)
+      @renderChild(child)
       $tbody.append child.el
     this
 
@@ -37,4 +38,4 @@ class @Besko.Views.DeliveriesSearch extends Support.CompositeView
       data:
         date: iso
       success: (users, resposne) ->
-        window.history.replaceState {}, "Deliveries - #{iso}", '/deliveries?date=' + iso
+        window.history.replaceState({}, "Deliveries - #{iso}", '/deliveries?date=' + iso)

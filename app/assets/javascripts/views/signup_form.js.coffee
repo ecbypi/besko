@@ -28,9 +28,9 @@ class @Besko.Views.SignupForm extends Support.CompositeView
       html(window.JST['registrations/results']).
       find('tbody')
     @users.each (user) =>
-      child = new Besko.Views.SignupSearchResult model: user
-      @renderChild child
-      $users.append child.el
+      child = new Besko.Views.SignupSearchResult(model: user)
+      @renderChild(child)
+      $users.append(child.el)
     this
 
   reset: ->

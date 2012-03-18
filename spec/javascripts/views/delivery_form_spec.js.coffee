@@ -14,10 +14,6 @@ describe "Besko.Views.DeliveryForm", ->
       email: 'mrhalp@mit.edu'
     )
 
-  it "is a section", ->
-    expect(@form.$el).toBe('section')
-    expect(@form.$el).toHaveAttr('data-resource', 'delivery')
-
   describe "it contains a(n)", ->
     it "empty unordered list of receipts", ->
       expect(@form.$el).toContain('ul[data-collection=receipts]')

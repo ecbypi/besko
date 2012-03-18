@@ -5,5 +5,6 @@ class @Besko.Views.DeliveriesTableRow extends Support.CompositeView
     'data-resource': 'delivery'
 
   render: ->
-    this.$el.html window.JST['deliveries/table_row'] delivery: @model
+    html = window.JST['deliveries/table_row'](delivery: @model)
+    this.$el.html(html)
     this

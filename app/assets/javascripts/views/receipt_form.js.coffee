@@ -9,6 +9,7 @@ class @Besko.Views.ReceiptForm extends Support.CompositeView
 
   render: ->
     @form = new Backbone.Form(model: @model)
-    this.$el.append @form.render().el
-    this.$el.append $('<button>').attr('data-cancel', true).text('Remove')
+    this.$el.append(@form.render().el)
+    $button = $('<button>').attr('data-cancel', true).text('Remove')
+    this.$el.append($button)
     this

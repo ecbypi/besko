@@ -30,7 +30,7 @@
     tmp = document.createElement('div')
     tmp.innerHTML = text
     json = JSON.parse(tmp.innerHTML)
-    new ctor json.data
+    new ctor(json.data)
 
 $ ->
   Besko.init()
