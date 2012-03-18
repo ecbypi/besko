@@ -42,9 +42,9 @@ describe "Besko.Views.DeliveryForm", ->
     it "button to cancel all receipts", ->
       expect(@form.$el).toContain('button[data-role=cancel]')
 
-  describe "#addRecipient", ->
+  describe "#renderReceipt", ->
     beforeEach ->
-      @form.addRecipient @recipient
+      @form.renderReceipt @recipient
 
     it "adds a ReceiptForm to unordered list", ->
       $list = @form.$el.find('ul[data-collection=receipts]')
@@ -58,7 +58,7 @@ describe "Besko.Views.DeliveryForm", ->
     beforeEach ->
       sinon.spy(@form, 'reset')
       sinon.spy(@form.model, 'save')
-      @form.addRecipient(new Besko.Models.User())
+      @form.renderReceipt(new Besko.Models.User())
       @form.$('button[data-role=commit]').click()
 
     it "calls #reset", ->
@@ -73,7 +73,7 @@ describe "Besko.Views.DeliveryForm", ->
 
   describe "#reset", ->
     beforeEach ->
-      @form.addRecipient(@recipient)
+      @form.renderReceipt(@recipient)
       @form.$('button[data-role=cancel]').click()
 
     it "removes all children", ->

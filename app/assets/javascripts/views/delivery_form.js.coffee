@@ -17,12 +17,12 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
       select: (event, ui) =>
         delete ui.item.value
         delete ui.item.label
-        @addRecipient ui.item
+        @renderReceipt ui.item
       minLength: 3
     )
     this
 
-  addRecipient: (recipient) ->
+  renderReceipt: (recipient) ->
     child = new Besko.Views.ReceiptForm(
       model: new Besko.Models.Receipt(
         recipient: recipient
