@@ -7,4 +7,4 @@ class @Besko.Routers.Registrations extends Support.SwappingRouter
     "accounts/signup" : "newAccount"
 
   newAccount: ->
-    @swap new Besko.Views.SignupForm()
+    @swap new Besko.Views.SignupForm(collection: new Besko.Collections.Users())
