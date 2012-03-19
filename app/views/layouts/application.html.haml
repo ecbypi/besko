@@ -1,0 +1,25 @@
+!!!
+%html
+  %head
+    %title Besko
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = yield :script
+  %body
+    %header
+      - if current_user
+        = link_to 'Logout', destroy_user_session_path, method: :delete
+      - else
+        = link_to 'Log In', new_user_session_path
+    #notifications
+      - if alert
+        .message.notice
+          = alert
+      - if notice
+        .message.error
+          = notice
+    %h1= yield :title
+    #content
+      = yield
+    = yield :bootstrap
