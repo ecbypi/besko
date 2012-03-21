@@ -1,0 +1,27 @@
+#notifications {
+  position: relative;
+  width: 60%;
+  margin:0 auto;
+  .message {
+    padding:5px 0;
+    text-align: center;
+    border: 1px solid #000;
+    @include border-radius(3px);
+
+    &.error {
+      background-color: #EF6262;
+    }
+
+    &.notice {
+      background-color: lightblue;
+    }
+  }
+
+  .close-message {
+    font-size: 13px;
+    position: absolute;
+    top: 7px;
+    right: 5px;
+  }
+}
+

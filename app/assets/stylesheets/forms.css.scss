@@ -1,0 +1,53 @@
+.simple_form {
+
+  label {
+    display: block;
+  }
+
+  input:not(.button), label {
+    width:230px;
+  }
+
+  input {
+    margin:5px 0 10px;
+  }
+}
+
+#{$all-text-inputs} {
+  border: 1px solid #b2b2b2;
+  padding:3px;
+  outline: none;
+  @include border-radius(3px);
+  @include box-shadow(inset 0 2px 2px #bbb);
+  @include transition;
+
+  &:hover, &:focus {
+    @include box-shadow(inset 0 1px 3px #aaa);
+  }
+
+  &:focus {
+    border-color: #444;
+  }
+}
+
+button, .button {
+  padding: 6px 9px;
+  margin-right: 10px;
+  border:1px solid #999;
+  font-size: 14px;
+  @include border-radius(3px);
+  @include linear-gradient(#eee, #c9c3c3);
+  @include transition(box-shadow);
+
+  &:active {
+    @include linear-gradient(#c9c3c3, #eee);
+  }
+
+  &:hover {
+    @include box-shadow(0 0 2px #999);
+  }
+
+  &.next {
+    float: right;
+  }
+}
