@@ -2,11 +2,10 @@ class @Besko.Models.Delivery extends Backbone.Model
 
   urlRoot: '/deliveries'
 
-  defaults:
-    receipts_attributes: []
   initialize: (attributes) ->
     attributes ||= {}
     @loadWorker(attributes.worker)
+    @receipts = new Besko.Collections.Receipts(attributes.receipts)
 
   loadWorker: (worker) ->
     if worker
@@ -16,8 +15,8 @@ class @Besko.Models.Delivery extends Backbone.Model
         @worker = new Besko.Models.User(worker)
 
   toJSON: ->
-    attributes = _.clone(@attributes)
-    attributes.receipts_attributes = @get('receipts_attributes')
+    receipts = { receipts_attributes: @receipts.toJSON() }
+    attributes = _.extend(super(), receipts)
     { delivery: attributes }
 
   schema:
