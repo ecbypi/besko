@@ -1,12 +1,19 @@
 class @Besko.Models.Delivery extends Backbone.Model
 
-  initialize: (attributes) ->
-    @worker = new Besko.Models.User(attributes.worker) if attributes && attributes.worker
-
   urlRoot: '/deliveries'
 
   defaults:
     receipts_attributes: []
+  initialize: (attributes) ->
+    attributes ||= {}
+    @loadWorker(attributes.worker)
+
+  loadWorker: (worker) ->
+    if worker
+      if worker.constructor == Besko.Models.User
+        @worker = worker
+      else if _.isObject(worker)
+        @worker = new Besko.Models.User(worker)
 
   toJSON: ->
     attributes = _.clone(@attributes)
