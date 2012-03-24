@@ -5,20 +5,3 @@
 @import "forms";
 @import "elements";
 
-a, a:visited {
-  color: #4186cc;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-table {
-  width: 90%;
-  margin:0 auto;
-
-  td, th {
-    padding: 10px;
-  }
-}
