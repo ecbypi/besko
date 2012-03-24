@@ -9,6 +9,7 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     'click button[data-role=commit]' : 'commit'
     'click button[data-role=cancel]' : 'clear'
     'change select#deliverer' : 'swapDelivererEditor'
+    'click button[data-cancel]' : 'hideTableDetails'
 
   render: ->
     this.$el.html(window.JST['deliveries/delivery_form']())
@@ -54,6 +55,9 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     @renderChild(child)
     this.$('tbody').append(child.el)
     this
+
+  hideTableDetails: ->
+    this.$('thead, tfoot').hide() if @children.size() == 0
 
   commit: ->
     if @delivererValid() && @receiptsValid()
