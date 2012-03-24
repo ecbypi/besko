@@ -31,6 +31,7 @@ class @Besko.Models.Receipt extends Backbone.Model
         dataType: 'number'
         title: 'Number of Packages'
         fieldClass: 'number required'
+        editorClass: 'number required'
         editorAttrs:
           min: 1
         validators: ['required']
@@ -39,8 +40,9 @@ class @Besko.Models.Receipt extends Backbone.Model
         title: 'Comments'
         fieldClass: 'text optional'
 
-    unless @recipient?
-      throw 'Recipient is required for schema'
+    if @recipient?
+      schema.recipient_id.title = @recipient.name()
+    else
+      schema.recipient_id.title = 'No Name'
 
-    schema.recipient_id.title = @recipient.name()
     schema
