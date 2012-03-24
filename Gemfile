@@ -26,16 +26,19 @@ group :assets do
   gem 'bourbon'
 end
 
-group :development, :test do
-  gem 'capybara'
-  gem 'rspec-rails'
-  gem 'shoulda-matchers'
-  gem 'jasminerice'
+group :development do
+  gem 'pry-rails'
   gem 'guard-rails'
   gem 'guard-livereload'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'jasminerice'
+end
+
 group :test do
+  gem 'shoulda-matchers'
   gem 'cucumber-rails', '~> 1.0', :require => false
   gem 'spork', ' ~> 0.9.0.rc'
   gem 'timecop'
