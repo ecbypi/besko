@@ -1,7 +1,6 @@
 #= require application
 
 describe "Besko.Views.ReceiptForm", ->
-
   beforeEach ->
     receipt = new Besko.Models.Receipt(
       recipient:
@@ -19,9 +18,6 @@ describe "Besko.Views.ReceiptForm", ->
 
   it "has a textarea for comments", ->
     expect(@form.$el).toContain('textarea')
-
-  it "has a hidden input for the recipient (user) id", ->
-    expect(@form.$el).toContain('input[type=hidden][value=1]')
 
   it "has the name of the recipient", ->
     expect(@form.$el).toHaveText(/Micro Helpline/)
@@ -42,3 +38,22 @@ describe "Besko.Views.ReceiptForm", ->
       expect(@parent._removeChild).toHaveBeenCalledOnce()
       expect(@form._removeFromParent).toHaveBeenCalledOnce()
       expect(@parent.$el).not.toContain('li[data-resource][data-recipient]')
+
+  describe "#commit()", ->
+    it "returns an array of error objects if any of them fail", ->
+      form = new Besko.Views.ReceiptForm(model: new Besko.Models.Receipt())
+      form.render()
+
+      errors = form.commit()
+
+      expect(errors.length).toEqual(1)
+      expect(_.isArray(errors)).toBeTruthy()
+
+    it "it returns the attributes of the receipt when it passes", ->
+      @form.$('textarea').val('Some text')
+      @form.$('input[type=number]').val(3)
+
+      attributes = @form.commit()
+
+      expect(attributes.number_packages).toEqual('3')
+      expect(attributes.comment).toEqual('Some text')

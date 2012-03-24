@@ -38,6 +38,7 @@ Feature: Mail received packages
     And I add the comment "Fragile" to "Jon Snow"'s delivery receipt
     And I submit the notifications
     Then I should see the notice "Notifications Sent"
+    And the delivery from should be reset
     And I visit the deliveries page
     And I should see the delivery was by "FedEx"
     And a delivery notification should be sent to "snow@thewall.kingdom"

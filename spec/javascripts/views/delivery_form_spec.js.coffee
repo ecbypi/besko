@@ -14,9 +14,12 @@ describe "Besko.Views.DeliveryForm", ->
       email: 'mrhalp@mit.edu'
     )
 
+  it "has the class 'new-delivery'", ->
+    expect(@form.$el).toBe('.new-delivery')
+
   describe "it contains a(n)", ->
-    it "empty unordered list of receipts", ->
-      expect(@form.$el).toContain('ul[data-collection=receipts]')
+    it "empty table of receipts", ->
+      expect(@form.$el).toContain('table[data-collection=receipts]')
 
     it "search field to lookup recipients", ->
       expect(@form.$el).toContain('input[type=search]')
@@ -38,47 +41,28 @@ describe "Besko.Views.DeliveryForm", ->
     it "button to cancel all receipts", ->
       expect(@form.$el).toContain('button[data-role=cancel]')
 
+
+  describe "can support an 'Other' deliverer", ->
+    it "by switching out the select with a text field", ->
+      @form.$('select').val('Other')
+      @form.$('select').trigger('change')
+      expect(@form.$el).toContain('input#deliverer[type=text]')
+      expect(@form.$('input#deliverer')).toHaveAttr('autofocus')
+
   describe "#renderReceipt", ->
     beforeEach ->
-      @form.renderReceipt @recipient
+      @form.renderReceipt(@recipient)
 
     it "adds a ReceiptForm to unordered list", ->
-      $list = @form.$el.find('ul[data-collection=receipts]')
-      expect($list).toContain('li')
-      expect($list.children().length).toEqual(1)
+      $tbody = @form.$el.find('tbody')
+      expect($tbody).toContain('tr')
+      expect($tbody.children().length).toEqual(1)
 
     it "adds instances of ReceiptForm to #children", ->
       expect(@form.children.size()).toEqual(1)
 
-  describe "#submit", ->
-    beforeEach ->
-      sinon.spy(@form, 'reset')
-      sinon.spy(@form.model, 'save')
-      @form.renderReceipt(new Besko.Models.User())
-      @form.$('button[data-role=commit]').click()
-
-    it "calls #reset", ->
-      expect(@form.reset).toHaveBeenCalled()
-
-    it "saves the delivery", ->
-      expect(@form.model.save).toHaveBeenCalled()
-
-    it "adds attributes from receipt forms into delivery#receipts_attributes", ->
-      attributes = @form.model.get('receipts_attributes')
-      expect(attributes.length).toEqual(1)
-
-  describe "#reset", ->
-    beforeEach ->
-      @form.renderReceipt(@recipient)
-      @form.$('button[data-role=cancel]').click()
-
-    it "removes all children", ->
-      expect(@form.children.size()).toEqual(0)
-
-    it "removes all receipt forms", ->
-      $list = @form.$('ul[data-collection=receipts]')
-      expect($list.children().length).toEqual(0)
-
-    it "resets select", ->
-      $select = @form.$('select[name=deliverer]')
-      expect($select.val()).toEqual('')
+  describe "#commit()", ->
+    describe "when in an invalid state", ->
+      it "returns false", ->
+        output = @form.commit()
+        expect(output).toEqual(false)
