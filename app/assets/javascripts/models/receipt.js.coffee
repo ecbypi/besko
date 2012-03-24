@@ -15,10 +15,12 @@ class @Besko.Models.Receipt extends Backbone.Model
       else
         @recipient = new Besko.Models.User(recipient)
 
-      unless @recipient.id?
+      if !@recipient.id?
         @recipient.save({}, success: (user, response) => @set('recipient_id', user.id))
       else
         @set('recipient_id', @recipient.id)
+
+      @set('recipient', undefined)
 
   schema: ->
     schema =

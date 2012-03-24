@@ -51,6 +51,9 @@ describe "Besko.Models.Receipt.initialize", ->
     )
     expect(receipt.recipient).toEqual(user)
 
+  it "removes the 'recipient' key from the attributes", ->
+    expect(@receipt.get('recipient')).toBeFalsy()
+
 describe "Besko.Models.Receipt.schema", ->
   beforeEach ->
     @receipt = new Besko.Models.Receipt(recipient: { id: 1 })
