@@ -6,13 +6,12 @@ describe "Besko.Views.DeliveryForm", ->
       model: new Besko.Models.Delivery()
     )
     @form.render()
-    @recipient = new Besko.Models.User(
+    @recipient =
       id: 1
       first_name: 'Micro'
       last_name: 'Helpline'
       login: 'mrhalp'
       email: 'mrhalp@mit.edu'
-    )
 
   it "has the class 'new-delivery'", ->
     expect(@form.$el).toBe('.new-delivery')
@@ -60,6 +59,12 @@ describe "Besko.Views.DeliveryForm", ->
 
     it "adds instances of ReceiptForm to #children", ->
       expect(@form.children.size()).toEqual(1)
+
+    it "alerts if someone is added twice", ->
+      sinon.spy(Notification, 'error')
+      @form.renderReceipt(@recipient)
+      expect(Notification.error).toHaveBeenCalled()
+      expect(@form.$('tbody').children().length).toEqual(1)
 
   describe "#commit()", ->
     describe "when in an invalid state", ->

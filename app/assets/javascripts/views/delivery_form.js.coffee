@@ -12,6 +12,9 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     'click button[data-cancel]' : 'hideTableDetails'
 
   render: ->
+    @recipients ||= new Besko.Collections.Users()
+    @recipients.reset()
+
     this.$el.html(window.JST['deliveries/delivery_form']())
     @renderDelivererEditor(@schema)
     this.$('#user-search').autocomplete(
@@ -48,12 +51,17 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
       @renderDelivererEditor(schema)
 
   renderReceipt: (recipient) ->
-    child = new Besko.Views.ReceiptForm(
-      model: new Besko.Models.Receipt(recipient: recipient)
-    )
-    this.$('thead, tfoot').show() if @children.size() == 0
-    @renderChild(child)
-    this.$('tbody').append(child.el)
+    logins = @recipients.pluck('login')
+    if !_.include(logins, recipient.login)
+      @recipients.add(recipient)
+      child = new Besko.Views.ReceiptForm(
+        model: new Besko.Models.Receipt(recipient: recipient)
+      )
+      this.$('thead, tfoot').show() if @children.size() == 0
+      @renderChild(child)
+      this.$('tbody').append(child.el)
+    else
+      Notification.error('Already added that person!')
     this
 
   hideTableDetails: ->
