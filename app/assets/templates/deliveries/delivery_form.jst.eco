@@ -1,11 +1,15 @@
-<div class="input select required">
-  <label for="deliverer" class="select required">Delivery Company</label>
-  <div class="hint"></div>
-  <div class="error"></div>
-</div>
+<section class="inputs">
+  <div class="input select required">
+    <label for="deliverer" class="select required">Delivery Company</label>
+    <div class="hint"></div>
+    <div class="error"></div>
+  </div>
 
-<label class="search" for="user-search">Search</label>
-<input id="user-search" name="search" type="search" autofocus placeholder="Enter name, email or kerberos"/>
+  <div class="input search">
+    <label class="search" for="user-search">Search</label>
+    <input id="user-search" name="search" type="search" autofocus placeholder="Enter name, email or kerberos"/>
+  </div>
+</section>
 
 <table class="receipts" data-collection="receipts">
   <thead>
