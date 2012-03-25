@@ -1,0 +1,9 @@
+section.registration {
+  div.input.search {
+    @include user-search(270px);
+  }
+
+  thead {
+    display: none;
+  }
+}
