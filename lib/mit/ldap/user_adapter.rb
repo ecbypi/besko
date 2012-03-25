@@ -6,6 +6,7 @@ module MIT
         filter = construct_filter search
         results = Search.search filter: filter.to_s
         results.select! { |result| result.kind_of? MIT::LDAP::Search::InetOrgPerson }
+        results.select! { |result| result.valid? }
         results.map(&:to_user)
       end
 
@@ -24,7 +25,6 @@ module MIT
     end
 
     module Search
-
       class InetOrgPerson
         def to_user
           ::User.new(
@@ -34,6 +34,13 @@ module MIT
             email: mail[0],
             street: street[0]
           )
+        end
+
+        def valid?
+          givenName.present? &&
+            sn.present? &&
+            uid.present? &&
+            mail.present?
         end
       end
     end

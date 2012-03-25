@@ -12,6 +12,18 @@ module MIT
             user.should be_new_record
           end
         end
+
+        describe "#valid?" do
+          it "returns false if name, email or login are missing" do
+            person = InetOrgPerson.new
+            person.valid?.should eq false
+          end
+
+          it "returns true if name, email and login are present" do
+            person = ldap_result
+            person.valid?.should eq true
+          end
+        end
       end
     end
   end

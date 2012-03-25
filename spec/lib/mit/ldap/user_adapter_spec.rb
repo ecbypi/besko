@@ -23,6 +23,13 @@ module MIT
           results = subject.build_users('micro helpline')
           results.size.should eq 1
         end
+
+        it "filters out instances of InetOrgPerson missing attributes" do
+          invalid = ldap_result(first_name: '', last_name: '', login: '')
+          Search.stub(:search).and_return([invalid, ldap_result])
+          results = subject.build_users('micro helpline')
+          results.size.should eq 1
+        end
       end
 
       describe "#construct_filter" do
