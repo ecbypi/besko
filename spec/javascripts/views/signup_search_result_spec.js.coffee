@@ -7,8 +7,9 @@ describe "Besko.Views.SignupSearchResult", ->
       last_name: 'Helpline'
       email: 'mrhalp@mit.edu'
       login: 'mrhalp'
+      street: 'N42'
     )
-    @view = new Besko.Views.SignupSearchResult model: @user
+    @view = new Besko.Views.SignupSearchResult(model: @user)
     @view.render()
 
   it "is a table row", ->
@@ -26,17 +27,24 @@ describe "Besko.Views.SignupSearchResult", ->
   it "has the user's kerberos/login", ->
     expect(@view.$el).toHaveText(/mrhalp/)
 
-  it "has a button to save the user if no id is present", ->
-    expect(@view.$el).toContain('button[data-role=commit]')
+  it "has the user's street/address", ->
+    expect(@view.$el).toHaveText(/N42/)
+
+  it "has a checkbox to confirm selection of result", ->
+    expect(@view.$el).toContain('input[type=checkbox]')
+
+  it "has a disabled button to save the user if no id is present", ->
+    expect(@view.$el).toContain('button[data-role=commit]:disabled')
 
   it "has no button if id is present on model", ->
     @user.set('id', 1)
     @view.render()
     expect(@view.$el).not.toContain('button[data-role=commit]')
+    expect(@view.$el).not.toContain('input[type=checkbox]')
     expect(@view.$el).toHaveText(/Account Exists/)
 
-  it "saves the model when the button is pressed", ->
-    sinon.spy(@user, 'save')
-    @view.$('button[data-role=commit]').click()
-    expect(@user.save).toHaveBeenCalled()
-    @user.save.restore()
+  describe "checking the confirmation box", ->
+    it "enables the button", ->
+      @view.$('input[type=checkbox]').attr('checked', true)
+      @view.$('input[type=checkbox]').click()
+      expect(@view.$('button[data-role=commit]')).not.toBe(':disabled')

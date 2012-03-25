@@ -22,7 +22,8 @@ end
 
 When /^I select "([^"]*)" in the user search results$/ do |name|
   within user_element(name) do
-    click_button 'This Is Me'
+    check 'This Is Me'
+    click_button 'Request Account'
   end
 end
 
@@ -31,7 +32,7 @@ Then /^an account confirmation email should be sent to "([^"]*)"$/ do |email|
 end
 
 Then /^the search should be reset$/ do
-  users_collection.all('tr').should be_empty
+  users_collection.find('tbody').all('tr').should be_empty
 end
 
 Then /^I should see that an account for "([^"]*)" already exists$/ do |name|

@@ -8,7 +8,7 @@ Feature: Create an account
     Given I am on the sign up page
     When I search for "Micro Helpline" in the user search
     And I select "Micro Helpline" in the user search results
-    Then I should see the notice "Your account has been submitted for approval"
+    Then I should see the notice "An email has been sent requesting approval of your account."
     And the search should be reset
     And an account confirmation email should be sent to "besko@mit.edu"
     And the email should include the user's name "Micro Helpline"

@@ -1,0 +1,18 @@
+<div class="input search">
+  <label for="user-search">Look yourself up in the MIT directory</label>
+  <input id="user-search" type="search" autofocus placeholder="Enter name, email or kerberos" name="search"/>
+  <button data-role="search">Lookup</button>
+</div>
+
+<table data-collection="users">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Kerberos</th>
+      <th>Address</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>

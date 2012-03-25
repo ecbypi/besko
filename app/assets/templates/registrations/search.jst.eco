@@ -1,5 +1,0 @@
-<label for="user-search">Look yourself up in the MIT directory</label>
-<input id="user-search" type="search" autofocus placeholder="Enter name, email or kerberos" name="search"/>
-<button data-role="search">Lookup</button>
-
-<table data-collection="users"></table>
