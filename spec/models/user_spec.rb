@@ -1,11 +1,16 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) { Factory(:user) }
+  let!(:user) { Factory(:user) }
 
   it { should have_many(:receipts) }
   it { should have_many(:deliveries) }
   it { should have_and_belong_to_many(:roles) }
+
+  it { should validate_presence_of(:first_name) }
+  it { should validate_presence_of(:last_name) }
+  it { should validate_presence_of(:login) }
+  it { should validate_uniqueness_of(:login) }
 
   it "sends confirmation instructions to besko@mit.edu" do
     headers = user.headers_for(:confirmation_instructions)

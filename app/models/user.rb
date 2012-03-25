@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   has_many :deliveries, :foreign_key => :worker_id
   has_and_belongs_to_many :roles
 
+  validates :first_name, :last_name, :login, presence: true
+  validates :login, uniqueness: true
+
   attr_accessible :first_name,
                   :last_name,
                   :login,
