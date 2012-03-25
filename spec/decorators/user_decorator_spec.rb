@@ -9,12 +9,13 @@ describe UserDecorator do
 
     let(:json) { decorator.as_json }
 
-    it "contains the id, first_name, last_name, email and login columns" do
+    it "contains the id, first_name, last_name, email, login and street columns" do
       json.should have_key 'id'
       json.should have_key 'first_name'
       json.should have_key 'last_name'
       json.should have_key 'email'
       json.should have_key 'login'
+      json.should have_key 'email'
     end
 
     it "includes 'value' and 'label' keys if :as_autocomplete is true" do

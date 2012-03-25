@@ -7,7 +7,7 @@ class UserDecorator < ApplicationDecorator
     )
 
     attributes = model.as_json(
-      only: [:id, :first_name, :last_name, :email, :login]
+      only: [:id, :first_name, :last_name, :email, :login, :street]
     )
 
     if options[:as_autocomplete]
