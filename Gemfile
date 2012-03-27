@@ -30,6 +30,7 @@ group :development do
   gem 'pry-rails'
   gem 'guard-rails'
   gem 'guard-livereload'
+  gem 'capistrano'
 end
 
 group :development, :test do
