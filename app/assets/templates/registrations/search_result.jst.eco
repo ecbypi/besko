@@ -2,11 +2,11 @@
 <td><%= @user.escape('email') %></td>
 <td><%= @user.escape('login') %></td>
 <td><%= @user.escape('street') %></td>
-<td class="input checkbox">
+<td class="input boolean">
   <% unless @user.id?: %>
-    <div class="input checkbox">
-      <input class="input checkbox" type="checkbox" id="<%= @user.cid %>" />
-      <label class="checkbox" for="<%= @user.cid %>">This Is Me</label>
+    <div class="input boolean">
+      <input class="boolean" type="checkbox" id="<%= @user.cid %>" />
+      <label class="boolean" for="<%= @user.cid %>">This Is Me</label>
     </div>
     <div class="actions">
       <button disabled="disabled" data-role="commit">Request Account</button>

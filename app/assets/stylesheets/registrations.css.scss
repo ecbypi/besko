@@ -3,7 +3,13 @@ section.registration {
     @include user-search(270px);
   }
 
-  thead {
-    display: none;
+  table {
+    thead {
+      display: none;
+    }
+
+    td.boolean {
+      width: 210px;
+    }
   }
 }
