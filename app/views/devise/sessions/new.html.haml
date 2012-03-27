@@ -1,8 +1,8 @@
-%h1 Sign in
+- content_for :title do
+  Sign In
 
-= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  .inputs
-    = f.input :email, :autofocus => true
-    = f.input :password
-  .actions
-    = f.button :submit, "Sign In"
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = f.input :email, autofocus: true
+  = f.input :password
+  = f.button :submit, "Sign In"
+  = link_to 'Forgot password?', new_user_password_path
