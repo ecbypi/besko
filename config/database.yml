@@ -1,14 +1,12 @@
 development:
   adapter: mysql2
-  database: besker_development
-  username: edd_d
+  database: besko_development
   host: localhost
   encoding: utf8
   
 test: &test
   adapter: mysql2
-  database: besker_test
-  username: edd_d
+  database: besko_test
   host: localhost
   encoding: utf8
 
