@@ -22,7 +22,8 @@
             = link_to 'Log In', new_user_session_path
 
     %nav#primary
-      %ul= navigation
+      - if current_user
+        %ul= navigation
 
     #wrapper
       #notifications
