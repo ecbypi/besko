@@ -12,6 +12,7 @@ describe NavigationHelper do
     end
 
     it "adds the class of 'active' if the request path equals the current path" do
+      allow_message_expectations_on_nil
       helper.stub(:request).stub(:path).and_return('/path')
       request.stub(:path).and_return('/path')
       list_items = helper.list_items(paths)
