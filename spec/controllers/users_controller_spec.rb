@@ -8,9 +8,9 @@ describe UsersController do
   end
 
   describe "GET index.json" do
-    let(:user) { FactoryGirl.create(:user) }
-    let!(:result) { FactoryGirl.create(:mrhalp) }
-    let(:role) { FactoryGirl.create(:role, title: 'Besk Worker') }
+    let(:user) { create(:user) }
+    let!(:result) { create(:mrhalp) }
+    let(:role) { create(:role, title: 'Besk Worker') }
 
     before :each do
       user.roles << role
@@ -50,7 +50,7 @@ describe UsersController do
       }
     end
 
-    let(:user) { FactoryGirl.create(:user, attributes) }
+    let(:user) { create(:user, attributes) }
 
     before :each do
       User.stub(:create_with_or_without_password).and_return(user)

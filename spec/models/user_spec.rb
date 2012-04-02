@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  let!(:user) { Factory(:user) }
+  let!(:user) { create(:user) }
 
   it { should have_many(:receipts) }
   it { should have_many(:deliveries) }
@@ -25,8 +25,8 @@ describe User do
 
   describe "#has_role?" do
     it "returns true if user's roles include the provided attribute" do
-      user = Factory(:user)
-      role = Factory(:role, title: 'Besk Worker')
+      user = create(:user)
+      role = create(:role, title: 'Besk Worker')
       user.roles << role
       user.has_role?(:besk_worker).should be(true)
     end
@@ -37,7 +37,7 @@ describe User do
   end
 
   describe ".lookup" do
-    let!(:result) { FactoryGirl.create(:mrhalp) }
+    let!(:result) { create(:mrhalp) }
 
     before :each do
       stub_mit_ldap_search_results
@@ -80,7 +80,7 @@ describe User do
   end
 
   describe ".create_without_or_without_password" do
-    let(:attributes) { FactoryGirl.attributes_for(:user) }
+    let(:attributes) { attributes_for(:user) }
     it "creates the user password parameters are provided" do
       user = User.create_with_or_without_password(attributes)
       user.valid_password?('password').should eq true

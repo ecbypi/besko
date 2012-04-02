@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Receipt do
 
-  let!(:receipt) { FactoryGirl.create(:receipt) }
+  let!(:receipt) { create(:receipt) }
 
   it { should belong_to(:recipient) }
   it { should belong_to(:delivery) }

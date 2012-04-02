@@ -59,6 +59,7 @@ Spork.prefork do
 
     config.include(EmailSpec::Matchers)
     config.include(EmailSpec::Helpers)
+    config.include(FactoryGirl::Syntax::Methods)
 
   end
   

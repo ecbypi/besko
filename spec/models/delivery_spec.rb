@@ -12,13 +12,13 @@ describe Delivery do
   end
 
   it "sets #delivered_on to date of #created_at" do
-    delivery = FactoryGirl.create(:delivery)
+    delivery = create(:delivery)
     delivery.delivered_on.should eq delivery.created_at.to_date
   end
 
   describe "#package_count" do
-    let(:delivery) { FactoryGirl.create(:delivery) }
-    let(:receipts) { FactoryGirl.create_list(:receipt, 3, number_packages: 3) }
+    let(:delivery) { create(:delivery) }
+    let(:receipts) { create_list(:receipt, 3, number_packages: 3) }
     it "counts all packages across receipts" do
       delivery.receipts << receipts
       delivery.package_count.should eq 9
@@ -30,8 +30,8 @@ describe Delivery do
       Delivery.delete_all
     end
 
-    let(:todays_delivery) { FactoryGirl.create(:delivery) }
-    let(:old_delivery) { FactoryGirl.create(:delivery, delivered_on: '2010-10-30', created_at: '2010-10-30') }
+    let(:todays_delivery) { create(:delivery) }
+    let(:old_delivery) { create(:delivery, delivered_on: '2010-10-30', created_at: '2010-10-30') }
 
     it "defaults to today's deliveries" do
       Delivery.delivered_on.should include todays_delivery
