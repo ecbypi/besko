@@ -32,7 +32,12 @@ describe "Besko.Views.DeliveryForm", ->
       expect(@form.$el).toContain('option[value=USPS]')
       expect(@form.$el).toContain('option[value=UPS]')
       expect(@form.$el).toContain('option[value=LaserShip]')
-      expect(@form.$el).toContain('option[value=Other]')
+      expect(@form.$el).toContain('option[value=Unavailable]')
+      expect(@form.$el).toContain('option[value=Amazon]')
+      expect(@form.$el).toContain('option[value=DHL]')
+      expect(@form.$el).toContain('option[value=Interdepartmental]')
+      expect(@form.$el).toContain('option[value="Laundry Service"]')
+      expect(@form.$el).toContain('option[value="Student / Student Organization"]')
 
     it "button to send all notifications", ->
       expect(@form.$el).toContain('button[data-role=commit]')

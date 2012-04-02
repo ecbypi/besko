@@ -108,10 +108,16 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
     options: [
       { val: '', label: '' }
       { val: 'UPS', label: 'UPS' },
-      { val: 'USPS', label: 'USPS' },
+      { val: 'USPS', label: 'USPS / Post Office' },
       { val: 'FedEx', label: 'FedEx' },
       { val: 'LaserShip', label: 'LaserShip' },
+      { val: 'Amazon', label: 'Amazon' },
+      { val: 'DHL', label: 'DHL' },
+      { val: 'Interdepartmental', label: 'Interdepartmental' },
+      { val: 'Laundry Service', label: 'Laundry Service' },
+      { val: 'Student / Student Organization', label: 'Student / Student Organization' },
       { val: 'Other', label: 'Other' }
+      { val: 'Unavailable', label: 'Unavailable' },
     ]
     editorClass: 'select input required'
     fieldClass: 'select required'
