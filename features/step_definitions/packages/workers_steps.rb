@@ -3,17 +3,17 @@ Given /^packages were received (\w+) by "([^"]*)" for "([^"]*)":$/ do |day, work
   time = determine_day(day)
   worker = User.find_by_email!(worker_email)
   recipient = User.find_by_email!(recipient_email)
-  delivery = FactoryGirl.create(:delivery,
-                                worker: worker,
-                                created_at: time,
-                                delivered_on: time.to_date,
-                                deliverer: attributes[:delivered_by]
-                               )
-  FactoryGirl.create(:receipt,
-                     recipient: recipient,
-                     comment: attributes[:comment],
-                     delivery: delivery
-                    )
+  delivery = create(:delivery,
+                    worker: worker,
+                    created_at: time,
+                    delivered_on: time.to_date,
+                    deliverer: attributes[:delivered_by]
+                   )
+  create(:receipt,
+         recipient: recipient,
+         comment: attributes[:comment],
+         delivery: delivery
+        )
 end
 
 When /^I visit the deliveries page$/ do
