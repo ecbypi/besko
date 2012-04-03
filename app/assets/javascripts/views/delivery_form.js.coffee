@@ -115,7 +115,7 @@ class @Besko.Views.DeliveryForm extends Support.CompositeView
       { val: 'DHL', label: 'DHL' },
       { val: 'Interdepartmental', label: 'Interdepartmental' },
       { val: 'Laundry Service', label: 'Laundry Service' },
-      { val: 'Student / Student Organization', label: 'Student / Student Organization' },
+      { val: 'Student / Personal', label: 'Student / Personal' },
       { val: 'Other', label: 'Other' }
       { val: 'Unavailable', label: 'Unavailable' },
     ]

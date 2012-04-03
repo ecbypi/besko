@@ -37,7 +37,7 @@ describe "Besko.Views.DeliveryForm", ->
       expect(@form.$el).toContain('option[value=DHL]')
       expect(@form.$el).toContain('option[value=Interdepartmental]')
       expect(@form.$el).toContain('option[value="Laundry Service"]')
-      expect(@form.$el).toContain('option[value="Student / Student Organization"]')
+      expect(@form.$el).toContain('option[value="Student / Personal"]')
 
     it "button to send all notifications", ->
       expect(@form.$el).toContain('button[data-role=commit]')
