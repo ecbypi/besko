@@ -9,5 +9,9 @@ class Ability
     if user.has_role? :besk_worker
       can [:read, :create], Delivery
     end
+
+    if user.has_role? :admin
+      can :manage, UserRole
+    end
   end
 end

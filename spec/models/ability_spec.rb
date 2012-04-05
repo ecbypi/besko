@@ -37,4 +37,17 @@ describe Ability do
       ability.should be_able_to(:read, Delivery)
     end
   end
+
+  describe "as a admin" do
+    let(:admin) { create(:user) }
+    let(:ability) { Ability.new(admin) }
+
+    before :each do
+      stub_user_roles(admin, :admin)
+    end
+
+    it "can manage user roles" do
+      ability.should be_able_to(:manage, UserRole)
+    end
+  end
 end
