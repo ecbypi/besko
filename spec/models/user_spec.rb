@@ -25,15 +25,43 @@ describe User do
   end
 
   describe "#has_role?" do
-    it "returns true if user's roles include the provided attribute" do
-      user = create(:user)
-      role = create(:role, title: 'Besk Worker')
-      user.roles << role
-      user.has_role?(:besk_worker).should be(true)
+    let(:user) { create(:user) }
+    let(:role) { create(:role) }
+
+    before :each do
+      %w(BeskWorker MailForwarder).each do |class_name|
+        Object.send(:remove_const, class_name) rescue nil
+        Object.const_set(class_name, double(class_name))
+        klass = Object.const_get(class_name)
+        klass.stub(:name).and_return(class_name)
+        klass.stub(:is_a?).with(Class).and_return(true)
+      end
+
+      role.stub(:class).and_return(BeskWorker)
+      user.stub(:roles).and_return([role])
+
+      Role.stub(:roles).and_return(['BeskWorker', 'MailForwarder'])
+    end
+
+    it "returns true if user's roles include the provided class object" do
+      user.has_role?(BeskWorker).should be_true
+    end
+
+    it "accepts a symbol" do
+      user.has_role?(:besk_worker).should be_true
+    end
+
+    it "accepts a string" do
+      user.has_role?('besk_worker').should be_true
+      user.has_role?('BeskWorker').should be_true
     end
 
     it "returns false if user does not have that role" do
-      user.has_role?(:besk_worker).should be(false)
+      user.has_role?(MailForwarder).should be_false
+    end
+
+    it "raises error if class does not exist" do
+      expect { user.has_role?(:shop_manager) }.to raise_error(NameError)
     end
   end
 

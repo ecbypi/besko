@@ -66,9 +66,9 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def has_role?(title)
-    title = title.to_s.titleize if title.is_a?(Symbol)
-    roles.collect { |role| role.title }.include?(title)
+  def has_role?(klass)
+    klass = Object.const_get(klass.to_s.classify) unless klass.is_a?(Class)
+    roles.map(&:class).include?(klass)
   end
 
   def headers_for action
