@@ -1,0 +1,2 @@
+class BeskWorker < Role
+end
