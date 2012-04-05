@@ -25,7 +25,6 @@ describe Ability do
   end
 
   describe "as a worker" do
-    let(:role) { create(:role) }
     let(:worker) { create(:user) }
     let(:ability) { Ability.new(worker) }
 
