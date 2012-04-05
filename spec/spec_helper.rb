@@ -72,5 +72,6 @@ Spork.each_run do
   RSpec.configure do |config|
     config.include LDAPSearchStubbing
     config.include EmailMacros
+    config.include RoleMocking
   end
 end

@@ -29,18 +29,8 @@ describe User do
     let(:role) { create(:role) }
 
     before :each do
-      %w(BeskWorker MailForwarder).each do |class_name|
-        Object.send(:remove_const, class_name) rescue nil
-        Object.const_set(class_name, double(class_name))
-        klass = Object.const_get(class_name)
-        klass.stub(:name).and_return(class_name)
-        klass.stub(:is_a?).with(Class).and_return(true)
-      end
-
-      role.stub(:class).and_return(BeskWorker)
-      user.stub(:roles).and_return([role])
-
-      Role.stub(:roles).and_return(['BeskWorker', 'MailForwarder'])
+      double_roles :BeskWorker, :MailForwarder
+      stub_user_roles(user, :besk_worker)
     end
 
     it "returns true if user's roles include the provided class object" do
