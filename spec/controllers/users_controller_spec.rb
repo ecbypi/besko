@@ -10,10 +10,9 @@ describe UsersController do
   describe "GET index.json" do
     let(:user) { create(:user) }
     let!(:result) { create(:mrhalp) }
-    let(:role) { create(:role, title: 'Besk Worker') }
 
     before :each do
-      user.roles << role
+      stub_user_roles(user, :besk_worker)
       sign_in user
       User.stub(:recipients).and_return([result])
       get :index, format: :json, term: 'micro helpline'

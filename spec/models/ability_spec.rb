@@ -3,6 +3,10 @@ require 'cancan/matchers'
 
 describe Ability do
 
+  before :each do
+    double_roles :BeskWorker
+  end
+
   describe "as a resident" do
     let(:user) { create(:user) }
     let(:ability) { Ability.new(user) }
@@ -21,12 +25,12 @@ describe Ability do
   end
 
   describe "as a worker" do
-    let(:role) { create(:role, title: 'Besk Worker') }
+    let(:role) { create(:role) }
     let(:worker) { create(:user) }
     let(:ability) { Ability.new(worker) }
 
     before :each do
-      worker.roles << role
+      stub_user_roles(worker, :besk_worker)
     end
 
     it "can review and create packages" do
