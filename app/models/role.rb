@@ -1,4 +1,5 @@
 class Role < ActiveRecord::Base
-  has_and_belongs_to_many :users
   validates :title, :uniqueness => {:case_sensitive => false}
+  has_many :user_roles
+  has_many :users, through: :user_roles
 end

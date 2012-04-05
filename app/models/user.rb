@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
 
   has_many :receipts, :foreign_key => :recipient_id
   has_many :deliveries, :foreign_key => :worker_id
-  has_and_belongs_to_many :roles
+  has_many :user_roles
+  has_many :roles, through: :user_roles
 
   validates :first_name, :last_name, :login, presence: true
   validates :login, uniqueness: true
