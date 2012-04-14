@@ -2,6 +2,7 @@
   position: relative;
 
   form {
+    min-height: 225px;
     background-color: #eee;
     display: inline-block;
     vertical-align: top;
@@ -14,7 +15,17 @@
       margin-top: 0;
     }
 
+    &:first-child {
+      width: 345px;
+    }
+
+    .actions, button {
+      position: absolute;
+      bottom: 15px;
+    }
+
     &:last-child {
+      width: 530px;
       position: absolute;
       right: 0px;
     }

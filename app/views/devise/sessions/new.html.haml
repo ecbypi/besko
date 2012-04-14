@@ -5,10 +5,16 @@
 
   = form_tag '/touchstone' do
     %h2 Touchstone Sign In
+    %p Using Touchstone you can sign in with your:
+    %ul
+      %li MIT web certificate
+      %li Kerberos account
     = button_tag 'Sign In with Touchstone'
 
   = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     %h2 Local Sign In
+
+    %p Your account has a password tied locally to Besko. If this is your first time signing in locally, you will have to reset your password.
     .inputs
       = f.input :email, autofocus: true
       = f.input :password
