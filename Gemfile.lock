@@ -148,7 +148,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.7.1)
     mime-types (1.17.2)
-    mit-ldap (0.0.1)
+    mit-ldap (0.3.0)
       ldaptic (~> 0.2)
       ruby-ldap (~> 0.9)
     multi_json (1.0.4)

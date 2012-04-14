@@ -7,6 +7,11 @@ module MIT
       subject { MIT::LDAP::UserAdapter }
 
       describe ".build_users" do
+        it "returns empty array if not connected" do
+          MIT::LDAP.stub(:connected?).and_return(false)
+          subject.build_users('micro helpline').should be_empty
+        end
+
         it "returns unpersisted instances of User model" do
           stub_mit_ldap_search_results
           user = subject.build_users('micro helpline').first
@@ -19,14 +24,14 @@ module MIT
         end
 
         it "filters out things that aren't InetOrgPerson" do
-          Search.stub(:search).and_return([ldap_result, {}])
+          MIT::LDAP.stub(:search).and_return([ldap_result, {}])
           results = subject.build_users('micro helpline')
           results.size.should eq 1
         end
 
         it "filters out instances of InetOrgPerson missing attributes" do
           invalid = ldap_result(first_name: '', last_name: '', login: '')
-          Search.stub(:search).and_return([invalid, ldap_result])
+          MIT::LDAP.stub(:search).and_return([invalid, ldap_result])
           results = subject.build_users('micro helpline')
           results.size.should eq 1
         end

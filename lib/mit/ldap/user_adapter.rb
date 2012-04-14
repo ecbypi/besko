@@ -3,9 +3,10 @@ module MIT
     module UserAdapter
 
       def self.build_users search
+        return [] unless LDAP.connected?
         filter = construct_filter search
-        results = Search.search filter: filter.to_s
-        results.select! { |result| result.kind_of? MIT::LDAP::Search::InetOrgPerson }
+        results = LDAP.search filter: filter.to_s
+        results.select! { |result| result.kind_of? MIT::LDAP::InetOrgPerson }
         results.select! { |result| result.valid? }
         results.map(&:to_user)
       end
@@ -24,24 +25,22 @@ module MIT
       end
     end
 
-    module Search
-      class InetOrgPerson
-        def to_user
-          ::User.new(
-            first_name: givenName[0],
-            last_name: sn[0],
-            login: uid[0],
-            email: mail[0],
-            street: street[0]
-          )
-        end
+    class InetOrgPerson
+      def to_user
+        ::User.new(
+          first_name: givenName[0],
+          last_name: sn[0],
+          login: uid[0],
+          email: mail[0],
+          street: street[0]
+        )
+      end
 
-        def valid?
-          givenName.present? &&
-            sn.present? &&
-            uid.present? &&
-            mail.present?
-        end
+      def valid?
+        givenName.present? &&
+          sn.present? &&
+          uid.present? &&
+          mail.present?
       end
     end
   end

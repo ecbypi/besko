@@ -80,7 +80,7 @@ describe User do
     end
 
     it "does not check ldap if :skip_ldap_search is true" do
-      MIT::LDAP::Search.should_receive(:search).exactly(0).times
+      MIT::LDAP.should_receive(:search).exactly(0).times
       User.lookup('micro helpline', skip_ldap_search: true)
     end
 
