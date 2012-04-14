@@ -4,11 +4,15 @@ module MIT
 
       def self.build_users search
         return [] unless LDAP.connected?
-        filter = construct_filter search
-        results = LDAP.search filter: filter.to_s
-        results.select! { |result| result.kind_of? MIT::LDAP::InetOrgPerson }
-        results.select! { |result| result.valid? }
-        results.map(&:to_user)
+
+        filter = construct_filter(search)
+        LDAP.search(filter: filter.to_s).
+          select { |result| result.kind_of?(MIT::LDAP::InetOrgPerson) && result.valid? }.
+          map(&:to_user)
+
+      rescue RuntimeError
+        logger.debug(LDAP.adapter.instance_variable_get(:@connection))
+        []
       end
 
       def self.construct_filter search
@@ -29,18 +33,15 @@ module MIT
       def to_user
         ::User.new(
           first_name: givenName[0],
-          last_name: sn[0],
-          login: uid[0],
-          email: mail[0],
-          street: street[0]
+          last_name:  sn[0],
+          email:      mail[0],
+          login:      uid[0],
+          street:     street[0]
         )
       end
 
       def valid?
-        givenName.present? &&
-          sn.present? &&
-          uid.present? &&
-          mail.present?
+        %w(givenName sn mail uid street).map { |attr| send(attr).present? }.all?
       end
     end
   end
