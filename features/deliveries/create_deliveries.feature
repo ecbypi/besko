@@ -1,8 +1,8 @@
 @javascript @selenium
-Feature: Mail received packages
-  Given some packages arrived at besk
-  In order to be a responsible besk worker
-  I need to email the recipients of the packages
+Feature: Create Delivery Notifications
+  In order to notify recipients they have a delivery
+  As a besk worker
+  I need to email the recipients in an easy way
 
   Background:
     Given I am logged in with the email "responsable@mit.edu"

@@ -1,8 +1,8 @@
 @javascript
-Feature: Manage Package Notifications
-  In order to effectively send and check package notifications
+Feature: Review Deliveries
+  In order to effectively send and check delivery notifications
   As a besk worker
-  I want to review all package notifcations and create new ones
+  I want to review all delivery notifcations
 
   Background:
     Given I am logged in with the email "worker@mit.edu"
@@ -25,22 +25,6 @@ Feature: Manage Package Notifications
     And I should see the timestamp for the delivery from "USPS"
     And I should see a total package count of 545
     And I should see the delivery was by "USPS"
-
-  Scenario: Navigate deliveries by previous day button
-    Given packages were received yesterday by "besker@mit.edu" for "mrhalp@mit.edu":
-      | delivered_by | comment |
-      | UPS          | Heavy   |
-    And I visit the deliveries page
-    When I go to the previous day of deliveries
-    Then I should see the delivery was by "UPS"
-
-  Scenario: Navigate deliveries by next day button
-    Given packages were received tomorrow by "besker@mit.edu" for "mrhalp@mit.edu":
-      | delivered_by | comment                               |
-      | FedEx        | Some legal document.  Looks important |
-    And I visit the deliveries page
-    When I go to the next day of deliveries
-    Then I should see the delivery was by "FedEx"
 
   Scenario: Authorize access to besk workers only
     Given I am logged in with the email "just-a-resident@mit.edu"

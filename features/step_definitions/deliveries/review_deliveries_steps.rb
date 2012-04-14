@@ -20,14 +20,6 @@ When /^I visit the deliveries page$/ do
   visit deliveries_path
 end
 
-When /^I go to the previous day of deliveries$/ do
-  click_button 'Previous Day'
-end
-
-When /^I go to the next day of deliveries$/ do
-  click_button 'Next Day'
-end
-
 Then /^I should see (\w+)'s date$/ do |day|
   time = determine_day(day).strftime(package_date_format)
   page.should have_css('h2', text: time)

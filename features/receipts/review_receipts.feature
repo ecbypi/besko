@@ -1,7 +1,7 @@
-Feature: Manage Received Packages
+Feature: View Delivery Receipts
   In order to keep track of packages I'm expecting
   As a package recipient
-  I want to review and see a list of packages received for me
+  I want to review and sign out the packages received for me
 
   Background:
     Given I am logged in with the email "packy@mit.edu"
