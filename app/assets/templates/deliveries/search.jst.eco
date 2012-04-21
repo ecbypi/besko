@@ -1,7 +1,9 @@
+<h2 class="current-date">
+  <input name="delivered_on" disabled="true" />
+</h2>
+
 <button class="prev">Previous Day</button>
 <button class="next">Next Day</button>
-
-<h2><%= @date.getUTCDayName() %>, <%= @date.getUTCMonthName() %> <%= @date.getUTCDate() %>, <%= @date.getUTCFullYear() %></h2>
 
 <table data-collection="deliveries">
   <thead>

@@ -14,7 +14,10 @@ describe "Besko.Views.DeliverySearch", ->
 
   it "has an <h2> tag for showing what day we're on", ->
     expect(@view.$el).toContain('h2')
-    expect(@view.$el).toHaveText(/Saturday, October 30, 2010/)
+
+  it "has an input for the jquery datepicker", ->
+    expect(@view.$('h2')).toContain('input.hasDatePicker')
+    expect(@view.$('h2').find('input.hasDatePicker').val()).toMatch(/Saturday, October 30, 2010/)
 
   it "tracks the current date", ->
     expect(@view.date.getUTCFullYear()).toEqual(2010)

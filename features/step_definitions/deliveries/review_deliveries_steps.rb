@@ -20,9 +20,15 @@ When /^I visit the deliveries page$/ do
   visit deliveries_path
 end
 
+Then /^I should see the date "([^"]*)"$/ do |date|
+  find('h2 input.hasDatepicker').value.should eq date
+end
+
 Then /^I should see (\w+)'s date$/ do |day|
   time = determine_day(day).strftime(package_date_format)
-  page.should have_css('h2', text: time)
+  steps %{
+    Then I should see the date "#{time}"
+  }
 end
 
 Then /^I should see the timestamp for the delivery from "([^"]*)"$/ do |company_name|

@@ -33,3 +33,22 @@
     }
   }
 }
+
+.deliveries {
+  h2.current-date {
+    position: relative;
+
+    button {
+      position: absolute;
+      left: 0;
+    }
+
+    .hasDatepicker {
+      margin-left: 80px;
+      font-weight: 700;
+      border: none;
+      outline: none;
+      color: #000;
+    }
+  }
+}
