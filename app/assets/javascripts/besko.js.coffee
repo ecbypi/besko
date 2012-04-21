@@ -26,11 +26,19 @@
       Backbone.history.start pushState: true
       Backbone.history.started = true
 
-  parse: (text, ctor) ->
-    tmp = document.createElement('div')
-    tmp.innerHTML = text
-    json = JSON.parse(tmp.innerHTML)
-    new ctor(json.data)
+  bootstrap: (ctor) ->
+    bootstrap = $('script#bootstrap')
+    if bootstrap.length > 0
+      tmp = document.createElement('div')
+      tmp.innerHTML = bootstrap.text()
+      json = JSON.parse(tmp.innerHTML)
+      new ctor(json.data)
+    else
+      new ctor()
+
+
+  extendDate: (date) ->
+    _.extend(date, DateExtensions)
 
 $ ->
   Besko.init()
