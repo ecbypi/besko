@@ -52,7 +52,7 @@ class @Besko.Views.DeliverySearch extends Support.CompositeView
   fetch: (date) ->
     @date = date
     @datepicker.val(@date.strftime('%A, %B %D, %Y'))
-    iso = @date.strftime('%Y-%m-%D')
+    iso = @date.strftime('%Y-%m-%d')
     @collection.fetch
       data:
         date: iso
