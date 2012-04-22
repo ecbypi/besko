@@ -43,7 +43,6 @@ dateExtensions =
   getUTCMonthName:    -> months[@getUTCMonth()]
   increment: (days=1) -> Besko.Date(Date.parse(this) + (86400000 * days))
   decrement: (days=1) -> @increment(-days)
-  toISODateString:    -> @toISOString().replace(/T.*Z$/,'')
   strftime: (format)  ->
     for key of callbacks
       regexp = new RegExp("%" + key, "g")

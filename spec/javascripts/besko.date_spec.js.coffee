@@ -27,10 +27,6 @@ describe "Besko.Date()", ->
       date = @date.decrement(2)
       expect(date.getUTCDate()).toEqual(28)
 
-  describe "#toISODateString", ->
-    it "returns #toISOString but without time", ->
-      expect(@date.toISODateString()).toEqual('2010-10-30')
-
   describe "#strftime", ->
     it "allows custom formatting of strings", ->
       expect(@date.strftime('%A, %B %D, %Y %H:%M:%S')).toEqual('Saturday, October 30, 2010 00:00:00')
