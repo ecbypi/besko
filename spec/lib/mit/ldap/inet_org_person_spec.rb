@@ -4,17 +4,25 @@ module MIT
   module LDAP
     describe InetOrgPerson do
 
+      # creates a new stubbed MIT::LDAP::InetOrgPerson
+      let(:person) { ldap_result }
+
       describe "#to_user" do
         it "converts itself into a user instance" do
-          user = InetOrgPerson.new.to_user
-          user.should be_instance_of ::User
-          user.should be_new_record
+          person.to_user.should be_instance_of ::User
+          person.to_user.should be_new_record
         end
       end
 
       describe "#valid?" do
         it "returns false if name, email or login are missing" do
-          person = InetOrgPerson.new
+          person = ldap_result(
+            first_name: nil,
+            last_name: nil,
+            email: nil,
+            login: nil,
+            street: nil
+          )
           person.valid?.should eq false
         end
 

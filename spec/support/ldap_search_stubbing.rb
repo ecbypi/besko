@@ -1,20 +1,51 @@
+module MIT
+  module LDAP
+    class InetOrgPerson
+
+      def initialize(attributes = {})
+
+        attributes.each do |attribute, value|
+          instance_eval <<-METHODS, __FILE__, __LINE__ + 1
+            def #{attribute}
+              @#{attribute}
+            end
+
+            def #{attribute}=(value)
+              @#{attribute} = [value].compact
+            end
+          METHODS
+
+          send("#{attribute}=", value)
+        end
+
+      end
+
+      def [](attribute)
+        instance_variable_get("@#{attribute}")
+      end
+
+    end unless defined?(MIT::LDAP::InetOrgPerson)
+  end
+end
+
 module LDAPSearchStubbing
 
-  def ldap_result attributes={}
-    attributes.reverse_merge! FactoryGirl.attributes_for(:mrhalp)
-    name = [attributes[:first_name], attributes[:last_name]].join(' ')
+  def ldap_result(attributes = {})
+    attributes.reverse_merge!(FactoryGirl.attributes_for(:mrhalp))
+
     MIT::LDAP::InetOrgPerson.new(
       givenName: attributes[:first_name],
       sn: attributes[:last_name],
       uid: attributes[:login],
       mail: attributes[:email],
-      cn: name,
+      cn: [attributes[:first_name], attributes[:last_name]].join(' '),
       street: attributes[:street]
     )
   end
 
-  def stub_mit_ldap_search_results attributes={}
-    result = ldap_result attributes
+  def stub_mit_ldap_search_results(attributes = {})
+    result = ldap_result(attributes)
+    MIT::LDAP.stub(:connected?).and_return(true)
     MIT::LDAP.stub(:search).and_return([result])
     result
   end

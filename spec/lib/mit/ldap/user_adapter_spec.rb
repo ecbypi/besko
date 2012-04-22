@@ -23,17 +23,23 @@ module MIT
           user.street.should eq 'N42'
         end
 
-        it "filters out things that aren't InetOrgPerson" do
-          MIT::LDAP.stub(:search).and_return([ldap_result, {}])
-          results = subject.build_users('micro helpline')
-          results.size.should eq 1
-        end
+        describe "filters out bad results" do
+          before :each do
+            MIT::LDAP.stub(:connected?).and_return(true)
+          end
 
-        it "filters out instances of InetOrgPerson missing attributes" do
-          invalid = ldap_result(first_name: '', last_name: '', login: '')
-          MIT::LDAP.stub(:search).and_return([invalid, ldap_result])
-          results = subject.build_users('micro helpline')
-          results.size.should eq 1
+          it "that aren't InetOrgPerson" do
+            MIT::LDAP.stub(:search).and_return([ldap_result, {}])
+            results = subject.build_users('micro helpline')
+            results.size.should eq 1
+          end
+
+          it "that are missing attributes" do
+            invalid = ldap_result(first_name: nil, last_name: nil, login: nil)
+            MIT::LDAP.stub(:search).and_return([invalid, ldap_result])
+            results = subject.build_users('micro helpline')
+            results.size.should eq 1
+          end
         end
       end
 

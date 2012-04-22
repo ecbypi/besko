@@ -4,6 +4,11 @@ Feature: Create an account
   As an interested resident of the dorm
   I need to request an account
 
+  Background:
+    Given the following user exists in the LDAP server:
+      | givenName | sn       | uid    | mail           | street |
+      | Micro     | Helpline | mrhalp | mrhalp@mit.edu | N42    |
+
   Scenario: Create account by search
     Given I am on the sign up page
     When I search for "Micro Helpline" in the user search
