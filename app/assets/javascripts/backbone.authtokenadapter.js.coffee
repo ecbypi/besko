@@ -4,7 +4,7 @@
 # Adapted from:
 # http://www.ngauthier.com/2011/02/backbone-and-rails-forgery-protection.html
 # Nick Gauthier @ngauthier
-@BackboneRailsAuthTokenAdapter =
+BackboneRailsAuthTokenAdapter =
   # Create wrapper for Backbone.sync
   # Arguments:
   #   Backbone - the Backbone object
@@ -33,4 +33,4 @@
   restoreSync: (Backbone) ->
     Backbone.sync = Backbone._sync
 
-@BackboneRailsAuthTokenAdapter.fixSync(Backbone)
+BackboneRailsAuthTokenAdapter.fixSync(Backbone)
