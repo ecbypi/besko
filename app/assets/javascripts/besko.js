@@ -5,6 +5,9 @@
 //= require backbone-form-templates
 //= require backbone-support
 
+//= require_self
+//= require besko/date
+
 Besko = {
   Support: {},
   Views: {},
@@ -18,3 +21,4 @@ Besko = {
 };
 
 $(function() { Besko.init() });
+
