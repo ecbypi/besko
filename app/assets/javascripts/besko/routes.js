@@ -18,7 +18,7 @@
   Routes = Support.SwappingRouter.extend({
     initialize: function() {
       this.el = document.getElementById('content');
-      this.route(/^deliveries\?date=(\d{4}-\d{2}-\d{2})$/, 'search');
+      this.route(/^deliveries\?date=(\d{4}-\d{2}-\d{2})$/, 'deliveries');
     },
 
     routes: {
