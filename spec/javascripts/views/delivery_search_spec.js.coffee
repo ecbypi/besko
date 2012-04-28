@@ -3,7 +3,22 @@
 describe "Besko.Views.DeliverySearch", ->
   beforeEach ->
     @view = new Besko.Views.DeliverySearch(
-      collection: new Besko.Collections.Deliveries()
+      collection: new Besko.Collections.Deliveries(
+        [
+          {
+            worker: {
+              id: 1
+              email: 'mrhalp@mit.edu'
+              first_name: 'Micro'
+              last_name: 'Helpline'
+            }
+            package_count: 2
+            delivered_at: '10:30:10 AM'
+            deliverer: 'UPS'
+            receipts: []
+          }
+        ]
+      )
       date: '2010-10-30'
     )
     @view.render()
@@ -23,3 +38,13 @@ describe "Besko.Views.DeliverySearch", ->
     expect(@view.date.getUTCFullYear()).toEqual(2010)
     expect(@view.date.getUTCMonth()).toEqual(9)
     expect(@view.date.getUTCDate()).toEqual(30)
+
+  it "lists deliveries in the table", ->
+    expect(@view.$el).toContain('table[data-collection=deliveries]')
+
+    $tr = @view.$('tr[data-resource=delivery]')
+
+    expect($tr).toContain('td:contains("2")')
+    expect($tr).toContain('td:contains("UPS")')
+    expect($tr).toContain('td:contains("10:30:10 AM")')
+    expect($tr).toContain('a[href="mailto:mrhalp@mit.edu"]:contains("Micro Helpline")')

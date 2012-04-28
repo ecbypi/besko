@@ -2,7 +2,27 @@
 
 describe "Besko.Views.SignupForm", ->
   beforeEach ->
-    @view = new Besko.Views.SignupForm()
+    @view = new Besko.Views.SignupForm(
+      collection: new Besko.Collections.Users([
+        {
+          id: 1
+          first_name: 'Micro'
+          last_name: 'Helpline'
+          name: 'Micro Helpline'
+          email: 'mrhalp@mit.edu'
+          login: 'mrhalp'
+          street: 'N42'
+        }
+        {
+          first_name: 'Micro'
+          last_name: 'Helpline'
+          name: 'Micro Helpline'
+          email: 'mrhalp@mit.edu'
+          login: 'mrhalp'
+          street: 'N42'
+        }
+      ])
+    )
     @view.render()
 
   it "has a search input", ->

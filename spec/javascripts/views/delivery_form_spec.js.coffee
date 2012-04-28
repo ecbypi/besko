@@ -3,15 +3,20 @@
 describe "Besko.Views.DeliveryForm", ->
   beforeEach ->
     @form = new Besko.Views.DeliveryForm(
-      model: new Besko.Models.Delivery()
+      model: new Besko.Models.Delivery({})
     )
-    @form.render()
+
     @recipient =
       id: 1
       first_name: 'Micro'
       last_name: 'Helpline'
       login: 'mrhalp'
       email: 'mrhalp@mit.edu'
+
+    @form.render()
+
+    @search = @form.$('#user-search')
+    @callback = @search.autocomplete('option', 'select')
 
   it "has the class 'new-delivery'", ->
     expect(@form.$el).toBe('.new-delivery')
@@ -26,19 +31,6 @@ describe "Besko.Views.DeliveryForm", ->
     it "select field for delivery company", ->
       expect(@form.$el).toContain('select[name=deliverer]')
 
-    it "select with delivery company options for FedEx, USPS, UPS, LaserShip and Other", ->
-      expect(@form.$el).toContain('option[value=""]')
-      expect(@form.$el).toContain('option[value=FedEx]')
-      expect(@form.$el).toContain('option[value=USPS]')
-      expect(@form.$el).toContain('option[value=UPS]')
-      expect(@form.$el).toContain('option[value=LaserShip]')
-      expect(@form.$el).toContain('option[value=Unavailable]')
-      expect(@form.$el).toContain('option[value=Amazon]')
-      expect(@form.$el).toContain('option[value=DHL]')
-      expect(@form.$el).toContain('option[value=Interdepartmental]')
-      expect(@form.$el).toContain('option[value="Laundry Service"]')
-      expect(@form.$el).toContain('option[value="Student / Personal"]')
-
     it "button to send all notifications", ->
       expect(@form.$el).toContain('button[data-role=commit]')
 
@@ -46,30 +38,56 @@ describe "Besko.Views.DeliveryForm", ->
       expect(@form.$el).toContain('button[data-role=cancel]')
 
 
-  describe "can support an 'Other' deliverer", ->
+  describe "supports specifying 'Other' deliverer", ->
     it "by switching out the select with a text field", ->
       @form.$('select').val('Other')
       @form.$('select').trigger('change')
       expect(@form.$el).toContain('input#deliverer[type=text]')
       expect(@form.$('input#deliverer')).toHaveAttr('autofocus')
 
-  describe "#renderReceipt", ->
+  describe "adds receipts to the table when selecting a recipient", ->
     beforeEach ->
-      @form.renderReceipt(@recipient)
+      @callback.apply(@search, [{}, {item: @recipient}])
 
-    it "adds a ReceiptForm to unordered list", ->
+    afterEach ->
+      @form.reset()
+
+    it "as a table row", ->
       $tbody = @form.$el.find('tbody')
-      expect($tbody).toContain('tr')
+
+      expect($tbody).toContain('tr[data-resource=receipt]')
       expect($tbody.children().length).toEqual(1)
 
-    it "adds instances of ReceiptForm to #children", ->
-      expect(@form.children.size()).toEqual(1)
+      $receipt = $tbody.find('tr')
+      expect($receipt).toContain('input[name=number_packages][value=1]')
+      expect($receipt).toContain('textarea[name=comment]')
+      expect($receipt).toHaveText(/Micro Helpline/)
 
-    it "alerts if someone is added twice", ->
+    it "and errors out if someone is added twice", ->
       sinon.spy(Notification, 'error')
-      @form.renderReceipt(@recipient)
+      @callback.apply(@search, [{}, {item: @recipient}])
+
       expect(Notification.error).toHaveBeenCalled()
-      expect(@form.$('tbody').children().length).toEqual(1)
+      Notification.error.restore()
+
+  describe "removes receipts", ->
+    beforeEach ->
+      @callback.apply(@search, [{}, {item: @recipient}])
+
+    it "by clicking 'Remove' button in table row", ->
+      expect(@form.$('tbody')).not.toBeEmpty()
+      @form.$('tbody tr button[data-cancel]').click()
+      expect(@form.$('tbody')).toBeEmpty()
+
+    it "but allows them to be added back again", ->
+      sinon.spy(Notification, 'error')
+
+      @form.$('tbody tr button[data-cancel]').click()
+      @callback.apply(@search, [{}, {item: @recipient}])
+
+      expect(Notification.error).not.toHaveBeenCalled()
+
+      Notification.error.restore()
 
   describe "#commit()", ->
     describe "when in an invalid state", ->

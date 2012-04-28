@@ -1,4 +1,0 @@
-<td><%= @recipientName %></td>
-<td class="input number required"></td>
-<td class="input text optional"></td>
-<td><button data-cancel>Remove</button></td>
