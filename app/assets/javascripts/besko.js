@@ -1,7 +1,6 @@
-//= require backbone.authtokenadapter
-//= require backbone-form-templates
-
 //= require_self
+//= include besko/auth_token_adapter.js
+//= include besko/form_templates
 //= require besko/date
 //= require besko/models
 //= require besko/collections
