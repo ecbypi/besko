@@ -13,18 +13,18 @@ gem 'haml'
 gem 'yaml_db'
 gem 'squeel'
 gem 'ransack'
-gem 'jquery-rails'
 gem 'mit-ldap'
 gem 'ldap-filter'
-gem 'backbone-on-rails'
-gem 'backbone-support'
 
 group :assets do
+  gem 'jquery-rails'
   gem 'sass-rails', "  ~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier', '>= 1.0.3'
   gem 'bourbon'
   gem 'therubyracer', require: 'v8' # for precompiling assets
+  gem 'backbone-on-rails'
+  gem 'backbone-support'
 end
 
 group :development do
