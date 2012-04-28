@@ -1,9 +1,5 @@
-//= require underscore
-//= require backbone
 //= require backbone.authtokenadapter
-//= require backbone-forms
 //= require backbone-form-templates
-//= require backbone-support
 
 //= require_self
 //= require besko/date
