@@ -5,7 +5,7 @@
 //= require besko/models
 //= require besko/collections
 //= require besko/routes
-//= require_tree ./besko/views
+//= require besko/views
 
 Besko = {
   Support: {},
