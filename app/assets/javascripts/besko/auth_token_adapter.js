@@ -31,16 +31,16 @@
         }
 
         Backbone._sync(method, model, options);
-      }
+      };
     },
 
     // restore back sync
     restoreSync: function(Backbone) {
       Backbone.sync = Backbone._sync;
     }
-  }
+  };
 
   AuthTokenAdapter.fixSync(Backbone);
 
-  _.extend(Besko.Support = AuthTokenAdapter);
+  _.extend(Besko.Support, AuthTokenAdapter);
 })();

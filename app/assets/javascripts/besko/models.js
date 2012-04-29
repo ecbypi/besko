@@ -26,7 +26,7 @@
     User: Backbone.Model.extend({
       urlRoot: '/users',
       name: function() {
-        return this.get('first_name') + ' ' + this.get('last_name')
+        return this.get('first_name') + ' ' + this.get('last_name');
       }
     }),
 

@@ -45,7 +45,7 @@
         date: date
       });
 
-      this.swap(deliveriesSearch)
+      this.swap(deliveriesSearch);
     },
 
     newDelivery: function() {
@@ -57,6 +57,6 @@
     }
   });
 
-  Besko.Router = Routes
-  Besko.Support.bootstrap = bootstrap
+  Besko.Router = Routes;
+  Besko.Support.bootstrap = bootstrap;
 })();

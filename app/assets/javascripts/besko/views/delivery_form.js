@@ -17,7 +17,7 @@
     'Other',
     'Unavailable'
   ]).map(function(company) {
-    return { val: company, label: company }
+    return { val: company, label: company };
   });
 
   schemas = {
@@ -198,7 +198,7 @@
           }
         });
         helpers.addDelivererEditor(this, schema);
-      };
+      }
     },
 
     toggleHeaderFooter: function(event) {
@@ -217,7 +217,7 @@
         this.$deliverer.addClass('field_with_errors');
         this.$deliverer.find('.error').text(error.message);
         return false;
-      };
+      }
 
       // Validate receipts
       receiptAttributes = this.children.map(function(receipt) {
@@ -270,7 +270,7 @@
       this.$el.html(templates.receipt(this.model.recipient));
       this.$('td:nth-child(2)').html(this.editors.number_packages.el);
       this.$('td:nth-child(3)').html(this.editors.comment.el);
-      this
+      return this;
     },
 
     clear: function() {

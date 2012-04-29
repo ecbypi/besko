@@ -29,6 +29,6 @@ var Notification = {
     }
 
     this.container.children('a.close-message').click(function(event) { Notification.clear(); });
-    this.initialized = true
+    this.initialized = true;
   }
 }
