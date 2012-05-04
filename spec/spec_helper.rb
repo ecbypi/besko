@@ -62,7 +62,6 @@ Spork.prefork do
     config.include(FactoryGirl::Syntax::Methods)
 
   end
-  
 end
 
 Spork.each_run do
@@ -72,6 +71,5 @@ Spork.each_run do
   RSpec.configure do |config|
     config.include LDAPSearchStubbing
     config.include EmailMacros
-    config.include RoleMocking
   end
 end
