@@ -43,7 +43,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'cucumber-rails', '~> 1.0', :require => false
+  gem 'turnip'
   gem 'spork', ' ~> 0.9.0.rc'
   gem 'timecop'
   gem 'capybara-webkit'
@@ -51,6 +51,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'guard-spork'
   gem 'database_cleaner'
-  gem 'turn', '< 0.8.3', :require => false
   gem 'email_spec'
 end
