@@ -33,7 +33,7 @@
   };
 
   helpers = {
-    dateFormat: '%A, %B %D, %Y',
+    dateFormat: '%A, %B %d, %Y',
 
     initializeDatepicker: function(view) {
       var $datepicker = view.$('input[name=delivered_on]');
