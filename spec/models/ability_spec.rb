@@ -2,11 +2,6 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Ability do
-
-  before :each do
-    double_roles :BeskWorker
-  end
-
   describe "as a resident" do
     let(:user) { create(:user) }
     let(:ability) { Ability.new(user) }
@@ -25,12 +20,8 @@ describe Ability do
   end
 
   describe "as a worker" do
-    let(:worker) { create(:user) }
+    let(:worker) { create(:besk_worker) }
     let(:ability) { Ability.new(worker) }
-
-    before :each do
-      stub_user_roles(worker, :besk_worker)
-    end
 
     it "can review and create packages" do
       ability.should be_able_to(:create, Delivery)
@@ -39,12 +30,8 @@ describe Ability do
   end
 
   describe "as a admin" do
-    let(:admin) { create(:user) }
+    let(:admin) { create(:admin) }
     let(:ability) { Ability.new(admin) }
-
-    before :each do
-      stub_user_roles(admin, :admin)
-    end
 
     it "can manage user roles" do
       ability.should be_able_to(:manage, UserRole)

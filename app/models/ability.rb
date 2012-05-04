@@ -6,11 +6,11 @@ class Ability
 
     can [:read, :update], Receipt, recipient_id: user.id if user.receipts.present?
 
-    if user.has_role? :besk_worker
+    if user.besk_worker?
       can [:read, :create], Delivery
     end
 
-    if user.has_role? :admin
+    if user.admin?
       can :manage, UserRole
     end
   end
