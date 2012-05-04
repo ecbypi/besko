@@ -12,7 +12,6 @@ describe UsersController do
     let!(:result) { create(:mrhalp) }
 
     before :each do
-      stub_user_roles(user, :besk_worker)
       sign_in user
       User.stub(:recipients).and_return([result])
       get :index, format: :json, term: 'micro helpline'
