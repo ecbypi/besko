@@ -24,7 +24,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'bourbon'
   gem 'therubyracer', require: 'v8' # for precompiling assets
-  gem 'backbone-on-rails'
   gem 'backbone-support'
 end
 
