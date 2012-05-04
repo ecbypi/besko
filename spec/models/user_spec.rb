@@ -6,7 +6,6 @@ describe User do
   it { should have_many(:receipts) }
   it { should have_many(:deliveries) }
   it { should have_many(:user_roles) }
-  it { should have_many(:roles).through(:user_roles) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
@@ -21,37 +20,6 @@ describe User do
   describe "#name" do
     it "joins first and last names" do
       user.name.should eq("First Last Name")
-    end
-  end
-
-  describe "#has_role?" do
-    let(:user) { create(:user) }
-    let(:role) { create(:role) }
-
-    before :each do
-      double_roles :BeskWorker, :MailForwarder
-      stub_user_roles(user, :besk_worker)
-    end
-
-    it "returns true if user's roles include the provided class object" do
-      user.has_role?(BeskWorker).should be_true
-    end
-
-    it "accepts a symbol" do
-      user.has_role?(:besk_worker).should be_true
-    end
-
-    it "accepts a string" do
-      user.has_role?('besk_worker').should be_true
-      user.has_role?('BeskWorker').should be_true
-    end
-
-    it "returns false if user does not have that role" do
-      user.has_role?(MailForwarder).should be_false
-    end
-
-    it "raises error if class does not exist" do
-      expect { user.has_role?(:shop_manager) }.to raise_error(NameError)
     end
   end
 

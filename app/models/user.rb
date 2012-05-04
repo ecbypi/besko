@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   has_many :receipts, :foreign_key => :recipient_id
   has_many :deliveries, :foreign_key => :worker_id
   has_many :user_roles
-  has_many :roles, through: :user_roles
 
   validates :first_name, :last_name, :login, presence: true
   validates :login, uniqueness: true
@@ -24,6 +23,8 @@ class User < ActiveRecord::Base
                   :street,
                   :password,
                   :password_confirmation
+
+  has_guises :BeskWorker, :Admin, :association => :user_roles
 
   def self.lookup search=nil, options={}
     options.reverse_merge!(
@@ -64,11 +65,6 @@ class User < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
-  end
-
-  def has_role?(klass)
-    klass = Object.const_get(klass.to_s.classify) unless klass.is_a?(Class)
-    roles.map(&:class).include?(klass)
   end
 
   def headers_for action
