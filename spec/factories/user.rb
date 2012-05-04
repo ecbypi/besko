@@ -19,6 +19,18 @@ FactoryGirl.define do
       login 'mrhalp'
       street 'N42'
     end
+
+    factory :admin do
+      after_create do |user|
+        FactoryGirl.create(:user_role, title: 'Admin', user: user)
+      end
+    end
+
+    factory :besk_worker do
+      after_create do |user|
+        FactoryGirl.create(:user_role, title: 'BeskWorker', user: user)
+      end
+    end
   end
 
 end
