@@ -122,6 +122,8 @@ GEM
     guard-spork (0.2.1)
       guard (>= 0.2.2)
       spork (>= 0.8.4)
+    guise (0.1.1)
+      activerecord (~> 3.0)
     haml (3.1.4)
     has_scope (0.5.1)
     highline (1.6.11)
@@ -286,6 +288,7 @@ DEPENDENCIES
   guard-livereload
   guard-rails
   guard-spork
+  guise
   haml
   inherited_resources
   jasminerice

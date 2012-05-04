@@ -15,6 +15,7 @@ gem 'squeel'
 gem 'ransack'
 gem 'mit-ldap'
 gem 'ldap-filter'
+gem 'guise'
 
 group :assets do
   gem 'jquery-rails'
