@@ -1,2 +1,0 @@
-class BeskWorker < Role
-end
