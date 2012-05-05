@@ -9,6 +9,7 @@ Spork.prefork do
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
+  require 'turnip/capybara'
 
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -71,5 +72,8 @@ Spork.each_run do
   RSpec.configure do |config|
     config.include LDAPSearchStubbing
     config.include EmailMacros
+    config.include DataManipulationHelper
+    config.include DOMElementHelpers
+    config.include FactoryGirlStepHelpers
   end
 end
