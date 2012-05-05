@@ -32,5 +32,3 @@ module DOMElementHelpers
     find "li[data-recipient='#{name}']"
   end
 end
-
-World(DOMElementHelpers)

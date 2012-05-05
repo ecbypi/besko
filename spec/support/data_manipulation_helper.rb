@@ -24,5 +24,3 @@ module DataManipulationHelper
     '%r'
   end
 end
-
-World(DataManipulationHelper)
