@@ -1,4 +1,4 @@
-@javascript @selenium
+@selenium @deliveries
 Feature: Create Delivery Notifications
   In order to notify recipients they have a delivery
   As a besk worker

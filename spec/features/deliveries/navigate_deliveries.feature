@@ -1,4 +1,4 @@
-@javascript
+@javascript @deliveries
 Feature: Navigate Deliveries
   In order to assist with missing packages or prevent duplicate notifications
   As a besk worker

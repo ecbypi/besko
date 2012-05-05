@@ -1,4 +1,4 @@
-@javascript
+@javascript @deliveries
 Feature: Review Deliveries
   In order to effectively send and check delivery notifications
   As a besk worker
