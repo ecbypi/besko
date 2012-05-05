@@ -1,5 +1,5 @@
 group :test do
-  guard 'spork', :cucumber => true, :test_unit => false, :rspec_env => { 'RAILS_ENV' => 'test' }, :cucmber_env => { 'RAILS_ENV' => 'test' }, :notifications => false do
+  guard 'spork', :test_unit => false, :rspec_env => { 'RAILS_ENV' => 'test' }, :cucumber => false, :notifications => false do
     watch('config/application.rb')
     watch('config/environment.rb')
     watch(%r{^config/environments/.+\.rb$})
