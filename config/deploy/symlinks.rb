@@ -1,6 +1,5 @@
 set :normal_symlinks, %w(
   config/database.yml
-  private
   log
 )
 

@@ -9,11 +9,11 @@ set :repository, 'git@github.com:ecbypi/besko.git'
 set :branch, 'origin/master'
 
 # Environment settings
-set :user, 'passenger'
+set :user, 'deploy'
 set :use_sudo, false
 set :migrate_target, :current
 set :rails_env, 'production'
-set :deploy_to, '/var/lib/passenger/besko'
+set :deploy_to, '/var/www/besko'
 
 # Use custom ruby-build path for ruby
 set :default_environment, {
