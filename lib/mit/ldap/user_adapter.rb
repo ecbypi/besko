@@ -2,7 +2,7 @@ module MIT
   module LDAP
     module UserAdapter
 
-      def self.build_users search
+      def self.build_users(search, options = {})
         return [] unless LDAP.connected?
 
         filter = construct_filter(search)
@@ -11,8 +11,8 @@ module MIT
           map(&:to_user)
 
       rescue RuntimeError
-        logger.debug(LDAP.adapter.instance_variable_get(:@connection))
-        []
+        LDAP.reconnect!
+        !options[:rescued] && LDAP.connected? ? build_users(search, rescued: true) : []
       end
 
       def self.construct_filter search
