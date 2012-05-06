@@ -43,7 +43,7 @@ module MIT
       end
 
       def valid?
-        %w(givenName sn mail uid street).map { |attr| send(attr).present? }.all?
+        %w(givenName sn mail uid).map { |attr| send(attr).present? }.all?
       end
     end
   end
