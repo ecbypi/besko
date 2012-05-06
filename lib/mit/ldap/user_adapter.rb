@@ -15,17 +15,19 @@ module MIT
         !options[:rescued] && LDAP.connected? ? build_users(search, rescued: true) : []
       end
 
-      def self.construct_filter search
+      def self.construct_filter(search)
         arguments = search.split
+
+        filter = {
+          cn: arguments.join('*'),
+          givenName: arguments.first,
+          sn: arguments.last
+        }
+
         mail_key = search =~ /@mit\.edu/ ? :mail : :uid
-        filter = {}
         filter[mail_key] = arguments.size.eql?(1) ? arguments.first : arguments
-        filter[:cn] = arguments.join('*') if arguments.size > 1
-        if arguments.size == 1
-          filter[:givenName] = arguments.first
-          filter[:sn] = arguments.last
-        end
-        ::LDAP::Filter::OrFilter.new filter
+
+        ::LDAP::Filter::OrFilter.new(filter)
       end
     end
 
