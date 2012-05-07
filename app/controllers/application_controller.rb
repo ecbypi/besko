@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :touchstone_sign_in
+  before_filter :sign_in_with_touchstone
 
   rescue_from CanCan::AccessDenied do
     respond_to do |format|
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def touchstone_sign_in
+  def sign_in_with_touchstone
     if user = User.find_by_email(request.env['REMOTE_USER'])
       sign_in user
     end
