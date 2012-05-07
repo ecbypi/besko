@@ -44,13 +44,16 @@ module MIT
       end
 
       describe "#construct_filter" do
-        let(:filter) { subject.construct_filter('micro helpline').to_s }
-
-        it "builds key for :cn (common name)" do
+        it "builds key for :cn (common name) if search has more than one word" do
+          filter = subject.construct_filter('micro helpline').to_s
           filter.should match 'cn='
+          filter.should_not match 'givenName='
+          filter.should_not match 'sn='
         end
 
-        it "builds search for :givenName and :sn" do
+        it "builds search for :givenName and :sn if search has only one word" do
+          filter = subject.construct_filter('mrhalp').to_s
+          filter.should_not match 'cn='
           filter.should match 'givenName='
           filter.should match 'sn='
         end
