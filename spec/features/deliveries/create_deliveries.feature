@@ -47,3 +47,4 @@ Feature: Create Delivery Notifications
     Given I am logged in with the email "just-a-resident@mit.edu"
     When I am on the page to log deliveries
     Then I should be redirected to the home page
+    And I should not see the URL to create deliveries

@@ -46,3 +46,4 @@ Feature: View Delivery Receipts
     Given no one is logged in
     When I am on the receipts page
     Then I should be redirected to the home page
+    And I should not see the URL to review receipts

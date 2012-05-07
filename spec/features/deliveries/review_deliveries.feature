@@ -30,3 +30,4 @@ Feature: Review Deliveries
     Given I am logged in with the email "just-a-resident@mit.edu"
     When I visit the deliveries page
     Then I should be redirected to the home page
+    And I should not see the URL to review deliveries
