@@ -14,7 +14,7 @@ steps_for :passwords do
 
   step "an email with password reset instructions should be sent to :email" do |email|
     last_email.to.should include email
-    last_email.subject.should match /Reset password instructions/
+    last_email.subject.should match /\[Besko\] Reset Password Instructions/
   end
 
   step "I requested a password reset for :email" do |email|

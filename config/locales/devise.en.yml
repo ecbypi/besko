@@ -49,8 +49,8 @@ en:
       failure: 'Could not authorize you from %{kind} because "%{reason}".'
     mailer:
       confirmation_instructions:
-        subject: 'Confirmation instructions'
+        subject: '[Besko] New Account Requested'
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: '[Besko] Reset Password Instructions'
       unlock_instructions:
-        subject: 'Unlock Instructions'
+        subject: '[Besko] Unlock Instructions'
