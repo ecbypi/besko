@@ -18,14 +18,19 @@ module MIT
       def self.construct_filter search
         arguments = search.split
         mail_key = search =~ /@mit\.edu/ ? :mail : :uid
-        filter = {}
-        filter[mail_key] = arguments.size.eql?(1) ? arguments.first : arguments
-        filter[:cn] = arguments.join('*') if arguments.size > 1
-        if arguments.size == 1
-          filter[:givenName] = arguments.first
-          filter[:sn] = arguments.last
+
+        filter = {
+          sn: arguments.last
+        }
+
+        if arguments.size > 1
+          filter[:cn] = arguments.join('*')
+          filter[mail_key] = arguments
+        else
+          filter[:givenName], filter[mail_key] = [arguments.first] * 2
         end
-        ::LDAP::Filter::OrFilter.new filter
+
+        ::LDAP::Filter::OrFilter.new(filter)
       end
     end
 

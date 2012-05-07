@@ -44,22 +44,16 @@ module MIT
       end
 
       describe "#construct_filter" do
-        it "builds key for :cn (common name) if search has more than one word" do
+        it "builds key for :cn and :sn when arguemnts is longer than one word" do
           filter = subject.construct_filter('micro helpline').to_s
-          filter.should match 'cn='
-          filter.should_not match 'givenName='
-          filter.should_not match 'sn='
+          filter.should match 'sn=helpline'
+          filter.should match /cn=micro\*helpline/
         end
 
-        it "builds search for :givenName and :sn if search has only one word" do
-          filter = subject.construct_filter('mrhalp').to_s
-          filter.should_not match 'cn='
-          filter.should match 'givenName='
-          filter.should match 'sn='
-        end
-
-        it "doesn't choke on one word string" do
-          expect { subject.construct_filter('mrhalp') }.not_to raise_error
+        it "builds search for :givenName and :sn when arguments are one word" do
+          filter = subject.construct_filter('micro').to_s
+          filter.should match 'givenName=micro'
+          filter.should match 'sn=micro'
         end
       end
     end
