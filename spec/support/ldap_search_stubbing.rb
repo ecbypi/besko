@@ -1,5 +1,9 @@
 module MIT
   module LDAP
+    def self.search(*args)
+      []
+    end
+
     class InetOrgPerson
 
       def initialize(attributes = {})
