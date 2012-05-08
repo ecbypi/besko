@@ -1,6 +1,24 @@
 #= require application
 
 describe "Besko.Support", ->
+  describe "notification methods", ->
+    it "manage messages", ->
+      loadFixtures 'notifications'
+
+      Besko.Support.error('Warning!')
+      expect($('#notifications')).toContain('.error')
+      expect($('#notifications')).toHaveText(/Warning!/)
+
+      Besko.Support.notice('Hey there!')
+      expect($('#notifications')).toContain('.notice')
+      expect($('#notifications')).toHaveText(/Hey there!/)
+
+      $link = $('#notifications').children('a.close-message')
+      $link.click()
+      expect($('#notifications')).toBeHidden()
+
+      Besko.Support.notice('Hey there!')
+      expect($('#notifications')).toBeVisible()
 
   describe ".bootstrap(ctor)", ->
     it "takes bootstrapped data and passes it into a constructor", ->

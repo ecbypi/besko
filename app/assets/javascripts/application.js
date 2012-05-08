@@ -15,4 +15,3 @@
 //= include backbone-support/swapping_router
 
 //= require besko
-//= require notification

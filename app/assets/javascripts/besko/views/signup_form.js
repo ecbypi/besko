@@ -81,7 +81,7 @@
           term: this.$('#user-search').val()
         },
         error: function(users, request) {
-          Notification.error('Error processing your request.');
+          Besko.Support.error('Error processing your request.');
         }
       });
     },
@@ -92,7 +92,7 @@
 
       if ( this.collection.size() === 0 ) {
         this.$('thead').hide();
-        Notification.error('Your search returned no results.');
+        Besko.Support.error('Your search returned no results.');
       } else {
         this.$('thead').show();
 
@@ -135,10 +135,10 @@
       if ( this.$checkbox.is(':checked') ) {
         return this.model.save({}, {
           success: function(account, response) {
-            Notification.notice('An email has been sent requesting approval of your account.');
+            Besko.Support.notice('An email has been sent requesting approval of your account.');
           },
           error: function(account, response) {
-            Notification.error('there was a problem saving you\'re account');
+            Besko.Support.error('there was a problem saving you\'re account');
           }
         });
       } else {

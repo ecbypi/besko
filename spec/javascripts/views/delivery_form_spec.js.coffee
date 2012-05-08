@@ -64,11 +64,11 @@ describe "Besko.Views.DeliveryForm", ->
       expect($receipt).toHaveText(/Micro Helpline/)
 
     it "and errors out if someone is added twice", ->
-      sinon.spy(Notification, 'error')
+      sinon.spy(Besko.Support, 'error')
       @callback.apply(@search, [{}, {item: @recipient}])
 
-      expect(Notification.error).toHaveBeenCalled()
-      Notification.error.restore()
+      expect(Besko.Support.error).toHaveBeenCalled()
+      Besko.Support.error.restore()
 
   describe "removes receipts", ->
     beforeEach ->
@@ -80,14 +80,14 @@ describe "Besko.Views.DeliveryForm", ->
       expect(@form.$('tbody')).toBeEmpty()
 
     it "but allows them to be added back again", ->
-      sinon.spy(Notification, 'error')
+      sinon.spy(Besko.Support, 'error')
 
       @form.$('tbody tr button[data-cancel]').click()
       @callback.apply(@search, [{}, {item: @recipient}])
 
-      expect(Notification.error).not.toHaveBeenCalled()
+      expect(Besko.Support.error).not.toHaveBeenCalled()
 
-      Notification.error.restore()
+      Besko.Support.error.restore()
 
   describe "#commit()", ->
     describe "when in an invalid state", ->

@@ -43,6 +43,8 @@
         - if notice
           .message.notice
             = notice
+        - if alert || notice
+          = link_to 'Close', 'javascript:void(0)', class: 'close-message'
       %h1= yield :title
       #content
         = yield

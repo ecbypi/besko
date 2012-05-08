@@ -124,7 +124,7 @@
             view.$('tbody').append(receiptForm.el);
 
           } else {
-            Notification.error('Already added this recipient. Increment the number of packages they received.');
+            Besko.Support.error('Already added this recipient. Increment the number of packages they received.');
           }
         }
       });
@@ -233,10 +233,10 @@
       // Save if everything is valid
       this.model.save({}, {
         success: function(model, response) {
-          Notification.notice('Notifications Sent');
+          Besko.Support.notice('Notifications Sent');
         },
         error: function(model, response) {
-          Notification.error('There was a problem saving this delivery.');
+          Besko.Support.error('There was a problem saving this delivery.');
           return false;
         }
       });
