@@ -42,8 +42,8 @@ Feature: View Delivery Receipts
       | delivered_by | comment | received_on      | number_packages |
       | UPS          | Fragile | October 30, 2010 | 5               |
 
-  Scenario: Allow access only to logged in users
-    Given no one is logged in
+  Scenario: Allow access only to logged in users with packages
+    Given I am logged in with the email "no-packages@mit.edu"
     When I am on the receipts page
     Then I should be redirected to the home page
     And I should not see the URL to review receipts

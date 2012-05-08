@@ -3,9 +3,18 @@ class ApplicationController < ActionController::Base
 
   before_filter :sign_in_with_touchstone
 
-  rescue_from CanCan::AccessDenied do
+  rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.html { redirect_to :root }
+      format.html do
+        path = if current_user && request.env['HTTP_REFERER']
+                 :back
+               elsif current_user
+                 :root
+               else
+                 :new_user_session
+               end
+        redirect_to path, alert: "Access Denied: #{exception.message}"
+      end
     end
   end
 
