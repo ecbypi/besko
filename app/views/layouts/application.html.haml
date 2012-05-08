@@ -23,12 +23,11 @@
 
     %nav#primary
       - if current_user
-        -#%ul= navigation
         %ul
           - if can? :read, Receipt
-            %li= link_to 'Packages', receipts_path
+            %li.section= link_to 'Packages', receipts_path
           - if can? :read, Delivery
-            %li
+            %li.section
               = link_to 'Deliveries', deliveries_path
               - if can? :create, Delivery
                 %nav.sub
