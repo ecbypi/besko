@@ -5,6 +5,8 @@ class Receipt < ActiveRecord::Base
 
   accepts_nested_attributes_for :recipient
 
+  attr_accessible :number_packages, :recipient_id, :comment, :delivery_id
+
   delegate :worker, :deliverer, to: :delivery
 
   after_create do

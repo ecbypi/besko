@@ -43,8 +43,8 @@ describe Receipt do
   end
 
   it "sends a confirmation email to recipient after creation" do
-    Receipt.create! receipt.attributes
-    last_email.to.should include receipt.recipient.email
+    create(:receipt, recipient: create(:user, email: 'gimme@mit.edu'))
+    last_email.to.should include 'gimme@mit.edu'
   end
 
 end
