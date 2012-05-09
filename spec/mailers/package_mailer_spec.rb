@@ -3,7 +3,7 @@ require "spec_helper"
 describe PackageMailer do
 
   describe "#deliver_receipt" do
-    let(:receipt) { FactoryGirl.create(:receipt) }
+    let(:receipt) { create(:receipt) }
     let(:mail) { PackageMailer.deliver_receipt(receipt) }
 
     it "is sent to the recipient of the receipt" do
