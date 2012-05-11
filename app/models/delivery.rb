@@ -7,7 +7,9 @@ class Delivery < ActiveRecord::Base
 
   accepts_nested_attributes_for :receipts
 
-  attr_accessible :deliverer, :delivered_on, :receipts_attributes
+  attr_accessible :deliverer,
+                  :delivered_on,
+                  :receipts_attributes
 
   before_save do
     self.delivered_on = Date.today unless self.delivered_on
