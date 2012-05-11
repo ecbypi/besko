@@ -3,7 +3,7 @@ class Delivery < ActiveRecord::Base
   belongs_to :worker, class_name: 'User'
   has_many :receipts
 
-  validates :deliverer, presence: true
+  validates :deliverer, :worker_id, presence: true
 
   accepts_nested_attributes_for :receipts
 

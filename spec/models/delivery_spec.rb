@@ -6,6 +6,7 @@ describe Delivery do
   it { should have_many(:receipts) }
 
   it { should validate_presence_of(:deliverer) }
+  it { should validate_presence_of(:worker_id) }
 
   it "accepts nested attributes for receipts" do
     expect { Delivery.new(receipts_attributes: []) }.not_to raise_error ActiveRecord::UnknownAttributeError
