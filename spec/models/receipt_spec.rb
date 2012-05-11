@@ -7,6 +7,10 @@ describe Receipt do
   it { should belong_to(:recipient) }
   it { should belong_to(:delivery) }
 
+  it { should validate_presence_of(:recipient_id) }
+  it { should validate_presence_of(:delivery_id) }
+  it { should validate_numericality_of(:number_packages) }
+
   it "accepts nested attributes for creating recipient" do
     receipt.should respond_to :recipient_attributes=
   end
