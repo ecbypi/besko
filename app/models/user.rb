@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :receipts, :foreign_key => :recipient_id
   has_many :deliveries, :foreign_key => :worker_id
-  has_many :user_roles
+  has_guises :BeskWorker, :Admin, :association => :user_roles
 
   validates :first_name, :last_name, :login, presence: true
   validates :login, uniqueness: true
@@ -23,8 +23,6 @@ class User < ActiveRecord::Base
                   :street,
                   :password,
                   :password_confirmation
-
-  has_guises :BeskWorker, :Admin, :association => :user_roles
 
   def self.lookup search=nil, options={}
     options.reverse_merge!(

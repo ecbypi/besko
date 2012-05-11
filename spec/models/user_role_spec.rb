@@ -3,8 +3,8 @@ require 'spec_helper'
 describe UserRole do
   it { should belong_to(:user) }
 
-  it do
+  it "validates uniqueness of :title per user" do
     create(:user_role)
-    should validate_uniqueness_of(:user_id).scoped_to(:title)
+    should validate_uniqueness_of(:title).scoped_to(:user_id)
   end
 end

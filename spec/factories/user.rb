@@ -33,4 +33,8 @@ FactoryGirl.define do
     end
   end
 
+  factory :user_role do
+    title 'BeskWorker'
+    association :user
+  end
 end
