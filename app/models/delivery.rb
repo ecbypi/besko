@@ -11,7 +11,7 @@ class Delivery < ActiveRecord::Base
                   :delivered_on,
                   :receipts_attributes
 
-  before_save do
+  before_create do
     self.delivered_on = Date.today unless self.delivered_on
   end
 
