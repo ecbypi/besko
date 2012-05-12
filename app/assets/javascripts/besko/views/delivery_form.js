@@ -247,6 +247,7 @@
 
     reset: function() {
       this._leaveChildren();
+      this.children = _([]);
       this.model = new Besko.Models.Delivery({});
       this.toggleHeaderFooter();
       helpers.addDelivererEditor(this);
