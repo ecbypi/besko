@@ -12,6 +12,10 @@ load 'config/deploy/database'
 # custom asset pipeline
 load 'config/deploy/assets'
 
+# airbrake configuration/tasks
+require './config/boot'
+require 'airbrake/capistrano'
+
 namespace :deploy do
   desc "Deploy code in a way that better facilitates git"
   task :setup, roles: :web, except: { no_release: true } do
@@ -52,6 +56,3 @@ end
 before "deploy:assets:precompile", "bundle:install"
 after "deploy:update", "deploy:cache_revision"
 after "deploy:setup", "deploy:cache_revision", "deploy:update_code"
-
-        require './config/boot'
-        require 'airbrake/capistrano'
