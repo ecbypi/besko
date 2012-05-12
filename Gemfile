@@ -17,6 +17,7 @@ gem 'mit-ldap'
 gem 'ldap-filter'
 gem 'guise'
 
+gem 'newrelic_rpm'
 gem 'airbrake'
 
 group :assets do
