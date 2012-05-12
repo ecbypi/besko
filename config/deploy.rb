@@ -52,3 +52,6 @@ end
 before "deploy:assets:precompile", "bundle:install"
 after "deploy:update", "deploy:cache_revision"
 after "deploy:setup", "deploy:cache_revision", "deploy:update_code"
+
+        require './config/boot'
+        require 'airbrake/capistrano'

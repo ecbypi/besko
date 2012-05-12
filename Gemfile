@@ -17,6 +17,8 @@ gem 'mit-ldap'
 gem 'ldap-filter'
 gem 'guise'
 
+gem 'airbrake'
+
 group :assets do
   gem 'jquery-rails'
   gem 'sass-rails', "  ~> 3.2.3"
