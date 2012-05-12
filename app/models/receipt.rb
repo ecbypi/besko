@@ -3,7 +3,8 @@ class Receipt < ActiveRecord::Base
   belongs_to :delivery
   belongs_to :recipient, class_name: :User
 
-  validates :delivery_id, :recipient_id, presence: true
+  validates :recipient_id, presence: true
+  validates :delivery_id, presence: { on: :update }
   validates :number_packages, numericality: true
 
   accepts_nested_attributes_for :recipient
