@@ -224,7 +224,7 @@
         _(receipt.editors).each(function(editor, key) {
           if ( editor.commit() ) return false;
         });
-        return receipt.model.attributes;
+        return receipt.model.toJSON();
       });
 
       // Insert receipts to be associated with the delivery
