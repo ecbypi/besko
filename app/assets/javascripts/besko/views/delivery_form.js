@@ -176,7 +176,7 @@
     events: {
       'click button[data-role=commit]' : 'commit',
       'click button[data-role=cancel]' : 'reset',
-      'change select//deliverer' : 'swapDelivererEditor',
+      'change select#deliverer' : 'swapDelivererEditor',
       'click button[data-cancel]' : 'toggleHeaderFooter'
     },
 
