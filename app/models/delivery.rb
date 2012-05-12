@@ -1,6 +1,6 @@
 class Delivery < ActiveRecord::Base
 
-  belongs_to :worker, class_name: 'User'
+  belongs_to :worker, class_name: :User
   has_many :receipts
 
   validates :deliverer, :worker_id, presence: true

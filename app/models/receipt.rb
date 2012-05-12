@@ -1,7 +1,7 @@
 class Receipt < ActiveRecord::Base
 
   belongs_to :delivery
-  belongs_to :recipient, class_name: 'User'
+  belongs_to :recipient, class_name: :User
 
   validates :delivery_id, :recipient_id, presence: true
   validates :number_packages, numericality: true
