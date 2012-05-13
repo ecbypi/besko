@@ -3,7 +3,7 @@ require 'spec_helper'
 describe DeliveryDecorator do
 
   let(:worker) { FactoryGirl.create(:user) }
-  let(:delivery) { FactoryGirl.create(:delivery, deliverer: 'UPS', created_at: '2010-10-30 10:30:10', worker: worker) }
+  let(:delivery) { FactoryGirl.create(:delivery, deliverer: 'UPS', created_at: '2010-10-30 10:30:10', worker: worker, receipts: [create(:receipt)]) }
   let(:decorator) { DeliveryDecorator.new(delivery) }
 
   describe "#as_json" do
@@ -20,6 +20,16 @@ describe DeliveryDecorator do
       json['worker'].should have_key 'last_name'
       json['worker'].should have_key 'login'
       json['worker'].should have_key 'email'
+    end
+
+    it "includes receipts" do
+      json.should have_key 'receipts'
+      json['receipts'].should be_a Array
+    end
+
+    it "includes the recipient for each receipt" do
+      receipt = json['receipts'].first
+      receipt.should have_key 'recipient'
     end
 
     it "forwards package count" do

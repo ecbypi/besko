@@ -3,7 +3,7 @@ class DeliveryDecorator < ApplicationDecorator
 
   def as_json options={}
     model.as_json(
-      include: [:worker],
+      include: [{ receipts: { include: 'recipient' } }, :worker],
       except: [:updated_at, :delivered_on],
       methods: [:package_count]
     ).merge(
