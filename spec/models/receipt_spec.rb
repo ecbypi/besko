@@ -15,10 +15,6 @@ describe Receipt do
     expect { receipt.save! }.to raise_error ActiveRecord::RecordInvalid
   end
 
-  it "accepts nested attributes for creating recipient" do
-    receipt.should respond_to :recipient_attributes=
-  end
-
   describe "#sign_out!" do
     it "sets #signed_out_at to current time" do
       Timecop.freeze do

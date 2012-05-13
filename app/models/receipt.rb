@@ -7,8 +7,6 @@ class Receipt < ActiveRecord::Base
   validates :delivery_id, presence: { on: :update }
   validates :number_packages, numericality: true
 
-  accepts_nested_attributes_for :recipient
-
   attr_accessible :number_packages,
                   :recipient_id,
                   :comment,
