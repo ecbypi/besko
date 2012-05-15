@@ -1,5 +1,5 @@
 (function() {
-  var templates, helpers, DeliverySearch, Delivery;
+  var templates, helpers, DeliverySearch, DeliveryDetails;
 
   templates = {
     deliveries: _.template('\
@@ -19,16 +19,22 @@
             <th>Total Packages</th>\
           </tr>\
         </thead>\
-        \
-        <tbody></tbody>\
       </table>'),
 
     delivery: _.template('\
-      <tr data-resource="delivery">\
+      <tr class="delivery-details">\
         <td><%= escape("delivered_at") %></td>\
         <td><a href="mailto:<%= worker.escape("email") %>"><%= worker.name() %></a></td>\
         <td><%= escape("deliverer") %></td>\
         <td><%= escape("package_count") %></td>\
+      </tr>'),
+
+    receipt: _.template('\
+      <tr class="receipt-details" data-resource="receipt">\
+        <td></td>\
+        <td><%= recipient.name() %></td>\
+        <td><%= escape("comment") %></td>\
+        <td><%= escape("number_packages") %></td>\
       </tr>')
   };
 
@@ -59,6 +65,41 @@
     },
   };
 
+  DeliveryDetails = Support.CompositeView.extend({
+    tagName: 'tbody',
+    className: 'delivery',
+    attributes: {
+      'data-resource' : 'delivery'
+    },
+
+    events: {
+      'click' : 'toggleReceipts'
+    },
+
+    render: function() {
+      this.$el.html(templates.delivery(this.model));
+      this.renderReceipts();
+      return this;
+    },
+
+    renderReceipts: function() {
+      var view = this;
+
+      this.model.receipts.each(function(receipt) {
+        view.$el.append(templates.receipt(receipt));
+      });
+    },
+
+    toggleReceipts: function(event) {
+      var $target = $(event.target);
+
+      if ( !$target.is('a') ) {
+        this.$('.receipt-details').toggle();
+        this.$el.toggleClass('open');
+      }
+    }
+  });
+
   DeliverySearch = Support.CompositeView.extend({
     className: 'deliveries',
     events: {
@@ -68,7 +109,9 @@
 
     initialize: function(options) {
       this.date = Besko.Date(options.date);
+      _.bindAll(this, '_leaveChildren');
       _.bindAll(this, 'renderDeliveries');
+      this.collection.bind('reset', this._leaveChildren);
       this.collection.bind('reset', this.renderDeliveries);
     },
 
@@ -80,11 +123,16 @@
     },
 
     renderDeliveries: function() {
-      var $tbody = this.$('tbody').empty(),
-          view = this;
+      var $el = this.$('thead'),
+          view = this,
+          subview;
 
       this.collection.each(function(delivery) {
-        $tbody.append(templates.delivery(delivery));
+        subview = new DeliveryDetails({ model: delivery });
+        view.renderChild(subview);
+
+        $el.after(subview.el);
+        $el = subview.$el;
       });
       return this;
     },

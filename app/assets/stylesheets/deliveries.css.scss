@@ -49,6 +49,57 @@
       border: none;
       outline: none;
       color: #000;
+      width: 600px;
+    }
+  }
+
+  tbody.delivery {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #acdaf9;
+    }
+
+    tr.delivery-details {
+      td {
+        &:first-child {
+          @include border-top-left-radius(5px);
+        }
+
+        &:last-child {
+          @include border-top-right-radius(5px);
+        }
+      }
+    }
+
+    &:not(.open) {
+      .delivery-details {
+        td {
+          &:first-child {
+            @include border-bottom-left-radius(5px);
+          }
+
+          &:last-child {
+            @include border-bottom-right-radius(5px);
+          }
+        }
+      }
+    }
+  }
+
+  tr.receipt-details {
+    display: none;
+    font-size: 14px;
+    @include border-bottom-radius(3px);
+
+    &:last-child td {
+      &:first-child {
+        @include border-bottom-left-radius(5px);
+      }
+
+      &:last-child {
+        @include border-bottom-right-radius(5px);
+      }
     }
   }
 }

@@ -46,6 +46,17 @@ steps_for :deliveries do
     end
   end
 
+  step "I click on the delivery from :deliverer, received by :name" do |deliverer, name|
+    delivery_element(name).click
+  end
+
+  step "I should see that :name received :count packages with the comment :comment" do |name, count, comment|
+    within receipt_element(name) do
+      page.should have_css 'td', text: count
+      page.should have_css 'td', text: comment
+    end
+  end
+
   placeholder :day_word do
     match /(today|tomorrow|yesterday)(?:'s)?/ do |day_word|
       date = case day_word
