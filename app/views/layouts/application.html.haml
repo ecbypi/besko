@@ -35,16 +35,17 @@
                     %li= link_to 'Review', deliveries_path
                     %li= link_to 'New Delivery', new_delivery_path
 
+    #notifications
+      - if alert
+        .message.error
+          = alert
+      - if notice
+        .message.notice
+          = notice
+      - if alert || notice
+        = link_to 'Close', 'javascript:void(0)', class: 'close-message'
+
     #wrapper
-      #notifications
-        - if alert
-          .message.error
-            = alert
-        - if notice
-          .message.notice
-            = notice
-        - if alert || notice
-          = link_to 'Close', 'javascript:void(0)', class: 'close-message'
       %h1= yield :title
       #content
         = yield
