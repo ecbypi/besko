@@ -16,6 +16,7 @@ gem 'ransack'
 gem 'mit-ldap'
 gem 'ldap-filter'
 gem 'guise'
+gem 'client_side_validations'
 
 gem 'newrelic_rpm'
 gem 'airbrake'
