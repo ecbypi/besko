@@ -34,23 +34,46 @@
   }
 }
 
-.deliveries {
-  h2.current-date {
-    position: relative;
+h2.current-date {
+  position: relative;
 
-    button {
-      position: absolute;
-      left: 0;
-    }
+  button {
+    position: absolute;
+    left: 0;
+  }
 
-    .hasDatepicker {
-      margin-left: 80px;
-      font-weight: 700;
-      border: none;
-      outline: none;
-      color: #000;
-      width: 600px;
-    }
+  .hasDatepicker {
+    margin-left: 80px;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    color: #000;
+    width: 600px;
+
+    @include transition(none);
+  }
+}
+
+table.deliveries {
+
+  th {
+    text-align: left;
+  }
+
+  .delivered-at {
+    width: 150px;
+  }
+
+  .received-by {
+    width: 250px;
+  }
+
+  .delivered-by {
+    width: 350px;
+  }
+
+  .package-count {
+    text-align: center;
   }
 
   tbody.delivery {

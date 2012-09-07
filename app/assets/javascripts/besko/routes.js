@@ -39,13 +39,15 @@
 
     // Deliveries
     deliveries: function(date) {
-      var collection = bootstrap(Besko.Collections.Deliveries);
-      var deliveriesSearch = new Besko.Views.DeliverySearch({
-        collection: collection,
-        date: date
-      });
+      var collection = bootstrap(Besko.Collections.Deliveries),
+          el = document.getElementById('content'),
+          search = new Besko.Views.DeliverySearch({
+            collection: collection,
+            date: date,
+            el: el,
+          });
 
-      this.swap(deliveriesSearch);
+      search.render();
     },
 
     newDelivery: function() {

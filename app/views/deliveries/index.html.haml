@@ -1,6 +1,19 @@
 - content_for :title do
   Deliveries
 
+%h2.current-date= text_field_tag :delivered_on, current_date, disabled: true
+
+%button.prev Previous Day
+%button.next Next Day
+
+%table.deliveries{ data: { collection: :deliveries } }
+  %thead
+    %tr
+      %th Delivered At
+      %th Received By
+      %th Delivered By
+      %th Total Packages
+
 - content_for :bootstrap do
   %script#bootstrap{type: 'text/json'}
     { "data" : #{ collection.to_json } }

@@ -1,32 +1,11 @@
 (function() {
-  var templates, helpers, DeliverySearch, DeliveryDetails;
-
-  templates = {
-    deliveries: _.template('\
-      <h2 class="current-date">\
-        <input name="delivered_on" disabled="true" />\
-      </h2>\
-      \
-      <button class="prev">Previous Day</button>\
-      <button class="next">Next Day</button>\
-      \
-      <table data-collection="deliveries">\
-        <thead>\
-          <tr>\
-            <th>Delivered At</th>\
-            <th>Received By</th>\
-            <th>Delivered By</th>\
-            <th>Total Packages</th>\
-          </tr>\
-        </thead>\
-      </table>'),
-
+  var templates = {
     delivery: _.template('\
       <tr class="delivery-details">\
-        <td><%= escape("delivered_at") %></td>\
-        <td><a href="mailto:<%= worker.escape("email") %>"><%= worker.name() %></a></td>\
-        <td><%= escape("deliverer") %></td>\
-        <td><%= escape("package_count") %></td>\
+        <td class="delivered-at"><%= escape("delivered_at") %></td>\
+        <td class="received-by"><a href="mailto:<%= worker.escape("email") %>"><%= worker.name() %></a></td>\
+        <td class="delivered-by"><%= escape("deliverer") %></td>\
+        <td class="package-count"><%= escape("package_count") %></td>\
       </tr>'),
 
     receipt: _.template('\
@@ -38,7 +17,7 @@
       </tr>')
   };
 
-  helpers = {
+  var helpers = {
     dateFormat: '%A, %B %d, %Y',
 
     initializeDatepicker: function(view) {
@@ -59,13 +38,13 @@
         showOn: 'button',
         autosize: true,
         hideIfNoPrevNext: true
-      }).val(view.date.strftime(this.dateFormat));
+      });
 
       view.$datepicker = $datepicker;
     },
   };
 
-  DeliveryDetails = Support.CompositeView.extend({
+  var DeliveryDetails = Support.CompositeView.extend({
     tagName: 'tbody',
     className: 'delivery',
     attributes: {
@@ -100,7 +79,7 @@
     }
   });
 
-  DeliverySearch = Support.CompositeView.extend({
+  var DeliverySearch = Support.CompositeView.extend({
     className: 'deliveries',
     events: {
       'click button.next' : 'next',
@@ -109,14 +88,11 @@
 
     initialize: function(options) {
       this.date = Besko.Date(options.date);
-      _.bindAll(this, '_leaveChildren');
-      _.bindAll(this, 'renderDeliveries');
-      this.collection.bind('reset', this._leaveChildren);
-      this.collection.bind('reset', this.renderDeliveries);
+      this.collection.on('reset', this._leaveChildren, this);
+      this.collection.on('reset', this.renderDeliveries, this);
     },
 
     render: function() {
-      this.$el.html(templates.deliveries());
       helpers.initializeDatepicker(this);
       this.renderDeliveries();
       return this;
