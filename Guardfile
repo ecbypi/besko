@@ -11,13 +11,6 @@ group :test do
 end
 
 group :browser do
-  guard 'rails' do
-    watch('Gemfile.lock')
-    watch(%r{^config/environments/*})
-    watch(%r{^config/application.rb})
-    watch(%r{^config/initializers/*})
-  end
-
   guard 'livereload' do
     watch(%r{app/.+\.(erb|haml)})
     watch(%r{app/helpers/.+\.rb})

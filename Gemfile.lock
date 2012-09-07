@@ -102,8 +102,6 @@ GEM
       em-websocket (>= 0.2.0)
       guard (>= 0.4.0)
       multi_json (~> 1.0.3)
-    guard-rails (0.0.3)
-      guard (>= 0.2.2)
     guard-spork (0.2.1)
       guard (>= 0.2.2)
       spork (>= 0.8.4)
@@ -277,7 +275,6 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   guard-livereload
-  guard-rails
   guard-spork
   guise
   haml
