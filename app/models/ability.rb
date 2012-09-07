@@ -8,6 +8,7 @@ class Ability
 
     if user.besk_worker?
       can [:read, :create], Delivery
+      can :new, Receipt
     end
 
     if user.admin?

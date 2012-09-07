@@ -14,4 +14,6 @@
 //= include backbone-support/composite_view
 //= include backbone-support/swapping_router
 
+//= include rails.validations
+
 //= require besko

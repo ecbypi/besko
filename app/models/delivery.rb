@@ -1,5 +1,18 @@
 class Delivery < ActiveRecord::Base
 
+  Deliverers = [
+    'UPS',
+    'USPS / Post Office',
+    'FedEx',
+    'LaserShip',
+    'Amazon',
+    'DHL',
+    'Interdepartmental',
+    'Laundry Service',
+    'Student / Personal',
+    'Other'
+  ]
+
   belongs_to :worker, class_name: :User
   has_many :receipts
 

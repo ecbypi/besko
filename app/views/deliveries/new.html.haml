@@ -1,2 +1,24 @@
 - content_for :title do
   New Delivery
+
+= simple_form_for resource, validate: true, html: { data: { type: 'json' }, class: 'inline-inputs new-delivery' } do |f|
+  .inputs
+    = f.input :deliverer, label: 'Delivery Company', as: :select, collection: Delivery::Deliverers
+    .input.search
+      = label_tag 'user-search', 'Search'
+      = search_field_tag 'user-search', nil, placeholder: 'Enter name, email or kerberos', autofocus: true
+
+  %table.receipts
+    %thead
+      %tr
+        %th Recipient
+        %th Number of Packages
+        %th Comment
+        %th
+    %tbody{ data: { collection: :receipts } }
+    %tfoot
+      %tr
+        %td
+        %td= f.button :submit, value: 'Send Notifications'
+        %td= link_to 'Cancel', 'javascript:void(0)', data: { clear: true }
+        %td

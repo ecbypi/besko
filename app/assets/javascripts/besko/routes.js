@@ -49,11 +49,10 @@
     },
 
     newDelivery: function() {
-      var deliveryForm = new Besko.Views.DeliveryForm({
-        model: new Besko.Models.Delivery({})
-      });
-
-      this.swap(deliveryForm);
+      var el = document.getElementById('new_delivery'),
+          form = new Besko.Views.DeliveryForm({
+            el: el
+          });
     }
   });
 

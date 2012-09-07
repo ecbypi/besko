@@ -32,6 +32,10 @@ $input-margin: 5px 0 10px;
   .input {
     width: $input-width;
   }
+
+  &.inline-inputs .input {
+    width: auto;
+  }
 }
 
 .input {
@@ -88,6 +92,7 @@ input[type=number] {
 }
 
 button, .button {
+  color: #000;
   padding: 6px 9px;
   margin-right: 10px;
   border:1px solid #999;
@@ -102,6 +107,7 @@ button, .button {
 
   &:hover {
     @include box-shadow(0 0 2px #999);
+    text-decoration: none;
   }
 
   &.next {

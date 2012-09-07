@@ -1,6 +1,6 @@
 .new-delivery {
 
-  section.inputs {
+  .inputs {
     width: 760px;
     margin: 0 auto;
     @include user-search(200px);
@@ -25,10 +25,10 @@
 
     td {
       text-align: center;
-      width: 200px;
+      width: 250px;
 
       &:first-child, &:last-child {
-        width: 250px;
+        width: 200px;
       }
     }
   }

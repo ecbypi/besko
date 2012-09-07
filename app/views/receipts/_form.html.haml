@@ -1,0 +1,8 @@
+%tr{ data: { resource: :receipt } }
+  = simple_fields_for 'receipts[]', receipt do |f|
+    %td
+      = receipt.recipient.name
+      = f.input :recipient_id, as: :hidden
+    %td= f.input :number_packages, label: false, input_html: { value: 1 }
+    %td= f.input :comment, label: false, input_html: { rows: 2 }
+    %td= link_to 'Remove', 'javascript:void(0)', class: 'button'

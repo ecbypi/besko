@@ -43,9 +43,9 @@ steps_for :deliveries do
   end
 
   step "the delivery from should be reset" do
-    receipts_collection.find('tbody').all('tr').should be_empty
-    find('#deliverer').value.should eq ''
-    receipts_collection.find('thead').should_not be_visible
-    receipts_collection.find('tfoot').should_not be_visible
+    receipts_collection.all('tr').should be_empty
+    find('#delivery_deliverer').value.should eq ''
+    receipts_collection.parent.find('thead').should_not be_visible
+    receipts_collection.parent.find('tfoot').should_not be_visible
   end
 end
