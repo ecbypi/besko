@@ -11,9 +11,9 @@
     receipt: _.template('\
       <tr class="receipt-details" data-resource="receipt">\
         <td></td>\
-        <td><%= recipient.name() %></td>\
-        <td><%= escape("comment") %></td>\
-        <td><%= escape("number_packages") %></td>\
+        <td class="recipient"><%= recipient.name() %></td>\
+        <td class="comment"><%= escape("comment") %></td>\
+        <td class="package-count"><%= escape("number_packages") %></td>\
       </tr>')
   };
 
