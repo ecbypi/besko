@@ -103,13 +103,19 @@
           view = this,
           subview;
 
-      this.collection.each(function(delivery) {
-        subview = new DeliveryDetails({ model: delivery });
-        view.renderChild(subview);
+      if ( this.collection.size() === 0 ) {
+        this.$('tbody.empty').show();
+      } else {
+        this.$('tbody.empty').hide();
+        this.collection.each(function(delivery) {
+          subview = new DeliveryDetails({ model: delivery });
+          view.renderChild(subview);
 
-        $el.after(subview.el);
-        $el = subview.$el;
-      });
+          $el.after(subview.el);
+          $el = subview.$el;
+        });
+      }
+
       return this;
     },
 

@@ -13,6 +13,9 @@
       %th.received-by Received By
       %th.delivered-by Delivered By
       %th.package-count Total Packages
+  %tbody.empty
+    %tr
+      %td{ colspan: 4 } No Deliveries
 
 - content_for :bootstrap do
   %script#bootstrap{type: 'text/json'}

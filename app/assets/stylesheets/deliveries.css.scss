@@ -76,6 +76,14 @@ table.deliveries {
     text-align: center;
   }
 
+  tbody.empty {
+    display: none;
+
+    td {
+      text-align: center;
+    }
+  }
+
   tbody.delivery {
     cursor: pointer;
 
