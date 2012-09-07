@@ -9,10 +9,10 @@
 %table.deliveries{ data: { collection: :deliveries } }
   %thead
     %tr
-      %th Delivered At
-      %th Received By
-      %th Delivered By
-      %th Total Packages
+      %th.delivered-at Delivered At
+      %th.received-by Received By
+      %th.delivered-by Delivered By
+      %th.package-count Total Packages
 
 - content_for :bootstrap do
   %script#bootstrap{type: 'text/json'}
