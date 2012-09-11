@@ -7,7 +7,7 @@
     = csrf_meta_tags
     = yield :script
 
-  %body
+  %body{ class: "#{controller.controller_name} #{controller.controller_name}-#{controller.action_name}" }
     %header
       .inside
         #logo
