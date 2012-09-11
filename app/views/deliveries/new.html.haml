@@ -1,8 +1,8 @@
 - content_for :title do
   New Delivery
 
-= simple_form_for resource, validate: true, html: { data: { type: 'json' }, class: 'inline-inputs new-delivery' } do |f|
-  .inputs
+= simple_form_for resource, validate: true, html: { data: { type: 'json' }, class: 'new-delivery' } do |f|
+  .inputs.inline-inputs
     = f.input :deliverer, label: 'Delivery Company', as: :select, collection: Delivery::Deliverers
     .input.search
       = label_tag 'user-search', 'Search'

@@ -13,29 +13,27 @@ $input-margin: 5px 0 10px;
   }
 }
 
-.simple_form {
-  .inputs, .actions {
-    .input {
-      width: 230px;
-      vertical-align: top;
-      display: inline-block;
-      margin-right: 15px;
-    }
-  }
-
-  .actions {
-    button, .button {
-      display: inline-block;
-    }
-  }
-
+.inputs, .actions {
   .input {
-    width: $input-width;
+    width: 230px;
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 15px;
   }
+}
 
-  &.inline-inputs .input {
-    width: auto;
+.actions {
+  button, .button {
+    display: inline-block;
   }
+}
+
+.input {
+  width: $input-width;
+}
+
+.inline-inputs .input {
+  width: auto;
 }
 
 .input {
@@ -89,6 +87,12 @@ $input-margin: 5px 0 10px;
 input[type=number] {
   width: 50px;
   text-align: right;
+}
+
+input[type=checkbox], input[type=radio] {
+  & + label {
+    display: inline-block;
+  }
 }
 
 button, .button {
