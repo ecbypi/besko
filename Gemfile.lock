@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/lostapathy/yaml_db.git
+  revision: 98e9a5dca43e3fedd3268c76a73af40d1bdf1dfd
+  specs:
+    yaml_db (0.2.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -254,7 +260,6 @@ GEM
       rack (>= 1.0)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    yaml_db (0.2.1)
 
 PLATFORMS
   ruby
@@ -300,4 +305,4 @@ DEPENDENCIES
   timecop
   turnip
   uglifier (>= 1.0.3)
-  yaml_db
+  yaml_db!
