@@ -10,7 +10,10 @@ $(function() {
   };
 
   initialize = function(className) {
-    if ( !container.length ) bind();
+    if ( !container.length ) {
+      bind();
+    }
+
     if ( container.children().length === 0 ) {
       message = $('<div>').addClass('message ' + className);
       container.append(message);
@@ -20,22 +23,31 @@ $(function() {
           text('Close').
           addClass('close-message')
       );
-
     } else {
       message = container.children('div.message');
     }
   };
 
   insert = function(text, className) {
-    if ( !message ) initialize(className);
-    if ( !message.hasClass(className) ) message.toggleClass('error notice');
+    if ( !message ) {
+      initialize(className);
+    }
+
+    if ( !message.hasClass(className) ) {
+      message.toggleClass('error notice');
+    }
 
     return message.text(text).parent().show();
   };
 
   _.extend(Besko.Support, {
-    error: function(text) { return insert(text, 'error'); },
-    notice: function(text) { return insert(text, 'notice'); },
+    error: function(text) {
+      return insert(text, 'error');
+    },
+
+    notice: function(text) {
+      return insert(text, 'notice');
+    }
   });
 
   bind();
