@@ -1,2 +1,17 @@
 - content_for :title do
   Sign Up
+
+.user-search
+  = label_tag 'user-search', 'Look yourself up in the MIT directory'
+  = text_field_tag :search, nil, id: 'user-search', type: :search, autofucus: true, placeholder: 'Enter name, email or kerberos'
+  = button_tag 'Lookup'
+
+%table.search-results
+  %thead
+    %tr
+      %th.name Name
+      %th.email Email
+      %th.kerberos Kerberos
+      %th.address Address
+      %th
+  %tbody{ data: { collection: :users } }

@@ -33,7 +33,7 @@ steps_for :signups do
   end
 
   step "the search should be reset" do
-    users_collection.find('tbody').all('tr').should be_empty
+    users_collection.all('tr').should be_empty
   end
 
   step "I should see that an account for :name already exists" do  |name|

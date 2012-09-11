@@ -1,12 +1,10 @@
-section.registration {
-  div.input.search {
+.registrations-new {
+  .user-search {
     @include user-search(270px);
   }
 
-  table {
-    thead {
-      display: none;
-    }
+  .search-results {
+    display: none;
 
     td.boolean {
       width: 210px;

@@ -29,13 +29,11 @@
 
     // Signups
     newAccount: function() {
-      var signupForm = new Besko.Views.SignupForm({
-        collection: new Besko.Collections.Users({})
+      new Besko.Views.SignupForm({
+        el: this.el,
+        collection: new Besko.Collections.Users
       });
-
-      this.swap(signupForm);
     },
-
 
     // Deliveries
     deliveries: function(date) {

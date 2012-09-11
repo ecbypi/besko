@@ -1,33 +1,11 @@
 (function() {
-  var templates, helpers, SignupForm, Account;
-
-  templates = {
-    form: _.template('\
-      <div class="input search">\
-        <label for="user-search">Look yourself up in the MIT directory</label>\
-        <input id="user-search" type="search" autofocus placeholder="Enter name, email or kerberos" name="search"/>\
-        <button data-role="search">Lookup</button>\
-      </div>\
-      \
-      <table data-collection="users">\
-        <thead>\
-          <tr>\
-            <th>Name</th>\
-            <th>Email</th>\
-            <th>Kerberos</th>\
-            <th>Address</th>\
-            <th></th>\
-          </tr>\
-        </thead>\
-        <tbody></tbody>\
-      </table>'),
-
+  var templates = {
     account: _.template('\
-      <td><%= user.escape("name") %></td>\
-      <td><%= user.escape("email") %></td>\
-      <td><%= user.escape("login") %></td>\
-      <td><%= user.escape("street") %></td>\
-      <td class="input boolean"><%= helpers.createButton(user) %></td>'),
+      <td class="name"><%= user.escape("name") %></td>\
+      <td class="email"><%= user.escape("email") %></td>\
+      <td class="kerberos"><%= user.escape("login") %></td>\
+      <td class="address"><%= user.escape("street") %></td>\
+      <td class="input boolean"><%= button %></td>'),
 
     confirmationButton: _.template('\
       <div class="input boolean">\
@@ -35,92 +13,115 @@
         <label class="boolean" for="<%= cid %>">This Is Me</label>\
       </div>\
       <div class="actions">\
-        <button disabled="disabled" data-role="commit">Request Account</button>\
+        <button disabled="disabled">Request Account</button>\
       </div>')
   };
 
-  helpers = {
-    createButton: function(user) {
-      if ( typeof user.id !== 'number' ) {
-        return templates.confirmationButton(user);
-      } else {
-        return 'Account Exists';
-      };
+  var SignupForm = Support.CompositeView.extend({
+    initialize: function(options) {
+      this.$ldap = this.$('.ldap-signup');
+      this.$local = this.$('.local-signup');
+
+      this.results = new SearchResults({
+        el: this.$('.search-results'),
+        collection: this.collection
+      });
+
+      this.search = new UserSearch({
+        el: this.$('.user-search')[0],
+        collection: this.collection
+      });
     }
-  };
+  });
 
-  SignupForm = Support.CompositeView.extend({
-    tagName: 'section',
-    className: 'registration',
-
+  var UserSearch = Support.CompositeView.extend({
     events: {
-      'click button[data-role=search]' : 'search',
-      'keyup input#user-search' : 'submitSearch',
-      'click button[data-role=commit]' : 'render'
+      'click button' : 'search',
+      'keyup #user-search' : 'submitSearch'
     },
 
     initialize: function(options) {
-      _.bindAll(this, '_leaveChildren');
-      _.bindAll(this, 'renderUsers');
-      this.collection.bind('reset', this._leaveChildren);
-      this.collection.bind('reset', this.renderUsers);
-    },
-
-    render: function() {
-      this.$el.html(templates.form());
-      return this;
+      this.$input = this.$('#user-search');
     },
 
     submitSearch: function(event) {
-      if ( event.keyCode === 13 ) this.search();
+      if ( event.keyCode === 13 ) {
+        this.search();
+      }
     },
 
     search: function() {
       this.collection.fetch({
         data: {
-          term: this.$('#user-search').val()
+          term: this.$input.val()
         },
         error: function(users, request) {
           Besko.Support.error('Error processing your request.');
         }
       });
+    }
+  });
+
+  var SearchResults = Support.CompositeView.extend({
+    initialize: function(options) {
+      this.collection.on('reset', this._leaveChildren, this);
+      this.collection.on('reset', this.render, this);
     },
 
-    renderUsers: function() {
+    render: function() {
       var $tbody = this.$('tbody'),
           view = this;
 
-      if ( this.collection.size() === 0 ) {
-        this.$('thead').hide();
+      if ( this.collection.length === 0 ) {
+        this.$el.hide();
         Besko.Support.error('Your search returned no results.');
       } else {
-        this.$('thead').show();
+        this.$el.show();
 
         this.collection.each(function(user) {
-          account = new Account({model: user});
+          account = new Account({ model: user });
           view.renderChild(account);
           $tbody.append(account.el);
         });
       }
+    },
+
+    clear: function() {
+      this._leaveChildren();
+      this.$table.hide();
     }
   });
 
-  Account = Support.CompositeView.extend({
+  var Account = Support.CompositeView.extend({
     tagName: 'tr',
     attributes: {
       'data-resource': 'user'
     },
 
     events: {
-      'click button[data-role=commit]' : 'commit',
+      'click button' : 'commit',
       'click input[type=checkbox]' : 'toggleButtonDisability'
     },
 
     render: function() {
-      this.$el.html(templates.account({user: this.model, helpers: helpers}));
+      this.$el.html(
+        templates.account({
+          user: this.model,
+          button: this.createButton(this.model)
+        })
+      );
+
       this.$button = this.$('button');
       this.$checkbox = this.$('input');
       return this;
+    },
+
+    createButton: function(user) {
+      if ( !user.id ) {
+        return templates.confirmationButton(user);
+      } else {
+        return 'Account Exists';
+      }
     },
 
     toggleButtonDisability: function() {
@@ -132,10 +133,13 @@
     },
 
     commit: function() {
+      var view = this;
+
       if ( this.$checkbox.is(':checked') ) {
         return this.model.save({}, {
           success: function(account, response) {
             Besko.Support.notice('An email has been sent requesting approval of your account.');
+            view.parent.clear();
           },
           error: function(account, response) {
             Besko.Support.error('there was a problem saving you\'re account');
@@ -148,6 +152,5 @@
     }
   });
 
-  Besko.Views.Account = Account;
   Besko.Views.SignupForm = SignupForm;
 })();
