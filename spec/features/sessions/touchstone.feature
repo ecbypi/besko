@@ -1,3 +1,4 @@
+@touchstone
 Feature: Login via touchstone
 
   Scenario: Touchstone button on the login page

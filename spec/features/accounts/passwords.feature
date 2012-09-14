@@ -1,3 +1,4 @@
+@passwords
 Feature: Reset Passwords
   In order for forgetful and auto-generated users to login
   As an administrator

@@ -1,4 +1,4 @@
-@javascript
+@signups @javascript
 Feature: Create an account
   In order to use the site
   As an interested resident of the dorm

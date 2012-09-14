@@ -2,7 +2,7 @@ step "I should not see the URL to :url_action" do |path|
   page.should_not have_css "a[href='#{path}']"
 end
 
-step "I should be redirected to the home page" do |page|
+step "I should be redirected to the home page" do
   current_path.should eq root_path
   step "I should see an error message"
 end

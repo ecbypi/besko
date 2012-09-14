@@ -1,3 +1,4 @@
+@review_receipts
 Feature: View Delivery Receipts
   In order to keep track of packages I'm expecting
   As a package recipient

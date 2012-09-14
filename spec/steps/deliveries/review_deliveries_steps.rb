@@ -56,15 +56,15 @@ steps_for :deliveries do
       page.should have_css 'td', text: comment
     end
   end
+end
 
-  placeholder :day_word do
-    match /(today|tomorrow|yesterday)(?:'s)?/ do |day_word|
-      date = case day_word
-             when 'yesterday' then 1.day.ago
-             when 'today' then Time.zone.now
-             when 'tomorrow' then 1.day.from_now
-             end.to_date.to_s
-      Time.zone.parse("#{date} 12:30:30")
-    end
+placeholder :day_word do
+  match /(today|tomorrow|yesterday)(?:'s)?/ do |day_word|
+    date = case day_word
+           when 'yesterday' then 1.day.ago
+           when 'today' then Time.zone.now
+           when 'tomorrow' then 1.day.from_now
+           end.to_date.to_s
+    Time.zone.parse("#{date} 12:30:30")
   end
 end

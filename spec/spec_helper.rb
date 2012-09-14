@@ -50,7 +50,11 @@ end
 
 Spork.each_run do
   FactoryGirl.reload
+
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+  Dir.glob('spec/steps/**/*steps.rb') { |f| load f, true }
+
   RSpec.configure do |config|
     config.include LDAPSearchStubbing
     config.include EmailMacros
