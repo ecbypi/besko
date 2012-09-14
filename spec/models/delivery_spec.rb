@@ -4,6 +4,7 @@ describe Delivery do
 
   it { should belong_to(:worker) }
   it { should have_many(:receipts) }
+  it { should have_many(:recipients).through(:receipts) }
 
   it { should validate_presence_of(:deliverer) }
   it { should validate_presence_of(:worker_id) }
@@ -15,6 +16,18 @@ describe Delivery do
   it "sets #delivered_on to date of #created_at" do
     delivery = create(:delivery)
     delivery.delivered_on.should eq delivery.created_at.to_date
+  end
+
+  it "confirms all users" do
+    delivery = build(:delivery)
+    user     = create(:unapproved_user)
+    receipt  = attributes_for(:receipt, recipient_id: user.id)
+
+    delivery.receipts_attributes = [receipt]
+
+    delivery.save!
+
+    user.reload.should be_confirmed
   end
 
   describe "#package_count" do

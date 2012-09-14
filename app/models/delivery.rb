@@ -15,6 +15,7 @@ class Delivery < ActiveRecord::Base
 
   belongs_to :worker, class_name: :User
   has_many :receipts
+  has_many :recipients, through: :receipts
 
   validates :deliverer, :worker_id, presence: true
 
@@ -26,6 +27,10 @@ class Delivery < ActiveRecord::Base
 
   before_create do
     self.delivered_on = Date.today unless self.delivered_on
+  end
+
+  after_create do
+    recipients.where(:confirmed_at => nil).update_all(:confirmed_at => Time.zone.now)
   end
 
   def self.delivered_on date=nil
