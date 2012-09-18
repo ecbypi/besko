@@ -9,6 +9,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'turnip/capybara'
+  require 'capybara/poltergeist'
 
   RSpec.configure do |config|
     # Allow only desired specs to run by adding filters to spec definition
@@ -35,7 +36,7 @@ Spork.prefork do
 
   end
 
-  Capybara.javascript_driver = :webkit
+  Capybara.javascript_driver = :poltergeist
 
   # fix for using url_helpers in decorator specs
   module Draper::ViewContextFilter

@@ -49,7 +49,7 @@ group :test do
   gem 'turnip'
   gem 'spork', ' ~> 0.9.0.rc'
   gem 'timecop'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'guard-spork'
