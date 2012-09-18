@@ -10,6 +10,9 @@ steps_for :deliveries do
   step "I should see a receipt form for :name" do  |name|
     within receipt_element(name) do
       page.should have_content name
+
+      input = find('input[type=hidden]')
+      input.value.should be_present
     end
   end
 
