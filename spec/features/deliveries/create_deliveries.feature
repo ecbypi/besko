@@ -10,7 +10,7 @@ Feature: Create Delivery Notifications
     And the following users exist:
       | First Name | Last Name | Login | Email                 |
       | Jon        | Snow      | snow  | snow@thewall.kingdom  |
-      | Arya       | Stark     | boy   | boy@kingsroad.kingdom |
+    And mrhalp exists in the LDAP server
 
   Scenario Outline: Search for recipients by name, email or login (kerberos)
     Given I am on the page to log deliveries
@@ -29,6 +29,12 @@ Feature: Create Delivery Notifications
     And I click on "Jon Snow" in the autocomplete list
     Then I should see a receipt form for "Jon Snow"
     And I should not see "Jon Snow" in the autocomplete form
+
+  Scenario: Add recipients from LDAP
+    Given I am on the page to log deliveries
+    When I search for "mrhalp"
+    And I click on "Micro Helpline" in the autocomplete list
+    Then I should see a receipt form for "Micro Helpline"
 
   Scenario: Send notifications
     Given I am on the page to log deliveries

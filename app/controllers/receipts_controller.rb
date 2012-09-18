@@ -5,10 +5,11 @@ class ReceiptsController < InheritedResources::Base
   load_and_authorize_resource
 
   def new
-    user = if params[:user_id]
-      User.find(params[:user_id])
+    if params[:user_id]
+      user = User.find(params[:user_id])
     elsif params[:user]
-      User.create_with_or_without_password(params[:user])
+      user = User.assign_password(params[:user])
+      user.save
     end
 
     resource.recipient = user
