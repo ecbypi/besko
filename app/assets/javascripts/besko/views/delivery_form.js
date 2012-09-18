@@ -15,10 +15,12 @@
         select: function(event, ui) {
           delete ui.item.value;
           delete ui.item.label;
+          delete ui.item.name;
 
           if ( ui.item.id ) {
             var data = { user_id: ui.item.id };
           } else {
+            delete ui.item.id;
             var data = { user: ui.item };
           }
 
