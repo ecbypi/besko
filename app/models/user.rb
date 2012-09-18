@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
   end
 
   def self.assign_password user
+    user = User.new(user) if user.is_a? Hash
+
     password = send :generate_token, 'encrypted_password'
     password.slice! 13 - rand(5)..password.length
 

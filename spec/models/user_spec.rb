@@ -77,5 +77,14 @@ describe User do
 
       user.password.should eq user.password_confirmation
     end
+
+    it "accepts user attributes" do
+      user = User.assign_password(attributes_for(:user))
+
+      user.password.should be_present
+      user.password_confirmation.should be_present
+
+      user.password.should eq user.password_confirmation
+    end
   end
 end
