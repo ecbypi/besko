@@ -35,6 +35,7 @@ Feature: Create Delivery Notifications
     When I search for "mrhalp"
     And I click on "Micro Helpline" in the autocomplete list
     Then I should see a receipt form for "Micro Helpline"
+    And no email should be sent
 
   Scenario: Send notifications
     Given I am on the page to log deliveries
