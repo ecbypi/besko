@@ -26,6 +26,7 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
+      reset_email
     end
 
     config.include EmailSpec::Matchers
