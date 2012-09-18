@@ -66,6 +66,8 @@
     initialize: function(options) {
       this.collection.on('reset', this._leaveChildren, this);
       this.collection.on('reset', this.render, this);
+
+      this.$table = this.$('table');
     },
 
     render: function() {
