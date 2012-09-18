@@ -20,6 +20,6 @@ class DeliveriesController < InheritedResources::Base
   end
 
   def collection
-    DeliveryDecorator.decorate Delivery.delivered_on(params[:date])
+    DeliveryDecorator.decorate(Delivery.delivered_on(params[:date]))
   end
 end

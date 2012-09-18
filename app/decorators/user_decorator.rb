@@ -1,7 +1,7 @@
 class UserDecorator < ApplicationDecorator
   decorates :user
 
-  def as_json options={}
+  def as_json(options = {})
     options.reverse_merge!(
       as_autocomplete: false
     )
@@ -15,6 +15,7 @@ class UserDecorator < ApplicationDecorator
       attributes['value'] = attributes['login']
       attributes['label'] = model.name
     end
+
     attributes.stringify_keys
   end
 end

@@ -15,7 +15,7 @@ module MIT
         !options[:rescued] && LDAP.connected? ? build_users(search, rescued: true) : []
       end
 
-      def self.construct_filter search
+      def self.construct_filter(search)
         arguments = search.split
         mail_key = search =~ /@mit\.edu/ ? :mail : :uid
 

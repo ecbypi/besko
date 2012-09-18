@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
                   :password,
                   :password_confirmation
 
-  def self.lookup search=nil, options={}
+  def self.lookup(search = nil, options = {})
     options.reverse_merge!(
       skip_ldap_search: false,
       ldap_search_only: false
@@ -52,11 +52,11 @@ class User < ActiveRecord::Base
     results.to_a.uniq { |user| user.login }
   end
 
-  def self.assign_password user
+  def self.assign_password(user)
     user = User.new(user) if user.is_a? Hash
 
-    password = send :generate_token, 'encrypted_password'
-    password.slice! 13 - rand(5)..password.length
+    password = send(:generate_token, 'encrypted_password')
+    password.slice!(13 - rand(5)..password.length)
 
     user.password = user.password_confirmation = password
     user
@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def headers_for action
+  def headers_for(action)
     headers = {}
     headers[:to] = 'besko@mit.edu' if action == :confirmation_instructions
     headers

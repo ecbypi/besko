@@ -1,7 +1,7 @@
 class DeliveryDecorator < ApplicationDecorator
   decorates :delivery
 
-  def as_json options={}
+  def as_json(options = {})
     model.as_json(
       include: [{ receipts: { include: 'recipient' } }, :worker],
       except: [:updated_at, :delivered_on],

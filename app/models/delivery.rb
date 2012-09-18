@@ -33,9 +33,10 @@ class Delivery < ActiveRecord::Base
     recipients.where(:confirmed_at => nil).update_all(:confirmed_at => Time.zone.now)
   end
 
-  def self.delivered_on date=nil
+  def self.delivered_on(date = nil)
     date ||= Date.today
-    where{delivered_on.eq date}
+
+    where(:delivered_on => date)
   end
 
   def package_count
