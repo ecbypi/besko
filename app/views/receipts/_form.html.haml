@@ -2,7 +2,7 @@
   = simple_fields_for 'receipts[]', receipt do |f|
     %td
       = receipt.recipient.name
-      = f.input :recipient_id, as: :hidden
-    %td= f.input :number_packages, label: false, input_html: { value: 1 }
-    %td= f.input :comment, label: false, input_html: { rows: 2 }
+      = f.input :recipient_id, as: :hidden, input_html: { id: receipt_field_id(receipt, :recipient_id) }
+    %td= f.input :number_packages, label: false, input_html: { value: 1, id: receipt_field_id(receipt, :number_packages) }
+    %td= f.input :comment, label: false, input_html: { rows: 2, id: receipt_field_id(receipt, :comment) }
     %td= link_to 'Remove', 'javascript:void(0)', class: 'button'
