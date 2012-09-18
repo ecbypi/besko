@@ -51,7 +51,6 @@ describe UsersController do
     let(:user) { create(:user, attributes) }
 
     before :each do
-      User.stub(:create_with_or_without_password).and_return(user)
       post :create, format: :json, user: attributes
     end
 
