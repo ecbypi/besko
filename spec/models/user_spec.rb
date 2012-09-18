@@ -66,17 +66,16 @@ describe User do
     end
   end
 
-  describe ".create_without_or_without_password" do
-    let(:attributes) { attributes_for(:user) }
-    it "creates the user password parameters are provided" do
-      user = User.create_with_or_without_password(attributes)
-      user.valid_password?('password').should eq true
-    end
+  describe ".assign_password" do
+    let(:user) { build(:user) }
 
-    it "autogenerates password if the details are missing " do
-      attributes.delete(:password) and attributes.delete(:password_confirmation)
-      user = User.create_with_or_without_password(attributes)
-      user.should be_persisted
+    it "assigns a randomly generated password and password confirmation" do
+      User.assign_password(user)
+
+      user.password.should be_present
+      user.password_confirmation.should be_present
+
+      user.password.should eq user.password_confirmation
     end
   end
 end
