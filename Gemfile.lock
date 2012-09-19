@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/josevalim/active_model_serializers.git
+  revision: 9584b9e147705578f8cb5e6f2a546d0a436c7951
+  specs:
+    active_model_serializers (0.5.2)
+      activemodel (~> 3.0)
+
+GIT
   remote: git://github.com/lostapathy/yaml_db.git
   revision: 98e9a5dca43e3fedd3268c76a73af40d1bdf1dfd
   specs:
@@ -271,6 +278,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers!
   airbrake
   backbone-rails
   backbone-support

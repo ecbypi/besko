@@ -17,6 +17,7 @@ gem 'mit-ldap'
 gem 'ldap-filter'
 gem 'guise'
 gem 'client_side_validations'
+gem 'active_model_serializers', github: 'josevalim/active_model_serializers'
 
 gem 'newrelic_rpm'
 gem 'airbrake'
