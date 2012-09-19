@@ -19,4 +19,4 @@
 
 - content_for :bootstrap do
   %script#bootstrap{type: 'text/json'}
-    { "data" : #{ collection.to_json } }
+    { "data" : #{ @data.to_json } }
