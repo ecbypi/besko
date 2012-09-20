@@ -46,12 +46,14 @@
 
         // Reset form
         this.$user.val('');
+        this.$search.val('');
       }
     },
 
     initialize: function(options) {
       this.$select = this.$('#user_role_title');
       this.$user = this.$('#user_role_user_id');
+      this.$search = this.$('#user-search');
 
       this.$('#user-search').autocomplete({
         source: '/users.json?options[local_only]=true',
