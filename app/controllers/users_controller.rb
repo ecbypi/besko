@@ -9,6 +9,6 @@ class UsersController < ApplicationController
     user = User.assign_password(params[:user])
     user.save
 
-    respond_with(user, root: false)
+    respond_with(user)
   end
 end

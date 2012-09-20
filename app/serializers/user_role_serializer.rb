@@ -1,4 +1,4 @@
-class UserRoleSerializer < ActiveModel::Serializer
+class UserRoleSerializer < ApplicationSerializer
   attributes :id, :name, :added
 
   def name

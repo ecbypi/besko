@@ -1,4 +1,4 @@
-class DeliverySerializer < ActiveModel::Serializer
+class DeliverySerializer < ApplicationSerializer
   attributes :id, :deliverer, :package_count, :created_at, :delivered_at
 
   has_one :worker, serializer: UserSerializer
