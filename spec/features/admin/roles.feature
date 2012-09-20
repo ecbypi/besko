@@ -14,6 +14,15 @@ Feature: Role management
   Scenario: view all existing roles
     Then I should be able to switch between roles to manage
 
+  Scenario: prevents adding users without selecting a role
+    Given I try to add a user without specifying any information
+    Then I should see the error "Select a role before adding a user."
+
+  Scenario: prevents adding users without specifying the user
+    Given I select "Besk Worker" from the list of roles
+    And I try to add a user without specifying one
+    Then I should see the error "You need to find a user in order to add them to the selected role."
+
   Scenario: lists users in a role when that role is selected
     Given mrhalp is a besk worker
     And mshalp is an admin

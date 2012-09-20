@@ -40,6 +40,18 @@
 
   var Form = Support.CompositeView.extend({
     events: {
+      'ajax:before' : function(event) {
+        if ( !this.$select.val() ) {
+          Besko.Support.error('Select a role before adding a user.');
+          return false;
+        }
+
+        if ( !this.$user.val() ) {
+          Besko.Support.error('You need to find a user in order to add them to the selected role.');
+          return false;
+        }
+      },
+
       'ajax:success' : function(event, data, status, xhr) {
         Besko.Support.notice(data.name + ' is now a ' + data.title);
         this.collection.add(data, { at: 0 });

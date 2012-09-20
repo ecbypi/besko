@@ -12,6 +12,14 @@ steps_for :roles do
     select role, from: 'Select a role:'
   end
 
+  step "I try to add a user without specifying any information" do
+    click_button 'Add User'
+  end
+
+  step "I try to add a user without specifying one" do
+    step "I try to add a user without specifying any information"
+  end
+
   step "I should see :name in the list of :position" do |name, position|
     within user_roles_collection do
       user_role_element(name).should be_present
