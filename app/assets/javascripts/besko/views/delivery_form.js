@@ -11,7 +11,7 @@
       this.$headerAndFooter = this.$('thead, tfoot');
 
       this.$('#user-search').autocomplete({
-        source: '/users?autocomplete=true',
+        source: '/users.json?autocomplete=true',
         select: function(event, ui) {
           delete ui.item.value;
           delete ui.item.label;
