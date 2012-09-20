@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   respond_to :json
 
   def index
-    respond_with(User.lookup(params[:term]))
+    respond_with(User.lookup(params[:term], params[:options]))
   end
 
   def create
