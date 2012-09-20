@@ -35,14 +35,13 @@ class User < ActiveRecord::Base
     results = []
 
     unless options[:ldap_search_only]
-      first = args.first
-      last = args.size > 1 ? args[1..-1].join(' ') : first
-      results.concat where {
-        ( first_name.eq first ) |
-        ( last_name.eq  last  ) |
-        ( email.in_any  args  ) |
-        ( login.in_any  args  )
-      }
+      local = where do
+        ( concat(first_name, ' ', last_name).like "%#{args.join('% %')}%" ) |
+        ( email.like_any args  ) |
+        ( login.like_any args  )
+      end
+
+      results.concat(local)
     end
 
     unless options[:skip_ldap_search]
