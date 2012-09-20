@@ -52,6 +52,10 @@
         }
       },
 
+      'ajax:error' : function(event, xhr, status, error) {
+        Besko.Support.error('User is already in the selected role.');
+      },
+
       'ajax:success' : function(event, data, status, xhr) {
         Besko.Support.notice(data.name + ' is now a ' + data.title);
         this.collection.add(data, { at: 0 });
