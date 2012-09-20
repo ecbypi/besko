@@ -34,6 +34,12 @@ Feature: Role management
     Then I should see "Ms Helpline" in the list of admins
     And I should not see "Micro Helpline" in the list of admins
 
+  Scenario: persists what role has been selected across page refreshs
+    Given mrhalp is a besk worker
+    And I select "Besk Worker" from the list of roles
+    When I refresh the page
+    Then I should see "Micro Helpline" in the list of besk workers
+
   @selenium
   Scenario Outline: add a user to a role
     Given I select "Besk Worker" from the list of roles

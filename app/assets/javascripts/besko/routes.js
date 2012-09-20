@@ -19,6 +19,7 @@
     initialize: function() {
       this.el = document.getElementById('content');
       this.route(/^deliveries\?date=(\d{4}-\d{2}-\d{2})$/, 'deliveries');
+      this.route(/^admin\/roles\?title=(\w+)$/, 'roles');
     },
 
     routes: {
@@ -56,11 +57,12 @@
           });
     },
 
-    roles: function() {
+    roles: function(title) {
       var el = document.getElementById('content');
       roles = new Besko.Views.RoleManagement({
         el: el,
-        collection: new Besko.Collections.UserRoles
+        collection: new Besko.Collections.UserRoles,
+        title: title
       });
     }
   });

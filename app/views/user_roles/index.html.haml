@@ -1,7 +1,7 @@
 - content_for :title do
   Role Management
 
-= simple_form_for UserRole.new, html: { data: { type: :json } }, remote: true do |f|
+= simple_form_for UserRole.new(title: params[:title]), html: { data: { type: :json } }, remote: true do |f|
   = f.input :title, label: 'Select a role:', as: :select, collection: User.guise_titles, required: false, wrapper_html: { class: 'inline-input' }
   .input.inline-input
     = f.hidden_field :user_id

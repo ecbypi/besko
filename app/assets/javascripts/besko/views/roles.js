@@ -4,9 +4,8 @@
       'change select' : function(event) {
         var title = $(event.target).val();
 
-        this.collection.fetch({
-          data: { title: title }
-        });
+        window.history.pushState({}, 'Besko | Role Management', '/admin/roles?title=' + title);
+        this.fetch(title);
       }
     },
 
@@ -14,9 +13,19 @@
       this.collection.on('reset', this.render, this);
       this.collection.on('add', this.render, this);
 
+      if ( options.title ) {
+        this.fetch(options.title);
+      }
+
       this.form = new Form({
         el: document.getElementById('new_user_role'),
         collection: this.collection
+      });
+    },
+
+    fetch: function(title) {
+      this.collection.fetch({
+        data: { title: title }
       });
     },
 
