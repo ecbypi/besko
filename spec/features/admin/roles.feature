@@ -55,3 +55,9 @@ Feature: Role management
   #  When I add "mrhalp" to the selected role
   #  And I add "mrhalp" to the selected role
   #  Then I should see the error "User is already in the selected role"
+
+  Scenario: remove a user from a role
+    Given mrhalp is a besk worker
+    And I select "Besk Worker" from the list of roles
+    When I remove "Micro Helpline" from the selected role
+    Then I should see the notice "Micro Helpline is no longer a Besk Worker"

@@ -1,11 +1,4 @@
 (function() {
-  var template = _.template('\
-    <tr data-resource="user_role">\
-      <td><%= escape("name") %></td>\
-      <td><%= escape("added") %></td>\
-      <td></td>\
-    </tr>');
-
   var Roles = Support.CompositeView.extend({
     events: {
       'change select' : function(event) {
@@ -28,13 +21,71 @@
     },
 
     render: function() {
-      var $roles = this.$('[data-collection=user_roles]').empty();
+      var view = this,
+          $roles = this.$('[data-collection=user_roles]').empty();
 
       this.collection.each(function(role) {
-        $roles.append(template(role));
+        var role = new Role({
+          model: role,
+          collection: view.collection
+        });
+        view.renderChild(role);
+        $roles.append(role.el);
       });
 
       return this;
+    }
+  });
+
+  var Role = Support.CompositeView.extend({
+    tagName: 'tr',
+
+    attributes: {
+      'data-resource' : 'user_role'
+    },
+
+    events: {
+      'click button' : function(event) {
+        var view = this;
+
+        if ( confirm(this.confirmationMessage()) ) {
+          this.model.destroy({
+            wait: true,
+
+            success: function(model, response) {
+              view.collection.remove(this.model);
+              view.leave();
+
+              Besko.Support.notice(
+                model.escape('name') + ' is no longer a ' +
+                model.escape('title')
+              );
+            },
+
+            error: function(model, response) {
+              Besko.Support.error(
+                'Unable to remove ' + model.escape('name') +
+                ' from ' +  model.escape('title') +
+                '. Refresh the page and try again.'
+              );
+            }
+          });
+        }
+      }
+    },
+
+    template: _.template('\
+      <td><%= escape("name") %></td>\
+      <td><%= escape("added") %></td>\
+      <td><button>Remove</button></td>'),
+
+    render: function() {
+      this.$el.html(this.template(this.model));
+    },
+
+    confirmationMessage: function() {
+      return 'Remove ' + this.model.get('name') +
+        ' from ' + this.model.get('title') + 's?';
     }
   });
 

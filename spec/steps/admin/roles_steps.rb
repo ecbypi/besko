@@ -46,6 +46,12 @@ steps_for :roles do
     find('input#user_role_user_id').value.should eq ''
     find('input#user-search').value.should eq ''
   end
+
+  step "I remove :name from the selected role" do |name|
+    within user_role_element(name) do
+      click_button 'Remove'
+    end
+  end
 end
 
 placeholder :position do
