@@ -20,6 +20,14 @@ FactoryGirl.define do
       street 'N42'
     end
 
+    factory :mshalp do
+      first_name 'Ms'
+      last_name 'Helpline'
+      email 'mshalp@mit.edu'
+      login 'mshalp'
+      street 'N42'
+    end
+
     factory :admin do
       after_create do |user|
         FactoryGirl.create(:user_role, title: 'Admin', user: user)
