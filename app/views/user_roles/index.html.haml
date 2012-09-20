@@ -1,0 +1,15 @@
+- content_for :title do
+  Role Management
+
+= label_tag :role, 'Select a role:'
+= select_tag :role, options_for_select(User.guise_titles), include_blank: true
+
+%table.user-roles
+  %thead
+    %tr
+      %th{ colspan: 3 }
+    %tr
+      %th Name
+      %th Date Added
+      %th
+  %tbody{ data: { collection: :user_roles } }

@@ -14,6 +14,10 @@ Besko::Application.routes.draw do
   resources :deliveries
   resources :users
 
+  scope '/admin' do
+    resources :roles, controller: :user_roles, as: :user_roles
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -13,6 +13,11 @@
     Receipts: Backbone.Collection.extend({
       url: '/receipts',
       model: Besko.Models.Receipt
+    }),
+
+    UserRoles: Backbone.Collection.extend({
+      url: '/admin/roles',
+      model: Besko.Models.UserRole
     })
   };
 

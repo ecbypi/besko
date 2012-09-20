@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
                   :password,
                   :password_confirmation
 
+  def self.guise_titles
+    guises.map { |title| [title.titleize, title] }
+  end
 
   def self.lookup(search = nil, options = nil)
     results = []

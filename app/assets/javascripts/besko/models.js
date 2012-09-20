@@ -54,6 +54,10 @@
       initialize: function(attributes) {
         loadUser(this, 'recipient');
       }
+    }),
+
+    UserRole: Backbone.Model.extend({
+      urlRoot: '/admin/roles',
     })
   };
 

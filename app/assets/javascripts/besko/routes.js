@@ -24,7 +24,8 @@
     routes: {
       "deliveries" : "deliveries",
       "accounts/signup" : "newAccount",
-      "deliveries/new": "newDelivery"
+      "deliveries/new": "newDelivery",
+      "admin/roles" : "roles"
     },
 
     // Signups
@@ -53,6 +54,14 @@
           form = new Besko.Views.DeliveryForm({
             el: el
           });
+    },
+
+    roles: function() {
+      var el = document.getElementById('content');
+      roles = new Besko.Views.RoleManagement({
+        el: el,
+        collection: new Besko.Collections.UserRoles
+      });
     }
   });
 
