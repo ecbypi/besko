@@ -1,8 +1,12 @@
 class UserRoleSerializer < ApplicationSerializer
-  attributes :id, :name, :added
+  attributes :id, :title, :name, :added
 
   def name
     object.user.name
+  end
+
+  def title
+    object.title.titleize
   end
 
   def added

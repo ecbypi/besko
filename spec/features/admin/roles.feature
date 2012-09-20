@@ -24,3 +24,17 @@ Feature: Role management
     When I select "Admin" from the list of roles
     Then I should see "Ms Helpline" in the list of admins
     And I should not see "Micro Helpline" in the list of admins
+
+  @selenium
+  Scenario Outline: add a user to a role
+    Given I select "Besk Worker" from the list of roles
+    When I add "<user>" to the selected role
+    Then I should see "Micro Helpline" has been added to the list of besk workers
+    And I should see the notice "Micro Helpline is now a Besk Worker"
+    And the form to add users to a role should be reset
+
+    Examples:
+      | user           |
+      | Micro Helpline |
+      | mrhalp         |
+      | mrhalp@mit.edu |

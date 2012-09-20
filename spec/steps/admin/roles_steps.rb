@@ -21,6 +21,22 @@ steps_for :roles do
   step "I should not see :name in the list of :position" do |name, position|
     expect { user_role_element(name) }.to raise_error Capybara::ElementNotFound
   end
+
+  step "I add :user to the selected role" do |user|
+    fill_in 'User to add:', with: user
+
+    step 'I click on "Micro Helpline" in the autocomplete list'
+
+    click_button 'Add User'
+  end
+
+  step "I should see :name has been added to the list of :position" do |name, position|
+    step "I should see '#{name}' in the list of #{position}"
+  end
+
+  step "the form to add users to a role should be reset" do
+    find('input#user_role_user_id').value.should eq ''
+  end
 end
 
 placeholder :position do

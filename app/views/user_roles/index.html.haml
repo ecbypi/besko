@@ -1,8 +1,13 @@
 - content_for :title do
   Role Management
 
-= label_tag :role, 'Select a role:'
-= select_tag :role, options_for_select(User.guise_titles), include_blank: true
+= simple_form_for UserRole.new, html: { data: { type: :json } }, remote: true do |f|
+  = f.input :title, label: 'Select a role:', as: :select, collection: User.guise_titles, required: false, wrapper_html: { class: 'inline-input' }
+  .input.inline-input
+    = f.hidden_field :user_id
+    = label_tag 'user-search', 'User to add:'
+    = search_field_tag 'user-search', nil, placeholder: 'Enter name, email or kerberos'
+  = f.button :submit, value: 'Add User'
 
 %table.user-roles
   %thead
