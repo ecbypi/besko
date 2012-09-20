@@ -30,6 +30,8 @@
             %li= link_to 'Deliveries', deliveries_path
           - if can? :create, Delivery
             %li= link_to 'Log New Delivery', new_delivery_path
+          - if can? :manage, UserRole
+            %li= link_to 'Positions', user_roles_path
 
     #notifications
       - if alert

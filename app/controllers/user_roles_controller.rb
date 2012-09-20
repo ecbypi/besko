@@ -1,5 +1,6 @@
 class UserRolesController < InheritedResources::Base
   respond_to :html, :json
+  authorize_resource
 
   protected
 

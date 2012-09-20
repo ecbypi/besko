@@ -19,4 +19,8 @@ placeholder :url_action do
   match /review receipts/ do
     '/receipts'
   end
+
+  match /manage roles/ do
+    '/admin/roles'
+  end
 end

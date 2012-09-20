@@ -67,3 +67,10 @@ Feature: Role management
     And I select "Besk Worker" from the list of roles
     When I remove "Micro Helpline" from the selected role
     Then I should see the notice "Micro Helpline is no longer a Besk Worker"
+
+  Scenario: can only be done by admins
+    Given I am logged in with the email "worker@mit.edu"
+    And I am a besk worker with the email "worker@mit.edu"
+    When I am on the page to manage roles
+    Then I should be redirected to the home page
+    And I should not see the URL to manage roles
