@@ -24,27 +24,26 @@ class User < ActiveRecord::Base
                   :password,
                   :password_confirmation
 
-  def self.lookup(search = nil, options = {})
-    options.reverse_merge!(
-      skip_ldap_search: false,
-      ldap_search_only: false
-    )
 
-    return [] if search.blank?
-    args = search.split
+  def self.lookup(search = nil, options = nil)
     results = []
+    options ||= {}
 
-    unless options[:ldap_search_only]
+    return results if search.blank?
+
+    if !options[:remote_only]
+      terms = search.split
+
       local = where do
-        ( concat(first_name, ' ', last_name).like "%#{args.join('% %')}%" ) |
-        ( email.like_any args  ) |
-        ( login.like_any args  )
+        ( concat(first_name, ' ', last_name).like "%#{terms.join('% %')}%" ) |
+        ( email.like_any terms ) |
+        ( login.like_any terms )
       end
 
       results.concat(local)
     end
 
-    unless options[:skip_ldap_search]
+    if !options[:local_only]
       results.concat MIT::LDAP::UserAdapter.build_users(search)
     end
 

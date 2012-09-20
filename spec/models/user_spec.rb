@@ -49,12 +49,12 @@ describe User do
 
     it "does not check ldap if :skip_ldap_search is true" do
       MIT::LDAP.should_receive(:search).exactly(0).times
-      User.lookup('micro helpline', skip_ldap_search: true)
+      User.lookup('micro helpline', local_only: true)
     end
 
     it "only checks ldap server is :ldap_search_only is true" do
       User.should_receive(:where).exactly(0).times
-      User.lookup('micro helpline', ldap_search_only: true)
+      User.lookup('micro helpline', remote_only: true)
     end
 
     it "checks ldap server if no records are found in the database" do
