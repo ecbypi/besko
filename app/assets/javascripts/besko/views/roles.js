@@ -9,13 +9,7 @@
       this.roles = new Roles({
         el: this.$('table')[0],
         collection: this.collection
-      });
-
-      if ( options.title ) {
-        this.collection.fetch({
-          data: { title: options.title }
-        });
-      }
+      }).render();
     }
   });
 

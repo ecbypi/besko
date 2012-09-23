@@ -58,11 +58,12 @@
     },
 
     roles: function(title) {
-      var el = document.getElementById('content');
+      var el = document.getElementById('content'),
+          roles = bootstrap(Besko.Collections.UserRoles);
+
       roles = new Besko.Views.RoleManagement({
         el: el,
-        collection: new Besko.Collections.UserRoles,
-        title: title
+        collection: roles
       });
     }
   });
