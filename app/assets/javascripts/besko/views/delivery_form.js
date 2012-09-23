@@ -1,14 +1,28 @@
 (function() {
   DeliveryForm = Support.CompositeView.extend({
     events: {
-      'click a[data-clear]' : 'clear'
+      'click a[data-clear]' : 'clear',
+      'keydown #user-search' : function(event) {
+        if ( event.keyCode === 13 ) {
+          event.preventDefault();
+        }
+      },
+      'ajax:before' : 'validate',
+      'ajax:failure' : function(event, xhr, status, error) {
+        Besko.Support.error('Unable to log this delivery.')
+      },
+      'ajax:success' : function(event) {
+        Besko.Support.notice('Notifications Sent.');
+        this.clear();
+      }
     },
 
     initialize: function(options) {
       var view = this;
 
-      this.$tbody = this.$('tbody');
+      this.$receipts = this.$('[data-collection=receipts]');
       this.$headerAndFooter = this.$('thead, tfoot');
+      this.$select = this.$('#delivery_deliverer');
 
       this.$('#user-search').autocomplete({
         source: '/users.json?autocomplete=true',
@@ -29,7 +43,7 @@
             data: data,
             dataType: 'script',
             success: function(data, response, textStatus) {
-              var el = view.$tbody.children().last()[0],
+              var el = view.$receipts.children('[data-resource=receipt]:last'),
                   fields = new ReceiptFields();
 
               fields.setElement(el);
@@ -46,15 +60,26 @@
       return this;
     },
 
+    validate: function(event) {
+      if ( !this.$select.val() ) {
+        Besko.Support.error('A deliverer is required to log a delivery.');
+        return false;
+      }
+
+      if ( !this.$receipts.children().length ) {
+        Besko.Support.error('At least on recipient is required for a delivery.');
+        return false;
+      }
+    },
+
     clear: function(event) {
       this._leaveChildren();
-      this.$('select#delivery_deliverer').val('');
-      this.$el.validate();
+      this.$select.val('');
       this.hideTable();
     },
 
     hideTable: function() {
-      if ( this.$tbody.children().length === 0 ) {
+      if ( !this.$receipts.children().length ) {
         this.$headerAndFooter.hide();
       }
     }

@@ -1,5 +1,5 @@
 @selenium @deliveries
-Feature: Create Delivery Notifications
+Feature: Logging deliveries
   In order to notify recipients they have a delivery
   As a besk worker
   I need to email the recipients in an easy way
@@ -11,6 +11,12 @@ Feature: Create Delivery Notifications
       | First Name | Last Name | Login | Email                 |
       | Jon        | Snow      | snow  | snow@thewall.kingdom  |
     And mrhalp exists in the LDAP server
+
+  Scenario: blocks submission with invalid attributes
+    Given I am on the page to log deliveries
+    When I add "Jon Snow" to the list of recipient receipts
+    And I submit the notifications
+    Then I should see the error "A deliverer is required to log a delivery"
 
   Scenario Outline: Search for recipients by name, email or login (kerberos)
     Given I am on the page to log deliveries
