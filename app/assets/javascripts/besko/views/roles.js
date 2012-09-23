@@ -99,6 +99,11 @@
 
   var Form = Support.CompositeView.extend({
     events: {
+      'keydown input' : function(event) {
+        if ( event.keyCode === 13 ) {
+          event.preventDefault();
+        }
+      },
       'change select' : 'fetch',
       'ajax:before' : 'validate',
       'ajax:success' : 'updateCollection',
@@ -108,8 +113,6 @@
     },
 
     initialize: function(options) {
-      this.parent = options.parent;
-
       this.$select = this.$('#user_role_title');
       this.$user = this.$('#user_role_user_id');
       this.$search = this.$('#user-search');
@@ -117,7 +120,10 @@
       this.$('#user-search').autocomplete({
         source: '/users.json?options[local_only]=true',
         select: function(event, ui) {
-          $(this).siblings('input[type=hidden]').val(ui.item.id);
+          $input = $(this);
+          $input.siblings('input[type=hidden]').val(ui.item.id);
+
+          $input.parents('form').submit();
         }
       });
     },

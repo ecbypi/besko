@@ -25,14 +25,6 @@ steps_for :roles do
     end
   end
 
-  step "I try to add a user without specifying any information" do
-    click_button 'Add User'
-  end
-
-  step "I try to add a user without specifying one" do
-    step "I try to add a user without specifying any information"
-  end
-
   step "I should see :name in the list of :position" do |name, position|
     within user_roles_collection do
       user_role_element(name).should be_present
@@ -47,8 +39,6 @@ steps_for :roles do
     fill_in 'User to add:', with: user
 
     step 'I click on "Micro Helpline" in the autocomplete list'
-
-    click_button 'Add User'
   end
 
   step "I should see :name has been added to the list of :position" do |name, position|
