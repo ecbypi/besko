@@ -1,7 +1,6 @@
 //= require_self
 
 //= include besko/auth_token_adapter.js
-//= include besko/form_templates
 
 //= require besko/notifications
 //= require besko/date
