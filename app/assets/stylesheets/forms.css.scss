@@ -57,6 +57,23 @@ $input-margin: 5px 0 10px;
   }
 }
 
+.inline-input {
+  width: auto;
+
+  label {
+    width: 130px;
+    display: inline-block;
+  }
+
+  input {
+    margin-left: -4px;
+  }
+
+  .hint, .error {
+    margin-left: 130px;
+  }
+}
+
 #{$all-text-inputs}, textarea {
   width: 230px;
   border: 1px solid #b2b2b2;
