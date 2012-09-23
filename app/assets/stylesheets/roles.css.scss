@@ -1,5 +1,7 @@
 .users-in-role {
-  display: none;
+  thead {
+    display: none;
+  }
 
   .user-role-name {
     width: 250px;

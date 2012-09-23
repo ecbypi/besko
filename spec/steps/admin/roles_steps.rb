@@ -13,12 +13,16 @@ steps_for :roles do
   end
 
   step "the list of users in the role should be hidden" do
-    user_roles_collection.should_not be_visible
+    within '.users-in-role' do
+      find('thead').should_not be_visible
+    end
   end
 
   step "the list of users in the role should be visible" do
-    sleep 1 # table isn't being rendered fast enough
-    user_roles_collection.should be_visible
+    sleep 1
+    within '.users-in-role' do
+      find('thead').should be_visible
+    end
   end
 
   step "I try to add a user without specifying any information" do
