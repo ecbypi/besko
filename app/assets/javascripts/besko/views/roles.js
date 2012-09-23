@@ -2,9 +2,14 @@
   var Roles = Support.CompositeView.extend({
     events: {
       'change select' : function(event) {
-        var title = $(event.target).val();
+        var title = $(event.target).val(),
+            path = '/admin/roles';
 
-        window.history.pushState({}, 'Besko | Role Management', '/admin/roles?title=' + title);
+        if ( title ) {
+          path = path + '?title=' + title;
+        }
+
+        window.history.pushState({}, 'Besko | Role Management', path);
         this.fetch(title);
       }
     },
