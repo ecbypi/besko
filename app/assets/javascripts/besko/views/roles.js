@@ -16,7 +16,9 @@
 
     initialize: function(options) {
       this.collection.on('reset', this.render, this);
+      this.collection.on('reset', this.toggleRolesList, this);
       this.collection.on('add', this.render, this);
+      this.collection.on('add', this.toggleRolesList, this);
 
       this.$roles = this.$('[data-collection=user_roles]');
 
@@ -34,6 +36,14 @@
       this.collection.fetch({
         data: { title: title }
       });
+    },
+
+    toggleRolesList: function() {
+      if ( this.collection.length ) {
+        this.$roles.show();
+      } else {
+        this.$roles.hide();
+      }
     },
 
     render: function() {

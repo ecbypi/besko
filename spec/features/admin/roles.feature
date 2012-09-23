@@ -14,6 +14,14 @@ Feature: Role management
   Scenario: view all existing roles
     Then I should be able to switch between roles to manage
 
+  Scenario: hides and shows roles table as needed
+    Given mrhalp is an admin
+    When I select "Besk Worker" from the list of roles
+    Then the list of users in the role should be hidden
+
+    When I select "Admin" from the list of roles
+    Then the list of users in the role should be visible
+
   Scenario: prevents adding users without selecting a role
     Given I try to add a user without specifying any information
     Then I should see the error "Select a role before adding a user."
