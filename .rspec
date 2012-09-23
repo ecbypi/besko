@@ -1,1 +1,1 @@
---colour --drb -r turnip/rspec --tag ~@wip
+--colour --drb -r turnip/rspec --tag ~@wip --tag @focus
