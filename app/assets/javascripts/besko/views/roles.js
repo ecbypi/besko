@@ -101,8 +101,8 @@
     },
 
     template: _.template('\
-      <td><%= escape("name") %></td>\
-      <td><%= escape("added") %></td>\
+      <td class="user-role-name"><%= escape("name") %></td>\
+      <td class="date-added"><%= escape("added") %></td>\
       <td><button>Remove</button></td>'),
 
     render: function() {
