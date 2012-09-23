@@ -18,6 +18,8 @@
       this.collection.on('reset', this.render, this);
       this.collection.on('add', this.render, this);
 
+      this.$roles = this.$('[data-collection=user_roles]');
+
       if ( options.title ) {
         this.fetch(options.title);
       }
@@ -36,7 +38,7 @@
 
     render: function() {
       var view = this,
-          $roles = this.$('[data-collection=user_roles]').empty();
+          $roles = this.$roles.find('tbody').empty();
 
       this.collection.each(function(role) {
         var role = new Role({
