@@ -115,17 +115,18 @@
     initialize: function(options) {
       this.$select = this.$('#user_role_title');
       this.$user = this.$('#user_role_user_id');
-      this.$search = this.$('#user-search');
 
-      this.$('#user-search').autocomplete({
-        source: '/users.json?options[local_only]=true',
-        select: function(event, ui) {
-          $input = $(this);
-          $input.siblings('input[type=hidden]').val(ui.item.id);
-
-          $input.parents('form').submit();
-        }
+      new Besko.Views.UserSearch({
+        local: true,
+        context: this,
+        select: this.submit
       });
+    },
+
+    submit: function(view, event, ui) {
+      view.$('#user_role_user_id').val(ui.item.id);
+
+      view.$el.submit();
     },
 
     validate: function(event) {
@@ -161,7 +162,6 @@
 
       // Reset form
       this.$user.val('');
-      this.$search.val('');
     }
   });
 

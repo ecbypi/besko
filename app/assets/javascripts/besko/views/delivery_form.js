@@ -1,12 +1,7 @@
 (function() {
   DeliveryForm = Support.CompositeView.extend({
     events: {
-      'click a[data-clear]' : 'clear',
-      'keydown #user-search' : function(event) {
-        if ( event.keyCode === 13 ) {
-          event.preventDefault();
-        }
-      },
+      'click a[data-cancel]' : 'clear',
       'ajax:before' : 'validate',
       'ajax:failure' : function(event, xhr, status, error) {
         Besko.Support.error('Unable to log this delivery.')
@@ -18,46 +13,44 @@
     },
 
     initialize: function(options) {
-      var view = this;
-
       this.$receipts = this.$('[data-collection=receipts]');
       this.$headerAndFooter = this.$('thead, tfoot');
       this.$select = this.$('#delivery_deliverer');
 
-      this.$('#user-search').autocomplete({
-        source: '/users.json?autocomplete=true',
-        select: function(event, ui) {
-          delete ui.item.value;
-          delete ui.item.label;
-          delete ui.item.name;
-
-          if ( ui.item.id ) {
-            var data = { user_id: ui.item.id };
-          } else {
-            delete ui.item.id;
-            var data = { user: ui.item };
-          }
-
-          $.ajax({
-            url: '/receipts/new',
-            data: data,
-            dataType: 'script',
-            success: function(data, response, textStatus) {
-              var el = view.$receipts.children('[data-resource=receipt]:last'),
-                  fields = new ReceiptFields();
-
-              fields.setElement(el);
-
-              view.$headerAndFooter.show();
-              view.renderChild(fields);
-            }
-          });
-        }
+      new Besko.Views.UserSearch({
+        context: this,
+        select: this.addRecipient
       });
     },
 
     render: function() {
       return this;
+    },
+
+    addRecipient: function(view, event, ui) {
+      delete ui.item.value;
+      delete ui.item.label;
+      delete ui.item.name;
+
+      if ( ui.item.id ) {
+        var data = { user_id: ui.item.id };
+      } else {
+        delete ui.item.id;
+        var data = { user: ui.item };
+      }
+
+      $.ajax({
+        url: '/receipts/new',
+        data: data,
+        dataType: 'script',
+        success: function(data, response, textStatus) {
+          var el = view.$receipts.children('[data-resource=receipt]:last'),
+              fields = new ReceiptFields({ el: el });
+
+          view.$headerAndFooter.show();
+          view.renderChild(fields);
+        }
+      });
     },
 
     validate: function(event) {
@@ -75,7 +68,7 @@
     clear: function(event) {
       this._leaveChildren();
       this.$select.val('');
-      this.hideTable();
+      this.$headerAndFooter.hide();
     },
 
     hideTable: function() {

@@ -3,10 +3,9 @@
 
 = simple_form_for UserRole.new(title: params[:title]), html: { data: { type: :json } }, remote: true do |f|
   = f.input :title, label: 'Select a role:', as: :select, collection: User.guise_titles, required: false, wrapper_html: { class: 'inline-input' }
-  .input.inline-input
+  .input.inline-input.search
     = f.hidden_field :user_id
     = label_tag 'user-search', 'User to add:'
-    = search_field_tag 'user-search', nil, placeholder: 'Enter name, email or kerberos'
 
 %table.users-in-role
   %thead

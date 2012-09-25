@@ -51,17 +51,15 @@
     },
 
     newDelivery: function() {
-      var el = document.getElementById('new_delivery'),
-          form = new Besko.Views.DeliveryForm({
-            el: el
-          });
+      var el = document.getElementById('new_delivery');
+      new Besko.Views.DeliveryForm({ el: el });
     },
 
     roles: function(title) {
       var el = document.getElementById('content'),
           roles = bootstrap(Besko.Collections.UserRoles);
 
-      roles = new Besko.Views.RoleManagement({
+      new Besko.Views.RoleManagement({
         el: el,
         collection: roles
       });
