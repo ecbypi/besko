@@ -4,4 +4,3 @@ en:
       delivery: "Only besk workers can log deliveries."
     read:
       delivery: "Only besk workers can review deliveries."
-      receipt: "You can only view packages if you've received some."

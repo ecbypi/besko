@@ -2,9 +2,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new
+    return unless user
 
-    can [:read, :update], Receipt, recipient_id: user.id if user.receipts.present?
+    can [:read, :update], Receipt, recipient_id: user.id
 
     if user.besk_worker?
       can [:read, :create], Delivery

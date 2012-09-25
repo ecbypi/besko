@@ -75,17 +75,6 @@ table.deliveries {
     text-align: center;
   }
 
-  tbody.empty {
-    display: none;
-
-    td {
-      font-size: 24px;
-      height: 200px;
-      vertical-align: middle;
-      text-align: center;
-    }
-  }
-
   tbody.delivery {
     cursor: pointer;
 

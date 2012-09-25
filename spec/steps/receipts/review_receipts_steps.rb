@@ -38,6 +38,12 @@ steps_for :review_receipts do
       end
     end
   end
+
+  step "I should see a notice describing I have received no packages" do
+    within receipts_collection do
+      page.should have_content 'You have no packages.'
+    end
+  end
 end
 
 # Shared step between receipt/delivery steps

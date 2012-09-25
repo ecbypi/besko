@@ -7,6 +7,11 @@ step "I should be redirected to the home page" do
   step "I should see an error message"
 end
 
+step "I should be redirected to the login page" do
+  current_path.should eq new_user_session_path
+  step "I should see an error message"
+end
+
 placeholder :url_action do
   match /create deliveries/ do
     '/deliveries/new'

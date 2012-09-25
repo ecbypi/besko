@@ -10,4 +10,8 @@
       %th Delivered By
       %th Comment
       %th
-  %tbody{ data: { collection: :receipts} }= render partial: 'receipt', collection: collection
+  %tbody{ data: { collection: :receipts} }
+    = render partial: 'receipt', collection: collection
+    - if collection.empty?
+      %tr
+        %td.empty-message{ colspan: 6 } You have no packages.
