@@ -30,19 +30,4 @@ describe ApplicationDecorator do
       decorator.created_at.should eq 'October 30, 2010 at 10:30 AM'
     end
   end
-
-  describe "#mail_to_worker" do
-    it "creates a mailto link for the worker" do
-      def model.worker
-        TestWorker.new
-      end
-
-      decorator.mail_to_worker.should match 'Jon Snow'
-      decorator.mail_to_worker.should match 'clever-name@email.org'
-    end
-
-    it "returns empty string if model does not respond to worker" do
-      decorator.mail_to_worker.should eq ''
-    end
-  end
 end

@@ -22,9 +22,14 @@ class ReceiptsController < InheritedResources::Base
     update!(notice: 'Package Signed Out')
   end
 
-  private
+  protected
+
+  def begin_of_association_chain
+    current_user
+  end
 
   def collection
-    ReceiptDecorator.decorate(current_user.receipts.includes{delivery.worker})
+    records = super.includes(:delivery => :worker)
+    ReceiptDecorator.decorate(records)
   end
 end

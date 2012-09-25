@@ -4,13 +4,13 @@ steps_for :review_receipts do
   end
 
   step "I should see a button to sign out the packages received by :name" do  |name|
-    within model_resource name  do
+    within receipt_element name  do
       page.should have_button 'Sign Out'
     end
   end
 
   step "I sign out the packages received by :worker_name" do  |worker_name|
-    within model_resource worker_name  do
+    within receipt_element worker_name  do
       click_button 'Sign Out'
     end
   end

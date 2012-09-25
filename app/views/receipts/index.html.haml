@@ -1,19 +1,13 @@
 - content_for :title do
   Package Receipts
 
-%table{data: { collection: :receipts }}
-  %tr
-    %th Received By
-    %th Number of Packages
-    %th Received At
-    %th Delivered By
-    %th Comment
-    %th
-  - collection.each do |receipt|
-    %tr{data: { 'resource-id' => receipt.id }}
-      %td= receipt.mail_to_worker
-      %td= receipt.number_packages
-      %td= receipt.created_at
-      %td= receipt.deliverer
-      %td= receipt.comment
-      %td= receipt.sign_out_button
+%table
+  %thead
+    %tr
+      %th Received By
+      %th Number of Packages
+      %th Received At
+      %th Delivered By
+      %th Comment
+      %th
+  %tbody{ data: { collection: :receipts} }= render partial: 'receipt', collection: collection

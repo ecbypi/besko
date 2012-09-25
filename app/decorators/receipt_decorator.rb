@@ -5,6 +5,10 @@ class ReceiptDecorator < ApplicationDecorator
     model.recipient.name
   end
 
+  def mail_to_worker
+    h.mail_to model.worker.email, model.worker.name
+  end
+
   def sign_out_button
     if model.signed_out?
       model.signed_out_at.strftime(time_format)

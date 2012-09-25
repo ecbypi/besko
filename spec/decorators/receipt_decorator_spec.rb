@@ -37,4 +37,11 @@ describe ReceiptDecorator do
       end
     end
   end
+
+  describe "#mail_to_worker" do
+    it "creates a mailto link for the worker" do
+      decorator.mail_to_worker.should match 'Besk Worker'
+      decorator.mail_to_worker.should match 'besker@mit.edu'
+    end
+  end
 end
