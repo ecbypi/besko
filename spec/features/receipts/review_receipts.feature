@@ -48,6 +48,12 @@ Feature: View Delivery Receipts
     And I am on the receipts page
     Then I should see a notice describing I have received no packages
 
+  Scenario: Provides pagination in groups of 10
+    Given "packy@mit.edu" has 10 package receipts
+    And I am on the receipts page
+    When I go to the next page of receipts
+    Then I should see a receipt
+
   Scenario: Allow access only to logged in users
     Given no one is logged in
     And I am on the receipts page

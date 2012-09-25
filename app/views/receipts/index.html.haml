@@ -1,6 +1,8 @@
 - content_for :title do
   Package Receipts
 
+= render 'pagination'
+
 %table
   %thead
     %tr
@@ -15,3 +17,5 @@
     - if collection.empty?
       %tr
         %td.empty-message{ colspan: 6 } You have no packages.
+
+= render 'pagination'

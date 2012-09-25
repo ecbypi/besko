@@ -29,7 +29,7 @@ class ReceiptsController < InheritedResources::Base
   end
 
   def collection
-    records = super.includes(:delivery => :worker)
+    records = super.includes(:delivery => :worker).page(params[:page]).per(10)
     ReceiptDecorator.decorate(records)
   end
 end

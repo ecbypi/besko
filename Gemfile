@@ -17,6 +17,7 @@ gem 'mit-ldap'
 gem 'ldap-filter'
 gem 'guise'
 gem 'active_model_serializers', github: 'josevalim/active_model_serializers'
+gem 'kaminari'
 
 gem 'newrelic_rpm'
 gem 'airbrake'

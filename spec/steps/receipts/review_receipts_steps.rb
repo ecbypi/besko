@@ -3,6 +3,12 @@ steps_for :review_receipts do
     visit receipts_path
   end
 
+  step ":email has :number package receipts" do |email, number|
+    user = User.find_by_email!(email)
+
+    create_list(:receipt, number, recipient: user)
+  end
+
   step "I should see a button to sign out the packages received by :name" do  |name|
     within receipt_element name  do
       page.should have_button 'Sign Out'
@@ -44,6 +50,10 @@ steps_for :review_receipts do
       page.should have_content 'You have no packages.'
     end
   end
+
+  step "I should see a receipt" do
+    receipt_element.should be_present
+  end
 end
 
 # Shared step between receipt/delivery steps
@@ -53,4 +63,3 @@ step "I should see a link to email :worker_name at :worker_email" do |worker_nam
     page.should have_link(worker_name, href: "mailto:#{worker_email}")
   end
 end
-
