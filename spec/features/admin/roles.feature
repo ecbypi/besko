@@ -40,18 +40,12 @@ Feature: Role management
     Then I should see "Micro Helpline" in the list of besk workers
 
   @selenium
-  Scenario Outline: add a user to a role
+  Scenario: add a user to a role
     Given I select "Besk Worker" from the list of roles
-    When I add "<user>" to the selected role
+    When I add "mrhalp" to the selected role
     Then I should see "Micro Helpline" has been added to the list of besk workers
     And I should see the notice "Micro Helpline is now a Besk Worker"
     And the form to add users to a role should be reset
-
-    Examples:
-      | user           |
-      | Micro Helpline |
-      | mrhalp         |
-      | mrhalp@mit.edu |
 
   @wip @selenium
   Scenario: ensures users are not added to a role twice

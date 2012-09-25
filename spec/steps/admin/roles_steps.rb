@@ -36,9 +36,11 @@ steps_for :roles do
   end
 
   step "I add :user to the selected role" do |user|
-    fill_in 'User to add:', with: user
+    user = User.find_by_login!(user)
 
-    step 'I click on "Micro Helpline" in the autocomplete list'
+    fill_in 'User to add:', with: user.name
+
+    step "I click on '#{user.name}' in the autocomplete list"
   end
 
   step "I should see :name has been added to the list of :position" do |name, position|
