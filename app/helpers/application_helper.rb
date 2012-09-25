@@ -6,4 +6,9 @@ module ApplicationHelper
       end
     end
   end
+
+  def bootstrap_collection
+    data = ActiveModel::ArraySerializer.new(collection)
+    bootstrap(data)
+  end
 end

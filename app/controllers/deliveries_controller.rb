@@ -2,11 +2,6 @@ class DeliveriesController < InheritedResources::Base
   respond_to :html, :json
   authorize_resource
 
-  def index
-    @data = ActiveModel::ArraySerializer.new(collection)
-    super
-  end
-
   def create
     create!(notice: 'Notifications Sent', error: 'Unable to log delivery.') do
       new_delivery_path

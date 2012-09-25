@@ -17,6 +17,4 @@
     %tr
       %td{ colspan: 4 } No Deliveries
 
-- content_for :bootstrap do
-  %script#bootstrap{type: 'text/json'}
-    { "data" : #{ @data.to_json } }
+= bootstrap_collection

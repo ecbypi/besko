@@ -2,11 +2,6 @@ class UserRolesController < InheritedResources::Base
   respond_to :html, :json
   authorize_resource
 
-  def index
-    @data = ActiveModel::ArraySerializer.new(collection)
-    super
-  end
-
   protected
 
   def collection
