@@ -18,17 +18,6 @@ Feature: Logging deliveries
     And I submit the notifications
     Then I should see the error "A deliverer is required to log a delivery"
 
-  Scenario Outline: Search for recipients by name, email or login (kerberos)
-    Given I am on the page to log deliveries
-    When I search for "<search>"
-    Then I should see "Jon Snow" in the autocomplete list
-
-    Examples:
-      | search               |
-      | Jon Snow             |
-      | snow@thewall.kingdom |
-      | snow                 |
-
   Scenario: Add a recipient
     Given I am on the page to log deliveries
     When I search for "Jon Snow"
