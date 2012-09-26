@@ -5,6 +5,6 @@ class UserRolesController < InheritedResources::Base
   protected
 
   def collection
-    @user_roles ||= UserRole.with_title(params[:title]).order { id.desc }
+    @user_roles ||= params[:title] ? UserRole.with_title(params[:title]).order { id.desc } : []
   end
 end
