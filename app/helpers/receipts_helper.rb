@@ -10,7 +10,7 @@ module ReceiptsHelper
   end
 
   def link_to_next_page
-    if collection.size == 10
+    if collection.to_a.size == 10
       link_to 'Next', receipts_path(page: current_page + 1), class: 'next-page button'
     end
   end
