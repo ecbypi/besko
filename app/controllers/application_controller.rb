@@ -21,7 +21,8 @@ class ApplicationController < ActionController::Base
   private
 
   def sign_in_with_touchstone
-    if user = User.find_by_email(request.env['REMOTE_USER'])
+    if request.env['REMOTE_USER']
+      user = User.find_by_email(request.env['REMOTE_USER'])
       sign_in(user)
     end
   end
