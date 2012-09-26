@@ -2,7 +2,7 @@ class ReceiptsController < InheritedResources::Base
   respond_to :html, :js, :json
 
   actions :all, except: [:show]
-  load_and_authorize_resource
+  authorize_resource
 
   def new
     if params[:user_id]
@@ -13,7 +13,7 @@ class ReceiptsController < InheritedResources::Base
       user.save
     end
 
-    resource.recipient = user
+    build_resource.recipient = user
     super
   end
 
@@ -24,12 +24,13 @@ class ReceiptsController < InheritedResources::Base
 
   protected
 
-  def begin_of_association_chain
-    current_user
-  end
-
   def collection
-    records = super.includes(:delivery => :worker).page(params[:page]).per(10)
-    ReceiptDecorator.decorate(records)
+    get_collection_ivar || begin
+      records = current_user.receipts.
+        includes(:delivery => :worker).
+        page(params[:page]).per(10)
+
+      @receipts = ReceiptDecorator.decorate(records)
+    end
   end
 end
