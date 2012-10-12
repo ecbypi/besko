@@ -72,4 +72,14 @@ class User < ActiveRecord::Base
     headers[:to] = 'besko@mit.edu' if action == :confirmation_instructions
     headers
   end
+
+  def skip_confirmation_email!
+    @skip_confirmation_email = true
+  end
+
+  private
+
+  def send_on_create_confirmation_instructions
+    super unless @skip_confirmation_email
+  end
 end
