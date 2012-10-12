@@ -6,7 +6,8 @@ server 'besko.mit.edu', :web, :app, :db, primary: true
 set :scm, :git
 set :scm_username, 'git'
 set :repository, 'git@github.com:ecbypi/besko.git'
-set :branch, 'origin/master'
+set :branch, 'master'
+set :deploy_via, :remote_cache
 
 # Environment settings
 set :user, 'deploy'
@@ -20,4 +21,4 @@ set :default_environment, {
   'PATH' => '/usr/local/ruby/bin:$PATH'
 }
 
-set :shared_children, %w(public/system log tmp/pids tmp/sockets private)
+set :shared_children, []

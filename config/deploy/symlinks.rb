@@ -11,7 +11,6 @@ set :odd_symlinks, {
 }
 
 namespace :deploy do
-  task :create_symlink do ; end
   task :symlink do ; end
 
   desc "Symlink everything in one task"
@@ -31,7 +30,7 @@ namespace :deploy do
     end
 
     run <<-CMD
-      mkdir -p #{current_path}/tmp &&
+      mkdir -p #{release_path}/tmp &&
       mkdir -p #{dirs.join(' ')} &&
       #{commands.join(' && ')}
     CMD
