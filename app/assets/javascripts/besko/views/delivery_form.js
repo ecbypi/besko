@@ -1,4 +1,16 @@
 (function() {
+  var templates = {
+    result: _.template('\
+      <li>\
+        <a>\
+          <%- name %>\
+          <span class="autocomplete-result-details">\
+            <%- details %>\
+          </span>\
+        </a>\
+      </li>')
+  };
+
   DeliveryForm = Support.CompositeView.extend({
     events: {
       'click a[data-cancel]' : 'clear',
@@ -17,10 +29,17 @@
       this.$headerAndFooter = this.$('thead, tfoot');
       this.$select = this.$('#delivery_deliverer');
 
-      new Besko.Views.UserSearch({
+      this.search = new Besko.Views.UserSearch({
         context: this,
         select: this.addRecipient
       });
+
+      this.search.$el.data('autocomplete')._renderItem = function(ul, item) {
+        var $li = $(templates.result(item));
+        $li.data('item.autocomplete', item);
+
+        ul.append($li);
+      };
     },
 
     render: function() {
