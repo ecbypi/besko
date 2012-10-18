@@ -13,8 +13,8 @@ class User < ActiveRecord::Base
   has_many :deliveries, :foreign_key => :worker_id
   has_guises :BeskWorker, :Admin, :association => :user_roles
 
-  validates :first_name, :last_name, :login, presence: true
-  validates :login, uniqueness: true
+  validates :first_name, :last_name, presence: true
+  validates :login, uniqueness: { allow_nil: true, case_sensitive: false }
 
   attr_accessible :first_name,
                   :last_name,
