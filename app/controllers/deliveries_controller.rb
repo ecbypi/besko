@@ -8,7 +8,7 @@ class DeliveriesController < InheritedResources::Base
     end
   end
 
-  protected
+  private
 
   def create_resource(object)
     object.receipts_attributes = params[:receipts]
