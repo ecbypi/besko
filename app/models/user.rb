@@ -36,11 +36,13 @@ class User < ActiveRecord::Base
 
     if !options[:remote_only]
       terms = search.split
+      likened_terms = terms.map { |term| "%#{term}%" }
 
       local = where do
         ( concat(first_name, ' ', last_name).like "%#{terms.join('% %')}%" ) |
-        ( email.like_any terms ) |
-        ( login.like_any terms )
+        ( last_name.like  "%#{terms.last}%"  ) |
+        ( email.like_any  likened_terms      ) |
+        ( login.like_any  likened_terms      )
       end
 
       results.concat(local)
