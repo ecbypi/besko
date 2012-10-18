@@ -52,7 +52,13 @@ class User < ActiveRecord::Base
       results.concat MIT::LDAP::UserAdapter.build_users(search)
     end
 
-    results.to_a.uniq { |user| user.login }
+    if results.empty?
+      first_name, last_name = search.split(' ', 2).map { |piece| piece.titleize }
+      result = User.new(first_name: first_name, last_name: last_name, email: 'besker-super@mit.edu')
+      results.push(result)
+    end
+
+    results.to_a.uniq { |user| user.email }
   end
 
   def self.assign_password(user)

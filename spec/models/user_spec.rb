@@ -57,6 +57,14 @@ describe User do
 
       User.lookup('micro helpline').should eq [result]
     end
+
+    it "builds a user with the besker-super email address if nothing is found" do
+      user = User.lookup('mike roe').first
+
+      user.first_name.should eq 'Mike'
+      user.last_name.should eq 'Roe'
+      user.email.should eq 'besker-super@mit.edu'
+    end
   end
 
   describe ".assign_password" do
