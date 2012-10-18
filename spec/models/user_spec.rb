@@ -25,10 +25,6 @@ describe User do
   describe ".lookup" do
     let!(:result) { create(:mrhalp) }
 
-    before :each do
-      stub_mit_ldap_search_results
-    end
-
     it "searches for applicants based on search string containing the name" do
       User.lookup('micro helpline').should include result
     end
@@ -46,22 +42,20 @@ describe User do
       User.lookup('mrhalp@mit.edu').should include result
     end
 
-    it "does not check ldap if :skip_ldap_search is true" do
+    it "does not check ldap if :local_only is true" do
       MIT::LDAP.should_receive(:search).exactly(0).times
       User.lookup('micro helpline', local_only: true)
     end
 
-    it "only checks ldap server is :ldap_search_only is true" do
+    it "only checks ldap server is :remote_only is true" do
       User.should_receive(:where).exactly(0).times
       User.lookup('micro helpline', remote_only: true)
     end
 
-    it "checks ldap server if no records are found in the database" do
-      User.lookup('mshalp')
-    end
-
     it "returns uniq results if it checks the ldap server" do
-      User.lookup('micro helpline', use_ldap: true).should eq [result]
+      stub_mit_ldap_search_results
+
+      User.lookup('micro helpline').should eq [result]
     end
   end
 
