@@ -2,9 +2,9 @@ require "spec_helper"
 
 describe PackageMailer do
 
-  describe "#deliver_receipt" do
+  describe "#confirmation" do
     let(:receipt) { create(:receipt) }
-    let(:mail) { PackageMailer.deliver_receipt(receipt) }
+    let(:mail) { PackageMailer.confirmation(receipt) }
 
     it "is sent to the recipient of the receipt" do
       mail.should be_delivered_to receipt.recipient.email

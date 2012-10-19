@@ -9,6 +9,7 @@ describe Receipt do
 
   it { should validate_presence_of(:recipient_id) }
   it { should validate_numericality_of(:number_packages) }
+
   it "should validate presence of delivery_id on update" do
     receipt = create(:receipt)
     receipt.delivery_id = nil
@@ -45,10 +46,4 @@ describe Receipt do
       receipt.signed_out?.should eq(true)
     end
   end
-
-  it "sends a confirmation email to recipient after creation" do
-    create(:receipt, recipient: create(:user, email: 'gimme@mit.edu'))
-    last_email.to.should include 'gimme@mit.edu'
-  end
-
 end

@@ -14,10 +14,6 @@ class Receipt < ActiveRecord::Base
 
   delegate :worker, :deliverer, to: :delivery
 
-  after_create do
-    PackageMailer.deliver_receipt(self).deliver
-  end
-
   def signed_out?
     !(read_attribute(:signed_out_at)).nil?
   end

@@ -1,13 +1,17 @@
 class PackageMailer < ActionMailer::Base
 
-  def deliver_receipt(receipt)
+  def self.send_receipts(delivery)
+    delivery.receipts.each do |receipt|
+      confirmation(receipt).deliver
+    end
+  end
+
+  def confirmation(receipt)
     @receipt   = receipt
     @delivery  = receipt.delivery
     @recipient = receipt.recipient
-    @worker    = receipt.delivery.worker
+    @worker    = receipt.worker
 
-    mail to: receipt.recipient.email,
-         from: receipt.delivery.worker.email,
-         subject: 'Delivery at Besk'
+    mail to: @recipient.email, from: @worker.email, subject: 'Delivery at Besk'
   end
 end

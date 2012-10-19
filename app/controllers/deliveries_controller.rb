@@ -4,6 +4,7 @@ class DeliveriesController < InheritedResources::Base
 
   def create
     create!(notice: 'Notifications Sent', error: 'Unable to log delivery.') do
+      PackageMailer.send_receipts(resource)
       new_delivery_path
     end
   end
