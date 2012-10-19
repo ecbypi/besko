@@ -47,7 +47,7 @@ Feature: Role management
     And I should see the notice "Micro Helpline is now a Besk Worker"
     And the form to add users to a role should be reset
 
-  @wip @selenium
+  @selenium
   Scenario: ensures users are not added to a role twice
     Given I select "Besk Worker" from the list of roles
     When I add "mrhalp" to the selected role
