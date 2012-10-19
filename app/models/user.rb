@@ -32,7 +32,10 @@ class User < ActiveRecord::Base
     results = []
     options ||= {}
 
-    return results if search.blank?
+    # Return empty results if no search was provided or we've limited search to
+    # only check the database and only check the LDAP server, which makes no
+    # sense.
+    return results if search.blank? || ( options[:local_only] && options[:remote_only] )
 
     if !options[:remote_only]
       terms = search.split
@@ -53,7 +56,9 @@ class User < ActiveRecord::Base
       results.concat(remote_results)
     end
 
-    if results.empty? || ( local_results.empty? && remote_results.size > 10 )
+    if results.empty? ||
+      ( defined?(local_results) && local_results.empty? &&
+        defined?(remote_results) && remote_results.size > 10 )
       first_name, last_name = search.split(' ', 2).map { |piece| piece.titleize }
       result = User.new(first_name: first_name, last_name: last_name, email: 'besker-super@mit.edu')
       results.push(result)
