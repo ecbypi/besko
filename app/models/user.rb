@@ -38,21 +38,22 @@ class User < ActiveRecord::Base
       terms = search.split
       likened_terms = terms.map { |term| "%#{term}%" }
 
-      local = where do
+      local_results = where do
         ( concat(first_name, ' ', last_name).like "%#{terms.join('% %')}%" ) |
         ( last_name.like  "%#{terms.last}%"  ) |
         ( email.like_any  likened_terms      ) |
         ( login.like_any  likened_terms      )
       end
 
-      results.concat(local)
+      results.concat(local_results)
     end
 
     if !options[:local_only]
-      results.concat MIT::LDAP::UserAdapter.build_users(search)
+      remote_results = MIT::LDAP::UserAdapter.build_users(search)
+      results.concat(remote_results)
     end
 
-    if results.empty?
+    if results.empty? || ( local_results.empty? && remote_results.size > 10 )
       first_name, last_name = search.split(' ', 2).map { |piece| piece.titleize }
       result = User.new(first_name: first_name, last_name: last_name, email: 'besker-super@mit.edu')
       results.push(result)
