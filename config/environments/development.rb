@@ -27,4 +27,7 @@ Besko::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Don't send emails in development
+  config.action_mailer.perform_deliveries = false
 end
