@@ -1,6 +1,5 @@
 .user-roles, .add-role {
-  display: inline-block;
-  vertical-align: top;
+  float: left;
 }
 
 .add-role {
@@ -30,13 +29,10 @@
 .user-roles {
   width: 600px;
   margin-left: 20px;
+  display: none;
 }
 
 .users-in-role {
-  thead {
-    display: none;
-  }
-
   .user-role-name {
     width: 250px;
   }

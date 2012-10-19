@@ -14,32 +14,55 @@
   });
 
   var Roles = Support.CompositeView.extend({
+    events: {
+      'keyup #filter' : 'filter'
+    },
+
     initialize: function(options) {
       this.collection.on('reset', this.render, this);
       this.collection.on('add', this.render, this);
 
       this.$roles = this.$('[data-collection=user_roles]');
-      this.$thead = this.$('thead');
     },
 
     render: function() {
-      var view = this;
-      this._leaveChildren();
-
       if ( this.collection.length ) {
-        this.collection.each(function(role) {
-          var role = new Role({ model: role });
-
-          view.renderChild(role);
-          view.$roles.append(role.el);
-        });
-
-        this.$thead.show();
+        this.renderRoles(this.collection);
+        this.$el.show();
       } else {
-        this.$thead.hide();
+        this.$el.hide();
       }
 
       return this;
+    },
+
+    renderRoles: function(collection) {
+      var view = this;
+
+      this._leaveChildren();
+
+      collection.each(function(role) {
+        var role = new Role({ model: role });
+
+        view.renderChild(role);
+        view.$roles.append(role.el);
+      });
+    },
+
+    filter: function(event) {
+      var filter = $(event.target).val();
+
+      if ( filter ) {
+        var regex = new RegExp(filter, 'i');
+
+        var matches = this.collection.chain().select(function(role) {
+          return role.get('name').match(regex);
+        });
+
+        this.renderRoles(matches);
+      } else {
+        this.renderRoles(this.collection);
+      }
     }
   });
 

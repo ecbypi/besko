@@ -57,6 +57,14 @@ steps_for :roles do
       click_button 'Remove'
     end
   end
+
+  step "I search for :name in the filter" do |name|
+    fill_in 'filter', with: name
+  end
+
+  step "I clear the filter" do
+    fill_in 'filter', with: nil
+  end
 end
 
 placeholder :position do

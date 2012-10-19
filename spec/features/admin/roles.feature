@@ -60,6 +60,15 @@ Feature: Role management
     When I remove "Micro Helpline" from the selected role
     Then I should see the notice "Micro Helpline is no longer a Besk Worker"
 
+  Scenario: filter results
+    Given mrhalp is a besk worker
+    And mshalp is a besk worker
+    And I select "Besk Worker" from the list of roles
+    When I search for "Micro Helpline" in the filter
+    Then I should see "Micro Helpline" in the list of besk workers
+    But I should not see "Ms Helpline" in the list of besk workers
+
+
   Scenario: can only be done by admins
     Given I am logged in with the email "worker@mit.edu"
     And I am a besk worker with the email "worker@mit.edu"

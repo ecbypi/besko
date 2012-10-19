@@ -8,8 +8,12 @@
     = f.hidden_field :user_id
     = label_tag 'user-search', 'User to add:'
 
-.user-roles
-  %table#roles.users-in-role
+#roles.user-roles
+  .input.inline-input.filter
+    = label_tag :filter, 'Filter by name'
+    = search_field_tag :filter
+
+  %table.users-in-role
     %thead
       %tr
         %th.user-role-name Name
