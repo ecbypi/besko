@@ -5,11 +5,11 @@ steps_for :roles do
 
   step "I should be able to switch between roles to manage" do
     roles = User.guises.map { |title| title.to_s.titleize }
-    page.should have_select 'Select a role:', options: roles
+    page.should have_select 'user_role_title', options: roles
   end
 
   step "I select :title from the list of roles" do |role|
-    select role, from: 'Select a role:'
+    select role, from: 'user_role_title'
   end
 
   step "the list of users in the role should be hidden" do
@@ -38,7 +38,7 @@ steps_for :roles do
   step "I add :user to the selected role" do |user|
     user = User.find_by_login!(user)
 
-    fill_in 'User to add:', with: user.name
+    fill_in 'user-search', with: user.name
 
     step "I click on '#{user.name}' in the autocomplete list"
   end
