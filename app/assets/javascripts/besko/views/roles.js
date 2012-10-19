@@ -7,7 +7,7 @@
       });
 
       this.roles = new Roles({
-        el: this.$('table')[0],
+        el: document.getElementById('roles'),
         collection: this.collection
       }).render();
     }
