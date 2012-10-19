@@ -42,6 +42,12 @@ describe User do
       User.lookup('mrhalp@mit.edu').should include result
     end
 
+    it "matches based on last name if it does not match by full name" do
+      chief = create(:user, first_name: 'Robert', last_name: 'Chafe')
+
+      User.lookup('bob chafe').should eq [chief]
+    end
+
     it "does not check ldap if :local_only is true" do
       MIT::LDAP.should_receive(:search).exactly(0).times
       User.lookup('micro helpline', local_only: true)
