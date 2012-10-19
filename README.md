@@ -1,18 +1,40 @@
 # Besko Package Mailer
 
-This application was a hobby project I worked on while at MIT for my dorm to
-replace a terrible paradigm of doing things for one that's easier and better.
+A hobby project to improve on many old processes at my old dormitory.
 
-The old way of doing things:
+## The Problem
 
-* Look up recipients one at a time on the horrible directory search on `web.mit.edu`
-* Add emails one by one
+Prior to this application, the steps for notifying a resident they received a 
+package was:
+
+* Look up recipients one at a time via the horrible directory search on `web.mit.edu` 
+  and add their email addresses one by one.
 * Check for duplicate emails and update the body of the email to indicate that
   person got more than one package
-* Send your email, leaving your sent message as a log that the package was received
+* Send your email, leaving your sent message as a the only log that the package
+  was received
 
+The biggest problem this caused was that there would be no record to check if a
+resident could not find thier package and a different worker than the one who
+received it was working the front desk. The resident would have to dig through
+emails to find out who sent the email and track them down in the building.
 
-The new way of doing things:
+## The Solution
+
+This site provides a way for desk workers to log packages effortlessly by using
+the MIT LDAP directory to lookup users. Workers type in a name and select the
+match from the autocompleted list of results. Each recipient has an account
+created for them as their receive their first package, allowing them to review
+relevant information about the delivery including:
+
+* Who received it and their email address
+* Number of packages in the delivery
+* What delivery company or group delivered the package
+* Time of receipt
+
+In some cases, packages are not put away after being logged.  Desk workers have
+a special view to look at delivery history to check if packages have already
+been logged and to assist residents who may have questions about their package.
 
 * Type in the name on the package
 * Click on you typed in when it appears
@@ -21,31 +43,27 @@ The new way of doing things:
 * Packages are logged for everyone's use
 * Emails are sent individually to each resident to help maintain some form of privacy
 
-This isn't the current code that's running in production, but a rewrite I
-decided to do with better practices and incorporating what I've learned working
-professionally with Rails over the past year. The old site (that unfortunately is still up)
-was written without tests and without proper planning of features so it became a mess of
-ActiveRecord models and broken `remote: true` AJAX calls. I started writing
-tests to work on fixing functionality, but everything was such a tangled mess it was
-easier to build from scratch (and more fun).
-
 ## Why is this here?
 
-I decided to put this here as a non-blog example Rails app to demo some common
-and uncommon functionality/practices found in Rails apps:
+Anyone intersted in Rails can take a peek and hopefully learn something or
+help me learn something. Some things to look for are:
 
-* Backbone (to be implemented).
-* Authententication using Touchstone (MIT's internal deployment Shibboleth)
-  headers (mostly configured via Apache) (to be implemented, but working on
-  existing production).
-* Cucumber/Rspec to drive development.
-* Paperclip integration (for posters and pictures from dorm events) (in progress).
-* Tool rental management for the dorm shop (in progress).
-* More as time passes and integrate more for the dorm's benefit.
+* Single page interfaces driven by Backbone.js.
+* Authententication using Touchstone headers (mostly configured via Apache).
+* Turnip/Rspec to drive development.
 
-Anyone intersted in Rails can take a peek and hopefully learn something (or
-help me learn something).
+## Future Plans
 
-## Still in deep progress
-
-A lot of this is still under development so what's here isn't much yet.
+Logging packages wasn't the only problem to solve at the dorm. Some unsolved issues are:
+* The tool shop is always losing things. It would be nice if there were a way to track
+  who has wha tools that could keep track of who is less reliable about returning tools
+  or loses them.
+* There are community bikes that needs a more efficient way to be checked out.
+* The groups that permissions fall into are closely tied to mailing lists.
+  Updating the permissions should update the mailing lists or permissions
+  should check the mailing lists.
+* People forwarding mail that arrives for alumni relabel all the mail one by one. The 
+  system for creating deliveries can be abstracted to handle printing labels with the
+  correct addresses on them.
+* The desk captain has to manually log all the hours at the end of each week
+  and hours are logged into a notebook at the front desk.
