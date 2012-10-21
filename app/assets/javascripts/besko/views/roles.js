@@ -4,7 +4,7 @@
       this.form = new Form({
         el: document.getElementById('new_user_role'),
         collection: this.collection
-      });
+      }).render();
 
       this.roles = new Roles({
         el: document.getElementById('roles'),
@@ -139,17 +139,22 @@
       this.$select = this.$('#user_role_title');
       this.$user = this.$('#user_role_user_id');
 
-      new Besko.Views.UserSearch({
-        local: true,
-        context: this,
-        select: this.submit
+      this.search = new Besko.Views.UserAutocomplete({
+        params: { local_only: true },
+        labelText: 'Find a resident'
       });
+
+      this.bindTo(this.search, 'select', this.submit);
     },
 
-    submit: function(view, event, ui) {
-      view.$('#user_role_user_id').val(ui.item.id);
+    render: function() {
+      this.appendChild(this.search);
+    },
 
-      view.$el.submit();
+    submit: function(model) {
+      this.$user.val(model.id);
+
+      this.$el.submit();
     },
 
     validate: function(event) {

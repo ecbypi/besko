@@ -39,7 +39,6 @@ Feature: Role management
     When I refresh the page
     Then I should see "Micro Helpline" in the list of besk workers
 
-  @selenium
   Scenario: add a user to a role
     Given I select "Besk Worker" from the list of roles
     When I add "mrhalp" to the selected role
@@ -47,7 +46,6 @@ Feature: Role management
     And I should see the notice "Micro Helpline is now a Besk Worker"
     And the form to add users to a role should be reset
 
-  @selenium
   Scenario: ensures users are not added to a role twice
     Given I select "Besk Worker" from the list of roles
     When I add "mrhalp" to the selected role
