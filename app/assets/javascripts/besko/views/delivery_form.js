@@ -11,7 +11,7 @@
       </li>')
   };
 
-  DeliveryForm = Support.CompositeView.extend({
+  var DeliveryForm = Support.CompositeView.extend({
     events: {
       'click a[data-cancel]' : 'clear',
       'ajax:before' : 'validate',
@@ -97,7 +97,7 @@
     }
   })
 
-  ReceiptFields = Support.CompositeView.extend({
+  var ReceiptFields = Support.CompositeView.extend({
     events: {
       'click a': 'clear'
     },
