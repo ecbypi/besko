@@ -1,0 +1,43 @@
+.autocomplete-results-wrapper {
+  display: none;
+  padding: 20px 0px 0px;
+  @include box-shadow(0 0 5px #000);
+  @include border-radius(5px);
+
+  &.open {
+    position: absolute;
+    left: 200px;
+    z-index: 10;
+    background-color: #fff;
+    display: block;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .autocomplete-close {
+    float: right;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+  }
+
+  .autocomplete-result {
+    font-size: 18px;
+    list-style: none;
+    padding: 5px;
+    width: 260px;
+
+    &:hover {
+      background-color: #acdaf9;
+      cursor: pointer;
+      @include border-radius(3px);
+    }
+  }
+
+  .result-details, .autocomplete-close {
+    font-size: 13px;
+  }
+}

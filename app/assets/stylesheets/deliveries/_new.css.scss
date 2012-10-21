@@ -1,0 +1,46 @@
+.deliveries-new {
+  .new-delivery {
+    position: relative;
+  }
+
+  .inline-inputs {
+    width: 760px;
+    margin: 0 auto;
+    @include user-search(200px);
+
+    // Fixes extra 4px whitespace from 'display: inline-block;'
+    // on label element next to input
+    #user-search {
+      margin-left: -4px;
+    }
+
+    .error, .hint {
+      margin-left: 200px;
+    }
+  }
+
+  table.receipts {
+    padding: 0;
+
+    thead, tfoot {
+      display: none;
+    }
+
+    td {
+      text-align: center;
+      width: 250px;
+
+      &:first-child, &:last-child {
+        width: 200px;
+      }
+    }
+  }
+
+  .autocomplete-results-wrapper {
+    margin-left: 200px;
+  }
+
+  .autocomplete-result {
+    width: 310px;
+  }
+}
