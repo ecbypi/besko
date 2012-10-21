@@ -4,8 +4,6 @@
 = simple_form_for resource, remote: true, html: { data: { type: 'json' }, class: 'new-delivery' } do |f|
   .inputs.inline-inputs
     = f.input :deliverer, label: 'Delivery Company', as: :select, collection: Delivery::Deliverers
-    .input.search
-      = label_tag 'user-search', 'Search'
 
   %table.receipts
     %thead

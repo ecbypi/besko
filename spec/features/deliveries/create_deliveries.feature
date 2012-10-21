@@ -1,4 +1,4 @@
-@selenium @deliveries
+@javascript @deliveries
 Feature: Logging deliveries
   In order to notify recipients they have a delivery
   As a besk worker
@@ -23,7 +23,6 @@ Feature: Logging deliveries
     When I search for "Jon Snow"
     And I click on "Jon Snow" in the autocomplete list
     Then I should see a receipt form for "Jon Snow"
-    And I should not see "Jon Snow" in the autocomplete form
 
   Scenario: Add recipients from LDAP
     Given I am on the page to log deliveries

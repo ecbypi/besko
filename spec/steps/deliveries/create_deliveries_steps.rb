@@ -4,7 +4,7 @@ steps_for :deliveries do
   end
 
   step "I search for :search" do  |search|
-    fill_in 'Search', with: search
+    fill_in 'user-search', with: search
   end
 
   step "I should see a receipt form for :name" do  |name|

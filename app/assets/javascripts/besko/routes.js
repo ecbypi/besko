@@ -52,7 +52,7 @@
 
     newDelivery: function() {
       var el = document.getElementById('new_delivery');
-      new Besko.Views.DeliveryForm({ el: el });
+      new Besko.Views.DeliveryForm({ el: el }).render();
     },
 
     roles: function(title) {

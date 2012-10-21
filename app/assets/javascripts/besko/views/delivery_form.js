@@ -28,34 +28,23 @@
       this.$receipts = this.$('[data-collection=receipts]');
       this.$headerAndFooter = this.$('thead, tfoot');
       this.$select = this.$('#delivery_deliverer');
-
-      this.search = new Besko.Views.UserSearch({
-        context: this,
-        select: this.addRecipient
-      });
-
-      this.search.$el.data('autocomplete')._renderItem = function(ul, item) {
-        var $li = $(templates.result(item));
-        $li.data('item.autocomplete', item);
-
-        ul.append($li);
-      };
     },
 
     render: function() {
+      this.search = new Besko.Views.UserAutocomplete;
+      this.$('.input.select').after(this.search.render().el);
+      this.bindTo(this.search, 'select', this.addRecipient);
+
       return this;
     },
 
-    addRecipient: function(view, event, ui) {
-      delete ui.item.value;
-      delete ui.item.label;
-      delete ui.item.name;
+    addRecipient: function(model) {
+      var view = this;
 
-      if ( ui.item.id ) {
-        var data = { user_id: ui.item.id };
+      if ( model.id ) {
+        var data = { user_id: model.id };
       } else {
-        delete ui.item.id;
-        var data = { user: ui.item };
+        var data = { user: model.attributes };
       }
 
       $.ajax({
