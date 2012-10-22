@@ -19,14 +19,10 @@
     className: 'input search',
 
     events: {
-      'click [data-resource=user]' : 'select',
+      'click [data-resource=user]' : 'selectClicked',
       'click [data-close]' : 'clear',
       'keyup #user-search' : 'fetch',
-      'keydown #user-search' : function(event) {
-        if ( event.keyCode === 13 ) {
-          event.preventDefault();
-        }
-      }
+      'keydown #user-search' : 'selectFirst'
     },
 
     initialize: function(options) {
@@ -36,6 +32,7 @@
       this.labelText = options.labelText || 'Search for a user';
       this.params = options.params || {};
 
+      this.bindTo(this, 'select', this.clear);
       this.bindTo(this.collection, 'reset', this._leaveChildren);
       this.bindTo(this.collection, 'reset', this.renderResults);
     },
@@ -81,12 +78,18 @@
       }
     },
 
-    select: function(event) {
+    selectClicked: function(event) {
       var index = $(event.target).index(),
           model = this.collection.at(index);
 
       this.trigger('select', model);
-      this.clear();
+    },
+
+    selectFirst: function(event) {
+      if ( event.keyCode === 13 ) {
+        event.preventDefault();
+        this.trigger('select', this.collection.at(0));
+      }
     },
 
     clear: function(event) {

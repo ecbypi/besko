@@ -89,13 +89,28 @@ describe("Besko.Views.UserAutocomplete", function() {
     });
   });
 
-  it("triggers 'select' event when picking a user passing the user model to the callback", function() {
-    var listener = sinon.spy();
-    view.on('select', listener);
+  describe("'select' event is triggered when", function() {
+    var listener;
 
-    view.$('[data-resource=user]:first').click();
+    beforeEach(function() {
+      listener = sinon.spy();
+      view.on('select', listener);
+    });
 
-    expect(listener).toHaveBeenCalledWith(users.models[0]);
+    it("any user element is clicked", function() {
+      view.$('[data-resource=user]:last').click();
+
+      expect(listener).toHaveBeenCalledWith(users.at(1));
+    });
+
+    it("'enter' key is pressed, selecting the first user in the list", function() {
+      var enter = jQuery.Event('keydown');
+      enter.keyCode = enter.which = 13;
+
+      $search.trigger(enter);
+
+      expect(listener).toHaveBeenCalledWith(users.at(0));
+    });
   });
 
   describe("fetches users on input's keyup", function() {
