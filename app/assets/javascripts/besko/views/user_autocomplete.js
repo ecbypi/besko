@@ -108,6 +108,12 @@
       'data-resource' : 'user'
     },
 
+    events: {
+      'hover' : function(event) {
+        this.$el.toggleClass('selected')
+      }
+    },
+
     render: function() {
       this.$el.html(templates.result(this.model));
 

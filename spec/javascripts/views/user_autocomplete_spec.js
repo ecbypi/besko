@@ -54,6 +54,14 @@ describe("Besko.Views.UserAutocomplete", function() {
     expect(view.$el).toContain('[data-resource=user]:contains("Ms Helpline")');
   });
 
+  it("makes suggestion selected on hover", function() {
+    var $user = view.$('[data-resource=user]:first');
+
+    $user.mouseover();
+
+    expect($user).toBe('.selected');
+  });
+
   describe("resets the users list when", function() {
     it("clicking the close link", function() {
       view.$('[data-close]').click();

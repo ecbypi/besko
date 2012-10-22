@@ -29,7 +29,7 @@
     padding: 5px;
     width: 260px;
 
-    &:hover {
+    &.selected {
       background-color: #acdaf9;
       cursor: pointer;
       @include border-radius(3px);
