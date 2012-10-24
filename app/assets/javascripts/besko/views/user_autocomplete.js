@@ -19,10 +19,40 @@
     className: 'input search',
 
     events: {
-      'click [data-resource=user]' : 'selectClicked',
+      'click [data-resource=user]' : 'select',
       'click [data-close]' : 'clear',
-      'keyup #user-search' : 'fetch',
-      'keydown #user-search' : 'selectFirst'
+      'keyup #user-search' : function(event) {
+        if ( _.contains([38, 40], event.keyCode) ) {
+          event.preventDefault();
+        } else {
+          this.fetch(event);
+        }
+      },
+      'keydown #user-search' : function(event) {
+        if ( _.contains([38, 40, 13], event.keyCode) ) {
+          event.preventDefault();
+        }
+
+        if ( _.contains([38, 40], event.keyCode) && !this.$selected ) {
+          var method = event.keyCode === 38 ? 'last' : 'first';
+          this.highlightFirst(method);
+          return;
+        }
+
+        switch ( event.keyCode ) {
+          case 13:
+            this.selectHighlighted();
+            break;
+
+          case 38:
+            this.highlightUp();
+            break;
+
+          case 40:
+            this.highlightDown();
+            break;
+        }
+      }
     },
 
     initialize: function(options) {
@@ -53,6 +83,8 @@
           view = this,
           $results = this.$results;
 
+      this.$selected = undefined;
+
       if ( this.collection.length ) {
         this.collection.each(function(user) {
           subview = new Result({ model: user });
@@ -78,18 +110,49 @@
       }
     },
 
-    selectClicked: function(event) {
+    highlightUp: function() {
+      var index = this.$selected.removeClass('selected').index(),
+          target = index -= 1;
+
+      if ( target < 0 ) {
+        this.highlightFirst('last');
+      } else {
+        this.$selected = this.$selected.prev().addClass('selected');
+      }
+    },
+
+    highlightDown: function() {
+      var index = this.$selected.removeClass('selected').index(),
+          target = index += 1;
+
+      if ( target === this.$results.children().length ) {
+        this.highlightFirst('first');
+      } else {
+        this.$selected = this.$selected.next().addClass('selected');
+      }
+    },
+
+    highlightFirst: function(method) {
+      this.$selected = this.$results.children()[method]().addClass('selected');
+    },
+
+    select: function(event) {
       var index = $(event.target).index(),
           model = this.collection.at(index);
 
       this.trigger('select', model);
     },
 
-    selectFirst: function(event) {
-      if ( event.keyCode === 13 ) {
-        event.preventDefault();
-        this.trigger('select', this.collection.at(0));
+    selectHighlighted: function() {
+      var index, model;
+
+      if ( this.$selected ) {
+        index = this.$selected.index();
       }
+
+      model = this.collection.at(index || 0);
+
+      this.trigger('select', model);
     },
 
     clear: function(event) {

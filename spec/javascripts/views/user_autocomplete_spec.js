@@ -98,10 +98,14 @@ describe("Besko.Views.UserAutocomplete", function() {
   });
 
   describe("'select' event is triggered when", function() {
-    var listener;
+    var listener, enter;
 
     beforeEach(function() {
       listener = sinon.spy();
+
+      enter = jQuery.Event('keydown');
+      enter.keyCode = 13;
+
       view.on('select', listener);
     });
 
@@ -112,12 +116,21 @@ describe("Besko.Views.UserAutocomplete", function() {
     });
 
     it("'enter' key is pressed, selecting the first user in the list", function() {
-      var enter = jQuery.Event('keydown');
-      enter.keyCode = enter.which = 13;
-
       $search.trigger(enter);
 
       expect(listener).toHaveBeenCalledWith(users.at(0));
+    });
+
+    it("'enter' key is pressed after navigating the list", function() {
+      var down = jQuery.Event('keydown');
+      down.keyCode = 40;
+
+      // Move down twice so we're on the second suggestion
+      $search.trigger(down);
+      $search.trigger(down);
+      $search.trigger(enter);
+
+      expect(listener).toHaveBeenCalledWith(users.at(1));
     });
   });
 
@@ -142,4 +155,43 @@ describe("Besko.Views.UserAutocomplete", function() {
       expect(users.fetch).not.toHaveBeenCalled();
     });
   });
+
+  describe("navigates list when", function() {
+    var enter, user1, user2;
+
+    beforeEach(function() {
+      enter = jQuery.Event('keydown');
+      user1 = view.$('[data-resource=user]:first');
+      user2 = view.$('[data-resource=user]:last');
+    });
+
+    it("down key is pressed", function() {
+      enter.keyCode = 40;
+
+      $search.trigger(enter);
+
+      expect(user1).toBe('.selected');
+      expect(user2).not.toBe('.selected');
+
+      $search.trigger(enter);
+
+      expect(user1).not.toBe('.selected');
+      expect(user2).toBe('.selected');
+    });
+
+    it("up key is pressed", function() {
+      enter.keyCode = 38;
+
+      $search.trigger(enter);
+
+      expect(user1).not.toBe('.selected');
+      expect(user2).toBe('.selected');
+
+      $search.trigger(enter);
+
+      expect(user1).toBe('.selected');
+      expect(user2).not.toBe('.selected');
+    });
+  });
+
 });
