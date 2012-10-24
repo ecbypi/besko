@@ -1,20 +1,35 @@
 //= require application
 
 describe("Besko.Views.UserAutocomplete", function() {
-  var view, $users, $search,
-    users = new Besko.Collections.Users([
+  var users, view, $users, $search, server,
+    data = [
       { name: 'Micro Helpline', details: 'mrhalp@mit.edu | N42' },
       { name: 'Ms Helpline', details: 'mshalp@mit.edu | N42' }
-    ]);
+    ];
 
   beforeEach(function() {
-    view = new Besko.Views.UserAutocomplete({ collection: users });
-
+    view = new Besko.Views.UserAutocomplete;
     view.render();
+
+    users = view.collection;
 
     $users = view.$('[data-collection=users]');
     $wrapper = $users.parent();
     $search = view.$('#user-search');
+
+    server = sinon.fakeServer.create();
+
+    $search.val('help').keyup();
+
+    server.requests[0].respond(
+      200,
+      { "Content-Type" : "application/json" },
+      JSON.stringify(data)
+    );
+  });
+
+  afterEach(function() {
+    server.restore();
   });
 
   it("allows customization of the search input label text", function() {
@@ -75,7 +90,8 @@ describe("Besko.Views.UserAutocomplete", function() {
       expect($users).not.toContain('[data-resource=user]');
     });
 
-    it("a 'keyup' is triggered and the results are search is empty", function() {
+    it("a 'keyup' is triggered and the results are empty", function() {
+      $search.val('');
       $search.keyup();
 
       expect($users).not.toContain('[data-resource=user]');
@@ -193,5 +209,4 @@ describe("Besko.Views.UserAutocomplete", function() {
       expect(user2).not.toBe('.selected');
     });
   });
-
 });

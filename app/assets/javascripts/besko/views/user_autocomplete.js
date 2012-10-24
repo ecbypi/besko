@@ -57,7 +57,7 @@
 
     initialize: function(options) {
       options = options || {};
-      this.collection = this.collection || new Besko.Collections.Users;
+      this.collection = new Besko.Collections.Users;
 
       this.labelText = options.labelText || 'Search for a user';
       this.params = options.params || {};
@@ -74,7 +74,6 @@
       this.$results = this.$('[data-collection=users]');
       this.$wrapper = this.$results.parent();
 
-      this.renderResults();
       return this;
     },
 
