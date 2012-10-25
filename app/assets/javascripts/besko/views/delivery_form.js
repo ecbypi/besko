@@ -1,16 +1,4 @@
 (function() {
-  var templates = {
-    result: _.template('\
-      <li>\
-        <a>\
-          <%- name %>\
-          <span class="autocomplete-result-details">\
-            <%- details %>\
-          </span>\
-        </a>\
-      </li>')
-  };
-
   var DeliveryForm = Support.CompositeView.extend({
     events: {
       'click a[data-cancel]' : 'clear',

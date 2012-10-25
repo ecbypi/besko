@@ -11,7 +11,7 @@
     result: _.template('\
       <%= escape("name") %>\
       <div class="result-details">\
-        <%= escape("details") %>\
+        <%- details() %>\
       </div>')
   };
 
