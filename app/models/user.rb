@@ -56,14 +56,6 @@ class User < ActiveRecord::Base
       results.concat(remote_results)
     end
 
-    if results.empty? ||
-      ( defined?(local_results) && local_results.empty? &&
-        defined?(remote_results) && remote_results.size > 10 )
-      first_name, last_name = search.split(' ', 2).map { |piece| piece.titleize }
-      result = User.new(first_name: first_name, last_name: last_name, email: 'besker-super@mit.edu')
-      results.push(result)
-    end
-
     results.to_a.uniq { |user| user.email }
   end
 
