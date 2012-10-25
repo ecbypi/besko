@@ -11,9 +11,9 @@ load 'config/deploy/database'
 # custom asset pipeline
 load 'config/deploy/assets'
 
-# airbrake configuration/tasks
+# honeybadger configuration/tasks
 require './config/boot'
-require 'airbrake/capistrano'
+require 'honeybadger/capistrano'
 
 namespace :deploy do
   task :start do; end

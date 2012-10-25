@@ -20,7 +20,7 @@ gem 'active_model_serializers', github: 'josevalim/active_model_serializers'
 gem 'kaminari'
 
 gem 'newrelic_rpm'
-gem 'airbrake'
+gem 'honeybadger'
 
 group :assets do
   gem 'jquery-rails'
