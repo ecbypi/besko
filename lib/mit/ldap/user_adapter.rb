@@ -17,17 +17,17 @@ module MIT
 
       def self.construct_filter(search)
         arguments = search.split
-        mail_key = search =~ /@mit\.edu/ ? :mail : :uid
 
-        filter = {
-          sn: arguments.last
-        }
+        filter = {}
 
         if arguments.size > 1
-          filter[:cn] = arguments.join('*')
-          filter[mail_key] = arguments
+          filter[:cn] = arguments.join('*') + '*'
+          filter[:sn] = arguments.last + '*'
+          filter[:mail] = filter[:uid] = arguments
         else
-          filter[:givenName], filter[mail_key] = [arguments.first] * 2
+          filter[:uid] = filter[:mail] = arguments.first
+          filter[:givenName] = arguments.first
+          filter[:sn] = arguments.first + '*'
         end
 
         ::LDAP::Filter::OrFilter.new(filter)
