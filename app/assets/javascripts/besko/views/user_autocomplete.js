@@ -90,8 +90,12 @@
           view.appendChildTo(subview, $results);
         });
 
-        this.$wrapper.addClass('open');
+      } else if ( this.$search.val() ) {
+        subview = new NullResult({ manualAdditions: this.options.manualAdditions });
+        this.appendChildTo(subview, $results);
       }
+
+      this.$wrapper.addClass('open');
     },
 
     fetch: function(event) {
@@ -181,6 +185,16 @@
 
       return this;
     },
+  });
+
+  var NullResult = Support.CompositeView.extend({
+    tagName: 'li',
+
+    className: 'autocomplete-result empty-autocomplete-result',
+
+    render: function() {
+      this.$el.html('<span>No Results</span>');
+    }
   });
 
   Besko.Views.UserAutocomplete = UserSearch;

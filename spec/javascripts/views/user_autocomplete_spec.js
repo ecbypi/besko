@@ -209,4 +209,16 @@ describe("Besko.Views.UserAutocomplete", function() {
       expect(user2).not.toBe('.selected');
     });
   });
+
+  it("renders 'no results' if nothing matches", function() {
+    $search.keyup();
+
+    server.requests[1].respond(
+      200,
+      { "Content-Type" : "application/json" },
+      JSON.stringify([])
+    );
+
+    expect(view.$el).toHaveText(/No Results/);
+  });
 });
