@@ -8,12 +8,6 @@
     margin: 0 auto;
     @include user-search(200px);
 
-    // Fixes extra 4px whitespace from 'display: inline-block;'
-    // on label element next to input
-    #user-search {
-      margin-left: -4px;
-    }
-
     .error, .hint {
       margin-left: 200px;
     }
@@ -36,7 +30,7 @@
     }
   }
 
-  .autocomplete-results-wrapper {
+  .autocomplete-results {
     margin-left: 200px;
   }
 

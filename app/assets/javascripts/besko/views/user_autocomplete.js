@@ -1,12 +1,7 @@
 (function() {
   var templates = {
     root: _.template('\
-      <label for="user-search"><%= label %></label>\
-      <input type="search" name="search" autofocus id="user-search" placeholder="Enter name or email"/>\
-      <div class="autocomplete-results-wrapper">\
-        <a href="javascript:void(0)" class="autocomplete-close" data-close>Close</a>\
-        <ul data-collection="users"></ul>\
-      </div>'),
+      <label for="user-search"><%= label %></label>'),
 
     result: _.template('\
       <%= escape("name") %>\
@@ -16,13 +11,10 @@
   };
 
   var UserSearch = Support.CompositeView.extend({
-    className: 'input search',
+    className: 'input search autocomplete-search',
 
     events: {
-      'click [data-resource=user]' : 'select',
-      'click [data-close]' : 'clear',
-      'keyup #user-search' : 'fetch',
-      'keydown #user-search' : 'navigateOrSelect'
+      'click [data-close]' : 'clear'
     },
 
     initialize: function(options) {
@@ -33,134 +25,200 @@
       this.params = options.params || {};
 
       this.bindTo(this, 'select', this.clear);
-      this.bindTo(this.collection, 'reset', this._leaveChildren);
       this.bindTo(this.collection, 'reset', this.renderResults);
     },
 
     render: function() {
       this.$el.html(templates.root({ label: this.labelText }));
 
-      this.$search = this.$('#user-search');
-      this.$results = this.$('[data-collection=users]');
-      this.$wrapper = this.$results.parent();
+      this.search = new Search;
+      this.appendChild(this.search);
+
+      this.$close = $('<span>').addClass('autocomplete-close').attr('data-close', true).text('Close');
+      this.$el.append(this.$close);
 
       return this;
     },
 
     renderResults: function() {
-      var subview,
-          view = this,
-          $results = this.$results;
-
-      this.$selected = undefined;
-
-      if ( this.collection.length ) {
-        this.collection.each(function(user) {
-          subview = new Result({ model: user });
-          view.appendChildTo(subview, $results);
-        });
-
-      } else if ( this.$search.val() ) {
-        subview = new NullResult({ manualAdditions: this.options.manualAdditions });
-        this.appendChildTo(subview, $results);
+      if ( this.results ) {
+        this.results.leave();
       }
 
-      this.$wrapper.addClass('open');
+      var results = this.collection.length ? ResultSet : EmptyResults;
+      this.results = new results({ collection: this.collection });
+
+      this.appendChild(this.results);
+
+      this.$close.addClass('open');
     },
 
-    fetch: function(event) {
-      var search = this.$search.val();
+    fetch: function(search) {
+      this.collection.fetch({
+        data: {
+          term: search,
+          options: this.params
+        }
+      });
+    },
+
+    clear: function() {
+      this.results.leave();
+      this.search.$el.val('').focus();
+      this.$close.removeClass('open');
+    }
+  });
+
+  var Search = Support.CompositeView.extend({
+    tagName: 'input',
+
+    id: 'user-search',
+
+    attributes: {
+      type: 'search',
+      placeholder: 'Enter name or email',
+      autofocus: true
+    },
+
+    events: {
+      'keyup' : 'search',
+      'keydown' : 'checkForSelect'
+    },
+
+    render: function() {
+      return this;
+    },
+
+    search: function(event) {
+      var search = this.$el.val();
 
       if ( _.contains([38, 40], event.keyCode) ) {
         event.preventDefault();
-      } else if ( search.length >= 3) {
-        this.collection.fetch({
-          data: {
-            term: search,
-            options: this.params
-          }
-        });
-      } else if ( !search ) {
-        this.clear();
+      } else if ( search.length >= 3 ) {
+        this.parent.fetch(search);
+      } else if ( !search && this.parent.results ) {
+        this.parent.clear();
       }
     },
 
-    navigateOrSelect: function(event) {
-      if ( _.contains([38, 40, 13], event.keyCode) ) {
+    checkForSelect: function(event) {
+      var method;
+
+      if ( _.contains([13, 38, 40], event.keyCode) ) {
         event.preventDefault();
+
+        switch ( event.keyCode ) {
+          case 13:
+            method = 'select';
+            break;
+
+          case 38:
+            method = 'up';
+            break;
+
+          case 40:
+            method = 'down';
+            break;
+        }
+
+        if ( this.parent.results ) {
+          this.parent.results[method](event);
+        }
       }
+    }
+  });
 
-      if ( _.contains([38, 40], event.keyCode) && !this.$selected ) {
-        var method = event.keyCode === 38 ? 'last' : 'first';
-        this.highlightFirst(method);
-        return;
-      }
+  var ResultSet = Support.CompositeView.extend({
+    tagName: 'ul',
 
-      switch ( event.keyCode ) {
-        case 13:
-          this.selectHighlighted();
-          break;
+    className: 'autocomplete-results',
 
-        case 38:
-          this.highlightUp();
-          break;
-
-        case 40:
-          this.highlightDown();
-          break;
-      }
+    attributes: {
+      'data-collection' : 'users',
     },
 
-    highlightUp: function() {
-      var index = this.$selected.removeClass('selected').index(),
-          target = index -= 1;
-
-      if ( target < 0 ) {
-        this.highlightFirst('last');
-      } else {
-        this.$selected = this.$selected.prev().addClass('selected');
-      }
+    events: {
+      'click [data-resource=user]' : 'select'
     },
 
-    highlightDown: function() {
-      var index = this.$selected.removeClass('selected').index(),
-          target = index += 1;
+    render: function() {
+      var subview, view = this;
 
-      if ( target === this.$results.children().length ) {
-        this.highlightFirst('first');
-      } else {
-        this.$selected = this.$selected.next().addClass('selected');
-      }
-    },
+      this.collection.each(function(model) {
+        subview = new Result({ model: model });
+        view.appendChild(subview);
+      });
 
-    highlightFirst: function(method) {
-      this.$selected = this.$results.children()[method]().addClass('selected');
+      this.$results = this.$el.children();
+
+      return this;
     },
 
     select: function(event) {
-      var index = $(event.target).index(),
-          model = this.collection.at(index);
-
-      this.trigger('select', model);
-    },
-
-    selectHighlighted: function() {
       var index, model;
 
-      if ( this.$selected ) {
+      if ( event.keyCode && this.$selected ) {
         index = this.$selected.index();
+      } else if ( event.keyCode && !this.$selected ) {
+        index = 0;
+      } else {
+        index = $(event.target).index();
       }
 
-      model = this.collection.at(index || 0);
+      model = this.collection.at(index);
 
-      this.trigger('select', model);
+      this.parent.trigger('select', model);
+      this.parent.search.$el.val('').focus();
+
+      this.leave();
     },
 
-    clear: function(event) {
-      this.$wrapper.removeClass('open');
-      this._leaveChildren();
-      this.$search.val('').focus();
+    up: function(event) {
+      if ( !this.initSelected(event.keyCode) ) {
+        this.navigate(-1);
+      }
+    },
+
+    down: function(event) {
+      if ( !this.initSelected(event.keyCode) ) {
+        this.navigate(1);
+      }
+    },
+
+    initSelected: function(code) {
+      if ( this.$selected ) {
+        return false;
+      }
+
+      var method = code === 38 ? 'last' : 'first';
+      this.$selected = this.$results[method]().addClass('selected');
+      return true;
+    },
+
+    navigate: function(direction) {
+      var target = this.$selected.removeClass('selected').index() + direction;
+      var methods = direction === 1 ? ['first', 'next'] : ['last', 'prev'];
+
+      this.$selected.removeClass('selected');
+
+      if ( target < 0 || target === this.$results.length ) {
+        this.$selected = this.$results[methods[0]]().addClass('selected');
+      } else {
+        this.$selected = this.$selected[methods[1]]().addClass('selected');
+      }
     }
+  });
+
+  var EmptyResults = Support.CompositeView.extend({
+    className: 'empty-autocomplete-results autocomplete-results',
+
+    render: function() {
+      this.$el.text('No Results');
+    },
+
+    select: function() {},
+    up: function() {},
+    down: function() {}
   });
 
   var Result = Support.CompositeView.extend({
@@ -173,8 +231,14 @@
     },
 
     events: {
-      'hover' : function(event) {
-        this.$el.toggleClass('selected')
+      'mouseover' : function(event) {
+        this.$el.siblings().removeClass('selected');
+        this.$el.addClass('selected');
+        this.parent.$selected = this.$el;
+      },
+      'mouseout' : function(event) {
+        this.$el.removeClass('selected')
+        this.parent.$selected = null;;
       }
     },
 
@@ -183,16 +247,6 @@
 
       return this;
     },
-  });
-
-  var NullResult = Support.CompositeView.extend({
-    tagName: 'li',
-
-    className: 'autocomplete-result empty-autocomplete-result',
-
-    render: function() {
-      this.$el.html('<span>No Results</span>');
-    }
   });
 
   Besko.Views.UserAutocomplete = UserSearch;

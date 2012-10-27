@@ -14,7 +14,6 @@ describe("Besko.Views.UserAutocomplete", function() {
     users = view.collection;
 
     $users = view.$('[data-collection=users]');
-    $wrapper = $users.parent();
     $search = view.$('#user-search');
 
     server = sinon.fakeServer.create();
@@ -41,27 +40,6 @@ describe("Besko.Views.UserAutocomplete", function() {
   it("renders a search input with a label", function() {
     expect(view.$el).toContain('input#user-search[type=search]');
     expect(view.$el).toContain('label[for=user-search]');
-  });
-
-  describe("toggling visibility", function() {
-    var emptyView, $emptyWrapper
-
-    beforeEach(function() {
-      emptyView = new Besko.Views.UserAutocomplete({});
-      emptyView.render();
-
-      $emptyWrapper = emptyView.$('.autocomplete-results-wrapper');
-    });
-
-    afterEach(function() {
-      emptyView.leave();
-    });
-
-    it("adds 'open' class if there are any results", function() {
-      expect($emptyWrapper).not.toHaveClass('open');
-
-      expect($wrapper).toHaveClass('open');
-    });
   });
 
   it("renders the users in list", function() {
@@ -106,10 +84,14 @@ describe("Besko.Views.UserAutocomplete", function() {
       expect($search.val()).toEqual('');
     });
 
-    it("removes the 'open' class from the list of users", function() {
+    it("removes the 'open' class from the close button", function() {
+      var close = view.$('[data-close]');
+
+      expect(close).toHaveClass('open');
+
       view.clear();
 
-      expect($users).not.toHaveClass('open');
+      expect(close).not.toHaveClass('open');
     });
   });
 
