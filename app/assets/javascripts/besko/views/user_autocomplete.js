@@ -21,38 +21,8 @@
     events: {
       'click [data-resource=user]' : 'select',
       'click [data-close]' : 'clear',
-      'keyup #user-search' : function(event) {
-        if ( _.contains([38, 40], event.keyCode) ) {
-          event.preventDefault();
-        } else {
-          this.fetch(event);
-        }
-      },
-      'keydown #user-search' : function(event) {
-        if ( _.contains([38, 40, 13], event.keyCode) ) {
-          event.preventDefault();
-        }
-
-        if ( _.contains([38, 40], event.keyCode) && !this.$selected ) {
-          var method = event.keyCode === 38 ? 'last' : 'first';
-          this.highlightFirst(method);
-          return;
-        }
-
-        switch ( event.keyCode ) {
-          case 13:
-            this.selectHighlighted();
-            break;
-
-          case 38:
-            this.highlightUp();
-            break;
-
-          case 40:
-            this.highlightDown();
-            break;
-        }
-      }
+      'keyup #user-search' : 'fetch',
+      'keydown #user-search' : 'navigateOrSelect'
     },
 
     initialize: function(options) {
@@ -101,7 +71,9 @@
     fetch: function(event) {
       var search = this.$search.val();
 
-      if ( search.length >= 3) {
+      if ( _.contains([38, 40], event.keyCode) ) {
+        event.preventDefault();
+      } else if ( search.length >= 3) {
         this.collection.fetch({
           data: {
             term: search,
@@ -110,6 +82,32 @@
         });
       } else if ( !search ) {
         this.clear();
+      }
+    },
+
+    navigateOrSelect: function(event) {
+      if ( _.contains([38, 40, 13], event.keyCode) ) {
+        event.preventDefault();
+      }
+
+      if ( _.contains([38, 40], event.keyCode) && !this.$selected ) {
+        var method = event.keyCode === 38 ? 'last' : 'first';
+        this.highlightFirst(method);
+        return;
+      }
+
+      switch ( event.keyCode ) {
+        case 13:
+          this.selectHighlighted();
+          break;
+
+        case 38:
+          this.highlightUp();
+          break;
+
+        case 40:
+          this.highlightDown();
+          break;
       }
     },
 
