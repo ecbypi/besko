@@ -39,12 +39,11 @@
 
     // Deliveries
     deliveries: function(date) {
-      var collection = bootstrap(Besko.Collections.Deliveries),
-          el = document.getElementById('content'),
-          search = new Besko.Views.DeliverySearch({
+      var collection = bootstrap(Besko.Collections.Deliveries);
+      var search = new Besko.Views.DeliverySearch({
             collection: collection,
             date: date,
-            el: el,
+            el: this.el,
           });
 
       search.render();
@@ -56,11 +55,10 @@
     },
 
     roles: function(title) {
-      var el = document.getElementById('content'),
-          roles = bootstrap(Besko.Collections.UserRoles);
+      var roles = bootstrap(Besko.Collections.UserRoles);
 
       new Besko.Views.RoleManagement({
-        el: el,
+        el: this.el,
         collection: roles
       });
     }
