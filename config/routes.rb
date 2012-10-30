@@ -10,12 +10,12 @@ Besko::Application.routes.draw do
 
   root :to => 'home#index'
 
-  resources :receipts, :only => [:update, :index, :new]
-  resources :deliveries
-  resources :users
+  resources :receipts, only: [:update, :index, :new]
+  resources :deliveries, only: [:index, :new, :create]
+  resources :users, only: [:index, :show, :create]
 
   scope '/admin' do
-    resources :roles, controller: :user_roles, as: :user_roles
+    resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :create, :destroy]
   end
 
   # The priority is based upon order of creation:
