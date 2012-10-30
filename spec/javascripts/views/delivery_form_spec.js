@@ -55,15 +55,25 @@ describe("Besko.Views.DeliveryForm", function() {
 
   describe("resetting", function() {
     beforeEach(function() {
+      view.$('[data-collection=receipts]').append(
+        $('<tr>').attr('data-resource', 'receipt')
+      );
+
       view.$('[data-cancel]').click();
     });
 
     it("hides the table of recipients", function() {
-      expect(view.$('tfoot, thead')).toBeHidden();
+      expect(view.$('table')).toBeHidden();
     });
 
     it("resets deliverer input", function() {
       expect($select.val()).toEqual('');
+    });
+
+    it("removes receipts", function() {
+      var receipts = view.$('[data-collection=receipts]');
+
+      expect(receipts).toBeEmpty();
     });
   });
 });

@@ -5,7 +5,7 @@
   .inputs.inline-inputs
     = f.input :deliverer, label: 'Delivery Company', as: :select, collection: Delivery::Deliverers
 
-  %table.receipts
+  %table#receipts-attributes.receipts
     %thead
       %tr
         %th Recipient

@@ -2,6 +2,8 @@
   var DeliveryForm = Support.CompositeView.extend({
     events: {
       'click a[data-cancel]' : 'clear',
+      'click [data-resource=receipt]' : 'removeReceipt',
+
       'ajax:before' : 'validate',
       'ajax:failure' : function(event, xhr, status, error) {
         Besko.Support.error('Unable to log this delivery.')
@@ -14,7 +16,7 @@
 
     initialize: function(options) {
       this.$receipts = this.$('[data-collection=receipts]');
-      this.$headerAndFooter = this.$('thead, tfoot');
+      this.$table = this.$('#receipts-attributes');
       this.$select = this.$('#delivery_deliverer');
     },
 
@@ -38,15 +40,17 @@
       $.ajax({
         url: '/receipts/new',
         data: data,
-        dataType: 'script',
-        success: function(data, response, textStatus) {
-          var el = view.$receipts.children('[data-resource=receipt]:last'),
-              fields = new ReceiptFields({ el: el });
-
-          view.$headerAndFooter.show();
-          view.renderChild(fields);
-        }
+        dataType: 'script'
       });
+    },
+
+    removeReceipt: function(event) {
+      var $target = $(event.target);
+
+      if ( $target.is('a') ) {
+        $target.parents('[data-resource=receipt]').remove();
+        this.hideTable();
+      }
     },
 
     validate: function(event) {
@@ -62,30 +66,15 @@
     },
 
     clear: function(event) {
-      this._leaveChildren();
+      this.$receipts.empty();
       this.$select.val('');
-      this.$headerAndFooter.hide();
+      this.$table.hide();
     },
 
     hideTable: function() {
       if ( !this.$receipts.children().length ) {
-        this.$headerAndFooter.hide();
+        this.$table.hide();
       }
-    }
-  })
-
-  var ReceiptFields = Support.CompositeView.extend({
-    events: {
-      'click a': 'clear'
-    },
-
-    render: function() {
-      return this;
-    },
-
-    clear: function() {
-      this.leave();
-      this.parent.hideTable();
     }
   })
 
