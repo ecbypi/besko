@@ -12,12 +12,6 @@ Feature: Logging deliveries
       | Jon        | Snow      | snow  | snow@thewall.kingdom  |
     And mrhalp exists in the LDAP server
 
-  Scenario: blocks submission with invalid attributes
-    Given I am on the page to log deliveries
-    When I add "Jon Snow" to the list of recipient receipts
-    And I submit the notifications
-    Then I should see the error "A deliverer is required to log a delivery"
-
   Scenario: Add a recipient
     Given I am on the page to log deliveries
     When I search for "Jon Snow"
