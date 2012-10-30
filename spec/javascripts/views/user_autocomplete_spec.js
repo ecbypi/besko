@@ -93,6 +93,13 @@ describe("Besko.Views.UserAutocomplete", function() {
 
       expect(close).not.toHaveClass('open');
     });
+
+    it("handles case where results are not present", function() {
+      var unfetchedView = new Besko.Views.UserAutocomplete;
+      unfetchedView.render();
+
+      unfetchedView.clear();
+    });
   });
 
   describe("'select' event is triggered when", function() {

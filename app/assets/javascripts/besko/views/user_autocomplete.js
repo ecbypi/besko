@@ -41,9 +41,7 @@
     },
 
     renderResults: function() {
-      if ( this.results ) {
-        this.results.leave();
-      }
+      this.leaveResults();
 
       var results = this.collection.length ? ResultSet : EmptyResults;
       this.results = new results({ collection: this.collection });
@@ -63,9 +61,16 @@
     },
 
     clear: function() {
-      this.results.leave();
+      this.leaveResults();
+
       this.search.$el.val('').focus();
       this.$close.removeClass('open');
+    },
+
+    leaveResults: function() {
+      if ( this.results ) {
+        this.results.leave();
+      }
     }
   });
 
