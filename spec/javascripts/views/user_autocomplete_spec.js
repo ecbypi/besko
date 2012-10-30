@@ -3,8 +3,8 @@
 describe("Besko.Views.UserAutocomplete", function() {
   var users, view, $users, $search, server,
     data = [
-      { name: 'Micro Helpline', details: 'mrhalp@mit.edu | N42' },
-      { name: 'Ms Helpline', details: 'mshalp@mit.edu | N42' }
+      { first_name: 'Micro', last_name: 'Helpline', email: 'mrhalp@mit.edu', street: 'N42' },
+      { first_name: 'Ms', last_name: 'Helpline', email: 'mshalp@mit.edu', street: 'N42' }
     ];
 
   beforeEach(function() {

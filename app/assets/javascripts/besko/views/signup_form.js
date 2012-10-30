@@ -1,7 +1,7 @@
 (function() {
   var templates = {
     account: _.template('\
-      <td class="name"><%= user.escape("name") %></td>\
+      <td class="name"><%- user.name() %></td>\
       <td class="email"><%= user.escape("email") %></td>\
       <td class="kerberos"><%= user.escape("login") %></td>\
       <td class="address"><%= user.escape("street") %></td>\

@@ -4,7 +4,7 @@
       <label for="user-search"><%= label %></label>'),
 
     result: _.template('\
-      <%= escape("name") %>\
+      <%- name() %>\
       <div class="result-details">\
         <%- details() %>\
       </div>')
