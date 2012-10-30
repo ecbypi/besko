@@ -15,7 +15,6 @@ describe("Besko.Views.DeliveryForm", function() {
 
     container = document.getElementById('content');
     view = new Besko.Views.DeliveryForm({ el: container });
-    view.render();
 
     $el = view.$el;
     $form = view.$('form');
