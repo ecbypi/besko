@@ -1,7 +1,7 @@
 (function() {
   var DeliveryForm = Support.CompositeView.extend({
     events: {
-      'click a[data-cancel]' : 'clear',
+      'click [data-cancel]' : 'clear',
       'click [data-resource=receipt]' : 'removeReceipt',
 
       'ajax:before' : 'validate',
