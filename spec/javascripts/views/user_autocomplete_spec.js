@@ -38,7 +38,7 @@ describe("Besko.Views.UserAutocomplete", function() {
   });
 
   it("renders a search input with a label", function() {
-    expect(view.$el).toContain('input#user-search[type=search]');
+    expect(view.$el).toContain('input[name=user-search][type=search]');
     expect(view.$el).toContain('label[for=user-search]');
   });
 

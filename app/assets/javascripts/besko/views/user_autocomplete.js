@@ -80,6 +80,7 @@
     id: 'user-search',
 
     attributes: {
+      name: 'user-search',
       type: 'search',
       placeholder: 'Enter name or email',
       autofocus: true
