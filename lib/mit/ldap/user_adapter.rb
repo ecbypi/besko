@@ -6,7 +6,7 @@ module MIT
         return [] unless LDAP.connected?
 
         filter = construct_filter(search)
-        LDAP.search(filter: filter.to_s).
+        LDAP.search(filter: filter.to_s, limit: 20).
           select { |result| result.kind_of?(MIT::LDAP::InetOrgPerson) && result.valid? }.
           map(&:to_user)
 
