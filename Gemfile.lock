@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/ecbypi/mit-ldap.git
+  revision: 8d17c9c32483e7a726267ecb51e062cd97a22a93
+  specs:
+    mit-ldap (0.3.4)
+      cocaine (~> 0.2)
+      ldaptic (~> 0.2)
+      ruby-ldap (~> 0.9)
+
+GIT
   remote: git://github.com/josevalim/active_model_serializers.git
   revision: 9584b9e147705578f8cb5e6f2a546d0a436c7951
   specs:
@@ -152,10 +161,6 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.7.1)
     mime-types (1.19)
-    mit-ldap (0.3.4)
-      cocaine (~> 0.2)
-      ldaptic (~> 0.2)
-      ruby-ldap (~> 0.9)
     multi_json (1.0.4)
     mysql2 (0.3.11)
     net-scp (1.0.4)
@@ -304,7 +309,7 @@ DEPENDENCIES
   kaminari
   launchy
   ldap-filter
-  mit-ldap
+  mit-ldap!
   mysql2
   newrelic_rpm
   paperclip
