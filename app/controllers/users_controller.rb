@@ -20,8 +20,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.assign_password(params[:user])
-    user.save
+    user = User.new(params[:user])
+    user.assign_password.save
 
     respond_with(user)
   end

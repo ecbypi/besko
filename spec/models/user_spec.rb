@@ -81,20 +81,11 @@ describe User do
     end
   end
 
-  describe ".assign_password" do
-    let(:user) { build(:user) }
-
+  describe "#assign_password" do
     it "assigns a randomly generated password and password confirmation" do
-      User.assign_password(user)
+      user = build(:user, password: nil, password_confirmation: nil)
 
-      user.password.should be_present
-      user.password_confirmation.should be_present
-
-      user.password.should eq user.password_confirmation
-    end
-
-    it "accepts user attributes" do
-      user = User.assign_password(attributes_for(:user))
+      user.assign_password
 
       user.password.should be_present
       user.password_confirmation.should be_present

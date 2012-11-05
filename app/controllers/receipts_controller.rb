@@ -8,8 +8,8 @@ class ReceiptsController < InheritedResources::Base
     if params[:user_id]
       user = User.find(params[:user_id])
     elsif params[:user]
-      user = User.assign_password(params[:user])
-      user.skip_confirmation_email!
+      user = User.new(params[:user])
+      user.assign_password.skip_confirmation_email!
       user.save
     end
 

@@ -88,14 +88,12 @@ class User < ActiveRecord::Base
     users.compact
   end
 
-  def self.assign_password(user)
-    user = User.new(user) if user.is_a? Hash
+  def assign_password
+    self.password = self.password_confirmation = self.class.send(:generate_token, 'encrypted_password')
 
-    password = send(:generate_token, 'encrypted_password')
-    password.slice!(13 - rand(5)..password.length)
+    self.password.slice!(13 - rand(5)..password.length)
 
-    user.password = user.password_confirmation = password
-    user
+    self
   end
 
   def name
