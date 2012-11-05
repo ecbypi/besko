@@ -9,25 +9,39 @@ describe UsersController do
 
   describe "GET index.json" do
     let(:user) { create(:user) }
-    let!(:result) { create(:mrhalp) }
 
     before :each do
       sign_in user
-      User.stub(:recipients).and_return([result])
+    end
+
+    it "searchs database and MIT directory if no options are specified" do
+      User.should_receive(:search).with('micro helpline').and_return([])
+      User.should_receive(:directory_search).with('micro helpline').and_return([])
+
       get :index, format: :json, term: 'micro helpline'
     end
 
-    it "is successful" do
-      response.should be_success
+    it "only searches the database if :local_only param is true" do
+      User.should_receive(:search).with('micro helpline').and_return([])
+      User.should_not_receive(:directory_search)
+
+      get :index, format: :json, term: 'micro helpline', options: { local_only: true }
     end
 
-    it "includes the #to_json versions of the users" do
-      user = json_body.first
-      user.should have_key 'first_name'
-      user.should have_key 'last_name'
-      user.should have_key 'login'
-      user.should have_key 'email'
-      user.should have_key 'id'
+    it "only searches the MIT directory if :directory_only param is true" do
+      User.should_receive(:directory_search).with('micro helpline').and_return([])
+      User.should_not_receive(:search)
+
+      get :index, format: :json, term: 'micro helpline', options: { directory_only: true }
+    end
+
+    it "returns unique results based on email" do
+      create(:user, email: 'mrhalp@mit.edu')
+      stub_ldap! # Stubs LDAP with mrhalp user
+
+      get :index, format: :json, term: 'micro helpline'
+
+      json_body.size.should eq 1
     end
   end
 
@@ -41,13 +55,9 @@ describe UsersController do
       }
     end
 
-    let(:user) { create(:user, attributes) }
-
-    before :each do
-      post :create, format: :json, user: attributes
-    end
-
     it "returns the persisted user information" do
+      post :create, format: :json, user: attributes
+
       json_body.should have_key 'id'
     end
   end

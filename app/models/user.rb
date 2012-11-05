@@ -1,4 +1,13 @@
 class User < ActiveRecord::Base
+  REQUIRED_LDAP_ATTRIBUTES = %w( givenName sn mail ).freeze
+  LDAP_ATTRIBUTES = {
+    'givenName' => 'first_name',
+    'sn'        => 'last_name',
+    'mail'      => 'email',
+    'street'    => 'street',
+    'uid'       => 'login'
+  }.freeze
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,
@@ -28,35 +37,55 @@ class User < ActiveRecord::Base
     guises.map { |title| [title.titleize, title] }
   end
 
-  def self.lookup(search = nil, options = nil)
-    results = []
-    options ||= {}
+  def self.search(query)
+    terms = query.split
 
-    # Return empty results if no search was provided or we've limited search to
-    # only check the database and only check the LDAP server, which makes no
-    # sense.
-    return results if search.blank? || ( options[:local_only] && options[:remote_only] )
+    name_match = query.gsub(/\s+/, '%') + '%'
+    likened_terms = terms.map { |term| "#{term}%" }
 
-    if !options[:remote_only]
-      terms = search.split
-      likened_terms = terms.map { |term| "%#{term}%" }
+    where do
+      ( concat(first_name, ' ', last_name).like query + '%' ) |
+      ( last_name.like "#{terms.last}%"  ) |
+      ( email.like_any likened_terms     ) |
+      ( login.like_any likened_terms     )
+    end
+  end
 
-      local_results = where do
-        ( concat(first_name, ' ', last_name).like "%#{terms.join('% %')}%" ) |
-        ( last_name.like  "%#{terms.last}%"  ) |
-        ( email.like_any  likened_terms      ) |
-        ( login.like_any  likened_terms      )
+  def self.directory_search(query)
+    filter = {}
+    arguments = query.split
+
+    if arguments.size > 1
+      filter[:cn] = arguments.join('*') + '*'
+      filter[:sn] = arguments.last + '*'
+      filter[:mail] = filter[:uid] = arguments
+    else
+      filter[:uid] = filter[:mail] = arguments.first
+      filter[:givenName] = arguments.first
+      filter[:sn] = arguments.first + '*'
+    end
+
+    filter = LDAP::Filter::OrFilter.new(filter)
+
+    results = MIT::LDAP.search(
+      filter: filter.to_s,
+      limit: 20,
+      instantiate: false,
+      attributes: LDAP_ATTRIBUTES.keys
+    )
+
+    users = results.map do |result|
+      next nil unless REQUIRED_LDAP_ATTRIBUTES.map { |key| result[key].present? }.all?
+
+      attributes = LDAP_ATTRIBUTES.inject({}) do |attrs, (key, column)|
+        attrs[column] = result[key].first
+        attrs
       end
 
-      results.concat(local_results)
+      User.new(attributes)
     end
 
-    if !options[:local_only]
-      remote_results = MIT::LDAP::UserAdapter.build_users(search)
-      results.concat(remote_results)
-    end
-
-    results.to_a.uniq { |user| user.email }
+    users.compact
   end
 
   def self.assign_password(user)

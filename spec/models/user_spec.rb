@@ -22,46 +22,62 @@ describe User do
     end
   end
 
-  describe ".lookup" do
-    let!(:result) { create(:mrhalp) }
+  describe ".search" do
+    it "finds based on first_name and last_name concatenation" do
+      user = create(:user, first_name: 'bob', last_name: 'chafe')
 
-    it "searches for applicants based on search string containing the name" do
-      User.lookup('micro helpline').should include result
+      User.search('bob chafe').should include user
+      User.search('bob ch').should include user
+
+      User.search('bo hafe').should be_empty
     end
 
-    it "returns empty array if arguments are empty or nil" do
-      User.lookup('').should eq []
-      User.lookup.should eq []
+    it "can find users based on full or partial login" do
+      user = create(:user, login: 'mrhalp')
+
+      User.search('mrhalp').should include user
+      User.search('mrh').should include user
+
+      User.search('halp').should be_empty
     end
 
-    it "can find applicants based on login" do
-      User.lookup('mrhalp').should include result
+    it "can find users based on full or partial email" do
+      user = create(:user, email: 'mrhalp@mit.edu')
+
+      User.search('mrhalp@mit.edu').should include user
+      User.search('mrhalp@').should include user
+
+      User.search('edu').should be_empty
     end
 
-    it "can find applicants based on email" do
-      User.lookup('mrhalp@mit.edu').should include result
+    it "matches based on full or partial last name if it does not match by full name" do
+      user = create(:user, first_name: 'Robert', last_name: 'Chafe')
+
+      User.search('bob chafe').should include user
+      User.search('chaf').should include user
+
+      User.search('hafe').should be_empty
+    end
+  end
+
+  describe ".directory_search" do
+    it "instantiates new users from ldap results" do
+      stub_ldap!
+      users = User.directory_search('micro helpline')
+
+      users.first.should be_instance_of User
     end
 
-    it "matches based on last name if it does not match by full name" do
-      chief = create(:user, first_name: 'Robert', last_name: 'Chafe')
+    it "filters out results missing required attributes" do
+      required_attributes = %w( givenName sn mail )
 
-      User.lookup('bob chafe').should eq [chief]
-    end
+      required_attributes.each do |attribute|
+        stub_ldap!(attribute.to_sym => [])
 
-    it "does not check ldap if :local_only is true" do
-      MIT::LDAP.should_receive(:search).exactly(0).times
-      User.lookup('micro helpline', local_only: true)
-    end
+        users = User.directory_search('micro helpline')
 
-    it "only checks ldap server is :remote_only is true" do
-      User.should_receive(:where).exactly(0).times
-      User.lookup('micro helpline', remote_only: true)
-    end
-
-    it "returns uniq results if it checks the ldap server" do
-      stub_mit_ldap_search_results
-
-      User.lookup('micro helpline').should eq [result]
+        users.should be_empty
+      end
     end
   end
 
