@@ -65,6 +65,7 @@ describe User do
       stub_ldap!
       users = User.directory_search('micro helpline')
 
+      users.should_not be_empty # Ensures stubbing worked correctly
       users.first.should be_instance_of User
     end
 

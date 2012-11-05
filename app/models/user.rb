@@ -52,33 +52,13 @@ class User < ActiveRecord::Base
   end
 
   def self.directory_search(query)
-    filter = {}
-    arguments = query.split
+    search = DirectorySearch.search(query)
 
-    if arguments.size > 1
-      filter[:cn] = arguments.join('*') + '*'
-      filter[:sn] = arguments.last + '*'
-      filter[:mail] = filter[:uid] = arguments
-    else
-      filter[:uid] = filter[:mail] = arguments.first
-      filter[:givenName] = arguments.first
-      filter[:sn] = arguments.first + '*'
-    end
-
-    filter = LDAP::Filter::OrFilter.new(filter)
-
-    results = MIT::LDAP.search(
-      filter: filter.to_s,
-      limit: 20,
-      instantiate: false,
-      attributes: LDAP_ATTRIBUTES.keys
-    )
-
-    users = results.map do |result|
+    users = search.results.map do |result|
       next nil unless REQUIRED_LDAP_ATTRIBUTES.map { |key| result[key].present? }.all?
 
       attributes = LDAP_ATTRIBUTES.inject({}) do |attrs, (key, column)|
-        attrs[column] = result[key].first
+        attrs[column] = result.fetch(key, []).first
         attrs
       end
 
