@@ -53,4 +53,12 @@ module LDAPSearchStubbing
     MIT::LDAP.stub(:search).and_return([result])
     result
   end
+
+  def stub_ldap!(attributes = {})
+    attributes.reverse_merge!(attributes_for(:ldap_entry))
+
+    attributes.stringify_keys!
+
+    MIT::LDAP.stub(:search).and_return([attributes])
+  end
 end
