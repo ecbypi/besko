@@ -10,6 +10,7 @@ module LDAPSearchStubbing
 
     attributes.stringify_keys!
 
+    MIT::LDAP.stub(:connected?).and_return(true)
     MIT::LDAP.stub(:search).and_return([attributes])
   end
 end
