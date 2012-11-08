@@ -1,5 +1,7 @@
 # Besko Package Mailer
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ecbypi/besko)
+
 A hobby project to improve on many old processes at my old dormitory.
 
 ## The Problem
