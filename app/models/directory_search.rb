@@ -11,7 +11,7 @@ class DirectorySearch
     @options = options.dup
 
     @options.reverse_merge!(
-      limit: 20,
+      size: 20,
       instantiate: false
     )
 
