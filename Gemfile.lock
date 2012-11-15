@@ -1,11 +1,11 @@
 GIT
   remote: git://github.com/ecbypi/mit-ldap.git
-  revision: 8d17c9c32483e7a726267ecb51e062cd97a22a93
+  revision: 0dcc958199dfe3c5199aec21cfd96d39425acb75
   specs:
     mit-ldap (0.3.4)
       cocaine (~> 0.2)
       ldaptic (~> 0.2)
-      ruby-ldap (~> 0.9)
+      net-ldap (~> 0.3)
 
 GIT
   remote: git://github.com/josevalim/active_model_serializers.git
@@ -75,7 +75,7 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
-    cocaine (0.2.0)
+    cocaine (0.4.2)
     coderay (1.0.5)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -163,6 +163,7 @@ GEM
     mime-types (1.19)
     multi_json (1.0.4)
     mysql2 (0.3.11)
+    net-ldap (0.3.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -236,7 +237,6 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.8.0)
-    ruby-ldap (0.9.12)
     rubyzip (0.9.9)
     sass (3.1.15)
     sass-rails (3.2.4)
