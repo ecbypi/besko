@@ -21,17 +21,12 @@ class DirectorySearch
   end
 
   def search
-    if MIT::LDAP.connect!
-      @results = MIT::LDAP.search(options)
-    else
-      @results = []
-    end
-
-    self
+    @results = MIT::LDAP.connect! ? MIT::LDAP.search(options) : []
 
   rescue Ldaptic::ServerError
     @results = []
 
+  ensure
     self
   end
 
