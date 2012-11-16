@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
 
   def self.directory_search(query)
-    search = DirectorySearch.search(query)
+    search = DirectorySearch.search(query, attributes: LDAP_ATTRIBUTES.keys)
 
     users = search.results.map do |result|
       next nil unless REQUIRED_LDAP_ATTRIBUTES.map { |key| result[key].present? }.all?
