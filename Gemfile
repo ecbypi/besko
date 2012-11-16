@@ -43,6 +43,7 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'jasminerice'
+  gem 'fuubar'
 end
 
 group :test do

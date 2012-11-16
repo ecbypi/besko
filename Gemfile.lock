@@ -111,6 +111,10 @@ GEM
     faye-websocket (0.4.6)
       eventmachine (>= 0.12.0)
     ffi (1.1.5)
+    fuubar (1.1.0)
+      rspec (~> 2.0)
+      rspec-instafail (~> 0.2.0)
+      ruby-progressbar (~> 1.0.0)
     gherkin (2.11.2)
       json (>= 1.4.6)
     guard (0.7.0)
@@ -231,12 +235,14 @@ GEM
     rspec-core (2.8.0)
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
+    rspec-instafail (0.2.4)
     rspec-mocks (2.8.0)
     rspec-rails (2.8.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.8.0)
+    ruby-progressbar (1.0.2)
     rubyzip (0.9.9)
     sass (3.1.15)
     sass-rails (3.2.4)
@@ -298,6 +304,7 @@ DEPENDENCIES
   draper
   email_spec
   factory_girl_rails
+  fuubar
   guard-livereload
   guard-spork
   guise
