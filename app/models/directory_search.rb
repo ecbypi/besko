@@ -28,6 +28,11 @@ class DirectorySearch
     end
 
     self
+
+  rescue Ldaptic::ServerError
+    @results = []
+
+    self
   end
 
   private
