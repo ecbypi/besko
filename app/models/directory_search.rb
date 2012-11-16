@@ -27,7 +27,7 @@ class DirectorySearch
     @results = []
 
   ensure
-    self
+    return self
   end
 
   private
