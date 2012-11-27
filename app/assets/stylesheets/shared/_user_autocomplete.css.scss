@@ -1,5 +1,4 @@
 .autocomplete-search {
-  position: relative;
 
   .autocomplete-close {
     display: none;
@@ -22,7 +21,6 @@
   }
 
   .autocomplete-results {
-    position: absolute;
     z-index: 10;
     background-color: #fff;
     padding: 0;
