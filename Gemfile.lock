@@ -7,12 +7,6 @@ GIT
       ldaptic (~> 0.2)
       net-ldap (~> 0.3)
 
-GIT
-  remote: git://github.com/lostapathy/yaml_db.git
-  revision: 98e9a5dca43e3fedd3268c76a73af40d1bdf1dfd
-  specs:
-    yaml_db (0.2.2)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -323,10 +317,8 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-matchers
   simple_form
-  spork (~> 0.9.0.rc)
   squeel
   therubyracer
   timecop
   turnip
   uglifier (>= 1.0.3)
-  yaml_db!
