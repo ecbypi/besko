@@ -16,7 +16,7 @@ gem 'ransack'
 gem 'mit-ldap', github: 'ecbypi/mit-ldap'
 gem 'ldap-filter'
 gem 'guise'
-gem 'active_model_serializers', github: 'josevalim/active_model_serializers'
+gem 'active_model_serializers'
 gem 'kaminari'
 
 gem 'newrelic_rpm'
