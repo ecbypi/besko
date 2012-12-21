@@ -1,5 +1,6 @@
 # dependencies
 require 'bundler/capistrano'
+require 'pathname'
 
 # honeybadger configuration/tasks
 require './config/boot'
@@ -36,6 +37,7 @@ set :default_environment, {
 # For custom symlinks tasks to manage all symlinks in one task
 set :normal_symlinks, %w(
   config/database.yml
+  config/initializers/secret_token.rb
   log
 )
 
@@ -66,7 +68,7 @@ namespace :deploy do
   desc "Symlink everything in one task"
   task :make_symlinks, :roles => :web, :except => { :no_release => true } do
     dirs = [deploy_to, shared_path, release_path]
-    dirs += normal_symlinks.map { |d| File.join(shared_path, d.split('/').first) }
+    dirs += normal_symlinks.map { |d| Pathname.new(File.join(shared_path, d)).dirname }
     dirs += odd_symlinks.map { |from, to| File.join(shared_path, from) }
 
     commands = normal_symlinks.map do |path|
