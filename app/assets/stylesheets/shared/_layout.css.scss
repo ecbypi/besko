@@ -6,61 +6,44 @@ body {
   font-family: $helvetica;
 }
 
-header .inside, nav ul, #wrapper, #notifications {
+.inside {
   width: 900px;
   margin:0 auto;
 }
 
-header, nav {
+.header {
   background: #eee;
+  border-bottom: 2px solid #ccc;
 
+  #logo {
+    padding-top: 2px;
+    background: image-url('logo.png') no-repeat;
+    width: 400px;
+    height: 80px;
+  }
+
+  #session {
+    padding-top: 10px;
+    float: right;
+  }
+}
+
+.header, .primary-nav {
   a, a:visited {
     color: #000;
   }
 }
 
-header {
-  padding:12px 0 0;
-  z-index: 4;
-
-  .inside {
-    position: relative;
-  }
-
-  #session, #logo {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  #logo {
-    background: image-url('logo.png') no-repeat;
-    width: 400px;
-    height: 80px;
-    display: inline-block;
-  }
-
-  #session {
-    position: absolute;
-    right: 0;
-  }
-}
-
-nav {
-  ul {
-    padding: 0;
-  }
-
-  li, a {
-    display: inline-block;
-  }
+.primary-nav {
+  padding: 8px 0;
 
   a {
-    padding: 8px 10px;
-  }
-}
+    padding: 0 10px;
+    border-left: 2px solid #ccc;
+    position: relative;
 
-nav#primary {
-  border-bottom:2px solid #c9c3c3;
-  margin-bottom: 50px;
-  @include box-shadow(0 1px 1px #c9c3c3);
+    &:first-child {
+      border: none;
+    }
+  }
 }

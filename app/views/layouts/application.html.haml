@@ -9,9 +9,8 @@
     %meta{ name: :robots, content: 'NOINDEX, NOFOLLOW' }
 
   %body{ class: "#{controller.controller_name} #{controller.controller_name}-#{controller.action_name}" }
-    %header
+    %header.header
       .inside
-        #logo
         #session
           - if current_user
             = link_to 'Account', edit_user_registration_path
@@ -21,34 +20,33 @@
             = link_to 'Sign Up', new_user_registration_path
             &nbsp; | &nbsp;
             = link_to 'Log In', new_user_session_path
+        #logo
 
-    %nav#primary
-      - if current_user
-        %ul
-          - if can? :read, Receipt
-            %li= link_to 'Packages', receipts_path
-          - if can? :read, Delivery
-            %li= link_to 'Deliveries', deliveries_path
-          - if can? :create, Delivery
-            %li= link_to 'Log New Delivery', new_delivery_path
-          - if can? :manage, UserRole
-            %li= link_to 'Positions', user_roles_path
+        - if current_user
+          %nav.primary-nav
+            - if can? :read, Receipt
+              = link_to 'Packages', receipts_path
+            - if can? :read, Delivery
+              = link_to 'Deliveries', deliveries_path
+            - if can? :create, Delivery
+              = link_to 'Log New Delivery', new_delivery_path
+            - if can? :manage, UserRole
+              = link_to 'Positions', user_roles_path
 
-    #notifications
-      - if alert
-        .message.error
-          = alert
-      - if notice
-        .message.notice
-          = notice
-      - if alert || notice
-        = link_to 'Close', 'javascript:void(0)', class: 'close-message'
+    #wrapper.container
+      #notifications.notices.inside
+        - if alert
+          .message.error
+            = alert
+        - if notice
+          .message.notice
+            = notice
+        - if alert || notice
+          = link_to 'Close', 'javascript:void(0)', class: 'close-message'
 
-    #wrapper
-      %h1= yield :title
-      #content
+      #content.content.inside
+        %h1= yield :title
         = yield
       = yield :bootstrap
 
     %footer
-      .push
