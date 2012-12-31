@@ -1,33 +1,16 @@
-.new-session {
-  position: relative;
-
-  form {
-    min-height: 225px;
-    background-color: #eee;
+.sessions-new {
+  .new-session {
     display: inline-block;
     vertical-align: top;
-    padding: 15px;
+    min-height: 225px;
+  }
 
-    border-radius: 4px;
-    @include box-shadow(0 0 5px #aaa);
+  .touchstone-sign-in {
+    width: 35%;
+  }
 
-    h2 {
-      margin-top: 0;
-    }
-
-    &:first-child {
-      width: 345px;
-    }
-
-    .actions, button {
-      position: absolute;
-      bottom: 15px;
-    }
-
-    &:last-child {
-      width: 530px;
-      position: absolute;
-      right: 0px;
-    }
+  .local-sign-in {
+    float: right;
+    width: 62%;
   }
 }

@@ -6,9 +6,9 @@ body {
   font-family: $helvetica;
 }
 
-.inside {
+.container > .ember-view, .inside {
   width: 900px;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 .header {

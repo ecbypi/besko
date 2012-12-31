@@ -13,16 +13,14 @@ $input-margin: 5px 0 10px;
   }
 }
 
-.inputs, .actions {
+.inputs {
   .input {
     width: 230px;
     vertical-align: top;
     display: inline-block;
     margin-right: 15px;
   }
-}
 
-.actions {
   button, .button {
     display: inline-block;
   }

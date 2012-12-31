@@ -1,23 +1,30 @@
 - content_for :title do
   Sign In
 
-.new-session
-
-  = form_tag '/touchstone' do
-    %h2 Touchstone Sign In
-    %p Using Touchstone you can sign in with your:
-    %ul
-      %li MIT web certificate
-      %li Kerberos account
-    = button_tag 'Sign In with Touchstone'
-
-  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+= simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'actionable local-sign-in new-session' } do |f|
+  .actionable-header
     %h2 Local Sign In
 
+  .actionable-body
     %p Your account has a password tied locally to Besko. If this is your first time signing in locally, you will have to reset your password.
     .inputs
       = f.input :email, autofocus: true
       = f.input :password
-    .actions
+
+  .actionable-footer
+    .inputs
       = f.button :submit, "Sign In"
       = link_to 'Forgot password?', new_user_password_path
+
+= form_tag '/touchstone', class: 'actionable touchstone-sign-in new-session' do
+  .actionable-header
+    %h2 Touchstone Sign In
+
+  .actionable-body
+    %p Using Touchstone you can sign in with your:
+    %ul
+      %li MIT web certificate
+      %li Kerberos account
+
+  .actionable-footer
+    = button_tag 'Sign In with Touchstone'

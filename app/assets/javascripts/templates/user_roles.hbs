@@ -1,10 +1,15 @@
-<form class="add-role">
-  <h3>Add a User to a Role</h3>
-  <div class="inline-input input select">
-    <label class="select">Role:</label>
-    {{view Ember.Select elementId="user_role_title" contentBinding="roles" valueBinding="currentRole" prompt=" " optionLabelPath="content.label" optionValuePath="content.value"}}
+<form class="add-role actionable">
+  <div class="actionable-header">
+    <h3>Add a User to a Role</h3>
   </div>
-  {{view Besko.UserAutocomplete}}
+
+  <div class="actionable-body">
+    <div class="inline-input input select">
+      <label class="select">Role:</label>
+      {{view Ember.Select elementId="user_role_title" contentBinding="roles" valueBinding="currentRole" prompt=" " optionLabelPath="content.label" optionValuePath="content.value"}}
+    </div>
+    {{view Besko.UserAutocomplete}}
+  </div>
 </form>
 
 <div {{bindAttr class=":user-roles content.length:open"}}>
