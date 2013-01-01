@@ -25,13 +25,13 @@
         - if current_user
           %nav.primary-nav
             - if can? :read, Receipt
-              = link_to 'Packages', receipts_path
+              = link_to 'Your Packages', receipts_path
             - if can? :read, Delivery
               = link_to 'Deliveries', deliveries_path
             - if can? :create, Delivery
               = link_to 'Log New Delivery', new_delivery_path
             - if can? :manage, UserRole
-              = link_to 'Positions', user_roles_path
+              = link_to 'Manage Roles', user_roles_path
 
     #wrapper.container
       #notifications.notices.inside
