@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.11'
 
 gem 'mysql2'
-gem 'devise'
+gem 'devise', '2.0.5'
 gem 'cancan'
 gem 'inherited_resources'
 gem 'paperclip'
