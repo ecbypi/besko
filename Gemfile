@@ -17,6 +17,7 @@ gem 'ldap-filter'
 gem 'guise'
 gem 'active_model_serializers'
 gem 'kaminari'
+gem 'oj'
 
 gem 'newrelic_rpm'
 gem 'honeybadger'

@@ -164,6 +164,7 @@ GEM
       net-ssh (>= 1.99.1)
     newrelic_rpm (3.5.3.25)
     nokogiri (1.5.5)
+    oj (2.0.4)
     orm_adapter (0.0.7)
     paperclip (2.4.1)
       activerecord (>= 2.3.0)
@@ -308,6 +309,7 @@ DEPENDENCIES
   mit-ldap!
   mysql2
   newrelic_rpm
+  oj
   paperclip
   poltergeist
   pry-rails
