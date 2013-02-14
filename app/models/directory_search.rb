@@ -32,19 +32,20 @@ class DirectorySearch
   private
 
   def construct_filter
-    filter = {}
     arguments = query.split
 
-    if arguments.size > 1
-      filter[:cn] = arguments.join('*') + '*'
-      filter[:sn] = arguments.last + '*'
-      filter[:mail] = filter[:uid] = arguments
+    @filter = if arguments.size > 1
+      Ldaptic::Filter(cn: "#{arguments.join('*')}*", :* => true) |
+        Ldaptic::Filter(sn: arguments.last + '*', :* => true) |
+        Ldaptic::Filter(mail: arguments) |
+        Ldaptic::Filter(uid: arguments)
     else
-      filter[:uid] = filter[:mail] = arguments.first
-      filter[:givenName] = arguments.first
-      filter[:sn] = arguments.first + '*'
+      value = arguments.pop
+      Ldaptic::Filter(uid: value) |
+        Ldaptic::Filter(mail: value) |
+        Ldaptic::Filter(givenName: value) |
+        Ldaptic::Filter(givenName: value) |
+        Ldaptic::Filter(sn: "#{value}*", :* => true)
     end
-
-    @filter = LDAP::Filter::OrFilter.new(filter)
   end
 end
