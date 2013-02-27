@@ -35,6 +35,7 @@ group :assets do
 
   gem 'backbone-rails'
   gem 'backbone-support'
+  gem 'ember-rails'
 end
 
 group :development do
