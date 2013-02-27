@@ -17,6 +17,8 @@ gem 'guise'
 gem 'active_model_serializers'
 gem 'kaminari'
 gem 'oj'
+gem 'cocaine'
+gem 'posix-spawn'
 
 gem 'newrelic_rpm'
 gem 'honeybadger'

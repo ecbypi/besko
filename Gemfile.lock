@@ -64,7 +64,10 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.8)
       ffi (~> 1.0, >= 1.0.11)
-    cocaine (0.4.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.5)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -179,6 +182,7 @@ GEM
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
+    posix-spawn (0.3.6)
     pry (0.9.8.4)
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)
@@ -287,6 +291,7 @@ DEPENDENCIES
   bourbon
   cancan
   capistrano
+  cocaine
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise (= 2.0.5)
@@ -310,6 +315,7 @@ DEPENDENCIES
   oj
   paperclip
   poltergeist
+  posix-spawn
   pry-rails
   rails (= 3.2.12)
   ransack

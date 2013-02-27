@@ -1,0 +1,26 @@
+dn: cn=<%= attributes[:cn] %>+employeeNumber=0000
+ 00,ou=affiliates,dc=mit,dc=edu
+uid: <%= attributes[:uid] %>
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: eduPerson
+objectClass: posixAccount
+objectClass: apple-user
+objectClass: shadowAccount
+mail: <%= attributes[:mail] %>
+sn: <%= attributes[:sn] %>
+cn: <%= attributes[:cn] %>
+givenName: <%= attributes[:givenName] %>
+eduPersonAffiliation: affiliate
+eduPersonPrimaryAffiliation: affiliate
+eduPersonScopedAffiliation: affiliate@mit.edu
+o: Massachusetts Institute of Technology
+eduPersonPrincipalName: <%= attributes[:uid] %>@ATHENA.MIT.EDU
+loginShell: /bin/athena/tcsh
+uidNumber: 1001
+gidNumber: 1001
+homeDirectory: /afs/athena.mit.edu/user/<%= attributes[:uid][0] %>/<%= attributes[:uid][1] %>/<%= attributes[:uid] %>
+apple-user-homeDirectory: /afs/athena.mit.edu/user/<%= attributes[:uid][0] %>/<%= attributes[:uid][1] %>/<%= attributes[:uid] %>/MacData
+

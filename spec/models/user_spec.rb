@@ -66,14 +66,19 @@ describe User do
       users = User.directory_search('micro helpline')
 
       users.should_not be_empty # Ensures stubbing worked correctly
-      users.first.should be_instance_of User
+
+      user = users.first
+
+      user.first_name.should eq 'Micro'
+      user.last_name.should eq 'Helpline'
+      user.email.should eq 'mrhalp@mit.edu'
     end
 
     it "filters out results missing required attributes" do
       required_attributes = %w( givenName sn mail )
 
       required_attributes.each do |attribute|
-        stub_ldap!(attribute.to_sym => [])
+        stub_ldap!(attribute.to_sym => '')
 
         users = User.directory_search('micro helpline')
 

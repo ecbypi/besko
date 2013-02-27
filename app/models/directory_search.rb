@@ -1,51 +1,58 @@
 class DirectorySearch
+  attr_reader :query, :results
 
-  attr_reader :query, :filter, :results, :options
-
-  def self.search(query, options = {})
-    new(query, options).search
+  def self.search(query)
+    new(query).search
   end
 
-  def initialize(query, options = {})
+  def initialize(query)
     @query = query
-    @options = options.dup
-
-    @options.reverse_merge!(
-      instantiate: false
-    )
-
-    @options[:filter] = construct_filter.to_s
-
-    @options.freeze
   end
 
   def search
-    @results = MIT::LDAP.connect! ? MIT::LDAP.search(options) : []
+    @results ||= begin
+      command = Cocaine::CommandLine.new(
+        'ldapsearch',
+        command_options,
+        expected_outcodes: [0, 4, 11],
+        logger: Rails.logger
+      )
 
-  rescue Ldaptic::ServerError
-    @results = []
+      parse_output(command.run(filter: filter.to_s))
+    end
 
-  ensure
-    return self
+    self
+  end
+
+  def filter
+    @filter ||= begin
+      terms = query.split
+
+      if terms.size > 1
+        Ldaptic::Filter(cn: "#{terms.join('*')}*", :* => true) |
+          Ldaptic::Filter(sn: terms.last + '*', :* => true) |
+          Ldaptic::Filter(mail: terms) |
+          Ldaptic::Filter(uid: terms)
+      else
+        value = terms.pop
+        Ldaptic::Filter(uid: value) |
+          Ldaptic::Filter(mail: value) |
+          Ldaptic::Filter(givenName: value) |
+          Ldaptic::Filter(givenName: value) |
+          Ldaptic::Filter(sn: "#{value}*", :* => true)
+      end
+    end
   end
 
   private
 
-  def construct_filter
-    arguments = query.split
+  def command_options
+    '-x -LLL -h ldap-too.mit.edu -b dc=mit,dc=edu :filter uid givenName sn mail street'
+  end
 
-    @filter = if arguments.size > 1
-      Ldaptic::Filter(cn: "#{arguments.join('*')}*", :* => true) |
-        Ldaptic::Filter(sn: arguments.last + '*', :* => true) |
-        Ldaptic::Filter(mail: arguments) |
-        Ldaptic::Filter(uid: arguments)
-    else
-      value = arguments.pop
-      Ldaptic::Filter(uid: value) |
-        Ldaptic::Filter(mail: value) |
-        Ldaptic::Filter(givenName: value) |
-        Ldaptic::Filter(givenName: value) |
-        Ldaptic::Filter(sn: "#{value}*", :* => true)
+  def parse_output(output)
+    output.gsub(/\n (\w)/, '\1').split(/\n\n/).map do |record|
+      Hash[record.split(/\n/).map { |line| line.split(/: /) }]
     end
   end
 end
