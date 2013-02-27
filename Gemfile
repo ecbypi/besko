@@ -20,8 +20,10 @@ gem 'oj'
 gem 'cocaine'
 gem 'posix-spawn'
 
-gem 'newrelic_rpm'
-gem 'honeybadger'
+group :production, :staging do
+  gem 'newrelic_rpm'
+  gem 'honeybadger'
+end
 
 group :assets do
   gem 'jquery-rails'
