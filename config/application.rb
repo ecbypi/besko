@@ -52,5 +52,8 @@ module Besko
     config.action_mailer.default_url_options = { host: 'besko.mit.edu', protocol: 'https' }
 
     config.action_mailer.delivery_method = :sendmail
+
+    # Default ember variant to development for all environments
+    config.ember.variant = :development
   end
 end
