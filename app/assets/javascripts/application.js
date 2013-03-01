@@ -1,14 +1,9 @@
-//= require_self
+//= require jquery.min
+//= require jquery-ui.min
+//= require jquery_ujs
 
-//= include jquery.min
-//= include jquery-ui.min
-//= include jquery_ujs
-
-//= include underscore
-//= include backbone
-
-//= include backbone-support/support
-//= include backbone-support/composite_view
-//= include backbone-support/swapping_router
+//= require handlebars
+//= require ember
+//= require ember-data
 
 //= require besko
