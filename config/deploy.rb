@@ -36,6 +36,7 @@ set :default_environment, {
 
 # For custom symlinks tasks to manage all symlinks in one task
 set :normal_symlinks, %w(
+  config/newrelic.yml
   config/database.yml
   config/initializers/secret_token.rb
   log
