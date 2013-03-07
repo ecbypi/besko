@@ -7,6 +7,10 @@ describe UsersController do
     @json_body ||= JSON.parse(response.body)
   end
 
+  def users
+    json_body['users']
+  end
+
   describe "GET index.json" do
     let(:user) { create(:user) }
 
@@ -41,7 +45,7 @@ describe UsersController do
 
       get :index, format: :json, term: 'micro helpline'
 
-      json_body.size.should eq 1
+      users.size.should eq 1
     end
   end
 
@@ -58,7 +62,8 @@ describe UsersController do
     it "returns the persisted user information" do
       post :create, format: :json, user: attributes
 
-      json_body.should have_key 'id'
+      json_body.should have_key 'user'
+      json_body['user'].should have_key 'id'
     end
   end
 end
