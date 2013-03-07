@@ -40,15 +40,13 @@ $(function() {
     return message.text(text).parent().show();
   };
 
-  _.extend(Besko.Support, {
-    error: function(text) {
-      return insert(text, 'error');
-    },
+  Besko.error = function(text) {
+    return insert(text, 'error');
+  };
 
-    notice: function(text) {
-      return insert(text, 'notice');
-    }
-  });
+  Besko.notice = function(text) {
+    return insert(text, 'notice');
+  };
 
   bind();
 });
