@@ -1,6 +1,7 @@
 //= require_self
 
 //= require notifications
+//= require parsing
 
 //= require ./store
 //= require_tree ./models

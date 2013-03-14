@@ -11,11 +11,6 @@ class DeliveriesController < InheritedResources::Base
 
   private
 
-  def create_resource(object)
-    object.receipts_attributes = params[:receipts]
-    object.save
-  end
-
   def begin_of_association_chain
     current_user
   end

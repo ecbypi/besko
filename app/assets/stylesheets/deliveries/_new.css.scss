@@ -25,6 +25,10 @@
         width: 200px;
       }
     }
+
+    &.open {
+      display: table;
+    }
   }
 
   .autocomplete-results {

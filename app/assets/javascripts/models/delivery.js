@@ -3,5 +3,14 @@ Besko.Delivery = DS.Model.extend({
   deliveredOn: DS.attr('date'),
   worker: DS.belongsTo('Besko.User'),
   receipts: DS.hasMany('Besko.Receipt'),
-  receiptsAttributes: DS.attr('nestedAttributesArray')
+  receiptsAttributes: DS.attr('nestedAttributesArray'),
+
+  becameError: function() {
+    Besko.error('There was a problem saving the delivery. Try again.');
+  },
+
+  becameInvalid: function(delivery) {
+    var error = delivery.get('errors.firstObject');
+    Besko.error('There was a problem saving the delivery because ' + error);
+  }
 });

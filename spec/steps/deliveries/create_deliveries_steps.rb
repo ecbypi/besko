@@ -10,9 +10,6 @@ steps_for :deliveries do
   step "I should see a receipt form for :name" do  |name|
     within receipt_element(name) do
       page.should have_content name
-
-      input = find('input[type=hidden]')
-      input.value.should be_present
     end
   end
 
@@ -47,7 +44,7 @@ steps_for :deliveries do
 
   step "the delivery from should be reset" do
     receipts_collection.all('tr').should be_empty
-    find('#delivery_deliverer').value.should eq ''
+    find('#deliverer').value.should eq ''
     receipts_collection.parent.find('thead').should_not be_visible
     receipts_collection.parent.find('tfoot').should_not be_visible
   end
