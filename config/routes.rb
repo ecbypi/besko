@@ -13,6 +13,7 @@ Besko::Application.routes.draw do
   resources :receipts, only: [:update, :index, :new]
   resources :deliveries, only: [:index, :new, :create]
   resources :users, only: [:index, :show, :create]
+  resources :recipients, only: :create
 
   scope '/admin' do
     resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :create, :destroy]
