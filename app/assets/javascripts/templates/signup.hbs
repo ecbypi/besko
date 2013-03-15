@@ -1,0 +1,47 @@
+<form class="user-search">
+  <label for="user-search">Look yourself up in the MIT directory</label>
+  {{view Ember.TextField elementId="user-search" valueBinding="query" type="search" autofocus="true" placeholder="Enter name, email or kerberos"}}
+  <button {{action search}}>Lookup</button>
+</form>
+
+{{#if controller.content.length}}
+  <table class="search-results">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Kerberos</th>
+        <th>Address</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody data-collection="users">
+      {{#each controller}}
+        <tr data-resource="user">
+          <td class="name">{{name}}</td>
+          <td class="email">{{email}}</td>
+          <td class="kerberos">{{login}}</td>
+          <td class="address">{{street}}</td>
+          <td>
+            {{#if id}}
+              Account Exists
+            {{else}}
+              <div class="input boolean">
+                <label class="boolean" type="checkbox">
+                  {{view Ember.Checkbox checkedBinding="verified"}}
+                  This Is Me
+                </label>
+              </div>
+              {{#if verified}}
+                <div class="actions">
+                  <button {{action signup this}}>Request Account</button>
+                </div>
+              {{/if}}
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/if}}
