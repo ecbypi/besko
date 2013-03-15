@@ -27,6 +27,7 @@ Feature: Review Deliveries
     And I should see a total package count of 545
     And I should see the delivery was by "USPS"
 
+  @wip
   Scenario: View receipts for a delivery
     Given the following delivery exists:
       | ID | Deliverer | worker                |

@@ -1,0 +1,31 @@
+
+<h2 class="current-date">
+  {{view Besko.DateField elementId="delivered_on" valueBinding="formattedDate" disabled="true"}}
+</h2>
+
+<button class="prev" {{action prevDay}}>Previous Day</button>
+<button class="next" {{action nextDay}}>Next Day</button>
+
+<table class="deliveries" data-collection="deliveries">
+  <thead>
+    <tr>
+      <th class="delivered-at">Delivered At</th>
+      <th class="received-by">Received By</th>
+      <th class="delivered-by">Delivered By</th>
+      <th class="package-count">Total Packages</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each controller}}
+      <tr class="delivery-details" data-resource="delivery">
+        <td class="delivered-at">{{deliveredAt}}</td>
+        <td class="received-by"><a {{bindAttr href="mailTo"}}>{{worker.name}}</a></td>
+        <td class="delivered-by">{{deliverer}}</td>
+        <td class="package-count">{{packageCount}}</td>
+      </tr>
+    {{else}}
+      <tr><td class="empty-message" colspan="4">No Deliveries</td></tr>
+    {{/each}}
+  </tbody>
+</table>
