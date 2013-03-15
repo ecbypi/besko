@@ -2,6 +2,7 @@
 
 //= require notifications
 //= require parsing
+//= require date
 
 //= require ./store
 //= require_tree ./models

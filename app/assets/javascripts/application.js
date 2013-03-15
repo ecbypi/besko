@@ -2,6 +2,8 @@
 //= require jquery-ui.min
 //= require jquery_ujs
 
+//= require underscore
+
 //= require handlebars
 //= require ember
 //= require ember-data
