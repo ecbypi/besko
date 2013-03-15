@@ -2,6 +2,10 @@ DS.RESTAdapter.configure('plurals', {
   delivery: 'deliveries'
 });
 
+DS.RESTAdapter.configure('Besko.User', {
+  sideloadAs: 'workers'
+});
+
 DS.RESTAdapter.registerTransform('nestedAttributesArray', {
   serialize: function(value) {
     return value.map(function(object) {
