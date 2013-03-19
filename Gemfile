@@ -55,7 +55,6 @@ group :test do
   gem 'poltergeist'
   gem 'launchy'
   gem 'factory_girl_rails'
-  gem 'guard-spork'
   gem 'database_cleaner'
   gem 'email_spec'
 end

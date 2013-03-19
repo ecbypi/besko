@@ -117,9 +117,6 @@ GEM
       em-websocket (>= 0.2.0)
       guard (>= 0.4.0)
       multi_json (~> 1.0.3)
-    guard-spork (0.2.1)
-      guard (>= 0.2.2)
-      spork (>= 0.8.4)
     guise (0.2.3)
       activerecord (~> 3.1)
       activesupport (~> 3.1)
@@ -243,7 +240,6 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     slop (2.4.4)
-    spork (0.9.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -294,7 +290,6 @@ DEPENDENCIES
   factory_girl_rails
   fuubar
   guard-livereload
-  guard-spork
   guise
   haml
   honeybadger
