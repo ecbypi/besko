@@ -40,7 +40,7 @@ Ember.HistoryLocation.reopen({
   getURL: function() {
     var url = this._super();
 
-    return url + Ember.get(this, 'location').search
+    return url + Ember.get(this, 'location').search;
   }
 });
 
