@@ -54,7 +54,7 @@ Besko.UserAutocomplete = Ember.View.extend({
       } else if ( value.length >= 3 && ( ( code <= 90 && code >= 46 ) || [8, 32, 110, 189].contains(code) ) ) {
         controller.search(value);
       } else if ( !value ) {
-        controller.set('recipients.content', []);
+        controller.set('users', []);
       }
 
       return false;
@@ -62,7 +62,7 @@ Besko.UserAutocomplete = Ember.View.extend({
   }),
 
   resultSet: Ember.CollectionView.extend({
-    contentBinding: 'context.recipients',
+    contentBinding: 'controller.users',
 
     tagName: 'ul',
     classNames: ['autocomplete-results'],
@@ -106,6 +106,7 @@ Besko.UserAutocomplete = Ember.View.extend({
       }
 
       this.get('parentView.search').set('value', '');
+      this.set('content', []);
     },
 
     up: function(event) {

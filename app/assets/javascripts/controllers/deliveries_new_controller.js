@@ -1,12 +1,12 @@
 Besko.DeliveriesNewController = Ember.ArrayController.extend({
-  recipients: [],
+  users: [],
 
   hasReceipts: function() {
     return this.get('content.length') > 0;
   }.property('content.@each'),
 
   search: function(term) {
-    this.set('recipients', Besko.User.find({ term: term }));
+    this.set('users', Besko.User.find({ term: term }));
   },
 
   add: function(recipient) {
@@ -17,7 +17,7 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
     });
 
     this.get('content').pushObject(receipt);
-    this.set('recipients', []);
+    this.set('users', []);
   },
 
   remove: function(receipt) {
