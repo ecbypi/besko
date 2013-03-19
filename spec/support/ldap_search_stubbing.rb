@@ -1,9 +1,3 @@
-module MIT::LDAP
-  def self.search(options = {})
-    []
-  end
-end
-
 module LDAPSearchStubbing
   def stub_ldap!(attributes = {})
     attributes.reverse_merge!(attributes_for(:ldap_entry))
