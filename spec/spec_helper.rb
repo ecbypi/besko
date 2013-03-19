@@ -9,6 +9,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 Dir.glob('spec/steps/**/*steps.rb') { |f| load f, true }
 
 Capybara.javascript_driver = :poltergeist
+Capybara.ignore_hidden_elements = true
 
 RSpec.configure do |config|
   # Allow only desired specs to run by adding filters to spec definition
