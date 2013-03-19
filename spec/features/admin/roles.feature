@@ -33,6 +33,7 @@ Feature: Role management
     Then I should see "Ms Helpline" in the list of admins
     And I should not see "Micro Helpline" in the list of admins
 
+  @selenium
   Scenario: persists what role has been selected across page refreshs
     Given mrhalp is a besk worker
     And I select "Besk Worker" from the list of roles
@@ -43,7 +44,7 @@ Feature: Role management
     Given I select "Besk Worker" from the list of roles
     When I add "mrhalp" to the selected role
     Then I should see "Micro Helpline" has been added to the list of besk workers
-    And I should see the notice "Micro Helpline is now a Besk Worker"
+    And I should see the notice "Micro Helpline is now a BeskWorker"
     And the form to add users to a role should be reset
 
   Scenario: ensures users are not added to a role twice
@@ -56,8 +57,9 @@ Feature: Role management
     Given mrhalp is a besk worker
     And I select "Besk Worker" from the list of roles
     When I remove "Micro Helpline" from the selected role
-    Then I should see the notice "Micro Helpline is no longer a Besk Worker"
+    Then I should see the notice "Micro Helpline is no longer a BeskWorker"
 
+  @wip
   Scenario: filter results
     Given mrhalp is a besk worker
     And mshalp is a besk worker
@@ -65,7 +67,6 @@ Feature: Role management
     When I search for "Micro Helpline" in the filter
     Then I should see "Micro Helpline" in the list of besk workers
     But I should not see "Ms Helpline" in the list of besk workers
-
 
   Scenario: can only be done by admins
     Given I am logged in with the email "worker@mit.edu"

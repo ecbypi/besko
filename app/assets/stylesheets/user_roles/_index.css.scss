@@ -30,6 +30,10 @@
   width: 600px;
   margin-left: 20px;
   display: none;
+
+  &.open {
+    display: table;
+  }
 }
 
 .users-in-role {

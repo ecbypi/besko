@@ -1,22 +1,5 @@
 - content_for :title do
   Role Management
 
-= simple_form_for UserRole.new(title: params[:title]), html: { data: { type: :json }, class: 'add-role' }, remote: true do |f|
-  %h3 Add a User to a Role
-  = f.input :title, label: 'Role:', as: :select, collection: User.guise_titles, required: false, wrapper_html: { class: 'inline-input' }
-  = f.hidden_field :user_id
-
-#roles.user-roles
-  .input.inline-input.filter
-    = label_tag :filter, 'Filter by name'
-    = search_field_tag :filter
-
-  %table.users-in-role
-    %thead
-      %tr
-        %th.user-role-name Name
-        %th.date-added Date Added
-        %th
-    %tbody{ data: { collection: :user_roles } }
-
-= bootstrap_collection
+%script#roles{ type: 'text/json' }
+  #{ User.guises.map { |guise| { label: guise.titleize, value: guise } }.to_json }

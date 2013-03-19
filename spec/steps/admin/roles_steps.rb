@@ -48,7 +48,6 @@ steps_for :roles do
   end
 
   step "the form to add users to a role should be reset" do
-    find('input#user_role_user_id').value.should eq ''
     find('input#user-search').value.should eq ''
   end
 

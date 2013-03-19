@@ -8,4 +8,7 @@ Besko.Router.map(function() {
   });
 
   this.route('signup', { path: '/accounts/signup' });
+
+  this.resource('user_roles', { path: '/roles' });
+  this.resource('user_roles', { path: '/roles/:role' });
 });

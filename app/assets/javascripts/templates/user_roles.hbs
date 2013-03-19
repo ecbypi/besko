@@ -1,0 +1,30 @@
+<form class="add-role">
+  <h3>Add a User to a Role</h3>
+  <div class="inline-input input select">
+    <label class="select">Role:</label>
+    {{view Ember.Select elementId="user_role_title" contentBinding="roles" valueBinding="currentRole" prompt=" " optionLabelPath="content.label" optionValuePath="content.value"}}
+  </div>
+  {{view Besko.UserAutocomplete}}
+</form>
+
+<div {{bindAttr class=":user-roles content.length:open"}}>
+  <table class="users-in-role">
+    <thead>
+      <tr>
+        <th class="user-role-name">Name</th>
+        <th class="date-added">Date Added</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody data-collection="user_roles">
+      {{#each controller}}
+        <tr data-resource="user_role">
+          <td class="user-role-name">{{user.name}}</td>
+          <td class="date-added">{{added}}</td>
+          <td><button {{action remove this}}>Remove</button></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

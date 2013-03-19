@@ -15,9 +15,7 @@ Besko::Application.routes.draw do
   resources :users, only: [:index, :show, :create]
   resources :recipients, only: :create
 
-  scope '/admin' do
-    resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :create, :destroy]
-  end
+  resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :show, :create, :destroy]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

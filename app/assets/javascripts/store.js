@@ -1,5 +1,6 @@
 DS.RESTAdapter.configure('plurals', {
-  delivery: 'deliveries'
+  delivery: 'deliveries',
+  user_role: 'roles'
 });
 
 DS.RESTAdapter.configure('Besko.User', {

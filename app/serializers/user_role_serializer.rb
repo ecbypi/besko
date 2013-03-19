@@ -1,15 +1,5 @@
 class UserRoleSerializer < ApplicationSerializer
-  attributes :id, :title, :name, :added
+  attributes :id, :created_at
 
-  def name
-    object.user.name
-  end
-
-  def title
-    object.title.titleize
-  end
-
-  def added
-    object.created_at.strftime('%c')
-  end
+  has_one :user, include: true, embed: :ids
 end
