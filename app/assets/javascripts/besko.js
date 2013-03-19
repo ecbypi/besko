@@ -29,3 +29,15 @@ Besko.startRouting = function() {
     }
   }
 };
+
+// The current implementation of Ember.HistoryLocation#getURL() ignores
+// window.location.search and throws it away when calling #replaceState().
+// Overriding getURL to tack on any search params present in order to preserve
+// them.
+Ember.HistoryLocation.reopen({
+  getURL: function() {
+    var url = this._super();
+
+    return url + Ember.get(this, 'location').search
+  }
+});
