@@ -37,12 +37,12 @@ group :assets do
 end
 
 group :development do
-  gem 'pry-rails'
   gem 'guard-livereload'
   gem 'capistrano'
 end
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'rspec-rails'
   gem 'jasminerice'
   gem 'fuubar'
