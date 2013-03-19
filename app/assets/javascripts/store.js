@@ -3,7 +3,7 @@ DS.RESTAdapter.configure('plurals', {
 });
 
 DS.RESTAdapter.configure('Besko.User', {
-  sideloadAs: 'workers'
+  sideloadAs: 'users'
 });
 
 DS.RESTAdapter.registerTransform('nestedAttributesArray', {

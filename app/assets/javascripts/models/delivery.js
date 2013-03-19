@@ -3,7 +3,7 @@ Besko.Delivery = DS.Model.extend({
   deliveredOn: DS.attr('date'),
   deliveredAt: DS.attr('string'),
   packageCount: DS.attr('number'),
-  worker: DS.belongsTo('Besko.User'),
+  user: DS.belongsTo('Besko.User'),
   receipts: DS.hasMany('Besko.Receipt'),
   receiptsAttributes: DS.attr('nestedAttributesArray'),
 

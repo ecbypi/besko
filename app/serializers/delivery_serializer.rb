@@ -1,8 +1,12 @@
 class DeliverySerializer < ApplicationSerializer
   attributes :id, :deliverer, :package_count, :created_at, :delivered_at
 
-  has_one :worker, serializer: UserSerializer, include: true, embed: :ids
+  has_one :user, include: true, embed: :ids
   has_many :receipts
+
+  def user
+    object.worker
+  end
 
   def delivered_at
     object.created_at.strftime('%r')

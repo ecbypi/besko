@@ -20,7 +20,7 @@
     {{#each controller}}
       <tr class="delivery-details" data-resource="delivery">
         <td class="delivered-at">{{deliveredAt}}</td>
-        <td class="received-by"><a {{bindAttr href="mailTo"}}>{{worker.name}}</a></td>
+        <td class="received-by"><a {{bindAttr href="mailTo"}}>{{user.name}}</a></td>
         <td class="delivered-by">{{deliverer}}</td>
         <td class="package-count">{{packageCount}}</td>
       </tr>
