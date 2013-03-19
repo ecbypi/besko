@@ -20,7 +20,7 @@ describe Ability do
   end
 
   describe "as a worker" do
-    let(:worker) { create(:besk_worker) }
+    let(:worker) { create(:user, :besk_worker) }
     let(:ability) { Ability.new(worker) }
 
     it "can review and create packages" do
@@ -30,7 +30,7 @@ describe Ability do
   end
 
   describe "as a admin" do
-    let(:admin) { create(:admin) }
+    let(:admin) { create(:user, :admin) }
     let(:ability) { Ability.new(admin) }
 
     it "can manage user roles" do

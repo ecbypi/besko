@@ -28,15 +28,11 @@ FactoryGirl.define do
       street 'N42'
     end
 
-    factory :admin do
-      after_create do |user|
-        FactoryGirl.create(:user_role, title: 'Admin', user: user)
-      end
-    end
-
-    factory :besk_worker do
-      after_create do |user|
-        FactoryGirl.create(:user_role, title: 'BeskWorker', user: user)
+    User.guises.each do |guise|
+      trait guise.to_s.underscore.to_sym do
+        after_create do |user, proxy|
+          FactoryGirl.create(:user_role, title: guise.to_s, user: user)
+        end
       end
     end
   end
