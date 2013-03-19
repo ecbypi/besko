@@ -50,7 +50,6 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'turnip'
   gem 'timecop'
   gem 'poltergeist'
   gem 'launchy'

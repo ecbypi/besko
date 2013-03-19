@@ -1,1 +1,1 @@
---colour --format Fuubar -r turnip/rspec --tag ~@wip --tag @focus
+--colour --format Fuubar

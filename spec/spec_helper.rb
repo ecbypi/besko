@@ -2,11 +2,9 @@ ENV["RAILS_ENV"] ||= 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'turnip/capybara'
 require 'capybara/poltergeist'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-Dir.glob('spec/steps/**/*steps.rb') { |f| load f, true }
 
 Capybara.javascript_driver = :poltergeist
 Capybara.ignore_hidden_elements = true
@@ -37,7 +35,10 @@ RSpec.configure do |config|
   config.include LDAPSearchStubbing
   config.include EmailMacros
   config.include FactoryGirlStepHelpers
-  config.include DOMElementHelpers
+
+  config.include SessionSteps, type: :request
+  config.include DOMElementSteps, type: :request
+  config.include PageRenderHelper, type: :request, js: true
 end
 
 # fix for using url_helpers in decorator specs
