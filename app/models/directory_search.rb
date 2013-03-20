@@ -10,18 +10,13 @@ class DirectorySearch
   end
 
   def search
-    @results ||= begin
-      command = Cocaine::CommandLine.new(
-        'ldapsearch',
-        command_options,
-        expected_outcodes: [0, 4, 11],
-        logger: Rails.logger
-      )
+    return self unless results.nil?
 
-      parse_output(command.run(filter: filter.to_s))
+    @results = Timeout.timeout(2) do
+      parse_output(command_output)
     end
-
-    self
+  rescue Timeout::Error
+    @results = []
   end
 
   def filter
@@ -45,6 +40,21 @@ class DirectorySearch
   end
 
   private
+
+  def command
+    @command ||= Cocaine::CommandLine.new(
+      'ldapsearch',
+      command_options,
+      expected_outcodes: [0, 4, 11],
+      logger: Rails.logger
+    )
+  end
+
+  def command_output
+    command.run(filter: filter.to_s)
+  rescue Cocaine::ExitStatusError
+    ''
+  end
 
   def command_options
     '-x -LLL -h ldap-too.mit.edu -b dc=mit,dc=edu :filter uid givenName sn mail street'
