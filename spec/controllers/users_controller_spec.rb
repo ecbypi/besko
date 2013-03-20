@@ -16,9 +16,10 @@ describe UsersController do
 
     before :each do
       sign_in user
+      stub_on_campus!
     end
 
-    it "searchs database and MIT directory if no options are specified" do
+    it "searches database and MIT directory if no options are specified" do
       User.should_receive(:search).with('micro helpline').and_return([])
       User.should_receive(:directory_search).with('micro helpline').and_return([])
 
@@ -46,6 +47,14 @@ describe UsersController do
       get :index, format: :json, term: 'micro helpline'
 
       users.size.should eq 1
+    end
+
+    it 'does not search if not on campus' do
+      User.should_not_receive(:directory_search)
+
+      MIT.stub(ip_addresses: ['192.168.0.1'])
+
+      get :index, format: :json, term: 'micro helpline'
     end
   end
 

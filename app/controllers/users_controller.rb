@@ -6,11 +6,16 @@ class UsersController < ApplicationController
     query = params[:term]
     options = params.fetch(:options, {})
 
-    unless query.present? && options[:directory_only]
+    if query.blank?
+      respond_with(users)
+      return
+    end
+
+    unless options[:directory_only]
       users.concat User.search(query)
     end
 
-    unless query.present? && options[:local_only]
+    unless options[:local_only] || MIT.off_campus?
       users.concat User.directory_search(query)
     end
 

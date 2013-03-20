@@ -21,6 +21,10 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+
+    if example.metadata[:type] == :request
+      stub_on_campus!
+    end
   end
 
   config.after(:each) do
