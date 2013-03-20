@@ -23,6 +23,23 @@ feature 'Delivery', js: true do
   end
 
   context 'creation' do
+    scenario 'validates delivery is ready to be created' do
+      visit new_delivery_path
+
+      # Force show the receipts table in the event that we are left in an
+      # incorrect state.
+      page.execute_script("$('.receipts').show()");
+
+      click_button 'Send Notifications'
+
+      notifications.should have_content 'A deliverer is required to log a delivery.'
+
+      select 'UPS', from: 'deliverer'
+      click_button 'Send Notifications'
+
+      notifications.should have_content 'At least one recipient is required.'
+    end
+
     scenario 'allows adding local DB and LDAP records' do
       create(:user, first_name: 'Jon', last_name: 'Snow')
       stub_ldap!

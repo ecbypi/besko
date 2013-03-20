@@ -25,11 +25,11 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
   },
 
   submit: function() {
-    if ( Ember.isEmpty(this.get('content')) ) {
-      Besko.error('At least one recipient is required.');
+    if ( Ember.isEmpty(this.get('deliverer')) ) {
+      Besko.error('A deliverer is required to log a delivery.');
       return false;
-    } else if ( Ember.isEmpty(this.get('deliverer')) ) {
-      Besko.error('A deliverer is required.');
+    } else if ( Ember.isEmpty(this.get('content')) ) {
+      Besko.error('At least one recipient is required.');
       return false;
     }
 
