@@ -17,7 +17,7 @@ class Delivery < ActiveRecord::Base
   has_many :receipts
   has_many :recipients, through: :receipts
 
-  validates :deliverer, :worker_id, presence: true
+  validates :deliverer, :worker_id, :receipts, presence: true
 
   accepts_nested_attributes_for :receipts
 

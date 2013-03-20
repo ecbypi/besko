@@ -9,8 +9,11 @@ feature 'Delivery', js: true do
     scenario 'shows worker, number of packages, deliverer and timestamp of delivery' do
       mshalp = create(:mshalp)
       mrhalp = create(:mrhalp, :besk_worker)
-      delivery = create(:delivery, worker: mrhalp, deliverer: 'LaserShip')
-      create(:receipt, delivery: delivery, recipient: mshalp, number_packages: 3455)
+
+      # FIXME: Is there a way to build a receipt without a delivery other than
+      # setting `delivery` to nil
+      receipt = build(:receipt, recipient: mshalp, number_packages: 3455, delivery: nil)
+      delivery = create(:delivery, worker: mrhalp, deliverer: 'LaserShip', receipts: [receipt])
 
       visit deliveries_path
 

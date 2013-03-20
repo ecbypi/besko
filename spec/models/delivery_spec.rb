@@ -8,10 +8,9 @@ describe Delivery do
 
   it { should validate_presence_of(:deliverer) }
   it { should validate_presence_of(:worker_id) }
+  it { should validate_presence_of(:receipts) }
 
-  it "accepts nested attributes for receipts" do
-    expect { Delivery.new(receipts_attributes: []) }.not_to raise_error ActiveRecord::UnknownAttributeError
-  end
+  it { should accept_nested_attributes_for(:receipts) }
 
   it "sets #delivered_on to date of #created_at" do
     delivery = create(:delivery)
@@ -31,10 +30,10 @@ describe Delivery do
   end
 
   describe "#package_count" do
-    let(:delivery) { create(:delivery) }
-    let(:receipts) { create_list(:receipt, 3, number_packages: 3) }
     it "counts all packages across receipts" do
-      delivery.receipts << receipts
+      receipts = build_list(:receipt, 3, number_packages: 3)
+      delivery = create(:delivery, receipts: receipts)
+
       delivery.package_count.should eq 9
     end
   end
