@@ -2,6 +2,8 @@ Besko.UserAutocomplete = Ember.View.extend({
   classNames: ['input', 'search', 'autocomplete-search'],
   templateName: 'autocomplete',
 
+  timer: null,
+
   results: function() {
     return this.get('childViews').findProperty('tagName', 'ul');
   }.property(),
@@ -31,6 +33,8 @@ Besko.UserAutocomplete = Ember.View.extend({
       }
 
       this.get('results')[method](event);
+    } else {
+      clearTimeout(this.get('timer'));
     }
   },
 
@@ -52,7 +56,9 @@ Besko.UserAutocomplete = Ember.View.extend({
       if ( code === 38 || code === 40 ) {
         event.preventDefault();
       } else if ( value.length >= 3 && ( ( code <= 90 && code >= 46 ) || [8, 32, 110, 189].contains(code) ) ) {
-        controller.search(value);
+        this.set('timer', setTimeout(function () {
+          controller.search(value);
+        }, 700));
       } else if ( !value ) {
         controller.set('users', []);
       }
