@@ -10,7 +10,7 @@ class DirectorySearch
   end
 
   def search
-    return self unless results.nil?
+    return @results unless results.nil?
 
     @results = Timeout.timeout(2) do
       parse_output(command_output)

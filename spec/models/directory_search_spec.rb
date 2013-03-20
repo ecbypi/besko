@@ -14,4 +14,17 @@ describe DirectorySearch do
       DirectorySearch.search('mrhalp').should eq []
     end
   end
+
+  describe 'search' do
+    it 'is idempotent per instance' do
+      stub_ldap!
+
+      DirectorySearch.any_instance.should_receive(:command_output).exactly(:once)
+
+      search = DirectorySearch.new('mrhalp')
+
+      search.search
+      search.search
+    end
+  end
 end
