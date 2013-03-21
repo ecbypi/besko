@@ -51,11 +51,11 @@
       tr.delivery-details {
         td {
           &:first-child {
-            @include border-top-left-radius(5px);
+            border-top-left-radius: 5px;
           }
 
           &:last-child {
-            @include border-top-right-radius(5px);
+            border-top-right-radius: 5px;
           }
         }
       }
@@ -64,11 +64,11 @@
         .delivery-details {
           td {
             &:first-child {
-              @include border-bottom-left-radius(5px);
+              border-bottom-left-radius: 5px;
             }
 
             &:last-child {
-              @include border-bottom-right-radius(5px);
+              border-bottom-right-radius: 5px;
             }
           }
         }
@@ -82,11 +82,11 @@
 
       &:last-child td {
         &:first-child {
-          @include border-bottom-left-radius(5px);
+          border-bottom-left-radius: 5px;
         }
 
         &:last-child {
-          @include border-bottom-right-radius(5px);
+          border-bottom-right-radius: 5px;
         }
       }
     }

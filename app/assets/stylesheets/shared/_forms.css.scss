@@ -118,7 +118,7 @@ button, .button {
   margin-right: 10px;
   border:1px solid #999;
   font-size: 14px;
-  @include border-radius(3px);
+  border-radius: 3px;
   @include linear-gradient(#eee, #c9c3c3);
   @include transition(box-shadow);
 
