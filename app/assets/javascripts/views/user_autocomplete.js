@@ -2,8 +2,6 @@ Besko.UserAutocomplete = Ember.View.extend({
   classNames: ['input', 'search', 'autocomplete-search'],
   templateName: 'autocomplete',
 
-  timer: null,
-
   results: function() {
     return this.get('childViews').findProperty('tagName', 'ul');
   }.property(),
@@ -33,14 +31,11 @@ Besko.UserAutocomplete = Ember.View.extend({
       }
 
       this.get('results')[method](event);
-    } else {
-      clearTimeout(this.get('timer'));
     }
   },
 
   searchField: Ember.TextField.extend({
     elementId: 'user-search',
-    timerBinding: 'parentView.timer',
 
     attributeBindings: ['name', 'type', 'placeholder', 'autofocus'],
     name: 'user-search',
@@ -48,22 +43,32 @@ Besko.UserAutocomplete = Ember.View.extend({
     placeholder: 'Enter a name or email',
     autofocus: true,
 
+    timer: null,
+
     keyUp: function(event) {
       var code = event.keyCode,
           value = this.get('value'),
-          controller = this.get('context');
+          controller = this.get('controller');
 
       if ( code === 38 || code === 40 ) {
         event.preventDefault();
       } else if ( value.length >= 3 && ( ( code <= 90 && code >= 46 ) || [8, 32, 110, 189].contains(code) ) ) {
-        this.set('timer', setTimeout(function () {
-          controller.search(value);
-        }, 700));
+        this.setupDelayedSearch(value);
       } else if ( !value ) {
         controller.set('users', []);
       }
 
       return false;
+    },
+
+    setupDelayedSearch: function(value) {
+      var timer = this.get('timer');
+
+      if ( timer ) {
+        Ember.run.cancel(timer);
+      }
+
+      this.set('timer', Ember.run.later(this.get('controller'), 'search', value, 400));
     }
   }),
 
