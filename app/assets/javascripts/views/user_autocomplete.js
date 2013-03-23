@@ -72,6 +72,28 @@ Besko.UserAutocomplete = Ember.View.extend({
     }
   }),
 
+  closeSearch: Ember.View.extend({
+    tagName: 'a',
+    classNames: ['autocomplete-close'],
+    classNameBindings: ['open'],
+
+    open: function() {
+      var value = this.get('parentView.search.value')
+
+      return value.length > 0;
+    }.property('parentView.search.value'),
+
+    click: function() {
+      var search = this.get('parentView.search');
+
+      search.set('value', '');
+      this.get('controller').set('users', []);
+      search.$().focus();
+
+      return false;
+    }
+  }),
+
   resultSet: Ember.CollectionView.extend({
     contentBinding: 'controller.users',
 
