@@ -26,6 +26,10 @@ feature 'Delivery', js: true do
   end
 
   context 'creation' do
+    before do
+      stub_ldap!
+    end
+
     scenario 'validates delivery is ready to be created' do
       visit new_delivery_path
 
@@ -43,9 +47,25 @@ feature 'Delivery', js: true do
       notifications.should have_content 'At least one recipient is required.'
     end
 
+    scenario 'prevents users from being added twice' do
+      create(:user, first_name: 'Walter', last_name: 'White')
+
+      visit new_delivery_path
+
+      fill_in 'user-search', with: 'walt'
+      user_element('Walter White').click
+
+      page.should have_receipt_element text: 'Walter White'
+
+      fill_in 'user-search', with: 'walt'
+      user_element('Walter White').click
+
+      notifications.should have_content 'Walter White has already been added as a recipient.'
+      page.should have_receipt_element text: 'Walter White', count: 1
+    end
+
     scenario 'allows adding local DB and LDAP records' do
       create(:user, first_name: 'Jon', last_name: 'Snow')
-      stub_ldap!
 
       visit new_delivery_path
 

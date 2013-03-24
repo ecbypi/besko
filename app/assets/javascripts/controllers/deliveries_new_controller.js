@@ -11,11 +11,22 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
     return this.get('content.length') > 0 && !this.get('delivery.isSaving');
   }.property('content.@each', 'delivery.isSaving'),
 
+  recipientIds: function() {
+    return this.get('content').mapProperty('recipientId');
+  }.property('content.@each'),
+
   search: function(term) {
     this.set('users', Besko.User.find({ term: term }));
   },
 
   add: function(recipient) {
+    var recipientIds = this.get('recipientIds');
+
+    if ( recipientIds.contains(recipient.get('id')) ) {
+      Besko.error(recipient.get('name') + ' has already been added as a recipient.');
+      return false;
+    }
+
     var receipt = Besko.Receipt.createRecord({
       recipient: recipient,
       recipientId: recipient.get('id'),
