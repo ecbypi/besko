@@ -1,11 +1,11 @@
 .deliveries-new {
   .inline-inputs {
-    width: 760px;
+    width: 620px;
     margin: 0 auto;
-    @include user-search(200px);
+    @include user-search(150px);
 
     .error, .hint {
-      margin-left: 200px;
+      margin-left: 150px;
     }
   }
 
@@ -28,10 +28,19 @@
   }
 
   .autocomplete-results {
-    margin-left: 204px;
+    margin-left: 154px;
   }
 
   .autocomplete-result {
     width: 310px;
+  }
+}
+
+.saving-delivery {
+  text-align: center;
+  margin-top: 20px;
+
+  .spinner > div {
+    top: 35px !important;
   }
 }

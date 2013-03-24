@@ -1,9 +1,15 @@
 Besko.DeliveriesNewController = Ember.ArrayController.extend({
   users: [],
 
-  hasReceipts: function() {
-    return this.get('content.length') > 0;
-  }.property('content.@each'),
+  delivery: null,
+
+  fetchingUsers: function() {
+    return this.get('users.isLoaded') === false;
+  }.property('users.isLoaded'),
+
+  tableVisible: function() {
+    return this.get('content.length') > 0 && !this.get('delivery.isSaving');
+  }.property('content.@each', 'delivery.isSaving'),
 
   search: function(term) {
     this.set('users', Besko.User.find({ term: term }));
@@ -40,10 +46,11 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
       deliverer: this.get('deliverer')
     });
 
-    var self = this;
-    delivery.on('didCreate', function() {
+    this.set('delivery', delivery);
+
+    delivery.on('didCreate', this, function() {
       Besko.notice('Notifications Sent');
-      self.clear();
+      this.clear();
     });
 
     transaction.commit();

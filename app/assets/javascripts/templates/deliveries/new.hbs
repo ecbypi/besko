@@ -7,6 +7,12 @@
   {{view Besko.UserAutocomplete}}
 </div>
 
+{{#if delivery.isSaving}}
+  <div class="saving-delivery">
+    <h3>Sending notifications...</h3>
+    {{view Besko.LoadingAnimation version="large"}}
+  </div>
+{{/if}}
 
 <table {{bindAttr class=":receipts tableVisible:open"}}>
   <thead>
