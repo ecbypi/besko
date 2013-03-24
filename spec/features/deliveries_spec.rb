@@ -54,12 +54,12 @@ feature 'Delivery', js: true do
       fill_in 'user-search', with: 'snow'
       user_element('Jon Snow').click
 
-      page.should have_receipt_element 'Jon Snow'
+      page.should have_receipt_element text: 'Jon Snow'
 
       fill_in 'user-search', with: 'help'
       user_element('Micro Helpline').click
 
-      page.should have_receipt_element 'Micro Helpline'
+      page.should have_receipt_element text: 'Micro Helpline'
 
       User.last.email.should eq 'mrhalp@mit.edu'
 

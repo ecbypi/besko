@@ -23,8 +23,8 @@ module DOMElementSteps
     end
   end
 
-  def have_model_element(model_name, text)
-    have_selector :model_element, model_name, text: text
+  def have_model_element(model_name, options)
+    have_selector :model_element, model_name, options
   end
 
   %w( receipt delivery recipient user user_role ).each do |model_name|
@@ -41,8 +41,8 @@ module DOMElementSteps
         model_element('#{model_name}', text)
       end
 
-      def have_#{model_name}_element(text)
-        have_model_element('#{model_name}', text)
+      def have_#{model_name}_element(options)
+        have_model_element('#{model_name}', options)
       end
     METHODS
   end

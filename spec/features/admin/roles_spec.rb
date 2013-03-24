@@ -20,10 +20,10 @@ feature 'Manging user roles', js: true do
     User.guises.each do |guise|
       select guise.to_s.titleize, from: 'user_role_title'
 
-      page.should have_user_role_element "#{guise} Worker"
+      page.should have_user_role_element text: "#{guise} Worker"
 
       User.guises.select { |g| g != guise }.each do |g|
-        page.should_not have_user_role_element "#{g} Worker"
+        page.should_not have_user_role_element text: "#{g} Worker"
       end
     end
 
@@ -43,7 +43,7 @@ feature 'Manging user roles', js: true do
 
     # FIXME: This should use capybara's `has_select?` matcher
     find('#user_role_title').value.should eq 'BeskWorker'
-    user_roles_collection.should have_user_role_element 'Jon Snow'
+    user_roles_collection.should have_user_role_element text: 'Jon Snow'
   end
 
   scenario 'allows adding and removing users' do
@@ -55,7 +55,7 @@ feature 'Manging user roles', js: true do
     fill_in 'user-search', with: 'lannister'
     user_element('Tyrion').click
 
-    page.should have_user_role_element 'Tyrion Lannister'
+    page.should have_user_role_element text: 'Tyrion Lannister'
     page.should have_field 'user-search', with: nil
     notifications.should have_content 'Tyrion Lannister is now a BeskWorker'
 
@@ -68,7 +68,7 @@ feature 'Manging user roles', js: true do
       click_button 'Remove'
     end
 
-    user_roles_collection.should_not have_user_role_element 'Tyrion Lannister'
+    user_roles_collection.should_not have_user_role_element text: 'Tyrion Lannister'
     notifications.should have_content 'Tyrion Lannister is no longer a BeskWorker'
   end
 
