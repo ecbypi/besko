@@ -9,3 +9,5 @@
 //= require ember-data
 
 //= require besko
+
+//= require spin
