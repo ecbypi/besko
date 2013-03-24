@@ -11,9 +11,10 @@ Besko.UserAutocomplete = Ember.View.extend({
   }.property(),
 
   keyDown: function(event) {
-    var method;
+    var method,
+        users = this.get('results.content');
 
-    if ( [13, 38, 40].contains(event.keyCode) ) {
+    if ( !Ember.isEmpty(users) && [13, 38, 40].contains(event.keyCode) ) {
       event.preventDefault();
 
       switch ( event.keyCode ) {
@@ -37,11 +38,13 @@ Besko.UserAutocomplete = Ember.View.extend({
   searchField: Ember.TextField.extend({
     elementId: 'user-search',
 
-    attributeBindings: ['name', 'type', 'placeholder', 'autofocus'],
+    attributeBindings: ['name', 'type', 'placeholder', 'autofocus', 'disabled'],
     name: 'user-search',
     type: 'search',
     placeholder: 'Enter a name or email',
     autofocus: true,
+
+    disabledBinding: 'controller.fetchingUsers',
 
     timer: null,
 
@@ -78,10 +81,11 @@ Besko.UserAutocomplete = Ember.View.extend({
     classNameBindings: ['open'],
 
     open: function() {
-      var value = this.get('parentView.search.value')
+      var value = this.get('parentView.search.value'),
+          fetching = this.get('controller.fetchingUsers');
 
-      return value.length > 0;
-    }.property('parentView.search.value'),
+      return value.length > 0 && !fetching;
+    }.property('parentView.search.value', 'controller.fetchingUsers'),
 
     click: function() {
       var search = this.get('parentView.search');
@@ -114,10 +118,10 @@ Besko.UserAutocomplete = Ember.View.extend({
     select: function(event) {
       var selected = this.get('selected') || this.get('childViews').objectAt(0),
           recipient = selected.get('content'),
-          controller = this.get('context');
+          controller = this.get('controller');
 
       if ( !recipient.get('id') ) {
-        var transaction = this.get('context.store').transaction();
+        var transaction = controller.get('store').transaction();
 
         // Create a Recipient model to use a different API endpoint since the
         // behavior for creating a user and creating a recipient when logging a

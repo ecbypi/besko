@@ -1,6 +1,12 @@
 .autocomplete-search {
   position: relative;
 
+  .fetching-users {
+    position: absolute;
+    top: 17px;
+    right: 15px;
+  }
+
   .autocomplete-close {
     display: none;
     cursor: pointer;
@@ -15,7 +21,7 @@
     right: 5px;
 
     &.open {
-      display: inline-block;
+      display: block;
     }
 
     &:hover {

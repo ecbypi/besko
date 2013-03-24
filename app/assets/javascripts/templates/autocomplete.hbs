@@ -1,4 +1,5 @@
 <label for="user-search">Search for a user</label>
 {{view view.searchField}}
 {{view view.closeSearch}}
+{{view Besko.LoadingAnimation isVisibleBinding="fetchingUsers" classNames="fetching-users"}}
 {{view view.resultSet}}

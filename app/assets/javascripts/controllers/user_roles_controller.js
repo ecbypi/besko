@@ -10,6 +10,10 @@ Besko.UserRolesController = Ember.ArrayController.extend({
     });
   },
 
+  fetchingUsers: function() {
+    return this.get('users.isLoaded') === false;
+  }.property('users.isLoaded'),
+
   search: function(term) {
     this.set('users', Besko.User.find({ term: term, options: { local_only: true }}));
   },
