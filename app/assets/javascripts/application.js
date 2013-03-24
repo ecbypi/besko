@@ -11,3 +11,4 @@
 //= require besko
 
 //= require spin
+//= require cookie

@@ -20,16 +20,19 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
   },
 
   add: function(recipient) {
-    var recipientIds = this.get('recipientIds');
+    // We parse the id from a string into an integer since the bootstrapped
+    // JSON returns integers instead of strings as Ember serializes them
+    var recipientIds = this.get('recipientIds'),
+        recipientId = parseInt(recipient.get('id'));
 
-    if ( recipientIds.contains(recipient.get('id')) ) {
+    if ( recipientIds.contains(recipientId) ) {
       Besko.error(recipient.get('name') + ' has already been added as a recipient.');
       return false;
     }
 
     var receipt = Besko.Receipt.createRecord({
       recipient: recipient,
-      recipientId: recipient.get('id'),
+      recipientId: recipientId,
       numberPackages: 1
     });
 
@@ -68,7 +71,11 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
   },
 
   clear: function() {
-    this.set('content.content', []);
+    this.set('content', []);
     this.set('deliverer', '');
-  }
+  },
+
+  updateCookies: function() {
+    cookie.set('recipients', this.get('recipientIds'))
+  }.observes('recipientIds')
 });

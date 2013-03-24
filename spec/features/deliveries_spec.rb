@@ -64,6 +64,57 @@ feature 'Delivery', js: true do
       page.should have_receipt_element text: 'Walter White', count: 1
     end
 
+    scenario 'remembers the recipients that were added' do
+      create(:user, first_name: 'Jimmy', last_name: 'McNulty')
+      create(:user, first_name: 'William', last_name: 'Moreland')
+
+      visit new_delivery_path
+
+      fill_in 'user-search', with: 'mcnu'
+      user_element('Jimmy McNulty').click
+
+      page.should have_receipt_element text: 'Jimmy McNulty'
+
+      visit new_delivery_path
+
+      page.should have_receipt_element text: 'Jimmy McNulty'
+
+      # Ensure it still checks uniqueness of recipients
+      fill_in 'user-search', with: 'mcnu'
+      user_element('Jimmy McNulty').click
+
+      notifications.should have_content 'Jimmy McNulty has already been added as a recipient.'
+      page.should have_receipt_element text: 'Jimmy McNulty', count: 1
+
+      fill_in 'user-search', with: 'more'
+      user_element('William Moreland').click
+
+      page.should have_receipt_element text: 'William Moreland'
+
+      visit new_delivery_path
+
+      page.should have_receipt_element text: 'William Moreland'
+      page.should have_receipt_element text: 'Jimmy McNulty'
+
+      # Ensure individual recipients will be removed on page refresh
+      within receipt_element('Jimmy McNulty') do
+        click_button 'Remove'
+      end
+
+      visit new_delivery_path
+
+      page.should have_receipt_element text: 'William Moreland'
+      page.should_not have_receipt_element text: 'Jimmy McNulty'
+
+      # Ensure all recipients will be removed on page refresh
+      click_link 'Cancel'
+
+      visit new_delivery_path
+
+      page.should_not have_receipt_element text: 'William Moreland'
+      page.should_not have_receipt_element text: 'Jimmy McNulty'
+    end
+
     scenario 'allows adding local DB and LDAP records' do
       create(:user, first_name: 'Jon', last_name: 'Snow')
 
@@ -81,6 +132,7 @@ feature 'Delivery', js: true do
 
       page.should have_receipt_element text: 'Micro Helpline'
 
+      # Ensures user is created
       User.last.email.should eq 'mrhalp@mit.edu'
 
       select 'UPS', from: 'deliverer'

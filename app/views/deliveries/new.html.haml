@@ -3,3 +3,6 @@
 
 %script#deliverers{ type: 'text/json' }
   #{ Delivery::Deliverers.to_json }
+
+%script#recipients{ type: 'text/json' }
+  #{ @recipients.to_json }
