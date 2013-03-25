@@ -11,15 +11,13 @@ td, th {
   padding: 10px;
 }
 
-table {
-  .empty {
-    display: none;
-  }
+.empty {
+  display: none;
+}
 
-  .empty-message {
-    font-size: 24px;
-    height: 200px;
-    vertical-align: middle;
-    text-align: center;
-  }
+.empty-message {
+  font-size: 24px;
+  height: 200px;
+  vertical-align: middle;
+  text-align: center;
 }
