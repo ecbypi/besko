@@ -37,9 +37,7 @@ group :assets do
 end
 
 group :development do
-  gem 'guard-livereload'
   gem 'capistrano'
-  gem 'rb-fsevent'
 end
 
 group :development, :test do
