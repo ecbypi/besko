@@ -6,8 +6,7 @@ Besko.DeliveriesNewRoute = Ember.Route.extend({
 
     return recipients.map(function(user) {
       return Besko.Receipt.createRecord({
-        recipient: Besko.User.find(user.id),
-        recipientId: user.id,
+        user: Besko.User.find(user.id),
         numberPackages: 1
       });
     });

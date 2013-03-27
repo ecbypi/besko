@@ -7,11 +7,11 @@ describe PackageMailer do
     let(:mail) { PackageMailer.confirmation(receipt) }
 
     it "is sent to the recipient of the receipt" do
-      mail.should be_delivered_to receipt.recipient.email
+      mail.should be_delivered_to receipt.user.email
     end
 
     it "is from the desk worker who created the delivery" do
-      mail.should be_delivered_from receipt.delivery.worker.email
+      mail.should be_delivered_from receipt.delivery.user.email
     end
 
     it "has a simple easy to understand subject" do

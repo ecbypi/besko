@@ -27,7 +27,7 @@
   <tbody data-collection="receipts">
     {{#each controller}}
       <tr data-resource="receipt">
-        <td>{{recipient.name}}</td>
+        <td>{{user.name}}</td>
         <td>{{view Ember.TextField type="number" valueBinding="numberPackages"}}</td>
         <td>{{view Ember.TextArea valueBinding="comment"}}</td>
         <td><button {{action remove this}}>Remove</button></td>

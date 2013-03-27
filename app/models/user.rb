@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
          :token_authenticatable,
          :confirmable
 
-  has_many :receipts, :foreign_key => :recipient_id
-  has_many :deliveries, :foreign_key => :worker_id
+  has_many :receipts
+  has_many :deliveries
   has_guises :BeskWorker, :Admin, :association => :user_roles
 
   validates :first_name, :last_name, presence: true

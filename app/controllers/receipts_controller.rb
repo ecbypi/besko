@@ -27,7 +27,7 @@ class ReceiptsController < InheritedResources::Base
   def collection
     get_collection_ivar || begin
       records = current_user.receipts.
-        includes(:delivery => :worker).
+        includes(delivery: :user).
         page(params[:page]).per(10)
 
       @receipts = ReceiptDecorator.decorate(records)

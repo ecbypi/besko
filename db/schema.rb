@@ -11,23 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428210030) do
+ActiveRecord::Schema.define(:version => 20130327222255) do
 
   create_table "deliveries", :force => true do |t|
     t.string   "deliverer"
-    t.integer  "worker_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "delivered_on"
   end
 
   add_index "deliveries", ["delivered_on"], :name => "index_deliveries_on_delivered_on"
-  add_index "deliveries", ["worker_id"], :name => "index_deliveries_on_worker_id"
+  add_index "deliveries", ["user_id"], :name => "index_deliveries_on_worker_id"
 
   create_table "receipts", :force => true do |t|
     t.text     "comment"
     t.integer  "delivery_id"
-    t.integer  "recipient_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number_packages"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20120428210030) do
   end
 
   add_index "receipts", ["delivery_id"], :name => "index_receipts_on_delivery_id"
-  add_index "receipts", ["recipient_id"], :name => "index_receipts_on_recipient_id"
+  add_index "receipts", ["user_id"], :name => "index_receipts_on_recipient_id"
 
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "user_id"

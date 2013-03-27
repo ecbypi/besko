@@ -12,7 +12,7 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
   }.property('content.@each', 'delivery.isSaving'),
 
   recipientIds: function() {
-    return this.get('content').mapProperty('recipientId');
+    return this.get('content').mapProperty('user.id');
   }.property('content.@each'),
 
   search: function(term) {
@@ -22,17 +22,15 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
   add: function(recipient) {
     // We parse the id from a string into an integer since the bootstrapped
     // JSON returns integers instead of strings as Ember serializes them
-    var recipientIds = this.get('recipientIds'),
-        recipientId = parseInt(recipient.get('id'));
+    var recipientIds = this.get('recipientIds');
 
-    if ( recipientIds.contains(recipientId) ) {
+    if ( recipientIds.contains(recipient.get('id')) ) {
       Besko.error(recipient.get('name') + ' has already been added as a recipient.');
       return false;
     }
 
     var receipt = Besko.Receipt.createRecord({
-      recipient: recipient,
-      recipientId: recipientId,
+      user: recipient,
       numberPackages: 1
     });
 

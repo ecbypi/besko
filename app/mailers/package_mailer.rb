@@ -9,8 +9,8 @@ class PackageMailer < ActionMailer::Base
   def confirmation(receipt)
     @receipt   = receipt
     @delivery  = receipt.delivery
-    @recipient = receipt.recipient
-    @worker    = receipt.worker
+    @recipient = receipt.user
+    @worker    = @delivery.user
 
     mail to: @recipient.email, from: @worker.email, subject: 'Delivery at Besk'
   end

@@ -4,10 +4,11 @@ describe Receipt do
 
   let!(:receipt) { create(:receipt) }
 
-  it { should belong_to(:recipient) }
+  it { should belong_to(:user) }
   it { should belong_to(:delivery) }
+  it { should have_one(:worker).through(:delivery) }
 
-  it { should validate_presence_of(:recipient_id) }
+  it { should validate_presence_of(:user_id) }
   it { should validate_numericality_of(:number_packages) }
 
   it "should validate presence of delivery_id on update" do
@@ -21,12 +22,6 @@ describe Receipt do
       Timecop.freeze do
         expect { receipt.sign_out! }.to change { receipt.signed_out_at }.from(nil).to(Time.zone.now)
       end
-    end
-  end
-
-  describe "#worker" do
-    it "proxies to delivery.worker" do
-      receipt.worker.should eq receipt.delivery.worker
     end
   end
 

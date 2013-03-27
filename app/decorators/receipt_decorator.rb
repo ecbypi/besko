@@ -2,7 +2,7 @@ class ReceiptDecorator < ApplicationDecorator
   decorates :receipt
 
   def recipient_name
-    model.recipient.name
+    model.user.name
   end
 
   def mail_to_worker

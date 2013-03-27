@@ -8,10 +8,10 @@ feature 'Package receipts page' do
   end
 
   scenario 'shows package receipt details' do
-    delivery = create(:delivery, deliverer: 'UPS', worker: create(:mrhalp, :besk_worker))
+    delivery = create(:delivery, deliverer: 'UPS', user: create(:mrhalp, :besk_worker))
     create(
       :receipt,
-      recipient: user,
+      user: user,
       number_packages: 7593,
       delivery: delivery,
       comment: 'Fragile',
@@ -35,7 +35,7 @@ feature 'Package receipts page' do
   end
 
   scenario 'is paginated' do
-    create_list(:receipt, 11, recipient: user)
+    create_list(:receipt, 11, user: user)
 
     visit receipts_path
 

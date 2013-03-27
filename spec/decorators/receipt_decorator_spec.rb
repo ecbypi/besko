@@ -5,11 +5,11 @@ describe ReceiptDecorator do
 
   let(:worker) { FactoryGirl.create(:user, first_name: 'Besk', last_name: 'Worker', email: 'besker@mit.edu') }
   let(:recipient) { FactoryGirl.create(:user, first_name: 'Micro', last_name: 'Helpline', email: 'mrhalp@mit.edu') }
-  let(:delivery) { FactoryGirl.create(:delivery, deliverer: 'UPS', worker: worker) }
+  let(:delivery) { FactoryGirl.create(:delivery, deliverer: 'UPS', user: worker) }
   let(:receipt) do
     FactoryGirl.create(:receipt,
                        created_at: Time.zone.local(2010, 10, 30, 12, 0, 0),
-                       recipient: recipient,
+                       user: recipient,
                        comment: 'Looks expensive',
                        delivery: delivery
                       )

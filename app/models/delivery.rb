@@ -13,11 +13,11 @@ class Delivery < ActiveRecord::Base
     'Other'
   ]
 
-  belongs_to :worker, class_name: :User
+  belongs_to :user
   has_many :receipts, dependent: :destroy
-  has_many :recipients, through: :receipts
+  has_many :recipients, through: :receipts, source: :user
 
-  validates :deliverer, :worker_id, :receipts, presence: true
+  validates :deliverer, :user_id, :receipts, presence: true
 
   accepts_nested_attributes_for :receipts
 

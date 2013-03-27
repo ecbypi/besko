@@ -8,7 +8,7 @@ FactoryGirl.define do
       proxy.created_at ? proxy.created_at.to_date : proxy.delivered
     end
 
-    association :worker, factory: :user
+    user
     deliverer "FedEx"
 
     before_create do |delivery, proxy|

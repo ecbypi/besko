@@ -7,7 +7,7 @@ describe Ability do
     let(:ability) { Ability.new(user) }
 
     it "can see and sign out their own packages" do
-      package = create(:receipt, recipient: user)
+      package = create(:receipt, user: user)
       ability.should be_able_to(:read, package)
       ability.should be_able_to(:update, package)
     end

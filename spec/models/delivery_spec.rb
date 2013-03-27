@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Delivery do
 
-  it { should belong_to(:worker) }
-  it { should have_many(:receipts) }
+  it { should belong_to(:user) }
+  it { should have_many(:receipts).dependent(:destroy) }
   it { should have_many(:recipients).through(:receipts) }
 
   it { should validate_presence_of(:deliverer) }
-  it { should validate_presence_of(:worker_id) }
+  it { should validate_presence_of(:user_id) }
   it { should validate_presence_of(:receipts) }
 
   it { should accept_nested_attributes_for(:receipts) }
@@ -20,7 +20,7 @@ describe Delivery do
   it "confirms all users" do
     delivery = build(:delivery)
     user     = create(:unapproved_user)
-    receipt  = attributes_for(:receipt, recipient_id: user.id)
+    receipt  = attributes_for(:receipt, user_id: user.id)
 
     delivery.receipts_attributes = [receipt]
 

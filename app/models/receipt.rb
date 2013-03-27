@@ -1,18 +1,19 @@
 class Receipt < ActiveRecord::Base
 
   belongs_to :delivery
-  belongs_to :recipient, class_name: :User
+  belongs_to :user
+  has_one :worker, through: :delivery, source: :user
 
-  validates :recipient_id, presence: true
+  validates :user_id, presence: true
   validates :delivery_id, presence: { on: :update }
   validates :number_packages, numericality: true
 
   attr_accessible :number_packages,
-                  :recipient_id,
+                  :user_id,
                   :comment,
                   :delivery_id
 
-  delegate :worker, :deliverer, to: :delivery
+  delegate :deliverer, to: :delivery
 
   def signed_out?
     !(read_attribute(:signed_out_at)).nil?

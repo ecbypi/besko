@@ -11,9 +11,9 @@ feature 'Delivery', js: true do
       mrhalp = create(:mrhalp, :besk_worker)
 
       receipts = []
-      receipts << attributes_for(:receipt, recipient_id: mshalp.id, number_packages: 3455)
-      receipts << attributes_for(:receipt, recipient_id: mrhalp.id, number_packages: 2)
-      delivery = create(:delivery, worker: mrhalp, deliverer: 'LaserShip', receipts_attributes: receipts)
+      receipts << attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
+      receipts << attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
+      delivery = create(:delivery, user: mrhalp, deliverer: 'LaserShip', receipts_attributes: receipts)
 
       visit deliveries_path
 
@@ -156,8 +156,8 @@ feature 'Delivery', js: true do
     scenario 'by next or previous day' do
       mrhalp = create(:mrhalp, :besk_worker)
       mshalp = create(:mshalp, :besk_worker)
-      create(:delivery, created_at: 1.day.ago, deliverer: 'UPS', worker: mrhalp)
-      create(:delivery, created_at: 1.day.from_now, deliverer: 'USPS', worker: mshalp)
+      create(:delivery, created_at: 1.day.ago, deliverer: 'UPS', user: mrhalp)
+      create(:delivery, created_at: 1.day.from_now, deliverer: 'USPS', user: mshalp)
 
       visit deliveries_path
 
@@ -177,7 +177,7 @@ feature 'Delivery', js: true do
     scenario 'by selecting date on calendar' do
       day = Time.zone.local(2010, 10, 30)
       user = create(:mrhalp, :besk_worker)
-      create(:delivery, created_at: day, deliverer: 'FedEx', worker: user)
+      create(:delivery, created_at: day, deliverer: 'FedEx', user: user)
 
       visit deliveries_path
 

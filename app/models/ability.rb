@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     return unless user
 
-    can [:read, :update], Receipt, recipient_id: user.id
+    can [:read, :update], Receipt, user_id: user.id
 
     if user.besk_worker?
       can [:read, :create], Delivery
