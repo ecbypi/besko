@@ -21,6 +21,6 @@ class DeliveriesController < InheritedResources::Base
   end
 
   def collection
-    @deliveries ||= Delivery.delivered_on(params[:date])
+    @deliveries ||= Delivery.includes(:user, receipts: :user).delivered_on(params[:date])
   end
 end
