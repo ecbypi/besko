@@ -10,12 +10,10 @@ feature 'Delivery', js: true do
       mshalp = create(:mshalp)
       mrhalp = create(:mrhalp, :besk_worker)
 
-      # FIXME: Is there a way to build a receipt without a delivery other than
-      # setting `delivery` to nil
       receipts = []
-      receipts << build(:receipt, recipient: mshalp, number_packages: 3455, delivery: nil)
-      receipts << build(:receipt, recipient: mrhalp, number_packages: 2, delivery: nil)
-      delivery = create(:delivery, worker: mrhalp, deliverer: 'LaserShip', receipts: receipts)
+      receipts << attributes_for(:receipt, recipient_id: mshalp.id, number_packages: 3455)
+      receipts << attributes_for(:receipt, recipient_id: mrhalp.id, number_packages: 2)
+      delivery = create(:delivery, worker: mrhalp, deliverer: 'LaserShip', receipts_attributes: receipts)
 
       visit deliveries_path
 
