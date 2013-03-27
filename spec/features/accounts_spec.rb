@@ -8,8 +8,6 @@ feature 'Accounts' do
 
     click_link 'Sign Up'
 
-    render_page_to_png
-
     fill_in 'user-search', with: 'Micro Helpline'
     click_button 'Lookup'
 
