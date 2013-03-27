@@ -5,23 +5,35 @@
 <button class="prev" {{action prevDay}}>Previous Day</button>
 <button class="next" {{action nextDay}}>Next Day</button>
 
-<table {{bindAttr class=":deliveries content.length::empty"}} data-collection="deliveries">
+<table {{bindAttr class=":deliveries-listing content.length::empty"}} data-collection="deliveries">
   <thead>
     <tr>
       <th class="delivered-at">Delivered At</th>
       <th class="received-by">Received By</th>
       <th class="delivered-by">Delivered By</th>
-      <th class="package-count">Total Packages</th>
+      <th class="package-count">Packages</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     {{#each controller}}
-      <tr class="delivery-details" data-resource="delivery">
+      <tr {{action toggleReceipts this}} {{bindAttr class=":delivery-information selected"}} data-resource="delivery">
         <td class="delivered-at">{{deliveredAt}}</td>
         <td class="received-by"><a {{bindAttr href="mailTo"}}>{{user.name}}</a></td>
         <td class="delivered-by">{{deliverer}}</td>
-        <td class="package-count">{{packageCount}}</td>
+        <td class="package-count">
+          <div {{bindAttr class=":total-count expanded:empty"}}>{{packageCount}}</div>
+          <dl {{bindAttr class=":receipts-listing expanded::empty"}}>
+            <dt>Total</dt>
+            <dd>{{packageCount}}</dd>
+
+            {{#each receipts}}
+              <dt>{{recipient.name}}</dt>
+              <dd>{{numberPackages}}</dd>
+            {{/each}}
+          </dl>
+        </td>
       </tr>
     {{/each}}
   </tbody>

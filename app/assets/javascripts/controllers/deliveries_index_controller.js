@@ -19,5 +19,9 @@ Besko.DeliveriesIndexController = Ember.ArrayController.extend({
 
   nextDay: function () {
     this.set('date', this.get('date').increment());
+  },
+
+  toggleReceipts: function(controller) {
+    controller.toggleProperty('expanded');
   }
 });

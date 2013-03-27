@@ -12,15 +12,25 @@ feature 'Delivery', js: true do
 
       # FIXME: Is there a way to build a receipt without a delivery other than
       # setting `delivery` to nil
-      receipt = build(:receipt, recipient: mshalp, number_packages: 3455, delivery: nil)
-      delivery = create(:delivery, worker: mrhalp, deliverer: 'LaserShip', receipts: [receipt])
+      receipts = []
+      receipts << build(:receipt, recipient: mshalp, number_packages: 3455, delivery: nil)
+      receipts << build(:receipt, recipient: mrhalp, number_packages: 2, delivery: nil)
+      delivery = create(:delivery, worker: mrhalp, deliverer: 'LaserShip', receipts: receipts)
 
       visit deliveries_path
 
       within delivery_element('LaserShip') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
         page.should have_content delivery.created_at.strftime('%r')
-        page.should have_content '3455'
+        page.should have_content '3457'
+      end
+
+      delivery_element('LaserShip').click
+
+      within delivery_element('LaserShip') do
+        page.should have_content 'Total 3457'
+        page.should have_content 'Ms Helpline 3455'
+        page.should have_content 'Micro Helpline 2'
       end
     end
   end

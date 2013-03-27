@@ -1,94 +1,74 @@
-.deliveries-index {
-  h2.current-date {
-    position: relative;
+.current-date {
+  position: relative;
 
-    button {
-      position: absolute;
-      left: 0;
-    }
+  .ui-datepicker-trigger {
+    position: absolute;
+    left: 0;
+  }
 
-    .hasDatepicker {
-      margin-left: 80px;
-      font-weight: 700;
-      border: none;
-      outline: none;
-      color: #000;
-      width: 600px;
+  .hasDatepicker {
+    margin-left: 80px;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    color: #000;
+    width: 600px;
 
-      @include transition(none);
+    @include transition(none);
+  }
+}
+
+.deliveries-listing {
+  margin: 0 auto;
+
+  th {
+    text-align: left;
+  }
+
+  .delivery-information {
+    vertical-align: top;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #acdaf9;
     }
   }
 
-  table.deliveries {
+  .delivered-at {
+    width: 120px;
+  }
 
-    th {
-      text-align: left;
-    }
+  .received-by {
+    width: 250px;
+  }
 
-    .delivered-at {
-      width: 150px;
-    }
+  .delivered-by {
+    width: 165px;
+  }
 
-    .received-by {
-      width: 250px;
-    }
+  th.package-count, .total-count {
+    text-align: center;
+  }
 
-    .delivered-by {
-      width: 350px;
-    }
+  .package-count {
+    width: 185px;
+  }
+}
 
-    .package-count {
-      text-align: center;
-    }
+.receipts-listing {
+  margin: 0;
 
-    tbody.delivery {
-      cursor: pointer;
+  dt, dd {
+    float: left;
+    padding-bottom: 8px;
+  }
 
-      &:hover {
-        background-color: #acdaf9;
-      }
+  dt {
+    clear: both;
+    width: 140px;
+  }
 
-      tr.delivery-details {
-        td {
-          &:first-child {
-            border-top-left-radius: 5px;
-          }
-
-          &:last-child {
-            border-top-right-radius: 5px;
-          }
-        }
-      }
-
-      &:not(.open) {
-        .delivery-details {
-          td {
-            &:first-child {
-              border-bottom-left-radius: 5px;
-            }
-
-            &:last-child {
-              border-bottom-right-radius: 5px;
-            }
-          }
-        }
-      }
-    }
-
-    tr.receipt-details {
-      display: none;
-      font-size: 14px;
-      @include border-bottom-radius(3px);
-
-      &:last-child td {
-        &:first-child {
-          border-bottom-left-radius: 5px;
-        }
-
-        &:last-child {
-          border-bottom-right-radius: 5px;
-        }
-      }
-    }
+  dd {
+    margin-left: 10px;
   }
 }

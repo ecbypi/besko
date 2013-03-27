@@ -3,8 +3,16 @@ DS.RESTAdapter.configure('plurals', {
   user_role: 'roles'
 });
 
+DS.RESTAdapter.configure('Besko.Recipient', {
+  sideloadAs: 'recipients'
+});
+
 DS.RESTAdapter.configure('Besko.User', {
   sideloadAs: 'users'
+});
+
+DS.RESTAdapter.map('Besko.Delivery', {
+  receipts: { embedded: 'load' }
 });
 
 DS.RESTAdapter.registerTransform('nestedAttributesArray', {
