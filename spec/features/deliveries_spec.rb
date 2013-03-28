@@ -21,15 +21,37 @@ feature 'Delivery', js: true do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
         page.should have_content delivery.created_at.strftime('%r')
         page.should have_content '3457'
+        page.should_not have_button 'Delete'
       end
 
-      delivery_element('LaserShip').click
+      within delivery_element('LaserShip') do
+        find('td', text: 'LaserShip').click
+      end
 
       within delivery_element('LaserShip') do
         page.should have_content 'Total 3457'
         page.should have_content 'Ms Helpline 3455'
         page.should have_content 'Micro Helpline 2'
       end
+    end
+
+    scenario 'allows deletion by admins' do
+      click_link 'Logout'
+
+      sign_in create(:user, :admin)
+
+      create(:delivery, deliverer: 'FedEx', user: create(:mrhalp))
+      create(:delivery, deliverer: 'FedEx', user: create(:mshalp))
+
+      visit deliveries_path
+
+      page.should have_delivery_element text: 'FedEx', count: 2
+
+      within delivery_element('Micro Helpline') do
+        click_button 'Delete'
+      end
+
+      page.should have_delivery_element text: 'FedEx', count: 1
     end
   end
 
