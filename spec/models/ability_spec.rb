@@ -26,6 +26,7 @@ describe Ability do
     it "can review and create packages" do
       ability.should be_able_to(:create, Delivery)
       ability.should be_able_to(:read, Delivery)
+      ability.should_not be_able_to(:destroy, Delivery)
     end
   end
 
@@ -35,6 +36,11 @@ describe Ability do
 
     it "can manage user roles" do
       ability.should be_able_to(:manage, UserRole)
+    end
+
+    it 'can review and delete deliveries' do
+      ability.should be_able_to(:read, Delivery)
+      ability.should be_able_to(:destroy, Delivery)
     end
   end
 end

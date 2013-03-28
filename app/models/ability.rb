@@ -13,6 +13,7 @@ class Ability
 
     if user.admin?
       can :manage, UserRole
+      can [:read, :destroy], Delivery
     end
   end
 end
