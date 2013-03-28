@@ -16,8 +16,9 @@ class DeliveriesController < InheritedResources::Base
 
   private
 
-  def begin_of_association_chain
-    current_user
+  def create_resource(object)
+    object.user = current_user
+    object.save
   end
 
   def collection
