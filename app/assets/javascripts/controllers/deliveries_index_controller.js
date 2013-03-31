@@ -29,12 +29,17 @@ Besko.DeliveriesIndexController = Ember.ArrayController.extend({
   },
 
   remove: function(delivery) {
-    delivery.one('didDelete', this, function() {
-      this.get('content').removeObject(delivery);
-    });
+    var deliverer = delivery.get('deliverer'),
+        name = delivery.get('user.name');
 
-    delivery.deleteRecord();
+    if ( confirm('Delete delivery from ' + deliverer + ' received by ' + name + '?') ) {
+      delivery.one('didDelete', this, function() {
+        this.get('content').removeObject(delivery);
+      });
 
-    this.get('store').commit();
+      delivery.deleteRecord();
+
+      this.get('store').commit();
+    }
   }
 });
