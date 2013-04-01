@@ -17,6 +17,7 @@ gem 'oj'
 gem 'cocaine'
 gem 'posix-spawn'
 gem 'ldaptic'
+gem 'ember-rails'
 
 group :production, :staging do
   gem 'newrelic_rpm'
@@ -30,10 +31,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'bourbon'
   gem 'therubyracer', require: 'v8' # for precompiling assets
-
-  gem 'backbone-rails'
-  gem 'backbone-support'
-  gem 'ember-rails'
 end
 
 group :development do
