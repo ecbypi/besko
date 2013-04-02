@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
-gem 'mysql2'
+gem 'pg'
 gem 'devise', '2.0.5'
 gem 'cancan'
 gem 'inherited_resources'

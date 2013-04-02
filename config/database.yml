@@ -1,11 +1,11 @@
 development:
-  adapter: mysql2
+  adapter: postgresql
   database: besko_development
   host: localhost
   encoding: utf8
 
 test:
-  adapter: mysql2
+  adapter: postgresql
   database: besko_test
   host: localhost
   encoding: utf8
