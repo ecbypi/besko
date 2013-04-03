@@ -11,10 +11,6 @@ a, a:visited {
   }
 }
 
-td, th {
-  padding: 10px;
-}
-
 .empty {
   display: none;
 }
@@ -24,4 +20,34 @@ td, th {
   height: 200px;
   vertical-align: middle;
   text-align: center;
+}
+
+td, th {
+  padding: 8px;
+}
+
+tr {
+  th:first-child, td:first-child {
+    padding-left: 8px;
+  }
+}
+
+tr {
+  th:last-child, td:last-child {
+    padding-right: 8px;
+  }
+}
+
+td.align-center {
+  text-align: center;
+}
+
+.table-striped {
+  tr {
+    border: 1px solid #ddd;
+  }
+
+  thead tr, tbody tr:nth-child(even) {
+    background-color: #F8F8F8;
+  }
 }

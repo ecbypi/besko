@@ -24,13 +24,13 @@ feature 'Package receipts page' do
       page.should have_content '7593'
       page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       page.should have_content 'Fragile'
-      page.should have_content 'October 30, 2010 at 10:30 AM'
+      page.should have_content '10:30 AM on Oct 30, 2010'
 
       click_button 'Sign Out'
     end
 
     within receipt_element('UPS') do
-      page.should have_content Time.zone.now.strftime('%B %d, %Y')
+      page.should have_content Time.zone.now.strftime('%b %d, %Y')
     end
   end
 

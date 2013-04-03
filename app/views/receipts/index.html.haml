@@ -1,21 +1,21 @@
 - content_for :title do
   Package Receipts
 
-= render 'pagination'
+- if collection.any?
 
-%table
-  %thead
-    %tr
-      %th Received By
-      %th Number of Packages
-      %th Received At
-      %th Delivered By
-      %th Comment
-      %th
-  %tbody{ data: { collection: :receipts} }
-    = render partial: 'receipt', collection: collection
-    - if collection.empty?
+  = paginate collection
+
+  %table.receipts-table.table-striped
+    %thead
       %tr
-        %td.empty-message{ colspan: 6 } You have no packages.
+        %th= t '.received_by'
+        %th= t '.number_packages'
+        %th= t '.deliverer'
+        %th= t '.comment'
+        %th= t '.signed_out_at'
+    %tbody{ data: { collection: :receipts} }= render collection
 
-= render 'pagination'
+  = paginate collection
+
+- else
+  %p.empty-message= t '.empty'

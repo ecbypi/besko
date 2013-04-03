@@ -1,7 +1,12 @@
-%tr{ data: { resource: :receipt } }
-  %td= receipt.mail_to_worker
-  %td= receipt.number_packages
-  %td= receipt.created_at
-  %td= receipt.deliverer
-  %td= receipt.comment
-  %td= receipt.sign_out_button
+%tr.receipt.receipt-row{ data: { resource: :receipt } }
+  %td.mail-worker= mail_to receipt.worker.email, receipt.worker.name
+  %td.package-count.align-center= receipt.number_packages
+  %td.delivered-by
+    = receipt.deliverer
+    .timestamp= receipt.format_timestamp(:created_at)
+  %td.comment= receipt.comment
+  %td.signed-out-status.align-center
+    - if receipt.signed_out?
+      = receipt.format_timestamp(:signed_out_at)
+    - else
+      = button_to t('.sign_out'), receipt_path(receipt), method: :put, class: 'button'

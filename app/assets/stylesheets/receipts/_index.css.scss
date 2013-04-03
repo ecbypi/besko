@@ -1,0 +1,33 @@
+.receipts-table {
+  width: 100%;
+  font-size: 15px;
+
+  .receipt-row {
+    font-size: 14px;
+  }
+
+  .mail-worker {
+    width: 160px;
+  }
+
+  .package-count {
+    width: 65px;
+  }
+
+  .comment {
+    width: 150px;
+  }
+
+  .delivered-by {
+    width: 210px;
+  }
+
+  .timestamp {
+    margin: 0 3px;
+    font-size: 13px;
+  }
+
+  .signed-out-status {
+    width: 180px;
+  }
+}

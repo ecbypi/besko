@@ -1,12 +1,12 @@
 class ApplicationDecorator < Draper::Base
 
-  def created_at
-    model.created_at.strftime(time_format)
+  def format_timestamp(column)
+    model.send(column).strftime(time_format)
   end
 
   private
 
   def time_format
-    '%B %d, %Y at %l:%M %p'
+    '%l:%M %p on %b %d, %Y'
   end
 end

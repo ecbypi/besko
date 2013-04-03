@@ -1,22 +1,21 @@
 .pagination {
-  padding: 0;
+  margin: 14px 0;
+  position: relative;
 
-  li {
-    display: inline-block;
+  .pages {
+    width: 100%;
+    text-align: center;
+  }
 
-    &:first-child, &:last-child {
-      width: 90px;
-    }
+  .direction {
+    position: absolute;
+  }
 
-    &:last-child {
-      text-align: right;
-    }
+  .direction-back {
+    left: 0px;
+  }
 
-    &.current-page {
-      // Hard code until pagination element needs to be placed inside of
-      // another element that is not the width of the page.
-      width: 712px;
-      text-align: center;
-    }
+  .direction-forward {
+    right: 0px;
   }
 }

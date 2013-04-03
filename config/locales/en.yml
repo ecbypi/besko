@@ -4,3 +4,18 @@ en:
       delivery: "Only besk workers can log deliveries."
     read:
       delivery: "Only besk workers can review deliveries."
+
+  receipts:
+    index:
+      empty: 'You have not received any packages'
+      received_by: 'Besk Worker'
+      number_packages: 'Count'
+      created_at: 'Received At'
+      deliverer: 'Delivered By'
+      comment: 'Comment'
+      signed_out_at: 'Signed Out At'
+    receipt:
+      deliverer: 'Delivered by:'
+      delivered_at: 'At:'
+      comment: 'Notes:'
+      sign_out: 'Sign Out'
