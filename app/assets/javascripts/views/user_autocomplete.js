@@ -77,7 +77,7 @@ Besko.UserAutocomplete = Ember.View.extend({
 
   closeSearch: Ember.View.extend({
     tagName: 'a',
-    classNames: ['autocomplete-close'],
+    classNames: ['autocomplete-close', 'close'],
     classNameBindings: ['open'],
 
     open: function() {

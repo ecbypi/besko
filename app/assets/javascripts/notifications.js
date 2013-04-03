@@ -21,7 +21,7 @@ $(function() {
         $('<a>').
           attr('href', 'javascript:void(0)').
           text('Close').
-          addClass('close-message')
+          addClass('close-message').addClass('close')
       );
     } else {
       message = container.children('div.message');

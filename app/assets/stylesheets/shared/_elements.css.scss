@@ -51,3 +51,12 @@ td.align-center {
     background-color: #F8F8F8;
   }
 }
+
+.close {
+  cursor: pointer;
+  text-indent: 100%;
+  width: 18px;
+  height: 18px;
+  background: image-url('x.svg') no-repeat;
+  background-size: 17px 18px;
+}
