@@ -1,6 +1,6 @@
 # Besko Package Mailer
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ecbypi/besko)
+[![Code Climate](https://codeclimate.com/github/ecbypi/besko.png)](https://codeclimate.com/github/ecbypi/besko)
 
 A hobby project to improve on many old processes at my old dormitory.
 
@@ -39,10 +39,10 @@ a special view to look at delivery history to check if packages have already
 been logged and to assist residents who may have questions about their package.
 
 * Type in the name on the package
-* Click on you typed in when it appears
+* Click on what you typed in when it appears
 * Add some package details (how many, who delivered it)
-* Send notifications, recipients are automatically notified
-* Packages are logged for everyone's use
+* Send notifications, recipients are emailed automatically
+* Packages are logged for desk workers' reviewal and recipients' records
 * Emails are sent individually to each resident to help maintain some form of privacy
 
 ## Why is this here?
@@ -50,9 +50,9 @@ been logged and to assist residents who may have questions about their package.
 Anyone intersted in Rails can take a peek and hopefully learn something or
 help me learn something. Some things to look for are:
 
-* Single page interfaces driven by Backbone.js.
+* Single page interfaces driven by Ember.js.
 * Authententication using Touchstone headers (mostly configured via Apache).
-* Turnip/Rspec to drive development.
+* Rspec to drive development.
 
 ## Future Plans
 
