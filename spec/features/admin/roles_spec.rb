@@ -15,12 +15,14 @@ feature 'Manging user roles', js: true do
 
     # Ensure that with no role specified, nothing is visible
     page.should_not have_user_roles_collection
+    page.should_not have_css '#user-search'
 
     # Verify that the view is updated appropriately when switching roles
     User.guises.each do |guise|
       select guise.to_s.titleize, from: 'user_role_title'
 
       page.should have_user_role_element text: "#{guise} Worker"
+      page.should have_css '#user-search'
 
       User.guises.select { |g| g != guise }.each do |g|
         page.should_not have_user_role_element text: "#{g} Worker"
@@ -31,6 +33,7 @@ feature 'Manging user roles', js: true do
     UserRole.delete_all(title: 'BeskWorker')
     select 'Besk Worker', from: 'user_role_title'
 
+    page.should have_css '#user-search'
     page.should_not have_user_roles_collection
   end
 

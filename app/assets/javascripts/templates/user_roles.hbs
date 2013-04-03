@@ -5,7 +5,9 @@
       {{view Ember.Select elementId="user_role_title" contentBinding="roles" valueBinding="currentRole" prompt=" " optionLabelPath="content.label" optionValuePath="content.value"}}
     </div>
 
-    {{view Besko.UserAutocomplete}}
+    {{#if currentRole}}
+      {{view Besko.UserAutocomplete}}
+    {{/if}}
   </div>
 </form>
 
