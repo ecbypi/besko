@@ -1,20 +1,19 @@
-.user-roles, .add-role {
-  float: left;
-}
-
 .add-role {
-  width: auto;
+  width: 100%;
 
-  .input.select {
-    margin-bottom: 20px;
+  .input {
+    display: inline-block;
+    vertical-align: middle;
   }
 
   .input.search {
     width: auto;
+
+    @include user-search(125px);
   }
 
-  label.select {
-    width: 50px;
+  label {
+    display: inline;
   }
 }
 
