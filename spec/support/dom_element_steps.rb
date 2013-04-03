@@ -4,7 +4,7 @@ module DOMElementSteps
   end
 
   def navigation
-    find('#primary')
+    find('.primary-nav')
   end
 
   def model_collection(model_name)

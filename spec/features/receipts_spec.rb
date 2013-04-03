@@ -51,6 +51,6 @@ feature 'Package receipts page' do
     visit receipts_path
 
     current_path.should eq new_user_session_path
-    navigation.should_not have_link 'Packages', href: receipts_path
+    page.should_not have_link 'Packages', href: receipts_path
   end
 end
