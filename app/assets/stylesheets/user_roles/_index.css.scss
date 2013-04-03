@@ -8,12 +8,15 @@
 
   .input.search {
     width: auto;
-
     @include user-search(125px);
   }
 
   label {
     display: inline;
+  }
+
+  .autocomplete-results {
+    margin-left: 129px;
   }
 }
 
