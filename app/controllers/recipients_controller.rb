@@ -2,11 +2,13 @@ class RecipientsController < ApplicationController
   respond_to :json, only: :create
 
   def create
-    user = User.new(params[:recipient])
-    user.assign_password.skip_confirmation_email!
+    recipient = Recipient.new(params[:recipient])
 
-    user.save
+    authorize!(:create, recipient)
 
-    respond_with(user, root: :recipient)
+    recipient.assign_password.skip_confirmation_email!
+    recipient.save
+
+    respond_with(recipient, root: :recipient, location: user_url(recipient))
   end
 end

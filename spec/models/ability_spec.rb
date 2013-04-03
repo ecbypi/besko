@@ -27,6 +27,7 @@ describe Ability do
       ability.should be_able_to(:create, Delivery)
       ability.should be_able_to(:read, Delivery)
       ability.should_not be_able_to(:destroy, Delivery)
+      ability.should be_able_to(:create, Recipient)
     end
   end
 
