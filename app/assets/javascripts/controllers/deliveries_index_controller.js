@@ -1,7 +1,7 @@
 Besko.DeliveriesIndexController = Ember.ArrayController.extend({
   itemController: 'delivery',
 
-  dateFormat: '%A, %B %d, %Y',
+  dateFormat: '%a, %b %d, %Y',
 
   formattedDate: function() {
     return this.get('date').strftime(this.get('dateFormat'));
