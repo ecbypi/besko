@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 feature 'Delivery', js: true do
+  include AutocompleteSteps
+
   background do
     sign_in create(:user, :besk_worker)
   end
@@ -82,13 +84,13 @@ feature 'Delivery', js: true do
 
       visit new_delivery_path
 
-      fill_in 'user-search', with: 'walt'
-      user_element('Walter White').click
+      fill_in_autocomplete with: 'walt'
+      autocomplete_result('Walter White').click
 
       page.should have_receipt_element text: 'Walter White'
 
-      fill_in 'user-search', with: 'walt'
-      user_element('Walter White').click
+      fill_in_autocomplete with: 'walt'
+      autocomplete_result('Walter White').click
 
       notifications.should have_content 'Walter White has already been added as a recipient.'
       page.should have_receipt_element text: 'Walter White', count: 1
@@ -100,8 +102,8 @@ feature 'Delivery', js: true do
 
       visit new_delivery_path
 
-      fill_in 'user-search', with: 'mcnu'
-      user_element('Jimmy McNulty').click
+      fill_in_autocomplete with: 'mcnu'
+      autocomplete_result('Jimmy McNulty').click
 
       page.should have_receipt_element text: 'Jimmy McNulty'
 
@@ -110,14 +112,14 @@ feature 'Delivery', js: true do
       page.should have_receipt_element text: 'Jimmy McNulty'
 
       # Ensure it still checks uniqueness of recipients
-      fill_in 'user-search', with: 'mcnu'
-      user_element('Jimmy McNulty').click
+      fill_in_autocomplete with: 'mcnu'
+      autocomplete_result('Jimmy McNulty').click
 
       notifications.should have_content 'Jimmy McNulty has already been added as a recipient.'
       page.should have_receipt_element text: 'Jimmy McNulty', count: 1
 
-      fill_in 'user-search', with: 'more'
-      user_element('William Moreland').click
+      fill_in_autocomplete with: 'more'
+      autocomplete_result('William Moreland').click
 
       page.should have_receipt_element text: 'William Moreland'
 
@@ -152,13 +154,13 @@ feature 'Delivery', js: true do
 
       page.should_not have_receipts_collection
 
-      fill_in 'user-search', with: 'snow'
-      user_element('Jon Snow').click
+      fill_in_autocomplete with: 'snow'
+      autocomplete_result('Jon Snow').click
 
       page.should have_receipt_element text: 'Jon Snow'
 
-      fill_in 'user-search', with: 'help'
-      user_element('Micro Helpline').click
+      fill_in_autocomplete with: 'help'
+      autocomplete_result('Micro Helpline').click
 
       page.should have_receipt_element text: 'Micro Helpline'
 

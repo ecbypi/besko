@@ -10,12 +10,12 @@ Besko.UserRolesController = Ember.ArrayController.extend({
     });
   },
 
-  fetchingUsers: function() {
-    return this.get('users.isLoaded') === false;
-  }.property('users.isLoaded'),
+  autocompleteSearching: function() {
+    return this.get('autocompleteResults.isLoaded') === false;
+  }.property('autocompleteResults.isLoaded'),
 
   search: function(term) {
-    this.set('users', Besko.User.find({ term: term, options: { local_only: true }}));
+    this.set('autocompleteResults', Besko.User.find({ term: term, options: { local_only: true }}));
   },
 
   add: function(user) {

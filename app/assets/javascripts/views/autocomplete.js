@@ -1,4 +1,4 @@
-Besko.UserAutocomplete = Ember.View.extend({
+Besko.Autocomplete = Ember.View.extend({
   classNames: ['input', 'search', 'autocomplete-search'],
   templateName: 'autocomplete',
 
@@ -12,9 +12,9 @@ Besko.UserAutocomplete = Ember.View.extend({
 
   keyDown: function(event) {
     var method,
-        users = this.get('results.content');
+        content = this.get('results.content');
 
-    if ( !Ember.isEmpty(users) && [13, 38, 40].contains(event.keyCode) ) {
+    if ( !Ember.isEmpty(content) && [13, 38, 40].contains(event.keyCode) ) {
       event.preventDefault();
 
       switch ( event.keyCode ) {
@@ -36,10 +36,10 @@ Besko.UserAutocomplete = Ember.View.extend({
   },
 
   searchField: Ember.TextField.extend({
-    elementId: 'user-search',
+    elementId: 'autocomplete-search',
 
     attributeBindings: ['name', 'type', 'placeholder', 'autofocus', 'disabled'],
-    name: 'user-search',
+    name: 'autocomplete-search',
     type: 'search',
     placeholder: 'Enter a name or email',
     autofocus: true,
@@ -58,7 +58,7 @@ Besko.UserAutocomplete = Ember.View.extend({
       } else if ( value.length >= 3 && ( ( code <= 90 && code >= 46 ) || [8, 32, 110, 189].contains(code) ) ) {
         this.setupDelayedSearch(value);
       } else if ( !value ) {
-        controller.set('users', []);
+        controller.set('autocompleteResults', []);
       }
 
       return false;
@@ -91,7 +91,7 @@ Besko.UserAutocomplete = Ember.View.extend({
       var search = this.get('parentView.search');
 
       search.set('value', '');
-      this.get('controller').set('users', []);
+      this.get('controller').set('autocompleteResults', []);
       search.$().focus();
 
       return false;
@@ -99,13 +99,10 @@ Besko.UserAutocomplete = Ember.View.extend({
   }),
 
   resultSet: Ember.CollectionView.extend({
-    contentBinding: 'controller.users',
+    contentBinding: 'controller.autocompleteResults',
 
     tagName: 'ul',
     classNames: ['autocomplete-results'],
-
-    attributeBindings: ['data-collection'],
-    'data-collection': 'users',
 
     selected: function() {
       return this.get('childViews').findProperty('selected', true);
@@ -117,30 +114,10 @@ Besko.UserAutocomplete = Ember.View.extend({
 
     select: function(event) {
       var selected = this.get('selected') || this.get('childViews').objectAt(0),
-          recipient = selected.get('content'),
+          resource = selected.get('content'),
           controller = this.get('controller');
 
-      if ( !recipient.get('id') ) {
-        var transaction = controller.get('store').transaction();
-
-        // Create a Recipient model to use a different API endpoint since the
-        // behavior for creating a user and creating a recipient when logging a
-        // package differ. Additionally, ember-data doesn't let me re-save a
-        // record if it is clea, which all the user records are when returned
-        // from the server, even though they don't have an ID.
-        recipient = transaction.createRecord(
-          Besko.Recipient,
-          recipient.getProperties('firstName', 'lastName', 'email', 'login', 'street')
-        )
-
-        recipient.on('didCreate', function() {
-          controller.add(recipient);
-        });
-
-        transaction.commit();
-      } else {
-        controller.add(recipient);
-      }
+      controller.add(resource);
 
       this.get('parentView.search').set('value', '');
       this.set('content', []);
@@ -186,9 +163,6 @@ Besko.UserAutocomplete = Ember.View.extend({
         <div class="result-details">\
           {{ view.content.details }}\
         </div>'),
-
-      attributeBindings: ['data-resource'],
-      'data-resource': 'user',
 
       mouseEnter: function(event) {
         var current = this.get('parentView.selected');

@@ -13,7 +13,7 @@ Besko::Application.routes.draw do
   resources :receipts, only: [:update, :index, :new]
   resources :deliveries, only: [:index, :new, :create, :destroy]
   resources :users, only: [:index, :show, :create]
-  resources :recipients, only: :create
+  resources :recipients, only: [:index, :create]
 
   resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :show, :create, :destroy]
 

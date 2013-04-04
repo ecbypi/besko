@@ -1,11 +1,11 @@
 Besko.DeliveriesNewController = Ember.ArrayController.extend({
-  users: [],
+  autocompleteResults: [],
 
   delivery: null,
 
-  fetchingUsers: function() {
-    return this.get('users.isLoaded') === false;
-  }.property('users.isLoaded'),
+  autocompleteSearching: function() {
+    return this.get('autocompleteResults.isLoaded') === false;
+  }.property('autocompleteResults.isLoaded'),
 
   tableVisible: function() {
     return this.get('content.length') > 0 && !this.get('delivery.isSaving');
@@ -16,10 +16,29 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
   }.property('content.@each'),
 
   search: function(term) {
-    this.set('users', Besko.User.find({ term: term }));
+    this.set('autocompleteResults', Besko.Recipient.find({ term: term }));
   },
 
   add: function(recipient) {
+    if ( !recipient.get('id') ) {
+      var transaction = this.get('store').transaction();
+
+      recipient = transaction.createRecord(
+        Besko.Recipient,
+        recipient.getProperties('firstName', 'lastName', 'email', 'login', 'street')
+      )
+
+      recipient.one('didCreate', this, function() {
+        this._add(recipient);
+      });
+
+      transaction.commit();
+    } else {
+      this._add(recipient);
+    }
+  },
+
+  _add: function(recipient) {
     // We parse the id from a string into an integer since the bootstrapped
     // JSON returns integers instead of strings as Ember serializes them
     var recipientIds = this.get('recipientIds');
@@ -35,7 +54,7 @@ Besko.DeliveriesNewController = Ember.ArrayController.extend({
     });
 
     this.get('content').pushObject(receipt);
-    this.set('users', []);
+    this.set('autocompleteResults', []);
   },
 
   remove: function(receipt) {

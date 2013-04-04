@@ -1,6 +1,4 @@
-class RecipientsController < ApplicationController
-  respond_to :json, only: :create
-
+class RecipientsController < UsersController
   def create
     recipient = Recipient.new(params[:recipient])
 

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 feature 'Manging user roles', js: true do
+  include AutocompleteSteps
+
   background do
     sign_in create(:user, :admin)
   end
@@ -15,14 +17,14 @@ feature 'Manging user roles', js: true do
 
     # Ensure that with no role specified, nothing is visible
     page.should_not have_user_roles_collection
-    page.should_not have_css '#user-search'
+    page.should_not have_autocomplete_input
 
     # Verify that the view is updated appropriately when switching roles
     User.guises.each do |guise|
       select guise.to_s.titleize, from: 'user_role_title'
 
       page.should have_user_role_element text: "#{guise} Worker"
-      page.should have_css '#user-search'
+      page.should have_autocomplete_input
 
       User.guises.select { |g| g != guise }.each do |g|
         page.should_not have_user_role_element text: "#{g} Worker"
@@ -33,7 +35,7 @@ feature 'Manging user roles', js: true do
     UserRole.delete_all(title: 'BeskWorker')
     select 'Besk Worker', from: 'user_role_title'
 
-    page.should have_css '#user-search'
+    page.should have_autocomplete_input
     page.should_not have_user_roles_collection
   end
 
@@ -55,15 +57,15 @@ feature 'Manging user roles', js: true do
     visit user_roles_path
 
     select 'Besk Worker', from: 'user_role_title'
-    fill_in 'user-search', with: 'lannister'
-    user_element('Tyrion').click
+    fill_in_autocomplete with: 'lannister'
+    autocomplete_result('Tyrion').click
 
     page.should have_user_role_element text: 'Tyrion Lannister'
-    page.should have_field 'user-search', with: nil
+    page.should have_autocomplete_input with: nil
     notifications.should have_content 'Tyrion Lannister is now a BeskWorker'
 
-    fill_in 'user-search', with: 'lannister'
-    user_element('Tyrion').click
+    fill_in_autocomplete with: 'lannister'
+    autocomplete_result('Tyrion').click
 
     notifications.should have_content 'User is already in the selected role'
 
