@@ -47,7 +47,7 @@
       placeholder: 'Enter a name or email',
       autofocus: true,
 
-      disabledBinding: 'controller.fetchingUsers',
+      disabledBinding: 'controller.autocompleteSearching',
 
       timer: null,
 
@@ -85,10 +85,10 @@
 
       open: function() {
         var value = this.get('parentView.search.value'),
-            fetching = this.get('controller.fetchingUsers');
+            fetching = this.get('controller.autocompleteSearching');
 
         return value.length > 0 && !fetching;
-      }.property('parentView.search.value', 'controller.fetchingUsers'),
+      }.property('parentView.search.value', 'controller.autocompleteSearching'),
 
       click: function() {
         var search = this.get('parentView.search');
