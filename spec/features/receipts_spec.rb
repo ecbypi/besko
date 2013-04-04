@@ -34,15 +34,18 @@ feature 'Package receipts page' do
     end
   end
 
-  scenario 'is paginated' do
+  scenario 'is paginated and maintains page after releasing package' do
     create_list(:receipt, 11, user: user)
 
     visit receipts_path
 
     click_link 'Next'
 
-    # FIXME: use a method wrapping this CSS
-    page.should have_css '[data-resource=receipt]'
+    page.should have_receipt_element count: 1
+
+    click_button 'Sign Out'
+
+    page.should have_receipt_element count: 1
   end
 
   scenario 'is shown only to signed in users' do

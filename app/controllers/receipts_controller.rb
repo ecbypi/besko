@@ -19,7 +19,7 @@ class ReceiptsController < InheritedResources::Base
 
   def update
     resource.sign_out!
-    update!(notice: 'Package Signed Out')
+    update!(notice: 'Package Signed Out') { receipts_path(page: params[:page]) }
   end
 
   protected

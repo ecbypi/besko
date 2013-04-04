@@ -9,4 +9,4 @@
     - if receipt.signed_out?
       = receipt.format_timestamp(:signed_out_at)
     - else
-      = button_to t('.sign_out'), receipt_path(receipt), method: :put, class: 'button'
+      = button_to t('.sign_out'), receipt_path(receipt, page: params[:page]), method: :put, class: 'button'
