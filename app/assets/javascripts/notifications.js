@@ -1,7 +1,9 @@
 $(function() {
-  var container, message, insert, initialize, initialized;
+  "use strict";
 
-  bind = function() {
+  var container, message, initialized;
+
+  function bind() {
     container = $('#notifications');
 
     container.on('click', 'a.close-message', function(event) {
@@ -9,7 +11,7 @@ $(function() {
     });
   };
 
-  initialize = function(className) {
+  function initialize(className) {
     if ( !container.length ) {
       bind();
     }
@@ -28,7 +30,7 @@ $(function() {
     }
   };
 
-  insert = function(text, className) {
+  function insert(text, className) {
     if ( !message ) {
       initialize(className);
     }

@@ -1,13 +1,13 @@
 (function() {
+  "use strict";
+
   // borrowed from https://gist.github.com/1005938
-  var shortDays, days, shortMonths, months, callbacks, dateExtensions;
+  var shortDays   = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
+  var days        = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
+  var shortMonths = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+  var months      = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
-  shortDays   = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
-  days        = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
-  shortMonths = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-  months      = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-
-  zeropad = function(n) { return n > 9 ? n : "0" + n };
+  function zeropad(n) { return n > 9 ? n : "0" + n };
 
   var callbacks = {
     // Short day name (Sun-Sat)
@@ -109,7 +109,7 @@
     }
   };
 
-  dateExtensions = {
+  var dateExtensions = {
     getUTCDayName: function() {
       return this.strftime('%A');
     },
@@ -126,8 +126,8 @@
     },
     strftime: function(format) {
       for (var key in callbacks) {
-        regexp = new RegExp("%" + key, "g");
-        format = format.replace(regexp, callbacks[key](this));
+        var regexp = new RegExp("%" + key, "g"),
+            format = format.replace(regexp, callbacks[key](this));
       }
       return format;
     }

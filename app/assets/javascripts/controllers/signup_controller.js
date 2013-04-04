@@ -1,22 +1,26 @@
-Besko.SignupController = Ember.ArrayController.extend({
-  search: function() {
-    this.set('content', Besko.User.find({ term: this.get('query') }));
-  },
+(function() {
+  "use strict";
 
-  signup: function(user) {
-    var transaction = this.get('store').transaction(),
-        self = this;
+  Besko.SignupController = Ember.ArrayController.extend({
+    search: function() {
+      this.set('content', Besko.User.find({ term: this.get('query') }));
+    },
 
-    user = transaction.createRecord(
-      Besko.User,
-      user.getProperties('firstName', 'lastName', 'email', 'login', 'street')
-    );
+    signup: function(user) {
+      var transaction = this.get('store').transaction(),
+          self = this;
 
-    user.on('didCreate', function() {
-      Besko.notice('An email has been sent requesting approval of your account.');
-      self.setProperties({ content: [], query: '' });
-    });
+      user = transaction.createRecord(
+        Besko.User,
+        user.getProperties('firstName', 'lastName', 'email', 'login', 'street')
+      );
 
-    transaction.commit();
-  }
-});
+      user.on('didCreate', function() {
+        Besko.notice('An email has been sent requesting approval of your account.');
+        self.setProperties({ content: [], query: '' });
+      });
+
+      transaction.commit();
+    }
+  });
+})();

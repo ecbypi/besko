@@ -1,4 +1,6 @@
 (function() {
+  "use strict";
+
   var parse = function(selector) {
     selector = selector || 'script#bootstrap';
 

@@ -1,28 +1,32 @@
-DS.RESTAdapter.configure('plurals', {
-  delivery: 'deliveries',
-  user_role: 'roles'
-});
+(function() {
+  "use strict";
 
-DS.RESTAdapter.configure('Besko.User', {
-  sideloadAs: 'users'
-});
+  DS.RESTAdapter.configure('plurals', {
+    delivery: 'deliveries',
+    user_role: 'roles'
+  });
 
-DS.RESTAdapter.map('Besko.Delivery', {
-  receipts: { embedded: 'load' }
-});
+  DS.RESTAdapter.configure('Besko.User', {
+    sideloadAs: 'users'
+  });
 
-DS.RESTAdapter.registerTransform('nestedAttributesArray', {
-  serialize: function(value) {
-    return value.map(function(object) {
-      return object.serialize();
-    });
-  },
+  DS.RESTAdapter.map('Besko.Delivery', {
+    receipts: { embedded: 'load' }
+  });
 
-  deserialize: function(value) {
-    return value;
-  }
-});
+  DS.RESTAdapter.registerTransform('nestedAttributesArray', {
+    serialize: function(value) {
+      return value.map(function(object) {
+        return object.serialize();
+      });
+    },
 
-Besko.Store = DS.Store.extend({
-  revision: 11
-});
+    deserialize: function(value) {
+      return value;
+    }
+  });
+
+  Besko.Store = DS.Store.extend({
+    revision: 11
+  });
+})();

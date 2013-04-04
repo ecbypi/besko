@@ -1,18 +1,22 @@
-Besko.DeliveriesNewRoute = Ember.Route.extend({
-  model: function() {
-    var recipients = Besko.parseEmbeddedJSON('#recipients');
+(function() {
+  "use strict";
 
-    this.get('store').loadMany(Besko.User, recipients);
+  Besko.DeliveriesNewRoute = Ember.Route.extend({
+    model: function() {
+      var recipients = Besko.parseEmbeddedJSON('#recipients');
 
-    return recipients.map(function(user) {
-      return Besko.Receipt.createRecord({
-        user: Besko.User.find(user.id),
-        numberPackages: 1
+      this.get('store').loadMany(Besko.User, recipients);
+
+      return recipients.map(function(user) {
+        return Besko.Receipt.createRecord({
+          user: Besko.User.find(user.id),
+          numberPackages: 1
+        });
       });
-    });
-  },
+    },
 
-  setupController: function(controller, model) {
-    controller.set('deliverers', Besko.parseEmbeddedJSON('#deliverers'));
-  }
-});
+    setupController: function(controller, model) {
+      controller.set('deliverers', Besko.parseEmbeddedJSON('#deliverers'));
+    }
+  });
+})();

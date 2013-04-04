@@ -1,19 +1,23 @@
-Besko.Delivery = DS.Model.extend({
-  deliverer: DS.attr('string'),
-  deliveredOn: DS.attr('date'),
-  deliveredAt: DS.attr('string'),
-  packageCount: DS.attr('number'),
-  deletable: DS.attr('boolean'),
-  user: DS.belongsTo('Besko.User'),
-  receipts: DS.hasMany('Besko.Receipt'),
-  receiptsAttributes: DS.attr('nestedAttributesArray'),
+(function() {
+  "use strict";
 
-  becameError: function() {
-    Besko.error('There was a problem saving the delivery. Try again.');
-  },
+  Besko.Delivery = DS.Model.extend({
+    deliverer: DS.attr('string'),
+    deliveredOn: DS.attr('date'),
+    deliveredAt: DS.attr('string'),
+    packageCount: DS.attr('number'),
+    deletable: DS.attr('boolean'),
+    user: DS.belongsTo('Besko.User'),
+    receipts: DS.hasMany('Besko.Receipt'),
+    receiptsAttributes: DS.attr('nestedAttributesArray'),
 
-  becameInvalid: function(delivery) {
-    var error = delivery.get('errors.firstObject');
-    Besko.error('There was a problem saving the delivery because ' + error);
-  }
-});
+    becameError: function() {
+      Besko.error('There was a problem saving the delivery. Try again.');
+    },
+
+    becameInvalid: function(delivery) {
+      var error = delivery.get('errors.firstObject');
+      Besko.error('There was a problem saving the delivery because ' + error);
+    }
+  });
+})();

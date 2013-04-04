@@ -1,14 +1,18 @@
-Besko.Router.reopen({
-  location: 'history'
-});
+(function() {
+  "use strict";
 
-Besko.Router.map(function() {
-  this.resource('deliveries', function() {
-    this.route('new');
+  Besko.Router.reopen({
+    location: 'history'
   });
 
-  this.route('signup', { path: '/accounts/signup' });
+  Besko.Router.map(function() {
+    this.resource('deliveries', function() {
+      this.route('new');
+    });
 
-  this.resource('user_roles', { path: '/roles' });
-  this.resource('user_roles', { path: '/roles/:role' });
-});
+    this.route('signup', { path: '/accounts/signup' });
+
+    this.resource('user_roles', { path: '/roles' });
+    this.resource('user_roles', { path: '/roles/:role' });
+  });
+})();
