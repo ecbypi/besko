@@ -69,7 +69,7 @@ feature 'Manging user roles', js: true do
 
     notifications.should have_content 'User is already in the selected role'
 
-    within user_role_element('Tyrion Lannister') do
+    within user_role_element(text: 'Tyrion Lannister') do
       click_button 'Remove'
     end
 

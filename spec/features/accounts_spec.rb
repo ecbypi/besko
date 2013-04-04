@@ -11,7 +11,7 @@ feature 'Accounts' do
     fill_in 'user-search', with: 'Micro Helpline'
     click_button 'Lookup'
 
-    within user_element('Micro Helpline') do
+    within user_element(text: 'Micro Helpline') do
       check 'This Is Me'
       click_button 'Request Account'
     end
@@ -30,7 +30,7 @@ feature 'Accounts' do
     fill_in 'user-search', with: 'Micro Helpline'
     click_button 'Lookup'
 
-    within user_element('Micro Helpline') do
+    within user_element(text: 'Micro Helpline') do
       page.should have_content 'Account Exists'
     end
   end

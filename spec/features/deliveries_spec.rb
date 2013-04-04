@@ -19,18 +19,18 @@ feature 'Delivery', js: true do
 
       visit deliveries_path
 
-      within delivery_element('LaserShip') do
+      within delivery_element(text: 'LaserShip') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
         page.should have_content delivery.created_at.strftime('%r')
         page.should have_content '3457'
         page.should_not have_button 'Delete'
       end
 
-      within delivery_element('LaserShip') do
+      within delivery_element(text: 'LaserShip') do
         find('td', text: 'LaserShip').click
       end
 
-      within delivery_element('LaserShip') do
+      within delivery_element(text: 'LaserShip') do
         page.should have_content 'Total 3457'
         page.should have_content 'Ms Helpline 3455'
         page.should have_content 'Micro Helpline 2'
@@ -49,7 +49,7 @@ feature 'Delivery', js: true do
 
       page.should have_delivery_element text: 'FedEx', count: 2
 
-      within delivery_element('Micro Helpline') do
+      within delivery_element(text: 'Micro Helpline') do
         click_button 'Delete'
       end
 
@@ -129,7 +129,7 @@ feature 'Delivery', js: true do
       page.should have_receipt_element text: 'Jimmy McNulty'
 
       # Ensure individual recipients will be removed on page refresh
-      within receipt_element('Jimmy McNulty') do
+      within receipt_element(text: 'Jimmy McNulty') do
         click_button 'Remove'
       end
 
@@ -187,13 +187,13 @@ feature 'Delivery', js: true do
 
       click_button 'Previous Day'
 
-      within delivery_element('UPS') do
+      within delivery_element(text: 'UPS') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       end
 
       2.times { click_button 'Next Day' }
 
-      within delivery_element('USPS') do
+      within delivery_element(text: 'USPS') do
         page.should have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
       end
     end
@@ -213,7 +213,7 @@ feature 'Delivery', js: true do
         find("a.ui-state-default:contains('#{day.day}')").click
       end
 
-      within delivery_element('FedEx') do
+      within delivery_element(text: 'FedEx') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       end
     end

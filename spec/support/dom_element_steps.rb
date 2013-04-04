@@ -15,12 +15,8 @@ module DOMElementSteps
     have_selector(:model_collection, text: model_name.pluralize)
   end
 
-  def model_element(model_name, text = nil)
-    if text
-      find(:model_element, model_name, text: text)
-    else
-      find(:model_element, model_name)
-    end
+  def model_element(model_name, options = {})
+    find(:model_element, model_name, options)
   end
 
   def have_model_element(model_name, options)
@@ -37,8 +33,8 @@ module DOMElementSteps
         have_model_collection('#{model_name.pluralize}')
       end
 
-      def #{model_name}_element(text = nil)
-        model_element('#{model_name}', text)
+      def #{model_name}_element(options = {})
+        model_element('#{model_name}', options)
       end
 
       def have_#{model_name}_element(options)

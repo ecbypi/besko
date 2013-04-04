@@ -20,7 +20,7 @@ feature 'Package receipts page' do
 
     visit receipts_path
 
-    within receipt_element('UPS') do
+    within receipt_element(text: 'UPS') do
       page.should have_content '7593'
       page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       page.should have_content 'Fragile'
@@ -29,7 +29,7 @@ feature 'Package receipts page' do
       click_button 'Sign Out'
     end
 
-    within receipt_element('UPS') do
+    within receipt_element(text: 'UPS') do
       page.should have_content Time.zone.now.strftime('%b %d, %Y')
     end
   end
