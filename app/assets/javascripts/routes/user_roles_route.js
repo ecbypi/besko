@@ -3,10 +3,10 @@
 
   Besko.UserRolesRoute = Ember.Route.extend({
     model: function(params) {
-      var proxy = Ember.ArrayProxy.create({ content: [] });
+      var roles, proxy = Ember.ArrayProxy.create({ content: [] });
 
       if ( params.role ) {
-        var roles = Besko.UserRole.find({ title: params.role });
+        roles = Besko.UserRole.find({ title: params.role });
 
         roles.on('didLoad', function() {
           proxy.set('content', this.toArray());

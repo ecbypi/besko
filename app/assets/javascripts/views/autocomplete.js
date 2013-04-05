@@ -21,17 +21,17 @@
         event.preventDefault();
 
         switch ( event.keyCode ) {
-          case 13:
-            method = 'select';
-            break;
+        case 13:
+          method = 'select';
+          break;
 
-          case 38:
-            method = 'up';
-            break;
+        case 38:
+          method = 'up';
+          break;
 
-          case 40:
-            method = 'down';
-            break;
+        case 40:
+          method = 'down';
+          break;
         }
 
         this.get('results')[method](event);
@@ -135,7 +135,8 @@
       },
 
       navigate: function(direction) {
-        var selected = this.get('selected'),
+        var target, targetIndex,
+            selected = this.get('selected'),
             children = this.get('childViews'),
             endPosition = direction === 1 ? 'firstObject' : 'lastObject';
 
@@ -145,7 +146,7 @@
           return;
         }
 
-        var target, targetIndex = this.get('selectedIndex') + direction;
+        targetIndex = this.get('selectedIndex') + direction;
 
         if ( targetIndex < 0 || targetIndex === children.get('length') ) {
           target = children.get(endPosition);
@@ -153,8 +154,8 @@
           target = children.objectAt(targetIndex);
         }
 
-        selected.set('selected', false)
-        target.set('selected', true)
+        selected.set('selected', false);
+        target.set('selected', true);
       },
 
       itemViewClass: Ember.View.extend({

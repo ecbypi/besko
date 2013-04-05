@@ -1,3 +1,4 @@
+/*global Spinner:true */
 (function() {
   "use strict";
 

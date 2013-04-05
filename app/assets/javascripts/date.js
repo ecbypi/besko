@@ -1,15 +1,16 @@
 (function() {
   "use strict";
+  var shortDays, days, shortMonths, months, callbacks, dateExtensions;
 
   // borrowed from https://gist.github.com/1005938
-  var shortDays   = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
-  var days        = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
-  var shortMonths = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-  var months      = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+  shortDays   = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
+  days        = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
+  shortMonths = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+  months      = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
-  function zeropad(n) { return n > 9 ? n : "0" + n };
+  function zeropad(n) { return n > 9 ? n : "0" + n; }
 
-  var callbacks = {
+  callbacks = {
     // Short day name (Sun-Sat)
     a: function (t) {
       return shortDays[t.getDay()];
@@ -104,12 +105,12 @@
       }
     },
     // A percent sign
-    '%': function(t) {
+    '%': function() {
       return '%';
     }
   };
 
-  var dateExtensions = {
+  dateExtensions = {
     getUTCDayName: function() {
       return this.strftime('%A');
     },
@@ -125,9 +126,11 @@
       return this.increment(-days);
     },
     strftime: function(format) {
-      for (var key in callbacks) {
-        var regexp = new RegExp("%" + key, "g"),
-            format = format.replace(regexp, callbacks[key](this));
+      var key, regexp;
+
+      for (key in callbacks) {
+        regexp = new RegExp("%" + key, "g");
+        format = format.replace(regexp, callbacks[key](this));
       }
       return format;
     }
@@ -144,7 +147,7 @@
       date += "T" + offsetHour + ":00:00.000Z";
     }
 
-    date = typeof date === 'undefined' ? new Date() : new Date(date)
-    return _.extend(date, dateExtensions)
+    date = typeof date === 'undefined' ? new Date() : new Date(date);
+    return _.extend(date, dateExtensions);
   };
 })();

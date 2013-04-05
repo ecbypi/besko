@@ -3,11 +3,12 @@
 
   Besko.UserRolesController = Ember.ArrayController.extend({
     roleChanged: function() {
+      var roles, self = this;
+
       this.get('target').transitionTo('user_roles');
 
-      var roles = Besko.UserRole.find({ title: this.get('currentRole') });
+      roles = Besko.UserRole.find({ title: this.get('currentRole') });
 
-      var self = this;
       roles.on('didLoad', function() {
         self.set('content.content', this.toArray());
       });
@@ -22,13 +23,14 @@
     },
 
     add: function(user) {
-      var role = Besko.UserRole.createRecord({
+      var role, self = this;
+
+      role = Besko.UserRole.createRecord({
         title: this.get('currentRole'),
         userId: user.get('id'),
         user: user
       });
 
-      var self = this;
       role.one('didCreate', function() {
         var roles = self.get('content.content'),
             proxy = Ember.ArrayProxy.create({ content: roles });

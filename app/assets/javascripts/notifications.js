@@ -1,7 +1,7 @@
 $(function() {
   "use strict";
 
-  var container, message, initialized;
+  var container, message;
 
   function bind() {
     container = $('#notifications');
@@ -9,7 +9,7 @@ $(function() {
     container.on('click', 'a.close-message', function(event) {
       container.hide();
     });
-  };
+  }
 
   function initialize(className) {
     if ( !container.length ) {
@@ -28,7 +28,7 @@ $(function() {
     } else {
       message = container.children('div.message');
     }
-  };
+  }
 
   function insert(text, className) {
     if ( !message ) {
@@ -40,7 +40,7 @@ $(function() {
     }
 
     return message.text(text).parent().show();
-  };
+  }
 
   Besko.error = function(text) {
     return insert(text, 'error');
