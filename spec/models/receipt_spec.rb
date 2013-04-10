@@ -19,8 +19,9 @@ describe Receipt do
 
   describe "#sign_out!" do
     it "sets #signed_out_at to current time" do
-      Timecop.freeze do
-        expect { receipt.sign_out! }.to change { receipt.signed_out_at }.from(nil).to(Time.zone.now)
+      time = Time.zone.local(2010, 10, 30)
+      Timecop.freeze(time) do
+        expect { receipt.sign_out! }.to change { receipt.signed_out_at }.from(nil).to(time)
       end
     end
   end
