@@ -18,6 +18,7 @@ gem 'cocaine'
 gem 'posix-spawn'
 gem 'ldaptic'
 gem 'ember-rails'
+gem 'sidekiq'
 
 group :production, :staging do
   gem 'newrelic_rpm'
