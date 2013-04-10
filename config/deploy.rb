@@ -40,6 +40,7 @@ set :default_environment, {
 set :normal_symlinks, %w(
   config/newrelic.yml
   config/database.yml
+  config/sidekiq.yml
   config/initializers/secret_token.rb
   log
 )
