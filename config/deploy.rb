@@ -11,6 +11,8 @@ set :default_stage, 'staging'
 
 require 'capistrano/ext/multistage'
 
+require 'sidekiq/capistrano'
+
 # Server(s) deploying to
 set :application, 'besko'
 server 'besko.mit.edu', :web, :app, :db, primary: true
