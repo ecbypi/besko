@@ -36,6 +36,7 @@ end
 
 group :development do
   gem 'capistrano'
+  gem 'sextant'
 end
 
 group :development, :test do
