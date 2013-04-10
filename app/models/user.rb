@@ -87,6 +87,8 @@ class User < ActiveRecord::Base
   private
 
   def send_on_create_confirmation_instructions
-    super unless @skip_confirmation_email
+    unless @skip_confirmation_email
+      self.devise_mailer.delay.confirmation_instructions(self)
+    end
   end
 end
