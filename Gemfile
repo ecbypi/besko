@@ -19,6 +19,8 @@ gem 'posix-spawn'
 gem 'ldaptic'
 gem 'ember-rails'
 gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', require: nil
+gem 'slim'
 
 group :production, :staging do
   gem 'newrelic_rpm'

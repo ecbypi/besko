@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Besko::Application.routes.draw do
   devise_for :users,
     path: '',
@@ -17,6 +19,11 @@ Besko::Application.routes.draw do
   resources :recipients, only: [:index, :create]
 
   resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :show, :create, :destroy]
+
+  sidekiq_constraint = lambda { |request| request.env['warden'].authenticate? && request.env['warden'].user.admin? }
+  constraints sidekiq_constraint do
+    mount Sidekiq::Web => '/admin/sidekiq'
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
