@@ -37,6 +37,22 @@ feature 'Delivery', js: true do
       end
     end
 
+    scenario 'allows sorting by time of day received' do
+      create(:delivery, deliverer: 'UPS')
+      create(:delivery, deliverer: 'LaserShip')
+
+      visit deliveries_path
+      sleep 0.5
+
+      'UPS'.should appear_before 'LaserShip'
+
+      within deliveries_collection do
+        click_link 'Delivered At'
+      end
+
+      'LaserShip'.should appear_before 'UPS'
+    end
+
     scenario 'allows deletion by admins' do
       click_link 'Logout'
 

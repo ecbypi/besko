@@ -8,7 +8,9 @@
 <table {{bindAttr class=":deliveries-listing content.length::empty"}} data-collection="deliveries">
   <thead>
     <tr>
-      <th class="delivered-at">Delivered At</th>
+      <th class="delivered-at">
+        <a {{action sort}} href="javascript:void(0)">Delivered At</a>
+      </th>
       <th class="received-by">Received By</th>
       <th class="delivered-by">Delivered By</th>
       <th class="package-count">Packages</th>
@@ -19,7 +21,7 @@
   <tbody>
     {{#each controller}}
       <tr {{action toggleReceipts this}} {{bindAttr class=":delivery-information selected"}} data-resource="delivery">
-        <td class="delivered-at">{{deliveredAt}}</td>
+        <td class="delivered-at">{{formattedDeliveredAt}}</td>
         <td class="received-by"><a {{bindAttr href="mailTo"}}>{{user.name}}</a></td>
         <td class="delivered-by">{{deliverer}}</td>
         <td class="package-count">

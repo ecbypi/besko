@@ -1,12 +1,9 @@
 class DeliverySerializer < ApplicationSerializer
-  attributes :id, :deliverer, :package_count, :created_at, :delivered_at, :deletable
+  attributes :id, :deliverer, :package_count, :created_at, :deletable
+  attribute :created_at, key: :delivered_at
 
   has_one :user, include: true, embed: :ids
   has_many :receipts
-
-  def delivered_at
-    object.created_at.strftime('%r')
-  end
 
   def deletable
     scope.admin?

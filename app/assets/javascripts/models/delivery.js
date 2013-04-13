@@ -4,7 +4,7 @@
   Besko.Delivery = DS.Model.extend({
     deliverer: DS.attr('string'),
     deliveredOn: DS.attr('date'),
-    deliveredAt: DS.attr('string'),
+    deliveredAt: DS.attr('date'),
     packageCount: DS.attr('number'),
     deletable: DS.attr('boolean'),
     user: DS.belongsTo('Besko.User'),

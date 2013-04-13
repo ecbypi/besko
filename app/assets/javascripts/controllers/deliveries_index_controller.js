@@ -6,6 +6,8 @@
 
     dateFormat: '%a, %b %d, %Y',
 
+    sortProperties: ['deliveredAt'],
+
     formattedDate: function() {
       return this.get('date').strftime(this.get('dateFormat'));
     }.property('date'),
@@ -23,8 +25,12 @@
       this.set('date', this.get('date').decrement());
     },
 
-    nextDay: function () {
+    nextDay: function() {
       this.set('date', this.get('date').increment());
+    },
+
+    sort: function() {
+      this.toggleProperty('sortAscending');
     },
 
     toggleReceipts: function(controller) {
