@@ -13,11 +13,11 @@
     }.property('date'),
 
     fetch: function() {
-      var iso = this.get('date').strftime('%Y-%m-%d'),
-          deliveries = Besko.Delivery.find({ date: iso });
+      var self = this,
+          iso = this.get('date').strftime('%Y-%m-%d');
 
-      deliveries.on('didLoad', this, function() {
-        this.set('content', deliveries.toArray());
+      Besko.Delivery.find({ date: iso }).then(function(deliveries) {
+        self.set('content', deliveries.toArray());
       });
     }.observes('date'),
 
