@@ -45,6 +45,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'orderly'
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'poltergeist'
