@@ -73,7 +73,7 @@ feature 'Manging user roles', js: true do
       click_button 'Remove'
     end
 
-    user_roles_collection.should_not have_user_role_element text: 'Tyrion Lannister'
+    page.should_not have_user_role_element text: 'Tyrion Lannister'
     notifications.should have_content 'Tyrion Lannister is no longer a BeskWorker'
   end
 

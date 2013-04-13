@@ -3,19 +3,9 @@
 
   Besko.UserRolesRoute = Ember.Route.extend({
     model: function(params) {
-      var roles, proxy = Ember.ArrayProxy.create({ content: [] });
-
       if ( params.role ) {
-        roles = Besko.UserRole.find({ title: params.role });
-
-        roles.on('didLoad', function() {
-          proxy.set('content', this.toArray());
-        });
-
         this.controllerFor('user_roles').set('currentRole', params.role);
       }
-
-      return proxy;
     },
 
     serialize: function(model) {
@@ -24,13 +14,7 @@
 
     setupController: function(controller, model) {
       var roles = Besko.parseEmbeddedJSON('#roles');
-
-      controller.setProperties({
-        content: model,
-        roles: roles
-      });
-
-      controller.addObserver('currentRole', controller, 'roleChanged');
+      controller.set('roles', roles);
     }
   });
 })();

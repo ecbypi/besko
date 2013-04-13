@@ -4,7 +4,7 @@ class UserRolesController < ApplicationController
   authorize_resource
 
   def index
-    user_roles = params[:title] ? UserRole.with_title(params[:title]).order { id.desc } : []
+    user_roles = params[:title] ? UserRole.with_title(params[:title]) : []
 
     respond_with(user_roles, root: :roles)
   end

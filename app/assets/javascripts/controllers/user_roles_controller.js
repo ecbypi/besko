@@ -3,16 +3,19 @@
 
   Besko.UserRolesController = Ember.ArrayController.extend({
     roleChanged: function() {
-      var roles, self = this;
+      var self = this, params = {
+        title: this.get('currentRole')
+      };
 
-      this.get('target').transitionTo('user_roles');
+      this.transitionToRoute('user_roles');
 
-      roles = Besko.UserRole.find({ title: this.get('currentRole') });
-
-      roles.on('didLoad', function() {
-        self.set('content.content', this.toArray());
+      Besko.UserRole.find(params).then(function(roles) {
+        self.set('content', roles.toArray());
       });
-    },
+    }.observes('currentRole'),
+
+    sortAscending: false,
+    sortProperties: ['createdAt'],
 
     autocompleteSearching: function() {
       return this.get('autocompleteResults.isLoaded') === false;
@@ -23,34 +26,26 @@
     },
 
     add: function(user) {
-      var role, self = this;
-
-      role = Besko.UserRole.createRecord({
+      var role = Besko.UserRole.createRecord({
         title: this.get('currentRole'),
         userId: user.get('id'),
         user: user
       });
 
-      role.one('didCreate', function() {
-        var roles = self.get('content.content'),
-            proxy = Ember.ArrayProxy.create({ content: roles });
-
-        roles.splice(0, 0, this);
-        proxy.set('content', roles);
-
-        self.set('content', proxy);
-        Besko.notice(role.get('user.name') + ' is now a ' + self.get('currentRole'));
+      role.one('didCreate', this, function() {
+        this.get('content').addObject(role);
+        Besko.notice(role.get('user.name') + ' is now a ' + this.get('currentRole'));
       });
 
       this.get('store').commit();
     },
 
     remove: function(role) {
-      if ( confirm('Remove ' + role.get('name') + ' from the position ' + this.get('title') + '?') ) {
-        var name = role.get('user.name');
+      var name = role.get('user.name');
+
+      if ( confirm('Remove ' + name + ' from the position ' + this.get('title') + '?') ) {
         role.one('didDelete', this, function() {
           this.get('content').removeObject(role);
-
           Besko.notice(name + ' is no longer a ' + this.get('currentRole'));
         });
 
