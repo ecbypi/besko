@@ -7,17 +7,16 @@
     },
 
     signup: function(user) {
-      var transaction = this.get('store').transaction(),
-          self = this;
+      var transaction = this.get('store').transaction();
 
       user = transaction.createRecord(
         Besko.User,
         user.getProperties('firstName', 'lastName', 'email', 'login', 'street')
       );
 
-      user.on('didCreate', function() {
+      user.one('didCreate', this, function() {
         Besko.notice('An email has been sent requesting approval of your account.');
-        self.setProperties({ content: [], query: '' });
+        this.setProperties({ content: [], query: '' });
       });
 
       transaction.commit();
