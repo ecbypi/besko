@@ -1,7 +1,9 @@
+/*global describe:true, it:true, expect:true*/
 //= require application
 
-describe("Besko.Date()", function() {
-  var date = Besko.Date('2010-10-30'), nextDay, prevDay;
+describe("Date extensions", function() {
+  "use strict";
+  var date = new Date('2010-10-30T10:30:00.000Z'), nextDay, prevDay;
 
   it("adds a method to get the name of the UTC day", function() {
     expect(date.getUTCDayName()).toEqual('Saturday');
@@ -36,7 +38,7 @@ describe("Besko.Date()", function() {
 
   describe("#strftime", function() {
     it("allows custom formatting of strings", function() {
-      expect(date.strftime('%A, %B %D, %Y %H:%M:%S')).toEqual('Saturday, October 30, 2010 00:00:00');
+      expect(date.strftime('%A, %B %D, %Y %H:%M:%S')).toEqual('Saturday, October 30, 2010 06:30:00');
     });
   });
 });

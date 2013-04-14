@@ -8,7 +8,7 @@
     createdAt: DS.attr('date'),
 
     added: function() {
-      return Besko.Date(this.get('createdAt')).strftime('%a %b %d %H:%M:%S %Y');
+      return new Date(this.get('createdAt')).strftime('%a %b %d %H:%M:%S %Y');
     }.property('createdAt'),
 
     becameInvalid: function(model) {

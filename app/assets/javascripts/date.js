@@ -110,7 +110,7 @@
     }
   };
 
-  dateExtensions = {
+  _.extend(Date.prototype, {
     getUTCDayName: function() {
       return this.strftime('%A');
     },
@@ -119,7 +119,7 @@
     },
     increment: function(days) {
       days = days || 1;
-      return Besko.Date(Date.parse(this) + (86400000 * days));
+      return new Date(Date.parse(this) + (86400000 * days));
     },
     decrement: function(days) {
       days = days || 1;
@@ -134,20 +134,5 @@
       }
       return format;
     }
-  };
-
-  Besko.Date = function(date) {
-    var offsetHour;
-
-    // if creating a date from 'yyyy-mm-dd' iso string, time zone defaults to GMT
-    // this figures out the current offset and adds the offset hour to the string
-    // creating a date at midnight in the timezone desired
-    if ( typeof date === 'string' && date.match(/^\d{4}-\d{2}-\d{2}$/) ) {
-      offsetHour = zeropad(String(new Date().getTimezoneOffset() / 60));
-      date += "T" + offsetHour + ":00:00.000Z";
-    }
-
-    date = typeof date === 'undefined' ? new Date() : new Date(date);
-    return _.extend(date, dateExtensions);
-  };
+  });
 })();

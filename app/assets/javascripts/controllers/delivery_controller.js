@@ -7,7 +7,7 @@
     }.property('user.email'),
 
     formattedDeliveredAt: function() {
-      return Besko.Date(this.get('.deliveredAt')).strftime('%I:%M:%S %P');
+      return new Date(this.get('deliveredAt')).strftime('%I:%M:%S %P');
     }.property('deliveredAt')
   });
 })();

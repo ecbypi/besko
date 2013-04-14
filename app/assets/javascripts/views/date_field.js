@@ -8,15 +8,15 @@
       var self = this;
 
       this.$().datepicker({
-        minDate: 'Tuesday, October 19, 2010',
-        maxDate: Besko.Date().strftime(this.get('dateFormat')),
-        dateFormat: 'DD, MM dd, yy',
+        minDate: 'Tue, Oct 19, 2010',
+        maxDate: new Date().strftime(this.get('dateFormat')),
+        dateFormat: 'D, M dd, yy',
         changeMonth: true,
         changeYear: true,
         selectOtherMonths: true,
         showOtherMonths: true,
         onSelect: function(dateText, options) {
-          self.get('controller').set('date', Besko.Date(dateText));
+          self.get('controller').set('date', new Date(dateText));
         },
         buttonText: 'Change',
         showOn: 'button',
