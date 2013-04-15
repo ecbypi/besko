@@ -6,12 +6,12 @@
   });
 
   Besko.Router.map(function() {
-    this.resource('deliveries');
+    this.route('deliveries');
     this.route('new_delivery', { path: '/deliveries/new' });
 
     this.route('signup', { path: '/accounts/signup' });
 
-    this.resource('user_roles', { path: '/roles' });
-    this.resource('user_roles', { path: '/roles/:role' });
+    this.route('user_roles', { path: '/roles' });
+    this.route('user_roles', { path: '/roles/:role' });
   });
 })();
