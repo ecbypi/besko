@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  Besko.DeliveriesIndexController = Ember.ArrayController.extend({
+  Besko.DeliveriesController = Ember.ArrayController.extend({
     itemController: 'delivery',
 
     dateFormat: '%a, %b %d, %Y',

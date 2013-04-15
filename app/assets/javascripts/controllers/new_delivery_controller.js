@@ -2,7 +2,7 @@
 (function() {
   "use strict";
 
-  Besko.DeliveriesNewController = Ember.ArrayController.extend({
+  Besko.NewDeliveryController = Ember.ArrayController.extend({
     autocompleteResults: [],
 
     delivery: null,

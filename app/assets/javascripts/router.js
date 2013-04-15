@@ -6,9 +6,8 @@
   });
 
   Besko.Router.map(function() {
-    this.resource('deliveries', function() {
-      this.route('new');
-    });
+    this.resource('deliveries');
+    this.route('new_delivery', { path: '/deliveries/new' });
 
     this.route('signup', { path: '/accounts/signup' });
 

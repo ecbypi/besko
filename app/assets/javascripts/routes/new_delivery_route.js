@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  Besko.DeliveriesNewRoute = Ember.Route.extend({
+  Besko.NewDeliveryRoute = Ember.Route.extend({
     model: function() {
       var recipients = Besko.parseEmbeddedJSON('#recipients');
 
