@@ -25,6 +25,29 @@
     text-align: left;
   }
 
+  .sortable-column {
+    position: relative;
+  }
+
+  .sort-column {
+    color: #000;
+    text-decoration: underline;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      right: 2px;
+
+      @include triangle(15px, #000, down);
+    }
+
+    &.up:after {
+      top: 8px;
+      @include triangle(15px, #000, up);
+    }
+  }
+
   .delivery-information {
     vertical-align: top;
     cursor: pointer;
