@@ -21,6 +21,10 @@
       });
     }.observes('date'),
 
+    dateChanged: function() {
+      this.transitionToRoute('deliveries');
+    },
+
     prevDay: function() {
       this.set('date', this.get('date').decrement());
     },

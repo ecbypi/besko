@@ -214,7 +214,7 @@ feature 'Delivery', js: true do
       end
     end
 
-    scenario 'by selecting date on calendar' do
+    scenario 'by selecting date on calendar', driver: :selenium do
       day = Time.zone.local(2010, 10, 30)
       user = create(:mrhalp, :besk_worker)
       create(:delivery, created_at: day, deliverer: 'FedEx', user: user)
@@ -228,6 +228,14 @@ feature 'Delivery', js: true do
         find("select.ui-datepicker-month option:contains('#{day.strftime('%b')}')").select_option
         find("a.ui-state-default:contains('#{day.day}')").click
       end
+
+      current_path.should match /\/deliveries\/2010-10-30/
+
+      within delivery_element(text: 'FedEx') do
+        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+      end
+
+      visit current_path
 
       within delivery_element(text: 'FedEx') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'

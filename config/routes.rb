@@ -12,6 +12,7 @@ Besko::Application.routes.draw do
 
   resources :receipts, only: [:update, :index, :new]
   resources :deliveries, only: [:index, :new, :create, :destroy]
+  get '/deliveries/:date' => "deliveries#index"
   resources :users, only: [:index, :show, :create]
   resources :recipients, only: [:index, :create]
 
