@@ -1,3 +1,4 @@
+/*global cookie:true*/
 (function() {
   "use strict";
 
@@ -25,6 +26,14 @@
       this.transitionToRoute('deliveries');
     },
 
+    setSortDirection: function() {
+      var direction = cookie.get('delivery_sort') || 'down';
+      direction = direction === 'down' ? true : false;
+
+      this.set('sortAscending', direction);
+      this.removeObserver('content', this, 'setSortDirection');
+    },
+
     prevDay: function() {
       this.set('date', this.get('date').decrement());
     },
@@ -33,8 +42,11 @@
       this.set('date', this.get('date').increment());
     },
 
-    sort: function() {
+    reverseSorting: function() {
       this.toggleProperty('sortAscending');
+
+      var direction = this.get('sortAscending') ? 'down' : 'up';
+      cookie.set('delivery_sort', direction, { path: '/deliveries' });
     },
 
     toggleReceipts: function(controller) {

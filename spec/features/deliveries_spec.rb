@@ -37,7 +37,7 @@ feature 'Delivery', js: true do
       end
     end
 
-    scenario 'allows sorting by time of day received' do
+    scenario 'allows sorting by time of day received, remembering sorting across page refresh' do
       create(:delivery, deliverer: 'UPS')
       create(:delivery, deliverer: 'LaserShip')
 
@@ -49,6 +49,11 @@ feature 'Delivery', js: true do
       within deliveries_collection do
         click_link 'Delivered At'
       end
+
+      'LaserShip'.should appear_before 'UPS'
+
+      visit deliveries_path
+      sleep 0.5
 
       'LaserShip'.should appear_before 'UPS'
     end

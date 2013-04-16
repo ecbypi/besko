@@ -24,6 +24,7 @@
 
     setupController: function(controller, model) {
       controller.addObserver('date', controller, 'dateChanged');
+      controller.addObserver('content', controller, 'setSortDirection');
     }
   });
 })();
