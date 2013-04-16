@@ -19,31 +19,31 @@
   </thead>
 
   <tbody>
-  {{#each controller}}
-  <tr {{action toggleReceipts this}} {{bindAttr class=":delivery-information selected"}} data-resource="delivery">
-    <td class="delivered-at">{{formattedDeliveredAt}}</td>
-    <td class="received-by"><a {{bindAttr href="mailTo"}}>{{user.name}}</a></td>
-    <td class="delivered-by">{{deliverer}}</td>
-    <td class="package-count">
-      <div {{bindAttr class=":total-count expanded:empty"}}>{{packageCount}}</div>
-      <dl {{bindAttr class=":receipts-listing expanded::empty"}}>
-        <dt>Total</dt>
-        <dd>{{packageCount}}</dd>
+    {{#each controller}}
+      <tr {{action toggleReceipts this}} {{bindAttr class=":delivery-information selected"}} data-resource="delivery">
+        <td class="delivered-at">{{formattedDeliveredAt}}</td>
+        <td class="received-by"><a {{bindAttr href="mailTo"}}>{{user.name}}</a></td>
+        <td class="delivered-by">{{deliverer}}</td>
+        <td class="package-count">
+          <div {{bindAttr class=":total-count expanded:empty"}}>{{packageCount}}</div>
+          <dl {{bindAttr class=":receipts-listing expanded::empty"}}>
+            <dt>Total</dt>
+            <dd>{{packageCount}}</dd>
 
-        {{#each receipts}}
-        <dt>{{user.name}}</dt>
-        <dd>{{numberPackages}}</dd>
-        {{/each}}
-      </dl>
-    </td>
-    {{#if deletable}}
-    <td><button {{action remove content}}>Delete</button></td>
-    {{/if}}
-  </tr>
-  {{/each}}
+            {{#each receipts}}
+              <dt>{{user.name}}</dt>
+              <dd>{{numberPackages}}</dd>
+            {{/each}}
+          </dl>
+        </td>
+        {{#if deletable}}
+          <td><button {{action remove content}}>Delete</button></td>
+        {{/if}}
+      </tr>
+    {{/each}}
   </tbody>
 </table>
 
 {{#unless content.length}}
-<p class="empty-message">No Deliveries</p>
+  <p class="empty-message">No Deliveries</p>
 {{/unless}}
