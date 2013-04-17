@@ -17,7 +17,13 @@
     },
 
     serialize: function(model) {
-      var date = this.controllerFor('deliveries').get('date');
+      var controller = this.controllerFor('deliveries'),
+          date = controller.get('date');
+
+      if ( !date ) {
+        date = new Date();
+        controller.set('date', date);
+      }
 
       return { date: date.strftime('%Y-%m-%d') };
     },

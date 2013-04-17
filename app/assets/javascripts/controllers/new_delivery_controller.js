@@ -88,6 +88,7 @@
       delivery.on('didCreate', this, function() {
         Besko.notice('Notifications Sent');
         this.clear();
+        this.transitionToRoute('deliveries');
       });
 
       transaction.commit();

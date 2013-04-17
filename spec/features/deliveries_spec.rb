@@ -168,7 +168,7 @@ feature 'Delivery', js: true do
       page.should_not have_receipt_element text: 'Jimmy McNulty'
     end
 
-    scenario 'allows adding local DB and LDAP records' do
+    scenario 'allows adding local DB and LDAP records', driver: :selenium do
       create(:user, first_name: 'Jon', last_name: 'Snow')
 
       visit new_delivery_path
@@ -183,7 +183,9 @@ feature 'Delivery', js: true do
       fill_in_autocomplete with: 'help'
       autocomplete_result('Micro Helpline').click
 
-      page.should have_receipt_element text: 'Micro Helpline'
+      within receipt_element(text: 'Micro Helpline') do
+        find('input[type=number]').set('2')
+      end
 
       # Ensures user is created
       User.last.email.should eq 'mrhalp@mit.edu'
@@ -192,8 +194,15 @@ feature 'Delivery', js: true do
       click_button 'Send Notifications'
 
       page.should have_content 'Notifications Sent'
-
       last_email.to.should eq ['mrhalp@mit.edu']
+      current_path.should match /\/deliveries\/\d{4}-\d{2}-\d{2}/
+
+      within delivery_element('UPS') do
+        find('td', text: 'UPS').click
+
+        page.should have_content 'Jon Snow 1'
+        page.should have_content 'Micro Helpline 2'
+      end
     end
   end
 
