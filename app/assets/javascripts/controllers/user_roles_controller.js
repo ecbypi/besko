@@ -2,6 +2,8 @@
   "use strict";
 
   Besko.UserRolesController = Ember.ArrayController.extend({
+    autocompleteResults: [],
+
     roleChanged: function() {
       var self = this, params = {
         title: this.get('currentRole')
