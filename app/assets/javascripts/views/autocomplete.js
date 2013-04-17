@@ -59,6 +59,7 @@
         } else if ( value.length >= 3 && ( ( code <= 90 && code >= 46 ) || [8, 32, 110, 189].contains(code) ) ) {
           this.setupDelayedSearch(value);
         } else if ( !value ) {
+          Ember.run.cancel(this.get('timer'));
           controller.set('autocompleteResults', []);
         }
 
@@ -66,13 +67,18 @@
       },
 
       setupDelayedSearch: function(value) {
-        var timer = this.get('timer');
+        var timer = this.get('timer'),
+            controller = this.get('controller');
 
         if ( timer ) {
           Ember.run.cancel(timer);
         }
 
-        this.set('timer', Ember.run.later(this.get('controller'), 'search', value, 400));
+        if ( controller.get('autocompleteSearching') ) {
+          controller.set('autocompleteResults', []);
+        }
+
+        this.set('timer', Ember.run.later(controller, 'search', value, 400));
       }
     }),
 
