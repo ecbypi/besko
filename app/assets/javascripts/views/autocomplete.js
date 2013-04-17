@@ -41,13 +41,11 @@
     searchField: Ember.TextField.extend({
       elementId: 'autocomplete-search',
 
-      attributeBindings: ['name', 'type', 'placeholder', 'autofocus', 'disabled'],
+      attributeBindings: ['name', 'type', 'placeholder', 'autofocus'],
       name: 'autocomplete-search',
       type: 'search',
       placeholder: 'Enter a name or email',
       autofocus: true,
-
-      disabledBinding: 'controller.autocompleteSearching',
 
       timer: null,
 
