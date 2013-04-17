@@ -44,18 +44,18 @@ feature 'Delivery', js: true do
       visit deliveries_path
       sleep 0.5
 
-      'UPS'.should appear_before 'LaserShip'
+      'LaserShip'.should appear_before 'UPS'
 
       within deliveries_collection do
         click_link 'Delivered At'
       end
 
-      'LaserShip'.should appear_before 'UPS'
+      'UPS'.should appear_before 'LaserShip'
 
       visit deliveries_path
       sleep 0.5
 
-      'LaserShip'.should appear_before 'UPS'
+      'UPS'.should appear_before 'LaserShip'
     end
 
     scenario 'allows deletion by admins' do

@@ -7,6 +7,7 @@
 
     dateFormat: '%a, %b %d, %Y',
 
+    sortAscending: false,
     sortProperties: ['deliveredAt'],
 
     formattedDate: function() {
