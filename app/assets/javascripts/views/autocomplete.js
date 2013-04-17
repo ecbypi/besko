@@ -85,9 +85,10 @@
 
       open: function() {
         var value = this.get('parentView.search.value'),
-            fetching = this.get('controller.autocompleteSearching');
+            fetching = this.get('controller.autocompleteSearching'),
+            results = this.get('controller.autocompleteResults');
 
-        return value.length > 0 && !fetching;
+        return value.length > 0 && !fetching || results.get('length') > 0;
       }.property('parentView.search.value', 'controller.autocompleteSearching'),
 
       click: function() {
