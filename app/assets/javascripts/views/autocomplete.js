@@ -52,16 +52,19 @@
       keyUp: function(event) {
         var code = event.keyCode,
             value = this.get('value'),
+            previous = this.get('previousValue'),
             controller = this.get('controller');
 
         if ( code === 38 || code === 40 ) {
           event.preventDefault();
-        } else if ( value.length >= 3 && ( ( code <= 90 && code >= 46 ) || [8, 32, 110, 189].contains(code) ) ) {
+        } else if ( value.length >= 3 && value !== previous ) {
           this.setupDelayedSearch(value);
         } else if ( !value ) {
           Ember.run.cancel(this.get('timer'));
           controller.set('autocompleteResults', []);
         }
+
+        this.set('previousValue', value);
 
         return false;
       },
