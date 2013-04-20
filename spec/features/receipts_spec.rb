@@ -39,7 +39,7 @@ feature 'Package receipts page' do
 
     visit receipts_path
 
-    click_link 'Next'
+    click_link 'Next', match: :first
 
     page.should have_receipt_element count: 1
 

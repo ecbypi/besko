@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] ||= 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara/rspec'
 require 'capybara/poltergeist'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -22,7 +23,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
 
-    if example.metadata[:type] == :request
+    if example.metadata[:type] == :feature
       stub_on_campus!
     end
   end
@@ -40,7 +41,7 @@ RSpec.configure do |config|
   config.include EmailMacros
   config.include FactoryGirlStepHelpers
 
-  config.include SessionSteps, type: :request
-  config.include DOMElementSteps, type: :request
-  config.include PageRenderHelper, type: :request, js: true
+  config.include SessionSteps, type: :feature
+  config.include DOMElementSteps, type: :feature
+  config.include PageRenderHelper, type: :feature, js: true
 end

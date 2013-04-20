@@ -55,7 +55,7 @@ feature 'Accounts' do
     visit edit_user_password_path(reset_password_token: user.reset_password_token)
 
     fill_in 'New Password', with: 'password'
-    fill_in 'Confirm New Password', with: 'password'
+    fill_in 'Confirm Password', with: 'password'
     click_button 'Change Password'
 
     current_path.should eq root_path

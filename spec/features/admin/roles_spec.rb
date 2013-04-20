@@ -61,7 +61,7 @@ feature 'Manging user roles', js: true do
     autocomplete_result('Tyrion').click
 
     page.should have_user_role_element text: 'Tyrion Lannister'
-    page.should have_autocomplete_input with: nil
+    page.should have_autocomplete_input with: ''
     notifications.should have_content 'Tyrion Lannister is now a BeskWorker'
 
     fill_in_autocomplete with: 'lannister'

@@ -33,9 +33,9 @@ feature 'Delivery', js: true do
       end
 
       within delivery_element(text: 'LaserShip') do
-        page.should have_content 'Total 3457'
-        page.should have_content 'Ms Helpline 3455'
-        page.should have_content 'Micro Helpline 2'
+        page.should have_content /Total\s?3457/
+        page.should have_content /Ms Helpline\s?3455/
+        page.should have_content /Micro Helpline\s?2/
       end
     end
 
@@ -240,9 +240,9 @@ feature 'Delivery', js: true do
       click_button 'Change'
 
       within 'div#ui-datepicker-div' do
-        find("select.ui-datepicker-year option:contains('#{day.year}')").select_option
-        find("select.ui-datepicker-month option:contains('#{day.strftime('%b')}')").select_option
-        find("a.ui-state-default:contains('#{day.day}')").click
+        find('select.ui-datepicker-year option', text: day.year.to_s).select_option
+        find('select.ui-datepicker-month option', text: day.strftime('%b')).select_option
+        find('a.ui-state-default', text: day.day.to_s).click
       end
 
       current_path.should match /\/deliveries\/2010-10-30/
