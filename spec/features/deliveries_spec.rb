@@ -44,9 +44,10 @@ feature 'Delivery', js: true do
       create(:delivery, deliverer: 'LaserShip')
 
       visit deliveries_path
-      sleep 0.5
 
-      'LaserShip'.should appear_before 'UPS'
+      deliveries_collection.synchronize do
+        'LaserShip'.should appear_before 'UPS'
+      end
 
       within deliveries_collection do
         click_link 'Delivered At'
@@ -55,9 +56,10 @@ feature 'Delivery', js: true do
       'UPS'.should appear_before 'LaserShip'
 
       visit deliveries_path
-      sleep 0.5
 
-      'UPS'.should appear_before 'LaserShip'
+      deliveries_collection.synchronize do
+        'UPS'.should appear_before 'LaserShip'
+      end
     end
 
     scenario 'allows deletion by admins' do
