@@ -11,7 +11,7 @@ FactoryGirl.define do
     user
     deliverer "FedEx"
 
-    before_create do |delivery, proxy|
+    before(:create) do |delivery, proxy|
       if delivery.receipts.empty?
         delivery.receipts = FactoryGirl.build_list(:receipt, 1, delivery: delivery)
       end

@@ -30,7 +30,7 @@ FactoryGirl.define do
 
     User.guises.each do |guise|
       trait guise.to_s.underscore.to_sym do
-        after_create do |user, proxy|
+        after(:create) do |user, proxy|
           FactoryGirl.create(:user_role, title: guise.to_s, user: user)
         end
       end
