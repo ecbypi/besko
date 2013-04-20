@@ -11,11 +11,6 @@ describe User do
   it { should validate_presence_of(:last_name) }
   it { should validate_uniqueness_of(:login).case_insensitive }
 
-  it "sends confirmation instructions to besko@mit.edu" do
-    headers = user.headers_for(:confirmation_instructions)
-    headers[:to].should eq 'besko@mit.edu'
-  end
-
   describe "#name" do
     it "joins first and last names" do
       user.name.should eq("First Last Name")

@@ -80,12 +80,6 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def headers_for(action)
-    headers = {}
-    headers[:to] = 'besko@mit.edu' if action == :confirmation_instructions
-    headers
-  end
-
   def skip_confirmation_email!
     @skip_confirmation_email = true
   end
