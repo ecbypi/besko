@@ -2,6 +2,8 @@ require 'spec_helper'
 
 feature 'Delivery', js: true do
   include AutocompleteSteps
+  include EmailSpec::Matchers
+  include EmailSpec::Helpers
 
   background do
     sign_in create(:user, :besk_worker)
@@ -194,7 +196,7 @@ feature 'Delivery', js: true do
       click_button 'Send Notifications'
 
       page.should have_content 'Notifications Sent'
-      last_email.to.should eq ['mrhalp@mit.edu']
+      last_email.should be_delivered_to 'mrhalp@mit.edu'
       current_path.should match /\/deliveries\/\d{4}-\d{2}-\d{2}/
 
       within delivery_element('UPS') do

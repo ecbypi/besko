@@ -32,8 +32,8 @@ RSpec.configure do |config|
     reset_email
   end
 
-  config.include EmailSpec::Matchers
-  config.include EmailSpec::Helpers
+  config.include EmailSpec::Matchers, type: :mailer
+  config.include EmailSpec::Helpers, type: :mailer
   config.include FactoryGirl::Syntax::Methods
 
   config.include LDAPSearchStubbing

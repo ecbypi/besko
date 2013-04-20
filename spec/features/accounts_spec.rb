@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 feature 'Accounts' do
+  include EmailSpec::Matchers
+  include EmailSpec::Helpers
+
   scenario 'can be created', js: true do
     stub_ldap!
 
@@ -19,13 +22,11 @@ feature 'Accounts' do
     notifications.should have_content 'An email has been sent requesting approval of your account.'
     find('#user-search').value.should eq ''
 
-    last_email.to.should eq ['besko@mit.edu']
+    last_email.should be_delivered_to 'besko@mit.edu'
 
-    email_body = last_email.body.encoded
-
-    email_body.should include 'Micro Helpline'
-    email_body.should include 'mrhalp@mit.edu'
-    email_body.should include 'mrhalp'
+    last_email.should have_body_text 'Micro Helpline'
+    last_email.should have_body_text 'mrhalp@mit.edu'
+    last_email.should have_body_text 'mrhalp'
 
     fill_in 'user-search', with: 'Micro Helpline'
     click_button 'Lookup'
@@ -47,7 +48,7 @@ feature 'Accounts' do
 
     notifications.should have_content 'You will receive an email with instructions about how to reset your password in a few minutes.'
 
-    last_email.to.should include 'forgetful@mit.edu'
+    last_email.should be_delivered_to 'forgetful@mit.edu'
 
     user = user.reload
 
