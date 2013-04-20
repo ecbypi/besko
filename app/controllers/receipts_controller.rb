@@ -4,6 +4,9 @@ class ReceiptsController < InheritedResources::Base
   actions :all, except: [:show]
   authorize_resource
 
+  helper_method :decorated_collection
+  hide_action :decorated_collection
+
   def new
     if params[:user_id]
       user = User.find(params[:user_id])
@@ -22,15 +25,17 @@ class ReceiptsController < InheritedResources::Base
     update!(notice: 'Package Signed Out') { receipts_path(page: params[:page]) }
   end
 
-  protected
+  private
+
+  def decorated_collection
+    @decorated_receipts ||= collection.decorate
+  end
 
   def collection
     get_collection_ivar || begin
-      records = current_user.receipts.
+      @receipts = current_user.receipts.
         includes(delivery: :user).
         page(params[:page]).per(10)
-
-      @receipts = ReceiptDecorator.decorate(records)
     end
   end
 end

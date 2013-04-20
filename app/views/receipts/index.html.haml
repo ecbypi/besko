@@ -13,7 +13,7 @@
         %th= t '.deliverer'
         %th= t '.comment'
         %th= t '.signed_out_at'
-    %tbody{ data: { collection: :receipts} }= render collection
+    %tbody{ data: { collection: :receipts} }= render decorated_collection
 
   = paginate collection
 

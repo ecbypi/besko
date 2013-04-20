@@ -1,3 +1,3 @@
 class ReceiptDecorator < ApplicationDecorator
-  decorates :receipt
+  delegate_all
 end
