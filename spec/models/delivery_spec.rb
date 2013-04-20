@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Delivery do
 
   it { should belong_to(:user) }
-  it { should have_many(:receipts).dependent(:destroy) }
+  it { should have_many(:receipts).dependent(:delete_all) }
   it { should have_many(:recipients).through(:receipts) }
 
   it { should validate_presence_of(:deliverer) }

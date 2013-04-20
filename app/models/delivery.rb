@@ -14,7 +14,7 @@ class Delivery < ActiveRecord::Base
   ]
 
   belongs_to :user
-  has_many :receipts, dependent: :destroy
+  has_many :receipts, dependent: :delete_all
   has_many :recipients, through: :receipts, source: :user
 
   validates :deliverer, :user_id, :receipts, presence: true
