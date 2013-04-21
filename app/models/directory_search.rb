@@ -5,6 +5,14 @@ class DirectorySearch
     new(query).search
   end
 
+  def self.server
+    ENV['LDAP_SERVER']
+  end
+
+  def self.configured?
+    !!server
+  end
+
   def initialize(query)
     @query = query
   end
@@ -51,13 +59,13 @@ class DirectorySearch
   end
 
   def command_output
-    command.run(filter: filter.to_s)
+    command.run(filter: filter.to_s, server: self.class.server)
   rescue Cocaine::ExitStatusError
     ''
   end
 
   def command_options
-    '-x -LLL -h ldap-too.mit.edu -b dc=mit,dc=edu :filter uid givenName sn mail street'
+    '-x -LLL -h :server -b dc=mit,dc=edu :filter uid givenName sn mail street'
   end
 
   def parse_output(output)

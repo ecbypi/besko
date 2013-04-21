@@ -3,6 +3,14 @@ module LDAPSearchStubbing
     MIT.stub(ip_addresses: ['18.0.0.0'])
   end
 
+  def stub_ldap_server_configuration!
+    DirectorySearch.stub(server: 'server.edu')
+  end
+
+  def stub_empty_ldap_server_configuration!
+    DirectorySearch.stub(server: nil)
+  end
+
   def stub_ldap!(attributes = {})
     attributes.reverse_merge!(attributes_for(:ldap_entry))
 

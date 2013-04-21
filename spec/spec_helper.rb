@@ -25,7 +25,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
 
     if example.metadata[:type] == :feature
-      stub_on_campus!
+      stub_ldap_server_configuration!
     end
   end
 

@@ -16,7 +16,7 @@ describe UsersController do
 
     before :each do
       sign_in user
-      stub_on_campus!
+      stub_ldap_server_configuration!
     end
 
     it "searches database and MIT directory if no options are specified" do
@@ -52,7 +52,7 @@ describe UsersController do
     it 'does not search if not on campus' do
       User.should_not_receive(:directory_search)
 
-      MIT.stub(ip_addresses: ['192.168.0.1'])
+      stub_empty_ldap_server_configuration!
 
       get :index, format: :json, term: 'micro helpline'
     end
