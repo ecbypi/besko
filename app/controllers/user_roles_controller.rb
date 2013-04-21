@@ -9,10 +9,6 @@ class UserRolesController < ApplicationController
     respond_with(user_roles, root: :roles)
   end
 
-  def show
-    render :index
-  end
-
   def create
     role = UserRole.create(params[:user_role])
 
