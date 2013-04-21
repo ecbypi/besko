@@ -3,6 +3,7 @@ development:
   database: besko_development
   host: localhost
   encoding: utf8
+  pool: 30
 
 test:
   adapter: mysql2
