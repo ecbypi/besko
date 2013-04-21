@@ -1,5 +1,5 @@
 if defined?(Honeybadger)
   Honeybadger.configure do |config|
-    config.api_key = '40d96c1a'
+    config.api_key = ENV['HONEYBADGER_API_TOKEN']
   end
 end

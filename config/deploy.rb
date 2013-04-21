@@ -41,8 +41,6 @@ set :normal_symlinks, %w(
   config/newrelic.yml
   config/database.yml
   config/sidekiq.yml
-  config/initializers/secret_token.rb
-  config/initializers/honeybadger.rb
   log
 )
 
