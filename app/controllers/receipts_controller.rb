@@ -7,19 +7,6 @@ class ReceiptsController < InheritedResources::Base
   helper_method :decorated_collection
   hide_action :decorated_collection
 
-  def new
-    if params[:user_id]
-      user = User.find(params[:user_id])
-    elsif params[:user]
-      user = User.new(params[:user])
-      user.assign_password.skip_confirmation_email!
-      user.save
-    end
-
-    build_resource.recipient = user
-    super
-  end
-
   def update
     resource.sign_out!
     update!(notice: 'Package Signed Out') { receipts_path(page: params[:page]) }
