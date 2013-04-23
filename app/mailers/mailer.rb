@@ -1,12 +1,6 @@
-class PackageMailer < ActionMailer::Base
+class Mailer < ActionMailer::Base
 
-  def self.send_receipts(delivery)
-    delivery.receipts.each do |receipt|
-      delay.confirmation(receipt.id)
-    end
-  end
-
-  def confirmation(receipt_id)
+  def package_confirmation(receipt_id)
     @receipt   = Receipt.find(receipt_id)
     @delivery  = @receipt.delivery
     @recipient = @receipt.user
