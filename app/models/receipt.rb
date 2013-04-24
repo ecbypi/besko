@@ -16,7 +16,7 @@ class Receipt < ActiveRecord::Base
   delegate :deliverer, to: :delivery
 
   def signed_out?
-    !(read_attribute(:signed_out_at)).nil?
+    !!signed_out_at
   end
 
   def sign_out!
