@@ -172,7 +172,7 @@ feature 'Delivery', js: true do
       page.should_not have_receipt_element text: 'Jimmy McNulty'
     end
 
-    scenario 'allows adding local DB and LDAP records', driver: :selenium do
+    scenario 'allows adding local DB and LDAP records', driver: :chrome do
       create(:user, first_name: 'Jon', last_name: 'Snow')
 
       visit new_delivery_path
@@ -232,7 +232,7 @@ feature 'Delivery', js: true do
       end
     end
 
-    scenario 'by selecting date on calendar', driver: :selenium do
+    scenario 'by selecting date on calendar', driver: :chrome do
       day = Time.zone.local(2010, 10, 30)
       user = create(:mrhalp, :besk_worker)
       create(:delivery, created_at: day, deliverer: 'FedEx', user: user)

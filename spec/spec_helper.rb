@@ -11,6 +11,13 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 Capybara.javascript_driver = :poltergeist
 Capybara.ignore_hidden_elements = true
 
+require 'selenium/webdriver'
+Capybara.register_driver :chrome do |app|
+  profile = Selenium::WebDriver::Chrome::Profile.new
+  profile['extensions.password_manager_enabled'] = false
+  Capybara::Selenium::Driver.new(app, profile: profile, browser: :chrome)
+end
+
 RSpec.configure do |config|
   # Allow only desired specs to run by adding filters to spec definition
   config.treat_symbols_as_metadata_keys_with_true_values = true
