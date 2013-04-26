@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
 
   has_many :receipts
   has_many :deliveries
+
+  has_many :previous_addresses
+
   has_guises :BeskWorker, :Admin, :association => :user_roles
 
   validates :first_name, :last_name, presence: true
@@ -66,6 +69,17 @@ class User < ActiveRecord::Base
     end
 
     users.compact
+  end
+
+  def update_address!(address)
+    transaction do
+      previous_addresses.create(
+        address: self.street,
+        preceded_by_id: previous_address_ids.last
+      )
+
+      self.update_attributes(street: address)
+    end
   end
 
   def assign_password

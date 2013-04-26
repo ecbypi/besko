@@ -6,6 +6,7 @@ describe User do
   it { should have_many(:receipts) }
   it { should have_many(:deliveries) }
   it { should have_many(:user_roles) }
+  it { should have_many(:previous_addresses) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
@@ -79,6 +80,30 @@ describe User do
 
         users.should be_empty
       end
+    end
+  end
+
+  describe '#update_address' do
+    it 'updates address, linking previous addresses' do
+      user = create(:user, street: '77 Mass Ave')
+
+      user.update_address!('211 Mass Ave')
+
+      user.previous_addresses.last.address.should eq '77 Mass Ave'
+      user.street.should eq '211 Mass Ave'
+
+      user.update_address!('77 Mass Ave')
+
+      previous_address = user.previous_addresses.last
+      first_address = user.previous_addresses.first
+
+      previous_address.address.should eq '211 Mass Ave'
+      first_address.address.should eq '77 Mass Ave'
+
+      previous_address.preceded_by.should eq first_address
+      first_address.followed_by.should eq previous_address
+
+      user.street.should eq '77 Mass Ave'
     end
   end
 
