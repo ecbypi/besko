@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327222255) do
+ActiveRecord::Schema.define(:version => 20130426011345) do
 
   create_table "deliveries", :force => true do |t|
     t.string   "deliverer"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20130327222255) do
 
   add_index "deliveries", ["delivered_on"], :name => "index_deliveries_on_delivered_on"
   add_index "deliveries", ["user_id"], :name => "index_deliveries_on_worker_id"
+
+  create_table "previous_addresses", :force => true do |t|
+    t.string   "address"
+    t.integer  "user_id"
+    t.integer  "preceded_by_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "previous_addresses", ["preceded_by_id"], :name => "index_previous_addresses_on_preceded_by_id"
+  add_index "previous_addresses", ["user_id"], :name => "index_previous_addresses_on_user_id"
 
   create_table "receipts", :force => true do |t|
     t.text     "comment"
