@@ -47,13 +47,18 @@ describe UpdateAddressWorker do
   end
 
   describe '.update_addresses' do
-    it 'updates the address of all users' do
+    it 'updates the address of all residents with a login' do
       stub_ldap! street: 'Harrenhal'
-      create_list(:user, 3)
+
+      user = create(:user, street: '77 Mass Ave')
+      resident = create(:user, :resident, street: '')
+      resident_without_login = create(:user, :resident, login: nil, street: '')
 
       UpdateAddressWorker.update_addresses
 
-      User.pluck(:street).uniq.should eq ['Harrenhal']
+      user.reload.street.should eq '77 Mass Ave'
+      resident.reload.street.should eq 'Harrenhal'
+      resident_without_login.reload.street.should be_empty
     end
   end
 end

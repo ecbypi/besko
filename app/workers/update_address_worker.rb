@@ -4,7 +4,7 @@ class UpdateAddressWorker
   attr_reader :user
 
   def self.update_addresses
-    User.pluck(:id).each { |id| perform_async(id) }
+    Resident.where { login ^ nil }.pluck(:id).each { |id| perform_async(id) }
   end
 
   def perform(user_id)
