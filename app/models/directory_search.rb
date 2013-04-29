@@ -66,7 +66,7 @@ class DirectorySearch
   end
 
   def command_options
-    '-x -LLL -h :server -b dc=mit,dc=edu :filter uid givenName sn mail street'
+    '-x -LLL -h :server -b dc=mit,dc=edu :filter'
   end
 
   def parse_output(output)
