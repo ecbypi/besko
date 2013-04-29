@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       users.concat User.search(query)
     end
 
-    unless options[:local_only] || !DirectorySearch.configured?
+    unless options[:local_only]
       users.concat User.directory_search(query)
     end
 

@@ -9,16 +9,13 @@ class DirectorySearch
     ENV['LDAP_SERVER']
   end
 
-  def self.configured?
-    !!server
-  end
-
   def initialize(query)
     @query = query
   end
 
   def search
-    return @results unless results.nil?
+    return @results      unless results.nil?
+    return @results = [] unless server.present?
 
     @results = Timeout.timeout(2) do
       parse_output(command_output)
@@ -49,6 +46,10 @@ class DirectorySearch
 
   private
 
+  def server
+    self.class.server
+  end
+
   def command
     @command ||= Cocaine::CommandLine.new(
       'ldapsearch',
@@ -59,7 +60,7 @@ class DirectorySearch
   end
 
   def command_output
-    command.run(filter: filter.to_s, server: self.class.server)
+    command.run(filter: filter.to_s, server: server)
   rescue Cocaine::ExitStatusError
     ''
   end

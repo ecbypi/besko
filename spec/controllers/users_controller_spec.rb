@@ -48,14 +48,6 @@ describe UsersController do
 
       users.size.should eq 1
     end
-
-    it 'does not search if not on campus' do
-      User.should_not_receive(:directory_search)
-
-      stub_empty_ldap_server_configuration!
-
-      get :index, format: :json, term: 'micro helpline'
-    end
   end
 
   describe "POST create.json" do
