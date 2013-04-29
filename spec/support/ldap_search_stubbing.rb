@@ -12,6 +12,8 @@ module LDAPSearchStubbing
   end
 
   def stub_ldap!(attributes = {})
+    stub_ldap_server_configuration!
+
     attributes.reverse_merge!(attributes_for(:ldap_entry))
 
     template = File.read(Rails.root.join('spec/fixtures/ldapsearch.erb'))

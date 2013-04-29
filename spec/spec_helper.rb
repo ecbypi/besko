@@ -30,10 +30,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
-
-    if example.metadata[:type] == :feature
-      stub_ldap_server_configuration!
-    end
   end
 
   config.after(:each) do

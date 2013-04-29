@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe UpdateAddressWorker do
-  before do
-    stub_empty_ldap_server_configuration!
-  end
-
   describe '#perform' do
     it 'updates the address of a package recipient' do
       stub_ldap! street: '211 Mass Ave'

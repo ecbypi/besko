@@ -16,7 +16,6 @@ describe UsersController do
 
     before :each do
       sign_in user
-      stub_ldap_server_configuration!
     end
 
     it "searches database and MIT directory if no options are specified" do
