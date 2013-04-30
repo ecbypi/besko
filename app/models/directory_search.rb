@@ -80,6 +80,6 @@ class DirectorySearch
   end
 
   def cache_key
-    "directory_search.#{query.gsub(/\s+/,'_')}"
+    "directory_search.#{query.parameterize}"
   end
 end
