@@ -22,6 +22,7 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'slim'
 gem 'whenever'
+gem 'dalli'
 
 group :production, :staging do
   gem 'newrelic_rpm'

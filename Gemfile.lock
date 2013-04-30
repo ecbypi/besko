@@ -73,6 +73,7 @@ GEM
       execjs
     coffee-script-source (1.1.2)
     connection_pool (1.0.0)
+    dalli (2.6.2)
     database_cleaner (0.9.1)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
@@ -303,6 +304,7 @@ DEPENDENCIES
   capistrano
   cocaine
   coffee-rails (~> 3.2.1)
+  dalli
   database_cleaner
   devise
   draper
