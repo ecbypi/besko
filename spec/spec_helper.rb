@@ -19,10 +19,7 @@ Capybara.register_driver :chrome do |app|
 end
 
 RSpec.configure do |config|
-  # Allow only desired specs to run by adding filters to spec definition
   config.treat_symbols_as_metadata_keys_with_true_values = true
-  config.filter_run :focus => true
-  config.run_all_when_everything_filtered = true
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
