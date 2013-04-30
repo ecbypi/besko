@@ -60,9 +60,13 @@ class DirectorySearch
   end
 
   def command_output
-    command.run(filter: filter.to_s, server: server)
-  rescue Cocaine::ExitStatusError
-    ''
+    Rails.cache.fetch(cache_key, expires_in: 1.month) do
+      begin
+        command.run(filter: filter.to_s, server: server)
+      rescue Cocaine::ExitStatusError
+        ''
+      end
+    end
   end
 
   def command_options
@@ -73,5 +77,9 @@ class DirectorySearch
     output.gsub(/\n (\w)/, '\1').split(/\n\n/).map do |record|
       Hash[record.split(/\n/).map { |line| line.split(/: /) }]
     end
+  end
+
+  def cache_key
+    "directory_search.#{query.gsub(/\s+/,'_')}"
   end
 end

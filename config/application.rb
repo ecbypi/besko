@@ -59,5 +59,7 @@ module Besko
 
     # Default ember variant to development for all environments
     config.ember.variant = :development
+
+    config.cache_store = :dalli_store, { namespace: "besko-#{Rails.env}" }
   end
 end

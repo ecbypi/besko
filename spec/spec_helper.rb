@@ -35,6 +35,7 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
     reset_email
+    Rails.cache.clear
   end
 
   config.include EmailSpec::Matchers, type: :mailer
