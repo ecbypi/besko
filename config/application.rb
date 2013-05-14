@@ -61,5 +61,7 @@ module Besko
     config.ember.variant = :development
 
     config.cache_store = :dalli_store, { namespace: "besko-#{Rails.env}" }
+
+    config.active_record.whitelist_attributes = false
   end
 end
