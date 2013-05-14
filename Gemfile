@@ -23,6 +23,7 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'slim'
 gem 'whenever'
 gem 'dalli'
+gem 'strong_parameters'
 
 group :production, :staging do
   gem 'newrelic_rpm'
