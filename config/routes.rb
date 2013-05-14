@@ -8,6 +8,9 @@ Besko::Application.routes.draw do
       sign_out: 'logout',
       sign_up: 'signup',
       registration: 'accounts'
+    },
+    controllers: {
+      passwords: 'passwords'
     }
 
   root :to => 'home#index'

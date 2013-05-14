@@ -10,7 +10,7 @@ class UserRolesController < ApplicationController
   end
 
   def create
-    role = UserRole.create(params[:user_role])
+    role = UserRole.create(user_role_params)
 
     respond_with(role)
   end
@@ -19,5 +19,11 @@ class UserRolesController < ApplicationController
     UserRole.find(params[:id]).destroy
 
     head :no_content
+  end
+
+  private
+
+  def user_role_params
+    params.require(:user_role).permit(:title, :user_id)
   end
 end

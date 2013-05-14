@@ -25,9 +25,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(params[:user])
+    user = User.new(user_params)
     user.assign_password.save
 
     respond_with(user)
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :street, :email, :login)
   end
 end

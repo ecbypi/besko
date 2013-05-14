@@ -28,14 +28,6 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :login, uniqueness: { allow_nil: true, case_sensitive: false }
 
-  attr_accessible :first_name,
-                  :last_name,
-                  :login,
-                  :email,
-                  :street,
-                  :password,
-                  :password_confirmation
-
   def self.guise_titles
     guises.map { |title| [title.titleize, title] }
   end

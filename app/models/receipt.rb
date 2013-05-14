@@ -8,11 +8,6 @@ class Receipt < ActiveRecord::Base
   validates :delivery_id, presence: { on: :update }
   validates :number_packages, numericality: true
 
-  attr_accessible :number_packages,
-                  :user_id,
-                  :comment,
-                  :delivery_id
-
   delegate :deliverer, to: :delivery
 
   def signed_out?

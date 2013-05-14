@@ -1,6 +1,6 @@
 class RecipientsController < UsersController
   def create
-    recipient = Recipient.new(params[:recipient])
+    recipient = Recipient.new(recipient_params)
 
     authorize!(:create, recipient)
 
@@ -8,5 +8,11 @@ class RecipientsController < UsersController
     recipient.save
 
     respond_with(recipient, root: :recipient, location: user_url(recipient))
+  end
+
+  private
+
+  def recipient_params
+    params.require(:recipient).permit(:first_name, :last_name, :street, :login, :email)
   end
 end

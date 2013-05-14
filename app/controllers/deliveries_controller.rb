@@ -1,6 +1,12 @@
-class DeliveriesController < InheritedResources::Base
+class DeliveriesController < ApplicationController
   respond_to :html, :json
   authorize_resource
+
+  def index
+    deliveries = Delivery.includes(:user, receipts: :user).delivered_on(params[:date])
+
+    respond_with(deliveries)
+  end
 
   def new
     ids = (cookies['recipients'] || '').split(',')
@@ -8,23 +14,26 @@ class DeliveriesController < InheritedResources::Base
   end
 
   def create
-    create!(notice: 'Notifications Sent', error: 'Unable to log delivery.') do
-      resource.receipt_ids.each do |receipt_id|
+    delivery = current_user.deliveries.create(delivery_params)
+
+    if delivery.persisted?
+      delivery.receipt_ids.each do |receipt_id|
         Mailer.delay.package_confirmation(receipt_id)
       end
-
-      new_delivery_path
     end
+
+    respond_with(delivery)
+  end
+
+  def destroy
+    Delivery.delete(params[:id])
+
+    head :no_content
   end
 
   private
 
-  def create_resource(object)
-    object.user = current_user
-    object.save
-  end
-
-  def collection
-    @deliveries ||= Delivery.includes(:user, receipts: :user).delivered_on(params[:date])
+  def delivery_params
+    params.require(:delivery).permit(:deliverer, receipts_attributes: [:user_id, :number_packages, :comment])
   end
 end
