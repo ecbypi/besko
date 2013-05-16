@@ -43,6 +43,7 @@ group :development do
   gem 'capistrano'
   gem 'sextant'
   gem 'foreman'
+  gem 'meta_request'
 end
 
 group :development, :test do
