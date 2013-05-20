@@ -35,12 +35,10 @@ class User < ActiveRecord::Base
 
   def self.search(query)
     terms = query.split
-
-    name_match = query.gsub(/\s+/, '%') + '%'
     likened_terms = terms.map { |term| "#{term}%" }
 
     where do
-      ( concat(first_name, ' ', last_name).like query + '%' ) |
+      ( concat(first_name, ' ', last_name).like "#{query}%" ) |
       ( last_name.like "#{terms.last}%"  ) |
       ( email.like_any likened_terms     ) |
       ( login.like_any likened_terms     )
