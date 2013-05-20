@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426011345) do
+ActiveRecord::Schema.define(:version => 20130520192444) do
 
   create_table "deliveries", :force => true do |t|
     t.string   "deliverer"
@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(:version => 20130426011345) do
 
   add_index "deliveries", ["delivered_on"], :name => "index_deliveries_on_delivered_on"
   add_index "deliveries", ["user_id"], :name => "index_deliveries_on_worker_id"
+
+  create_table "forwarding_addresses", :force => true do |t|
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "postal_code"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "forwarding_addresses", ["user_id"], :name => "index_forwarding_addresses_on_user_id"
 
   create_table "previous_addresses", :force => true do |t|
     t.string   "address"

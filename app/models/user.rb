@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :receipts
   has_many :deliveries
 
+  has_one :forwarding_address
   has_many :previous_addresses
 
   has_guises :BeskWorker, :Admin, :Resident, :association => :user_roles
