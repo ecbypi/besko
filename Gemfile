@@ -24,6 +24,7 @@ gem 'slim'
 gem 'whenever'
 gem 'dalli'
 gem 'strong_parameters'
+gem 'carmen-rails', github: 'ecbypi/carmen-rails', branch: 'pass-form-object'
 
 group :production, :staging do
   gem 'newrelic_rpm'

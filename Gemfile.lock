@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/ecbypi/carmen-rails.git
+  revision: 1519a802a0d8d753008ed12d4c8b196b7a61ac58
+  branch: pass-form-object
+  specs:
+    carmen-rails (1.0.0)
+      carmen (~> 1.0.0)
+      rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -60,6 +69,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carmen (1.0.0)
+      unicode_utils (~> 1.4.0)
     celluloid (0.12.4)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
@@ -303,6 +314,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     warden (1.2.3)
+    unicode_utils (1.4.0)
       rack (>= 1.0)
     websocket (1.0.7)
     whenever (0.8.2)
@@ -321,6 +333,7 @@ DEPENDENCIES
   bourbon
   cancan
   capistrano
+  carmen-rails!
   cocaine
   coffee-rails (~> 3.2.1)
   dalli
