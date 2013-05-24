@@ -49,6 +49,7 @@ set :normal_symlinks, %w(
 )
 
 set :odd_symlinks, {
+  'closing' => 'public/closing',
   'sockets' => 'tmp/sockets',
   'pids' => 'tmp/pids',
   'assets' => 'public/assets',
