@@ -10,7 +10,8 @@ Besko::Application.routes.draw do
       registration: 'accounts'
     },
     controllers: {
-      passwords: 'passwords'
+      passwords: 'passwords',
+      registrations: 'registrations'
     }
 
   root :to => 'home#index'

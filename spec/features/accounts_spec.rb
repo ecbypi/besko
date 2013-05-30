@@ -62,4 +62,32 @@ feature 'Accounts' do
 
     notifications.should have_content 'Your password was changed successfully. You are now signed in.'
   end
+
+  context 'editing account information' do
+    scenario 'can change their email address and password' do
+      sign_in create(:user, password: 'sekrit', password_confirmation: 'sekrit')
+
+      visit edit_user_registration_path
+
+      fill_in 'Email', with: 'new@fake.com'
+      fill_in 'Current Password', with: 'sekrit'
+      fill_in 'New Password', with: 'sekr1t'
+      fill_in 'Confirm New Password', with: 'sekr1t'
+      click_button 'Update'
+
+      current_path.should eq edit_user_registration_path
+      page.should have_field 'Email', with: 'new@fake.com'
+
+      click_link 'Logout'
+
+      visit new_user_session_path
+
+      fill_in 'Email', with: 'new@fake.com'
+      fill_in 'Password', with: 'sekr1t'
+      click_button 'Sign In'
+
+      current_path.should eq root_path
+      page.should have_content 'Signed in successfully.'
+    end
+  end
 end
