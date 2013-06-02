@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'jasminerice'
   gem 'fuubar'
+  gem 'pry-remote'
 end
 
 group :test do
