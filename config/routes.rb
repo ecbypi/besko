@@ -22,6 +22,12 @@ Besko::Application.routes.draw do
   resources :users, only: [:index, :show, :create]
   resources :recipients, only: [:index, :create]
 
+  scope '/accounts' do
+    resource :address, as: :forwarding_address, controller: :address, only: [:create, :update] do
+      get 'subregions'
+    end
+  end
+
   resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :create, :destroy]
   get '/roles/:title' => "user_roles#index"
 

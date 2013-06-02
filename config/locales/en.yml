@@ -5,6 +5,13 @@ en:
     read:
       delivery: "Only besk workers can review deliveries."
 
+  flash:
+    address:
+      create: &forwarding_address
+        notice: 'Updated forwarding address.'
+      update:
+        <<: *forwarding_address
+
   receipts:
     index:
       empty: 'You have not received any packages'

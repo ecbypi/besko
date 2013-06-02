@@ -1,7 +1,7 @@
 - content_for :title do
   Your Account
 
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+= simple_form_for current_user, url: user_registration_path do |f|
   = f.error_notification
   .inputs
     = f.input :first_name, disabled: true, required: false, label: 'First Name', hint: 'read-only'
@@ -16,3 +16,24 @@
     = f.input :password_confirmation, required: false, label: 'Confirm New Password'
   .actions
     = f.button :submit, "Update"
+
+= simple_form_for current_user.forwarding_address || current_user.build_forwarding_address, url: forwarding_address_path do |f|
+  .inputs
+    = f.input :street
+  .inputs
+    = f.input :city
+    #state-wrapper.input= render 'subregion_select'
+  .inputs
+    .input
+      = f.label :country
+      = f.country_select :country, priority: %W( US CA )
+    = f.input :postal_code
+
+  .inputs
+    = f.button :submit, 'Save Forwarding Address'
+
+  :javascript
+    $('#forwarding_address_country').on('change', function(event) {
+      var $selectWrapper = $('#state-wrapper');
+      $selectWrapper.load('/accounts/address/subregions?code=' + $(this).val());
+    });
