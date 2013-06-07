@@ -17,7 +17,7 @@ gem 'oj'
 gem 'cocaine'
 gem 'posix-spawn'
 gem 'ldaptic'
-gem 'ember-rails'
+gem 'ember-rails', github: 'emberjs/ember-rails'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'slim'
@@ -38,6 +38,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'bourbon'
   gem 'therubyracer', require: 'v8' # for precompiling assets
+  gem 'handlebars-source', '1.0.0.rc.4'
 end
 
 group :development do
