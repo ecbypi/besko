@@ -5,6 +5,8 @@
     classNames: ['input', 'search', 'autocomplete-search'],
     templateName: 'autocomplete',
 
+    labelText: 'Search for a user',
+
     results: function() {
       return this.get('childViews').findProperty('tagName', 'ul');
     }.property(),
