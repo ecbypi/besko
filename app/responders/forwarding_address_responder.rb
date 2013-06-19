@@ -1,4 +1,4 @@
-class AddressResponder < ActionController::Responder
+class ForwardingAddressResponder < ActionController::Responder
   include Responders::FlashResponder
 
   def navigation_behavior(error)

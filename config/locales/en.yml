@@ -6,7 +6,7 @@ en:
       delivery: "Only besk workers can review deliveries."
 
   flash:
-    address:
+    forwarding_addresses:
       create: &forwarding_address
         notice: 'Updated forwarding address.'
       update:

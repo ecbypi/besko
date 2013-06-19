@@ -1,5 +1,5 @@
-class AddressController < ApplicationController
-  self.responder = AddressResponder
+class ForwardingAddressesController < ApplicationController
+  self.responder = ForwardingAddressResponder
   respond_to :html, only: [:create, :update]
 
   def create
