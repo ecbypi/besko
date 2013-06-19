@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  Besko.Autocomplete = Ember.View.extend({
+  Besko.AutocompleteInput = Ember.View.extend({
     classNames: ['input', 'search', 'autocomplete-search'],
     templateName: 'autocomplete',
 
