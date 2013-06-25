@@ -5,11 +5,11 @@
     model: function() {
       var recipients = Besko.parseEmbeddedJSON('#recipients');
 
-      this.get('store').loadMany(Besko.User, recipients);
+      this.get('store').loadMany(Besko.Recipient, recipients);
 
       return recipients.map(function(user) {
         return Besko.Receipt.createRecord({
-          user: Besko.User.find(user.id),
+          user: Besko.Recipient.find(user.id),
           numberPackages: 1
         });
       });
