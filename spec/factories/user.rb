@@ -7,6 +7,12 @@ FactoryGirl.define do
     password "password"
     password_confirmation "password"
     street "77 Mass Ave"
+
+    trait :forwarding_account do
+      forwarding_account true
+      password nil
+      password_confirmation nil
+    end
   end
 
   factory :user, parent: :unapproved_user do

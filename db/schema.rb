@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520192444) do
+ActiveRecord::Schema.define(:version => 20130625151246) do
 
   create_table "deliveries", :force => true do |t|
     t.string   "deliverer"
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(:version => 20130520192444) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "login"
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.integer  "sign_in_count",                         :default => 0
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20130520192444) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "street"
+    t.boolean  "forwarding_account",                    :default => false
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

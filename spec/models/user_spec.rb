@@ -13,6 +13,11 @@ describe User do
   it { should validate_presence_of(:last_name) }
   it { should validate_uniqueness_of(:login).case_insensitive }
 
+  it 'does not require password if :forwarding_account is true' do
+    expect { create(:user, :forwarding_account) }.not_to raise_error
+    expect { create(:user, password: nil, password_confirmation: nil) }.to raise_error ActiveRecord::RecordInvalid
+  end
+
   describe "#name" do
     it "joins first and last names" do
       user.name.should eq("First Last Name")

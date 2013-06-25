@@ -96,4 +96,8 @@ class User < ActiveRecord::Base
       self.devise_mailer.delay.confirmation_instructions(self)
     end
   end
+
+  def password_required?
+    forwarding_account ? false : super
+  end
 end
