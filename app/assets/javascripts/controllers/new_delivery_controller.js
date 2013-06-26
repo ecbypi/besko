@@ -2,14 +2,8 @@
 (function() {
   "use strict";
 
-  Besko.NewDeliveryController = Ember.ArrayController.extend({
-    autocompleteResults: [],
-
+  Besko.NewDeliveryController = Ember.ArrayController.extend(Besko.AutocompleteMixin, {
     delivery: null,
-
-    autocompleteSearching: function() {
-      return this.get('autocompleteResults.isLoaded') === false;
-    }.property('autocompleteResults.isLoaded'),
 
     tableVisible: function() {
       return this.get('content.length') > 0 && !this.get('delivery.isSaving');

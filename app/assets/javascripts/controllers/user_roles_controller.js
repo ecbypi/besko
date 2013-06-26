@@ -1,9 +1,7 @@
 (function() {
   "use strict";
 
-  Besko.UserRolesController = Ember.ArrayController.extend({
-    autocompleteResults: [],
-
+  Besko.UserRolesController = Ember.ArrayController.extend(Besko.AutocompleteMixin, {
     roleChanged: function() {
       var self = this, params = {
         title: this.get('currentRole')
@@ -18,10 +16,6 @@
 
     sortAscending: false,
     sortProperties: ['createdAt'],
-
-    autocompleteSearching: function() {
-      return this.get('autocompleteResults.isLoaded') === false;
-    }.property('autocompleteResults.isLoaded'),
 
     search: function(term) {
       this.set('autocompleteResults', Besko.User.find({ term: term, options: { local_only: true }}));
