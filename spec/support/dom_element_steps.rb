@@ -1,4 +1,6 @@
 module DOMElementSteps
+  RESOURCES = %w( receipt delivery recipient user user_role forwarding_address forwarding_label )
+
   def notifications
     find('#notifications')
   end
@@ -23,7 +25,7 @@ module DOMElementSteps
     have_selector :model_element, model_name, options
   end
 
-  %w( receipt delivery recipient user user_role ).each do |model_name|
+  RESOURCES.each do |model_name|
     class_eval <<-METHODS, __FILE__, __LINE__ + 1
       def #{model_name.pluralize}_collection
         model_collection('#{model_name.pluralize}')
