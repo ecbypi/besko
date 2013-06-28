@@ -3,7 +3,8 @@
 
   DS.RESTAdapter.configure('plurals', {
     delivery: 'deliveries',
-    user_role: 'roles'
+    user_role: 'roles',
+    forwarding_address: 'forwarding_addresses'
   });
 
   DS.RESTAdapter.map('Besko.Delivery', {
