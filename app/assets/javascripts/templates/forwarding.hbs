@@ -1,0 +1,60 @@
+{{#unless printing}}
+  <div class="forwarding-recipient-search">
+    {{view Besko.AutocompleteInput labelText="Name"}}
+  </div>
+{{/unless}}
+
+{{printing}}
+
+{{#if tableVisible}}
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Label Count</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody data-collection="users">
+      {{#each controller}}
+        <tr data-resource="user">
+          <td>{{name}}</td>
+          <td>
+            {{street}}
+            <br />
+            {{suffix}}
+          </td>
+          <td>{{input type="number" value=labelCount}}</td>
+          <td><button {{action remove this}}>Remove</button></td>
+        </tr>
+      {{/each}}
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td></td>
+        <td><button {{action togglePrinting}}>Generate Labels</button></td>
+        <td><a {{action clear}} href="javascript:void(0)">Clear</a></td>
+      </tr>
+    </tfoot>
+  </table>
+{{/if}}
+
+{{#if printing}}
+  <a {{action togglePrinting}} href="javascript:void(0)">Cancel</a>
+  <ul class="forwarding-labels" data-collection="forwarding_labels">
+    {{#each address in controller}}
+      {{#each address.labels}}
+        <li class="forwarding-label" data-resource="forwarding_label">
+          {{address.name}}
+          <br />
+          {{address.street}}
+          <br />
+          {{address.suffix}}
+        </li>
+      {{/each}}
+    {{/each}}
+  </ul>
+{{/if}}

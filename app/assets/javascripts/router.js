@@ -14,5 +14,7 @@
 
     this.route('user_roles', { path: '/roles' });
     this.route('user_roles', { path: '/roles/:role' });
+
+    this.route('forwarding', { path: '/mail/forwarding' });
   });
 })();

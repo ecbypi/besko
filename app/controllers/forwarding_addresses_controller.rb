@@ -1,6 +1,11 @@
 class ForwardingAddressesController < ApplicationController
   self.responder = ForwardingAddressResponder
   respond_to :html, only: [:create, :update]
+  respond_to :json, only: :index
+
+  def index
+    respond_with(ForwardingAddress.includes(:user).search(params[:q]))
+  end
 
   def create
     current_user.create_forwarding_address(address_params)

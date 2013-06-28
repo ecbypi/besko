@@ -22,6 +22,11 @@ Besko::Application.routes.draw do
   resources :users, only: [:index, :show, :create]
   resources :recipients, only: [:index, :create]
 
+  scope '/mail' do
+    get 'forwarding' => "mail_forwarding#new"
+  end
+
+  resources :forwarding_addresses, only: :index
   scope '/accounts' do
     resource :address, as: :forwarding_address, controller: :forwarding_addresses, only: [:create, :update] do
       get 'subregions'
