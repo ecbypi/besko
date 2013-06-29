@@ -12,6 +12,10 @@ class Ability
       can :create, Recipient
     end
 
+    if user.mail_forwarder?
+      can :create, :forwarding_label
+    end
+
     if user.admin?
       can :manage, UserRole
       can [:read, :destroy], Delivery

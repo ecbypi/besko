@@ -32,7 +32,8 @@
               = link_to 'Log New Delivery', new_delivery_path
             - if can? :manage, UserRole
               = link_to 'Manage Roles', user_roles_path
-            = link_to 'Mail Forwarding', forwarding_path
+            - if can? :create, :forwarding_label
+              = link_to 'Mail Forwarding', forwarding_path
 
     #wrapper.container
       #notifications.notices.inside

@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_one :forwarding_address
   has_many :previous_addresses
 
-  has_guises :BeskWorker, :Admin, :Resident, :association => :user_roles
+  has_guises :BeskWorker, :Admin, :Resident, :MailForwarder, :association => :user_roles
 
   validates :first_name, :last_name, presence: true
   validates :login, uniqueness: { allow_nil: true, case_sensitive: false }
