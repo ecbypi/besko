@@ -13,6 +13,7 @@ class Ability
     end
 
     if user.mail_forwarder?
+      can :read, ForwardingAddress
       can :create, :forwarding_label
     end
 

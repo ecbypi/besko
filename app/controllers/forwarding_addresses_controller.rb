@@ -3,7 +3,11 @@ class ForwardingAddressesController < ApplicationController
   respond_to :html, only: [:create, :update]
   respond_to :json, only: :index
 
+  before_filter :authenticate_user!
+
   def index
+    authorize! :read, ForwardingAddress
+
     respond_with(ForwardingAddress.includes(:user).search(params[:q]))
   end
 
