@@ -6,10 +6,6 @@
     user_role: 'roles'
   });
 
-  DS.RESTAdapter.configure('Besko.User', {
-    sideloadAs: 'users'
-  });
-
   DS.RESTAdapter.map('Besko.Delivery', {
     receipts: { embedded: 'load' }
   });
