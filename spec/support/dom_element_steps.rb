@@ -39,7 +39,7 @@ module DOMElementSteps
         model_element('#{model_name}', options)
       end
 
-      def have_#{model_name}_element(options)
+      def have_#{model_name}_element(options = {})
         have_model_element('#{model_name}', options)
       end
     METHODS
