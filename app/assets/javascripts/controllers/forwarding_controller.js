@@ -1,3 +1,4 @@
+/*global cookie:true*/
 (function() {
   'use strict';
 
@@ -29,12 +30,24 @@
       }
     },
 
-    togglePrinting: function() {
-      this.toggleProperty('printing');
-    },
-
     clear: function() {
       this.get('content').clear();
-    }
+    },
+
+    togglePrinting: function() {
+      this.toggleProperty('printing');
+
+      var state = { printing: this.get('printing') };
+      cookie.set('forwardingState', JSON.stringify(state));
+    },
+
+    cacheSelectedAddresses: function() {
+      var mappings = {};
+      this.get('content').forEach(function(address) {
+        mappings[address.get('id')] = address.get('labelCount');
+      });
+
+      cookie.set('addresses', JSON.stringify(mappings));
+    }.observes('content.@each.labelCount')
   });
 })();

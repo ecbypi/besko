@@ -1,2 +1,5 @@
 - content_for :title do
   Mail Forwarding
+
+%script#addresses{ type: 'text/json' }
+  #{ @addresses.to_json }

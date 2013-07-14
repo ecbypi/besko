@@ -130,6 +130,63 @@ feature 'Forwarding labels', js: true do
     page.should_not have_user_element
   end
 
+  scenario 'remembers state' do
+    sign_in create(:user, :mail_forwarder)
+
+    visit forwarding_path
+
+    within recipient_search do
+      fill_in 'Name', with: 'crufty'
+      autocomplete_result('Crufty Alumni').click
+    end
+
+    within recipient_search do
+      fill_in 'Name', with: 'dave'
+      autocomplete_result('Dave Student').click
+    end
+
+    within user_element(text: 'Dave Student') do
+      find('input[type=number]').set('2')
+    end
+
+    visit forwarding_path
+
+    page.should have_user_element text: 'Crufty Alumni'
+    page.should have_user_element text: 'Dave Student'
+    'Crufty Alumni'.should appear_before 'Dave Student'
+
+    within user_element(text: 'Dave Student') do
+      find('input[type=number]')['value'].should eq '2'
+    end
+
+    click_button 'Generate Labels'
+    visit forwarding_path
+
+    page.should_not have_user_element
+    page.should have_forwarding_label_element count: 3
+    page.should have_forwarding_label_element count: 2, text: 'Dave Student'
+
+    click_link 'Cancel'
+    visit forwarding_path
+
+    page.should have_user_element count: 2
+    page.should_not have_forwarding_label_element
+
+    within user_element(text: 'Crufty Alumni') do
+      click_button 'Remove'
+    end
+    visit forwarding_path
+
+    page.should_not have_user_element text: 'Crufty Alumni'
+    page.should have_user_element text: 'Dave Student'
+
+    click_link 'Clear'
+    visit forwarding_path
+
+    page.should_not have_user_element text: 'Crufty Alumni'
+    page.should_not have_user_element text: 'Dave Student'
+  end
+
   scenario 'is only accessible to people authorized to forward mail' do
     sign_in create(:user)
 
