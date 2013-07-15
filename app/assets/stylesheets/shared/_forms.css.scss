@@ -30,8 +30,14 @@ $input-margin: 5px 0 10px;
   width: $input-width;
 }
 
-.inline-inputs .input {
-  width: auto;
+.inline-inputs {
+  .input {
+    width: auto;
+
+    label {
+      display: inline-block;
+    }
+  }
 }
 
 .input {
@@ -130,6 +136,15 @@ button, .button {
 
   &.next {
     float: right;
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    @include box-shadow(none);
+
+    &:active {
+      @include linear-gradient(#eee, #ccc);
+    }
   }
 }
 

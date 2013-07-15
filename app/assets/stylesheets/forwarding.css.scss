@@ -1,0 +1,16 @@
+header, h1, .close-forwarding-labels {
+  display: none;
+}
+
+.forwarding-labels {
+  margin: 0 0 0 -5px;
+  padding: 0;
+  list-style: none;
+}
+
+.forwarding-label {
+  border-radius: 3px;
+  padding: 5px;
+  float: left;
+  font-size: 14px;
+}

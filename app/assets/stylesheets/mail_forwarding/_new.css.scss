@@ -1,0 +1,17 @@
+.forwarding-labels {
+  margin: 0 0 0 -5px;
+  padding: 0;
+  list-style: none;
+}
+
+.forwarding-label {
+  $border-width: 1px;
+  $margin: 5px;
+  border: $border-width solid gray;
+  border-radius: 3px;
+  padding: 5px;
+  margin: $margin;
+  float: left;
+  font-size: 14px;
+  width: ($page-width / 3) - (2 * $border-width) - (4 * $margin);
+}

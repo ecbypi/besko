@@ -5,7 +5,7 @@
 {{/unless}}
 
 {{#if tableVisible}}
-  <table>
+  <table class="forwarding-recipients">
     <thead>
       <tr>
         <th>Name</th>
@@ -41,7 +41,7 @@
 {{/if}}
 
 {{#if printing}}
-  <a {{action togglePrinting}} href="javascript:void(0)">Cancel</a>
+  <a {{action togglePrinting}} class="close-forwarding-labels" href="javascript:void(0)">Cancel</a>
   <ul class="forwarding-labels" data-collection="forwarding_labels">
     {{#each address in controller}}
       {{#each address.labels}}

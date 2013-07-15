@@ -35,10 +35,16 @@
     },
 
     togglePrinting: function() {
-      this.toggleProperty('printing');
+      var printing = this.toggleProperty('printing'),
+          state = { printing: printing };
 
-      var state = { printing: this.get('printing') };
       cookie.set('forwardingState', JSON.stringify(state));
+
+      if ( printing) {
+        Ember.run.next(function() {
+          window.print();
+        });
+      }
     },
 
     cacheSelectedAddresses: function() {

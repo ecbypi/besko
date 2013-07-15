@@ -2,10 +2,14 @@
 %html
   %head
     %title Besko | #{ h yield :title }
-    = stylesheet_link_tag    "application"
+
+    = stylesheet_link_tag "application"
+    = yield :styles
+
     = javascript_include_tag "application"
-    = csrf_meta_tags
     = yield :script
+
+    = csrf_meta_tags
     %meta{ name: :robots, content: 'NOINDEX, NOFOLLOW' }
 
   %body{ class: "#{controller.controller_name} #{controller.controller_name}-#{controller.action_name}" }

@@ -1,5 +1,8 @@
 - content_for :title do
   Mail Forwarding
 
+- content_for :styles do
+  = stylesheet_link_tag :forwarding, media: :print
+
 %script#addresses{ type: 'text/json' }
   #{ @addresses.to_json }

@@ -1,3 +1,5 @@
+$page-width: 900px;
+
 * {
   @include box-sizing(border-box);
 }
@@ -7,7 +9,7 @@ body {
 }
 
 .container > .ember-view, .inside {
-  width: 900px;
+  width: $page-width;
   margin: 0 auto;
 }
 
