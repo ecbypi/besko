@@ -48,16 +48,17 @@
       var receipt, recipientIds = this.get('recipientIds');
 
       if ( recipientIds.contains(recipient.get('id')) ) {
-        Besko.error(recipient.get('name') + ' has already been added as a recipient.');
-        return false;
+        receipt = this.get('content').findProperty('user.id', recipient.get('id'));
+        receipt.incrementProperty('numberPackages');
+      } else {
+        receipt = Besko.Receipt.createRecord({
+          user: recipient,
+          numberPackages: 1
+        });
+
+        this.get('content').pushObject(receipt);
       }
 
-      receipt = Besko.Receipt.createRecord({
-        user: recipient,
-        numberPackages: 1
-      });
-
-      this.get('content').pushObject(receipt);
       this.set('autocompleteResults', []);
     },
 

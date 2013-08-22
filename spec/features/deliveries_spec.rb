@@ -104,7 +104,7 @@ feature 'Delivery', js: true do
       notifications.should have_content 'At least one recipient is required.'
     end
 
-    scenario 'prevents users from being added twice' do
+    scenario 'auto-increments number of packages for a user that is added twice' do
       create(:user, first_name: 'Walter', last_name: 'White')
 
       visit new_delivery_path
@@ -117,8 +117,11 @@ feature 'Delivery', js: true do
       fill_in_autocomplete with: 'walt'
       autocomplete_result('Walter White').click
 
-      notifications.should have_content 'Walter White has already been added as a recipient.'
       page.should have_receipt_element text: 'Walter White', count: 1
+
+      within receipt_element(text: 'Walter White') do
+        find('input[type=number]').value.should eq '2'
+      end
     end
 
     scenario 'remembers the recipients that were added' do
@@ -140,8 +143,9 @@ feature 'Delivery', js: true do
       fill_in_autocomplete with: 'mcnu'
       autocomplete_result('Jimmy McNulty').click
 
-      notifications.should have_content 'Jimmy McNulty has already been added as a recipient.'
-      page.should have_receipt_element text: 'Jimmy McNulty', count: 1
+      within receipt_element(text: 'Jimmy McNulty') do
+        find('input[type=number]').value.should eq '2'
+      end
 
       fill_in_autocomplete with: 'more'
       autocomplete_result('William Moreland').click
@@ -172,7 +176,7 @@ feature 'Delivery', js: true do
       page.should_not have_receipt_element text: 'Jimmy McNulty'
     end
 
-    scenario 'allows adding local DB and LDAP records', driver: :chrome do
+    scenario 'allows adding local DB and LDAP records', driver: :selenium do
       create(:user, first_name: 'Jon', last_name: 'Snow')
 
       visit new_delivery_path
@@ -232,7 +236,7 @@ feature 'Delivery', js: true do
       end
     end
 
-    scenario 'by selecting date on calendar', driver: :chrome do
+    scenario 'by selecting date on calendar', driver: :selenium do
       day = Time.zone.local(2010, 10, 30)
       user = create(:mrhalp, :besk_worker)
       create(:delivery, created_at: day, deliverer: 'FedEx', user: user)
