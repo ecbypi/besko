@@ -153,7 +153,7 @@ GEM
     has_scope (0.5.1)
     highline (1.6.11)
     hike (1.2.3)
-    honeybadger (1.6.2)
+    honeybadger (1.11.2)
       json
     http_parser.rb (0.5.3)
     i18n (0.6.9)
@@ -192,7 +192,7 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.6.0.83)
+    newrelic_rpm (3.7.3.204)
     nokogiri (1.5.9)
     oj (2.0.4)
     orderly (0.0.2)
