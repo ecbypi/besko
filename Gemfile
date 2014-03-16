@@ -42,7 +42,7 @@ group :assets do
 end
 
 group :development do
-  gem 'capistrano'
+  gem 'capistrano', '< 3'
   gem 'sextant'
   gem 'foreman'
   gem 'meta_request'
