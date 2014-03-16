@@ -3,12 +3,12 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.16'
 
 gem 'mysql2'
-gem 'devise', '2.2.5'
+gem 'devise'
 gem 'cancan'
 gem 'inherited_resources'
 gem 'simple_form'
 gem 'draper'
-gem 'haml'
+gem 'haml-rails'
 gem 'squeel'
 gem 'guise'
 gem 'active_model_serializers'
@@ -17,14 +17,13 @@ gem 'oj'
 gem 'cocaine'
 gem 'posix-spawn'
 gem 'ldaptic'
-gem 'ember-rails', github: 'emberjs/ember-rails'
+gem 'ember-rails'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'slim'
 gem 'whenever'
 gem 'dalli'
 gem 'strong_parameters'
-gem 'carmen-rails', github: 'ecbypi/carmen-rails', branch: 'pass-form-object'
+gem 'carmen-rails'
 
 group :production, :staging do
   gem 'newrelic_rpm'
@@ -42,7 +41,7 @@ group :assets do
 end
 
 group :development do
-  gem 'capistrano'
+  gem 'capistrano', '< 3'
   gem 'sextant'
   gem 'foreman'
   gem 'meta_request'

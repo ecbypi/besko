@@ -1,5 +1,5 @@
 class UserRole < ActiveRecord::Base
-  guise_for :user
+  guise_for :User
 
   validates :user_id, presence: true
 
