@@ -23,7 +23,7 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'whenever'
 gem 'dalli'
 gem 'strong_parameters'
-gem 'carmen-rails', github: 'ecbypi/carmen-rails', branch: 'pass-form-object'
+gem 'carmen-rails'
 
 group :production, :staging do
   gem 'newrelic_rpm'
