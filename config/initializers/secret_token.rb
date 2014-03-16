@@ -5,3 +5,4 @@
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 Besko::Application.config.secret_token = ENV['SECRET_TOKEN'] || '8763c22ff834e68dfd910c33ab40468aa37481b9c24cd8a754b6f37a19f281f33d31093cdcf7a0296642d444a9ff5b67f4e3ff31ce965d060e710dc47240a81b'
+Besko::Application.config.secret_key_base = ENV['SECRET_KEY_BASE'] || '6fefca4d3c79349f57f738b369ee8b702b0e13df31c9b169a362224f9920532c11050edfb8e874de0102cc77498c67f7fb7aec322ca6cde355da6beefc275ed6'

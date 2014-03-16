@@ -59,4 +59,6 @@ Besko::Application.configure do
   config.active_support.deprecation = :notify
 
   config.ember.variant = :production
+
+  config.eager_load = true
 end
