@@ -10,3 +10,6 @@ test:
   database: besko_test
   host: localhost
   encoding: utf8
+  <% if ENV['TRAVIS'] %>
+  username: travis
+  <% end %>
