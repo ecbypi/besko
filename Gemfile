@@ -17,7 +17,7 @@ gem 'oj'
 gem 'cocaine'
 gem 'posix-spawn'
 gem 'ldaptic'
-gem 'ember-rails', github: 'emberjs/ember-rails'
+gem 'ember-rails'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'whenever'
