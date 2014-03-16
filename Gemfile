@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.16'
 
 gem 'mysql2'
-gem 'devise', '2.2.5'
+gem 'devise'
 gem 'cancan'
 gem 'inherited_resources'
 gem 'simple_form'

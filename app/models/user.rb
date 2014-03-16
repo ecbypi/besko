@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
          :validatable,
          :lockable,
          :timeoutable,
-         :token_authenticatable,
-         :confirmable
+         :confirmable,
+         reconfirmable: false
 
   has_many :receipts
   has_many :deliveries
@@ -74,9 +74,7 @@ class User < ActiveRecord::Base
   end
 
   def assign_password
-    self.password = self.password_confirmation = self.class.send(:generate_token, 'encrypted_password')
-
-    self.password.slice!(13 - rand(5)..password.length)
+    self.password = self.password_confirmation = Devise.friendly_token
 
     self
   end

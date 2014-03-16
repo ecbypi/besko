@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'Password resets' do
   include EmailSpec::Matchers
   include EmailSpec::Helpers
+  include ExtractDeviseTokenFromEmail
 
   scenario 'can be done from the login page' do
     user = create(:user, email: 'forgetful@mit.edu')
@@ -14,13 +15,15 @@ feature 'Password resets' do
     fill_in 'Email', with: 'forgetful@mit.edu'
     click_button 'Send Reset Email'
 
-    notifications.should have_content 'You will receive an email with instructions about how to reset your password in a few minutes.'
+    notifications.should have_content I18n.t('devise.passwords.send_instructions')
 
     last_email.should be_delivered_to 'forgetful@mit.edu'
 
-    user = user.reload
+    user.reload
 
-    visit edit_user_password_path(reset_password_token: user.reset_password_token)
+    token = extract_devise_token_from_email(last_email)
+
+    visit edit_user_password_path(reset_password_token: token)
 
     fill_in 'New Password', with: 'password'
     fill_in 'Confirm Password', with: 'password'

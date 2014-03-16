@@ -14,7 +14,7 @@ feature 'Sessions' do
     click_button 'Sign In'
 
     current_path.should eq new_user_session_path
-    notifications.should have_content 'Your account needs to be confirmed before signing in.'
+    notifications.should have_content I18n.t('devise.failure.unconfirmed')
 
     fill_in 'Email', with: approved.email
     fill_in 'Password', with: 'bad'
