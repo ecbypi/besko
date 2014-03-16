@@ -4,11 +4,8 @@
 
 //= require underscore
 
-//= require handlebars
-//= require ember
-//= require ember-data
-
-//= require besko
-
+//= require date
 //= require spin
 //= require cookie
+
+//= require besko
