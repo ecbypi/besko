@@ -6,3 +6,5 @@ tmp/
 **.sw[a-z]
 rerun.txt
 .env
+backup-data
+backup.sql
