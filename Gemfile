@@ -20,7 +20,6 @@ gem 'ldaptic'
 gem 'ember-rails', github: 'emberjs/ember-rails'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'slim'
 gem 'whenever'
 gem 'dalli'
 gem 'strong_parameters'
