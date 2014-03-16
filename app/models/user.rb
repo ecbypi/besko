@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
          :validatable,
          :lockable,
          :timeoutable,
-         :token_authenticatable,
-         :confirmable
+         :confirmable,
+         reconfirmable: false
 
   has_many :receipts
   has_many :deliveries
@@ -24,10 +24,18 @@ class User < ActiveRecord::Base
   has_one :forwarding_address
   has_many :previous_addresses
 
-  has_guises :BeskWorker, :Admin, :Resident, :association => :user_roles
+  has_guises :BeskWorker, :Admin, :Resident, association: :user_roles, attribute: :title
 
   validates :first_name, :last_name, presence: true
   validates :login, uniqueness: { allow_nil: true, case_sensitive: false }
+
+  def self.guise_options
+    Guise.registry[self.table_name.classify]
+  end
+
+  def self.guises
+    guise_options[:names]
+  end
 
   def self.guise_titles
     guises.map { |title| [title.titleize, title] }
@@ -74,9 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def assign_password
-    self.password = self.password_confirmation = self.class.send(:generate_token, 'encrypted_password')
-
-    self.password.slice!(13 - rand(5)..password.length)
+    self.password = self.password_confirmation = Devise.friendly_token
 
     self
   end

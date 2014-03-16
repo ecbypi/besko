@@ -7,20 +7,20 @@ feature 'Sidekiq admin dashboard' do
     sign_in
     visit sidekiq_web_path
 
-    page.should_not have_content 'Sidekiq'
+    page.driver.response.should_not be_successful
 
     visit root_path
     click_link 'Logout'
     sign_in create(:user, :besk_worker)
     visit sidekiq_web_path
 
-    page.should_not have_content 'Sidekiq'
+    page.driver.response.should_not be_successful
 
     visit root_path
     click_link 'Logout'
     sign_in create(:user, :admin)
     visit sidekiq_web_path
 
-    page.should have_content 'Sidekiq'
+    page.driver.response.should be_successful
   end
 end
