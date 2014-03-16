@@ -24,10 +24,18 @@ class User < ActiveRecord::Base
   has_one :forwarding_address
   has_many :previous_addresses
 
-  has_guises :BeskWorker, :Admin, :Resident, :association => :user_roles
+  has_guises :BeskWorker, :Admin, :Resident, association: :user_roles, attribute: :title
 
   validates :first_name, :last_name, presence: true
   validates :login, uniqueness: { allow_nil: true, case_sensitive: false }
+
+  def self.guise_options
+    Guise.registry[self.table_name.classify]
+  end
+
+  def self.guises
+    guise_options[:names]
+  end
 
   def self.guise_titles
     guises.map { |title| [title.titleize, title] }
