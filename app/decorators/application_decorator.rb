@@ -1,7 +1,7 @@
 class ApplicationDecorator < Draper::Decorator
 
   def format_timestamp(column)
-    source.send(column).strftime(time_format)
+    object.send(column).strftime(time_format)
   end
 
   private
