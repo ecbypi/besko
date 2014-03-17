@@ -31,8 +31,7 @@ Besko::Application.routes.draw do
   resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :create, :destroy]
   get '/roles/:title' => "user_roles#index"
 
-  sidekiq_constraint = lambda { |request| request.env['warden'].authenticate? && request.env['warden'].user.admin? }
-  constraints sidekiq_constraint do
+  authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/admin/sidekiq'
   end
 end
