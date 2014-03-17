@@ -1,17 +1,4 @@
 en:
-  unauthorized:
-    create:
-      delivery: "Only besk workers can log deliveries."
-    read:
-      delivery: "Only besk workers can review deliveries."
-
-  flash:
-    forwarding_addresses:
-      create: &forwarding_address
-        notice: 'Updated forwarding address.'
-      update:
-        <<: *forwarding_address
-
   receipts:
     index:
       empty: 'You have not received any packages'

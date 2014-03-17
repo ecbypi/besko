@@ -1,0 +1,6 @@
+en:
+  unauthorized:
+    create:
+      delivery: "Only besk workers can log deliveries."
+    read:
+      delivery: "Only besk workers can review deliveries."
