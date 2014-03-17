@@ -5,3 +5,6 @@ en:
         notice: 'Updated forwarding address.'
       update:
         <<: *forwarding_address
+    receipts:
+      update:
+        notice: 'Package Signed Out.'
