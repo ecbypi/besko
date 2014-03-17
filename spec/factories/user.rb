@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :unapproved_user, class: 'User' do
+  factory :user do
     first_name "First"
     last_name "Last Name"
     sequence(:login) { |n| "bexley#{n}" }
@@ -8,15 +8,17 @@ FactoryGirl.define do
     password_confirmation "password"
     street "77 Mass Ave"
 
+    confirmed_at 1.month.ago
+
+    trait :unconfirmed do
+      confirmed_at nil
+    end
+
     trait :forwarding_account do
       forwarding_account true
       password nil
       password_confirmation nil
     end
-  end
-
-  factory :user, parent: :unapproved_user do
-    confirmed_at 1.month.ago
 
     factory :mrhalp do
       first_name 'Micro'
@@ -35,16 +37,24 @@ FactoryGirl.define do
     end
 
     User.guises.each do |guise|
-      trait guise.to_s.underscore.to_sym do
+      trait_name = guise.underscore.to_sym
+      trait trait_name do
         after(:create) do |user, proxy|
-          FactoryGirl.create(:user_role, title: guise.to_s, user: user)
+          create(:user_role, trait_name, user: user)
         end
       end
     end
   end
 
   factory :user_role do
-    title 'BeskWorker'
-    association :user
+    title { User.guises.sample }
+    user
+
+    User.guises.each do |guise|
+      trait_name = guise.underscore.to_sym
+      trait trait_name do
+        title guise
+      end
+    end
   end
 end

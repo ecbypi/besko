@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Sessions' do
   scenario 'are allowed for approved users' do
     approved = create(:user)
-    unapproved = create(:unapproved_user)
+    unapproved = create(:user, :unconfirmed)
 
     visit root_path
 

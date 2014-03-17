@@ -19,7 +19,7 @@ describe Delivery do
 
   it "confirms all users" do
     delivery = build(:delivery)
-    user     = create(:unapproved_user)
+    user     = create(:user, :unconfirmed)
     receipt  = attributes_for(:receipt, user_id: user.id)
 
     delivery.receipts_attributes = [receipt]
