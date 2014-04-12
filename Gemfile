@@ -35,6 +35,8 @@ gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', '>= 1.3.0'
 gem 'bourbon'
 gem 'therubyracer', require: 'v8' # for precompiling assets
+gem 'backbone-support', github: 'ecbypi/backbone-support'
+gem 'js-routes'
 
 group :development do
   gem 'capistrano', '< 3'

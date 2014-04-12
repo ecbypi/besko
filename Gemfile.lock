@@ -5,6 +5,12 @@ GIT
     jasminerice (0.1.0)
       coffee-rails
 
+GIT
+  remote: git://github.com/ecbypi/backbone-support.git
+  revision: d44e180a90b8a34af98ddd5c9946416de5be3c9a
+  specs:
+    backbone-support (0.4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -145,6 +151,8 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    js-routes (0.9.4)
+      rails (>= 3.2)
     json (1.8.1)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
@@ -323,6 +331,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  backbone-support!
   better_errors
   binding_of_caller
   bourbon
@@ -346,6 +355,7 @@ DEPENDENCIES
   inherited_resources
   jasminerice!
   jquery-rails
+  js-routes
   kaminari
   launchy
   ldaptic
