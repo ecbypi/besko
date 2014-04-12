@@ -53,6 +53,7 @@ group :development, :test do
   gem 'jasminerice', github: 'bradphelan/jasminerice'
   gem 'fuubar'
   gem 'pry-remote'
+  gem 'quiet_assets'
 end
 
 group :test do
