@@ -1,6 +1,6 @@
 development:
   adapter: mysql2
-  database: besko_development
+  database: besko
   host: localhost
   encoding: utf8
   pool: 30
