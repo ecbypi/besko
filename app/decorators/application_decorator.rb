@@ -1,4 +1,5 @@
 class ApplicationDecorator < Draper::Decorator
+  delegate_all
 
   def format_timestamp(column)
     object.send(column).strftime(time_format)
