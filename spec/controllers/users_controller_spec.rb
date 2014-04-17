@@ -3,14 +3,6 @@ require 'spec_helper'
 describe UsersController do
   include Devise::TestHelpers
 
-  def json_body
-    @json_body ||= JSON.parse(response.body)
-  end
-
-  def users
-    json_body['users']
-  end
-
   describe "GET index.json" do
     let(:user) { create(:user) }
 
@@ -45,6 +37,7 @@ describe UsersController do
 
       get :index, format: :json, term: 'micro helpline'
 
+      users = JSON.parse(response.body)
       users.size.should eq 1
     end
   end
@@ -62,8 +55,8 @@ describe UsersController do
     it "returns the persisted user information" do
       post :create, format: :json, user: attributes
 
-      json_body.should have_key 'user'
-      json_body['user'].should have_key 'id'
+      user = JSON.parse(response.body)
+      user.should have_key 'id'
     end
   end
 end
