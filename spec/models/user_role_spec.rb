@@ -10,7 +10,7 @@ describe UserRole do
   it { should validate_presence_of(:user_id) }
 
   describe ".with_title" do
-    let!(:besk_worker) { create(:user_role) }
+    let!(:besk_worker) { create(:user_role, title: 'BeskWorker') }
     let!(:admin) { create(:user_role, title: 'Admin') }
 
     it "selects role objects in reverse order of creation" do
