@@ -8,7 +8,10 @@ body {
 
 .container > .ember-view, .inside {
   width: 900px;
-  margin: 0 auto;
+  margin: {
+    left: auto;
+    right: auto;
+  }
 }
 
 .header {
