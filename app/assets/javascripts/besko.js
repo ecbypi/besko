@@ -12,4 +12,9 @@
   window.Besko = {
     Views: {}
   };
+
+  $(function() {
+    new Besko.Router();
+    Backbone.history.start({ pushState: true, hashChange: false });
+  });
 })();

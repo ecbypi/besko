@@ -17,58 +17,88 @@ feature 'Delivery', js: true do
       receipts = []
       receipts << attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
       receipts << attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
-      delivery = create(:delivery, user: mrhalp, deliverer: 'LaserShip', receipts_attributes: receipts)
+      delivery = create(
+        :delivery,
+        user: mrhalp,
+        deliverer: 'LaserShip',
+        created_at: Time.zone.local(2011, 11, 11, 15, 12, 9),
+        receipts_attributes: receipts
+      )
 
-      visit deliveries_path
+      visit deliveries_path(date: '2011-11-11')
 
       within delivery_element(text: 'LaserShip') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        page.should have_content delivery.created_at.strftime('%r')
+        page.should have_content '03:12:09 pm'
         page.should have_content '3457'
         page.should_not have_button 'Delete'
       end
 
       within delivery_element(text: 'LaserShip') do
-        find('td', text: 'LaserShip').click
+        click_link 'Details'
       end
 
+      current_path.should eq delivery_path(delivery)
+
       within delivery_element(text: 'LaserShip') do
-        page.should have_content /Total\s?3457/
-        page.should have_content /Ms Helpline\s?3455/
-        page.should have_content /Micro Helpline\s?2/
+        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        page.should have_content 'Delivered On Friday, November 11, 2011'
+        page.should have_content 'Total Packages 3457'
+      end
+
+      within receipt_element(text: 'Ms Helpline') do
+        page.should have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
+        page.should have_content '3455'
+      end
+
+      within receipt_element(text: 'Micro Helpline') do
+        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        page.should have_content '2'
       end
     end
 
     scenario 'allows sorting by time of day received, remembering sorting across page refresh' do
-      create(:delivery, deliverer: 'UPS')
+      Timecop.travel(5.minutes.ago) do
+        create(:delivery, deliverer: 'UPS')
+      end
       create(:delivery, deliverer: 'LaserShip')
 
       visit deliveries_path
 
-      deliveries_collection.synchronize do
-        'LaserShip'.should appear_before 'UPS'
-      end
+      'LaserShip'.should appear_before 'UPS'
 
       within deliveries_collection do
         click_link 'Delivered At'
       end
 
+      sleep 1
+      'UPS'.should appear_before 'LaserShip'
+
+      visit current_url
+
       'UPS'.should appear_before 'LaserShip'
 
       visit deliveries_path
 
-      deliveries_collection.synchronize do
-        'UPS'.should appear_before 'LaserShip'
-      end
+      current_url.should include 'sort=oldest'
+      'UPS'.should appear_before 'LaserShip'
+      # hacky way to ensure the sort arrow is pointing the right way
+      page.should have_css '.sort-column.up'
     end
 
     scenario 'allows deletion by admins' do
+      create(:delivery, deliverer: 'FedEx', user: create(:mrhalp))
+      create(:delivery, deliverer: 'FedEx', user: create(:mshalp))
+
+      visit deliveries_path
+
+      within deliveries_collection do
+        page.should_not have_button 'Delete'
+      end
+
       click_link 'Logout'
 
       sign_in create(:user, :admin)
-
-      create(:delivery, deliverer: 'FedEx', user: create(:mrhalp))
-      create(:delivery, deliverer: 'FedEx', user: create(:mshalp))
 
       visit deliveries_path
 
@@ -79,6 +109,7 @@ feature 'Delivery', js: true do
       end
 
       page.should have_delivery_element text: 'FedEx', count: 1
+      current_url.should include deliveries_path(date: Time.zone.now.to_date, sort: 'newest')
     end
   end
 
@@ -203,7 +234,7 @@ feature 'Delivery', js: true do
 
       page.should have_content 'Notifications Sent'
       last_email.should be_delivered_to 'mrhalp@mit.edu'
-      current_path.should match /\/deliveries\/\d{4}-\d{2}-\d{2}/
+      current_path.should include deliveries_path(date: Time.zone.now.to_date)
 
       within delivery_element('UPS') do
         find('td', text: 'UPS').click
@@ -223,20 +254,22 @@ feature 'Delivery', js: true do
 
       visit deliveries_path
 
-      click_button 'Previous Day'
+      click_link 'Previous Day'
 
       within delivery_element(text: 'UPS') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       end
 
-      2.times { click_button 'Next Day' }
+      click_link 'Next Day'
+      sleep 1
+      click_link 'Next Day'
 
       within delivery_element(text: 'USPS') do
         page.should have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
       end
     end
 
-    scenario 'by selecting date on calendar', driver: :selenium do
+    scenario 'by selecting date on calendar' do
       day = Time.zone.local(2010, 10, 30)
       user = create(:mrhalp, :besk_worker)
       create(:delivery, created_at: day, deliverer: 'FedEx', user: user)
@@ -248,16 +281,16 @@ feature 'Delivery', js: true do
       within 'div#ui-datepicker-div' do
         find('select.ui-datepicker-year option', text: day.year.to_s).select_option
         find('select.ui-datepicker-month option', text: day.strftime('%b')).select_option
-        find('a.ui-state-default', text: day.day.to_s).click
+        find('a.ui-state-default:not(.ui-priority-secondary)', text: day.day.to_s).click
       end
 
-      current_path.should match /\/deliveries\/2010-10-30/
+      current_url.should include deliveries_path(date: '2010-10-30', sort: 'newest')
 
       within delivery_element(text: 'FedEx') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       end
 
-      visit current_path
+      visit current_url
 
       within delivery_element(text: 'FedEx') do
         page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'

@@ -8,7 +8,7 @@
     = yield :script
     %meta{ name: :robots, content: 'NOINDEX, NOFOLLOW' }
 
-  %body{ class: "#{controller.controller_name} #{controller.controller_name}-#{controller.action_name}" }
+  %body{ class: body_css_class }
     %header.header
       %nav.navigation.inside
         %ul.nav-group.session-nav

@@ -1,0 +1,9 @@
+- cache receipt do
+  %tr{ data: { resource: :receipt } }
+    %td.receipt-recipient= mail_to receipt.user.email, receipt.user.name
+    %td.receipt-package-count= receipt.number_packages
+    %td.actions
+      - if receipt.signed_out?
+        Picked Up
+      - else
+        = button_to 'Sign Out', receipt, class: 'button'

@@ -13,3 +13,6 @@ en:
       delivered_at: 'At:'
       comment: 'Notes:'
       sign_out: 'Sign Out'
+  deliveries:
+    delivery:
+      confirm_deletion: 'Delete delivery from %{deliverer} received by %{worker}?'

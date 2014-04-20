@@ -17,7 +17,7 @@ Besko::Application.routes.draw do
   root :to => 'home#index'
 
   resources :receipts, only: [:update, :index, :new]
-  resources :deliveries, only: [:index, :new, :create, :destroy]
+  resources :deliveries, only: [:index, :show, :new, :create, :destroy]
   resources :users, only: [:index, :show, :create]
   resources :recipients, only: [:index, :create]
 
