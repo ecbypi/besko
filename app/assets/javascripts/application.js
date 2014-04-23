@@ -12,6 +12,6 @@
 
 //= require date
 //= require spin
-//= require cookie
+//= require cookies
 
 //= require besko
