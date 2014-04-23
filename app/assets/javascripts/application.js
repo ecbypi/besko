@@ -1,5 +1,5 @@
-//= require jquery.min
-//= require jquery-ui.min
+//= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 
 //= require underscore
