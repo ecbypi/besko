@@ -3,11 +3,7 @@ class DeliveriesController < InheritedResources::Base
 
   authorize_resource
 
-
-  def new
-    ids = (cookies['recipients'] || '').split(',')
-    @recipients = ActiveModel::ArraySerializer.new(User.find(ids))
-  end
+  helper_method :receipts
 
   def create
     delivery = current_user.deliveries.create(delivery_params)
@@ -16,6 +12,8 @@ class DeliveriesController < InheritedResources::Base
       delivery.receipt_ids.each do |receipt_id|
         Mailer.delay.package_confirmation(receipt_id)
       end
+
+      cookies.delete(:delivery_recipients)
     end
 
     respond_with(delivery)
@@ -28,6 +26,15 @@ class DeliveriesController < InheritedResources::Base
   end
 
   private
+
+  def receipts
+    @receipts ||= begin
+      ids = cookies.fetch(:delivery_recipients, '').split(',')
+
+      users = User.where(id: ids)
+      users.map { |user| Receipt.new(user: user) }
+    end
+  end
 
   def resource
     @delivery ||= super.decorate

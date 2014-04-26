@@ -1,7 +1,14 @@
 class ReceiptsController < InheritedResources::Base
+  layout :determine_layout
+
   respond_to :html, :js, :json
 
   authorize_resource
+
+  def new
+    user = User.find(params[:user_id])
+    @receipt = Receipt.new(user: user)
+  end
 
   private
 
@@ -20,5 +27,9 @@ class ReceiptsController < InheritedResources::Base
       receipts = receipts.page(params[:page]).per(10)
       PaginatingDecorator.decorate(receipts)
     end
+  end
+
+  def determine_layout
+    params[:action] == 'new' ? false : 'application'
   end
 end

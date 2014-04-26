@@ -4,6 +4,7 @@
   Besko.Router = Backbone.Router.extend({
 
     routes: {
+      'deliveries/new' : 'newDelivery',
       'deliveries(?:params)' : 'deliverySearch'
     },
 
@@ -16,6 +17,15 @@
       });
 
       search.render();
+    },
+
+    newDelivery: function() {
+      var deliveryForm = new Besko.Views.DeliveryForm({
+        el: $('#new-delivery'),
+        collection: new Besko.Collections.Recipients()
+      });
+
+      deliveryForm.render();
     }
   });
 })();

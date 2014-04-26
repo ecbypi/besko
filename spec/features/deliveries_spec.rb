@@ -129,7 +129,7 @@ feature 'Delivery', js: true do
 
       notifications.should have_content 'A deliverer is required to log a delivery.'
 
-      select 'UPS', from: 'deliverer'
+      select 'UPS', from: 'Delivery Company'
       click_button 'Send Notifications'
 
       notifications.should have_content 'At least one recipient is required.'
@@ -190,7 +190,7 @@ feature 'Delivery', js: true do
 
       # Ensure individual recipients will be removed on page refresh
       within receipt_element(text: 'Jimmy McNulty') do
-        click_button 'Remove'
+        click_link 'Remove'
       end
 
       visit new_delivery_path
@@ -207,7 +207,7 @@ feature 'Delivery', js: true do
       page.should_not have_receipt_element text: 'Jimmy McNulty'
     end
 
-    scenario 'allows adding local DB and LDAP records', driver: :selenium do
+    scenario 'allows adding local DB and LDAP records' do
       create(:user, first_name: 'Jon', last_name: 'Snow')
 
       visit new_delivery_path
@@ -229,19 +229,15 @@ feature 'Delivery', js: true do
       # Ensures user is created
       User.last.email.should eq 'mrhalp@mit.edu'
 
-      select 'UPS', from: 'deliverer'
+      select 'UPS', from: 'Delivery Company'
       click_button 'Send Notifications'
 
       page.should have_content 'Notifications Sent'
       last_email.should be_delivered_to 'mrhalp@mit.edu'
-      current_path.should include deliveries_path(date: Time.zone.now.to_date)
 
-      within delivery_element('UPS') do
-        find('td', text: 'UPS').click
-
-        page.should have_content 'Jon Snow 1'
-        page.should have_content 'Micro Helpline 2'
-      end
+      current_path.should eq delivery_path(Delivery.last!)
+      page.should have_content 'Jon Snow 1'
+      page.should have_content 'Micro Helpline 2'
     end
   end
 

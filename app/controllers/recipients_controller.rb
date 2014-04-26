@@ -7,7 +7,7 @@ class RecipientsController < UsersController
     recipient.assign_password.skip_confirmation_email!
     recipient.save
 
-    respond_with(recipient, root: :recipient, location: user_url(recipient))
+    respond_with(recipient, location: user_url(recipient))
   end
 
   private
