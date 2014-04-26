@@ -15,35 +15,33 @@ body {
   background: #eee;
   border-bottom: 2px solid #ccc;
 
-  #logo {
-    padding-top: 2px;
-    background: image-url('logo.png') no-repeat;
-    width: 400px;
-    height: 80px;
-  }
-
-  #session {
-    padding-top: 10px;
-    float: right;
-  }
-}
-
-.header, .primary-nav {
   a, a:visited {
     color: #000;
   }
 }
 
-.primary-nav {
-  padding: 8px 0;
+.navigation {
+  padding: 12px 0;
+}
 
-  a {
-    padding: 0 10px;
-    border-left: 2px solid #ccc;
-    position: relative;
+.nav-group {
+  margin: 0;
+  padding: 0;
+}
 
-    &:first-child {
-      border: none;
-    }
+.nav-group-item {
+  padding: 0 10px;
+  border-left: 2px solid #ccc;
+  display: inline-block;
+  position: relative;
+  text-indent: 2px;
+
+  &:first-child {
+    border: none;
+    text-indent: 0px;
   }
+}
+
+.session-nav {
+  float: right;
 }
