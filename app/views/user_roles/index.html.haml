@@ -1,5 +1,0 @@
-- content_for :title do
-  Role Management
-
-%script#roles{ type: 'text/json' }
-  #{ User.guises.map { |guise| { label: guise.titleize, value: guise } }.to_json }

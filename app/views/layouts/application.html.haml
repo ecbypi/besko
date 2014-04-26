@@ -34,9 +34,6 @@
             - if can? :create, Delivery
               %li.nav-group-item
                 = link_to 'Log New Delivery', new_delivery_path
-            - if can? :manage, UserRole
-              %li.nav-group-item
-                = link_to 'Manage Roles', user_roles_path
 
     #wrapper.container
       #notifications.notices.inside

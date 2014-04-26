@@ -27,8 +27,6 @@ Besko::Application.routes.draw do
     end
   end
 
-  resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :create, :destroy]
-
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/admin/sidekiq'
   end
