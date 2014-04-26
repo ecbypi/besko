@@ -22,7 +22,7 @@ class Delivery < ActiveRecord::Base
   accepts_nested_attributes_for :receipts
 
   before_create do
-    self.delivered_on = Date.today unless self.delivered_on
+    self.delivered_on ||= Time.zone.now.to_date
   end
 
   after_create do
