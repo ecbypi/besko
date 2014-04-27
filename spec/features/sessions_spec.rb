@@ -27,7 +27,7 @@ feature 'Sessions' do
     fill_in 'Password', with: approved.password
     click_button 'Sign In'
 
-    current_path.should eq root_path
+    current_path.should eq receipts_path
     notifications.should have_content 'Signed in successfully.'
   end
 

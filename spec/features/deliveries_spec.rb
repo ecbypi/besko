@@ -300,12 +300,12 @@ feature 'Delivery', js: true do
 
     visit new_delivery_path
 
-    current_path.should eq root_path
+    current_path.should eq receipts_path
     navigation.should_not have_link 'Log New Delivery', href: new_delivery_path
 
     visit deliveries_path
 
-    current_path.should eq root_path
+    current_path.should eq receipts_path
     navigation.should_not have_link 'Deliveries', href: deliveries_path
   end
 end

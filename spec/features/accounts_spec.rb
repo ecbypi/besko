@@ -23,7 +23,7 @@ feature 'Accounts can be edited' do
     fill_in 'Password', with: 'sekr1t'
     click_button 'Sign In'
 
-    current_path.should eq root_path
+    current_path.should eq receipts_path
     page.should have_content 'Signed in successfully.'
   end
 

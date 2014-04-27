@@ -14,12 +14,17 @@ Besko::Application.routes.draw do
       registrations: 'registrations'
     },
     skip: %w( registrations )
+
+  authenticated :user do
+    root to: redirect('/receipts')
+  end
+
   devise_scope :user do
+    root to: 'devise/sessions#new', as: :unauthenticated_root
+
     get '/accounts/edit' => 'registrations#edit', as: :edit_user_registration
     patch '/accounts' => 'registrations#update', as: :user_registration
   end
-
-  root :to => 'home#index'
 
   resources :receipts, only: [:update, :index, :new]
   resources :deliveries, only: [:index, :show, :new, :create, :destroy]

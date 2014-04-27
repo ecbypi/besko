@@ -29,7 +29,7 @@ feature 'Password resets' do
     fill_in 'Confirm Password', with: 'password'
     click_button 'Change Password'
 
-    current_path.should eq root_path
+    current_path.should eq receipts_path
 
     notifications.should have_content 'Your password was changed successfully. You are now signed in.'
   end
