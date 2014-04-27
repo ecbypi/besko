@@ -7,7 +7,6 @@
 @import 'shared/notifications';
 @import 'shared/forms';
 @import 'shared/elements';
-@import 'shared/user_autocomplete';
 @import 'shared/pagination';
 @import 'shared/actionable';
 
@@ -23,6 +22,7 @@
 // Deliveries
 @import 'deliveries/index';
 @import 'deliveries/new';
+@import 'deliveries/show';
 
 // Roles
 @import 'user_roles/index';

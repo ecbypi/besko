@@ -35,10 +35,6 @@ describe Ability do
     let(:admin) { create(:user, :admin) }
     let(:ability) { Ability.new(admin) }
 
-    it "can manage user roles" do
-      ability.should be_able_to(:manage, UserRole)
-    end
-
     it 'can review and delete deliveries' do
       ability.should be_able_to(:read, Delivery)
       ability.should be_able_to(:destroy, Delivery)

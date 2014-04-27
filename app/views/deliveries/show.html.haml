@@ -1,0 +1,28 @@
+- content_for :title do
+  Delivery Details
+
+= link_to 'Back to Deliveries', deliveries_path(date: resource.delivered_on), data: { pjax: true }
+
+.clear
+
+%dl.delivery-details{ data: { resource: :delivery } }
+  %dt Delivered By
+  %dd= resource.deliverer
+
+  %dt Received By
+  %dd= mail_to resource.user.email, resource.user.name
+
+  %dt Delivered On
+  %dd= resource.formatted_delivered_on
+
+  %dt Total Packages
+  %dd= resource.package_count
+
+
+%table.receipts-listing{ data: { collection: :receipts } }
+  %thead
+    %tr
+      %th.receipt-recipient Recipient
+      %th.receipt-package-count Package Count
+      %th.actions
+  %tbody= render partial: 'receipt', collection: resource.receipts

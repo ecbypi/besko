@@ -1,0 +1,32 @@
+.delivery-details {
+  width: 40%;
+  float: left;
+
+  dt {
+    float: left;
+    clear: both;
+    width: 130px;
+  }
+
+  dt, dd {
+    margin-bottom: 5px;
+  }
+}
+
+.receipts-listing {
+  width: 50%;
+  float: right;
+
+  .receipt-recipient {
+    width: 50%;
+  }
+
+  .receipt-package-count {
+    width: 30%;
+    text-align: center;
+  }
+
+  .actions {
+    width: 20%;
+  }
+}

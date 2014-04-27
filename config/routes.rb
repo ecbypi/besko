@@ -12,13 +12,17 @@ Besko::Application.routes.draw do
     controllers: {
       passwords: 'passwords',
       registrations: 'registrations'
-    }
+    },
+    skip: %w( registrations )
+  devise_scope :user do
+    get '/accounts/edit' => 'registrations#edit', as: :edit_user_registration
+    patch '/accounts' => 'registrations#update', as: :user_registration
+  end
 
   root :to => 'home#index'
 
   resources :receipts, only: [:update, :index, :new]
-  resources :deliveries, only: [:index, :new, :create, :destroy]
-  get '/deliveries/:date' => "deliveries#index"
+  resources :deliveries, only: [:index, :show, :new, :create, :destroy]
   resources :users, only: [:index, :show, :create]
   resources :recipients, only: [:index, :create]
 
@@ -27,9 +31,6 @@ Besko::Application.routes.draw do
       get 'subregions'
     end
   end
-
-  resources :roles, controller: :user_roles, as: :user_roles, only: [:index, :create, :destroy]
-  get '/roles/:title' => "user_roles#index"
 
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/admin/sidekiq'

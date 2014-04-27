@@ -1,8 +1,29 @@
 - content_for :title do
   Deliveries
 
-%script#deliverers{ type: 'text/json' }
-  #{ Delivery::Deliverers.to_json }
+= simple_form_for resource, html: { id: 'new-delivery', class: 'new-delivery' } do |f|
+  .inputs.inline-inputs
+    = f.input :deliverer, as: :select, collection: Delivery::Deliverers
 
-%script#recipients{ type: 'text/json' }
-  #{ @recipients.to_json }
+    .input.search.autocomplete-search{ data: { recipient_search: true } }
+      = label_tag 'autocomplete-search', 'Recipient'
+      = text_field_tag 'autocomplete-search', nil, autofocus: true, class: 'autocomplete-input'
+      %span.autocomplete-close.close{ data: { clear_results: true } }
+      .loading.autocomplete-fetching{ data: { loading: true } }
+      %ul.autocomplete-results{ data: { collection: :users } }
+
+  %table.receipts{ class: receipts.any? ? 'open' :  '' }
+    %thead
+      %tr
+        %th Recipient
+        %th Number of packages
+        %th Comment
+        %th
+    %tbody{ data: { collection: :receipts } }
+      = render partial: 'receipts/form', collection: receipts, as: :receipt
+    %tfoot
+      %tr
+        %td
+        %td= f.button :submit
+        %td= link_to 'Cancel', '#', data: { reset: true }
+        %td

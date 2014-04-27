@@ -1,12 +1,12 @@
 .current-date {
   position: relative;
 
-  .ui-datepicker-trigger {
+  .open-calendar {
     position: absolute;
     left: 0;
   }
 
-  .hasDatepicker {
+  input {
     margin-left: 80px;
     padding: 0;
     font-weight: 700;
@@ -18,8 +18,25 @@
   }
 }
 
+.delivery-pagination {
+  height: 35px;
+  position: relative;
+
+  .button {
+    position: absolute;
+  }
+
+  .prev-deliveries-date {
+    left: 0;
+  }
+
+  .next-deliveries-date {
+    right: 0;
+  }
+}
+
 .deliveries-listing {
-  margin: 0 auto;
+  width: 100%;
 
   th {
     text-align: left;
@@ -37,7 +54,7 @@
       content: "";
       position: absolute;
       top: 14px;
-      right: 2px;
+      right: 10px;
 
       @include triangle(15px, #000, down);
     }
@@ -48,17 +65,9 @@
     }
   }
 
-  .delivery-information {
-    vertical-align: top;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #acdaf9;
-    }
-  }
-
   .delivered-at {
-    width: 120px;
+    text-align: center;
+    width: 150px;
   }
 
   .received-by {
@@ -69,29 +78,19 @@
     width: 165px;
   }
 
-  th.package-count, .total-count {
+  th.package-count, .package-count {
     text-align: center;
   }
 
   .package-count {
     width: 185px;
   }
+
+  .delete-delivery {
+    display: none;
+  }
 }
 
-.receipts-listing {
-  margin: 0;
-
-  dt, dd {
-    float: left;
-    padding-bottom: 8px;
-  }
-
-  dt {
-    clear: both;
-    width: 140px;
-  }
-
-  dd {
-    margin-left: 10px;
-  }
+body.admin .deliveries-listing .delete-delivery {
+  display: inline-block;
 }

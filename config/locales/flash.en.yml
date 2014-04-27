@@ -8,3 +8,6 @@ en:
     receipts:
       update:
         notice: 'Package Signed Out.'
+    deliveries:
+      create:
+        notice: 'Notifications Sent'

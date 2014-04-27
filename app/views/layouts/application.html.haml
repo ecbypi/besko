@@ -8,7 +8,7 @@
     = yield :script
     %meta{ name: :robots, content: 'NOINDEX, NOFOLLOW' }
 
-  %body{ class: "#{controller.controller_name} #{controller.controller_name}-#{controller.action_name}" }
+  %body{ class: body_css_class }
     %header.header
       %nav.navigation.inside
         %ul.nav-group.session-nav
@@ -18,8 +18,6 @@
             %li.nav-group-item
               = link_to 'Logout', destroy_user_session_path, method: :delete
           - else
-            %li.nav-group-item
-              = link_to 'Sign Up', new_user_registration_path
             %li.nav-group-item
               = link_to 'Log In', new_user_session_path
 
@@ -34,9 +32,6 @@
             - if can? :create, Delivery
               %li.nav-group-item
                 = link_to 'Log New Delivery', new_delivery_path
-            - if can? :manage, UserRole
-              %li.nav-group-item
-                = link_to 'Manage Roles', user_roles_path
 
     #wrapper.container
       #notifications.notices.inside
@@ -53,6 +48,5 @@
 
       #content.content.inside
         = yield
-      = yield :bootstrap
 
     %footer

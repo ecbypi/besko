@@ -1,2 +1,25 @@
 - content_for :title do
   Deliveries
+
+%h2.current-date
+  %button.button.open-calendar{ data: { open_calendar: true } } Change
+  = text_field_tag 'delivered-on', formatted_delivered_on, disabled: true
+
+%section.delivery-pagination
+  = link_to 'Next Day', deliveries_path(next_date_params), class: 'button next-deliveries-date', data: { pjax: true }
+  = link_to 'Previous Day', deliveries_path(previous_date_params), class: 'button prev-deliveries-date', data: { pjax: true }
+
+- if collection.any?
+  %table.deliveries-listing.table-striped{ data: { collection: :deliveries } }
+    %thead
+      %tr
+        %th.sortable-column.delivered-at
+          = link_to 'Delivered At', deliveries_path(reverse_sort_params), class: sorting_css_class, data: { pjax: true, sort: true }
+        %th.received-by Received By
+        %th.delivered-by Delivered By
+        %th.package-count Packages
+        %th
+    %tbody= render collection
+
+- else
+  %p.empty-message= t '.no_deliveries'

@@ -17,7 +17,6 @@ gem 'oj'
 gem 'cocaine'
 gem 'posix-spawn'
 gem 'ldaptic'
-gem 'ember-rails'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'whenever'
@@ -36,7 +35,8 @@ gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', '>= 1.3.0'
 gem 'bourbon'
 gem 'therubyracer', require: 'v8' # for precompiling assets
-gem 'handlebars-source', '1.0.0.rc.4'
+gem 'backbone-support', github: 'ecbypi/backbone-support'
+gem 'js-routes'
 
 group :development do
   gem 'capistrano', '< 3'
