@@ -13,3 +13,17 @@ en:
     labels:
       delivery:
         deliverer: 'Delivery Company'
+      user:
+        first_name: 'First Name'
+        last_name: 'Last Name'
+        login: 'Kerberos'
+        current_password: 'Current Password'
+        password: 'New Password'
+        password_confirmation: 'Confirm New Password'
+    hints:
+      user:
+        first_name: 'read-only'
+        last_name: 'read-only'
+        login: 'read-only'
+        current_password: 'used to confirm changes'
+        password: 'leave blank if no change desired'

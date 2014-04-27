@@ -43,7 +43,7 @@ feature 'Accounts can be edited' do
     fill_in 'City', with: 'Cambridge'
     select 'Massachusetts', from: 'State'
     fill_in 'Postal code', with: '02139'
-    click_button 'Save Forwarding Address'
+    click_button 'Update Forwarding Address'
 
     current_path.should eq edit_user_registration_path
     notifications.should have_content 'Updated forwarding address.'
@@ -61,7 +61,7 @@ feature 'Accounts can be edited' do
     page.should have_select 'State', with_options: ca_regions
 
     select 'Yukon', from: 'State'
-    click_button 'Save Forwarding Address'
+    click_button 'Update Forwarding Address'
 
     current_path.should eq edit_user_registration_path
     notifications.should have_content 'Updated forwarding address.'

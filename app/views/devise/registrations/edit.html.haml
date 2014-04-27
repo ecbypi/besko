@@ -4,31 +4,32 @@
 = simple_form_for current_user, url: user_registration_path do |f|
   = f.error_notification
   .inputs
-    = f.input :first_name, disabled: true, required: false, label: 'First Name', hint: 'read-only'
-    = f.input :last_name, disabled: true, required: false, label: 'Last Name', hint: 'read-only'
+    = f.input :first_name, disabled: true, required: false
+    = f.input :last_name, disabled: true, required: false
   .inputs
     = f.input :email, required: true
-    = f.input :login, disabled: true, label: 'Kerberos', required: false, hint: 'read-only'
+    = f.input :login, disabled: true, required: false
   .inputs
-    = f.input :current_password, hint: "used to confirm changes", required: true, label: 'Current Password'
+    = f.input :current_password, required: true
   .inputs
-    = f.input :password, hint: "leave blank if no change desired", required: false, label: 'New Password'
-    = f.input :password_confirmation, required: false, label: 'Confirm New Password'
+    = f.input :password, required: false
+    = f.input :password_confirmation, required: false
   .actions
     = f.button :submit, "Update"
 
 = simple_form_for current_user.forwarding_address || current_user.build_forwarding_address, url: forwarding_address_path, html: { id: 'edit-address' } do |f|
   .inputs
     = f.input :street
-  .inputs
     = f.input :city
+  .inputs
     .input{ data: { subregion: true } }
       = render 'subregions/subregion_select'
   .inputs
     .input{ data: { country: true } }
       = f.label :country
       = f.country_select :country, priority: ApplicationHelper::PRIORITY_COUNTRIES
+  .inputs
     = f.input :postal_code
 
   .inputs
-    = f.button :submit, 'Save Forwarding Address'
+    = f.button :submit
