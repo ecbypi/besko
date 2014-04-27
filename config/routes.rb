@@ -12,7 +12,12 @@ Besko::Application.routes.draw do
     controllers: {
       passwords: 'passwords',
       registrations: 'registrations'
-    }
+    },
+    skip: %w( registrations )
+  devise_scope :user do
+    get '/accounts/edit' => 'registrations#edit', as: :edit_user_registration
+    patch '/accounts' => 'registrations#update', as: :user_registration
+  end
 
   root :to => 'home#index'
 
