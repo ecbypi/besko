@@ -16,9 +16,7 @@ Capybara.ignore_hidden_elements = true
 
 require 'selenium/webdriver'
 Capybara.register_driver :chrome do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new
-  profile['extensions.password_manager_enabled'] = false
-  Capybara::Selenium::Driver.new(app, profile: profile, browser: :chrome)
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
 RSpec.configure do |config|
