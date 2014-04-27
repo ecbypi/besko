@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :sign_in_with_touchstone
+  before_filter :authenticate_user!
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
