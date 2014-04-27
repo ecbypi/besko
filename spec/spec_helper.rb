@@ -35,8 +35,8 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
-    reset_email
     Rails.cache.clear
+    reset_email
   end
 
   config.include EmailSpec::Matchers, type: :mailer
@@ -44,8 +44,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.include LDAPSearchStubbing
-  config.include EmailMacros
-  config.include FactoryGirlStepHelpers
+  config.include EmailSteps
 
   config.include SessionSteps, type: :feature
   config.include DOMElementSteps, type: :feature
