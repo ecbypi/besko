@@ -1,0 +1,4 @@
+en:
+  mailer:
+    package_confirmation:
+      subject: '[Besko] Delivery from %{deliverer} at the front desk'

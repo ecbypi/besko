@@ -1,40 +1,49 @@
 require "spec_helper"
 
 describe Mailer do
+  describe "#package_confirmation" do
+    it 'is from the desk worker, to the recipient of the package containing receipt information' do
+      recipient = create(
+        :user,
+        first_name: 'Frank',
+        last_name: 'Underwood',
+        email: 'frank@whitehouse.gov'
+      )
 
-  describe "#confirmation" do
-    let(:receipt) { create(:receipt) }
-    let(:mail) { Mailer.package_confirmation(receipt) }
+      worker = create(
+        :user,
+        first_name: 'Remy',
+        last_name: 'Danton',
+        email: 'remy@whitehouse.gov'
+      )
 
-    it "is sent to the recipient of the receipt" do
-      mail.should be_delivered_to receipt.user.email
-    end
+      delivery = create(
+        :delivery,
+        user: worker,
+        deliverer: 'FedEx',
+        created_at: Time.zone.local(2010, 10, 30, 10)
+      )
 
-    it "is from the desk worker who created the delivery" do
-      mail.should be_delivered_from receipt.delivery.user.email
-    end
+      receipt = create(
+        :receipt,
+        number_packages: 3,
+        delivery: delivery,
+        user: recipient,
+        comment: 'Big and heavy'
+      )
 
-    it "has a simple easy to understand subject" do
-      mail.should have_subject /Delivery at Besk/
-    end
+      mail = Mailer.package_confirmation(receipt.id)
 
-    it "indicates the number of packages" do
-      mail.should have_body_text receipt.number_packages.to_s
-    end
+      mail.should be_delivered_to 'frank@whitehouse.gov'
+      mail.should be_delivered_from 'Remy Danton <remy@whitehouse.gov>'
+      mail.should have_subject '[Besko] Delivery from FedEx at the front desk'
 
-    it "has the receipt comment" do
-      mail.should have_body_text receipt.comment
-    end
-
-    it "has the deliverer" do
-      mail.should have_body_text receipt.delivery.deliverer
-    end
-
-    it "has the timeestamp for the delivery" do
-      mail.should have_body_text receipt.delivery.created_at.strftime('%B %d, %Y at %r')
-    end
-
-    it "has a link to view recipient's receipts" do
+      mail.should have_body_text 'Frank Underwood'
+      mail.should have_body_text 'Remy Danton (remy@whitehouse.gov)'
+      mail.should have_body_text 'Delivered By: FedEx'
+      mail.should have_body_text 'Number of Packages: 3'
+      mail.should have_body_text 'Delivered At: October 30, 2010 at 10:00:00 AM'
+      mail.should have_body_text "Comment:\nBig and heavy"
       mail.should have_body_text receipts_url
     end
   end

@@ -6,6 +6,10 @@ class Mailer < ActionMailer::Base
     @recipient = @receipt.user
     @worker    = @delivery.user
 
-    mail to: @recipient.email, from: @worker.email, subject: 'Delivery at Besk'
+    mail(
+      to: @recipient.email,
+      from: "#{@worker.name} <#{@worker.email}>",
+      subject: default_i18n_subject(deliverer: @delivery.deliverer)
+    )
   end
 end
