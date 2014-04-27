@@ -8,7 +8,7 @@ feature 'Package receipts page' do
   end
 
   scenario 'shows package receipt details' do
-    delivery = create(:delivery, deliverer: 'UPS', user: create(:mrhalp, :besk_worker))
+    delivery = create(:delivery, deliverer: 'UPS', user: create(:mrhalp, :desk_worker))
     receipt = create(
       :receipt,
       user: user,
@@ -57,7 +57,7 @@ feature 'Package receipts page' do
   end
 
   scenario 'can be signed out by desk workers' do
-    worker = create(:user, :besk_worker, first_name: 'Hugh', last_name: 'Lang')
+    worker = create(:user, :desk_worker, first_name: 'Hugh', last_name: 'Lang')
     recipient = create(:user, first_name: 'Whip', last_name: 'Whitaker')
     receipt = build(:receipt, user: recipient)
     delivery = create(:delivery, receipts: [receipt], user: worker, deliverer: 'UPS')

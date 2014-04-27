@@ -25,7 +25,7 @@ describe DeliveriesController do
     it 'denies besk workers' do
       delivery = create(:delivery)
 
-      sign_in create(:user, :besk_worker)
+      sign_in create(:user, :desk_worker)
 
       delete :destroy, id: delivery.id
 

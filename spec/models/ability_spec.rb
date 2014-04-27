@@ -19,7 +19,7 @@ describe Ability do
   end
 
   describe "as a worker" do
-    let(:worker) { create(:user, :besk_worker) }
+    let(:worker) { create(:user, :desk_worker) }
     let(:ability) { Ability.new(worker) }
 
     it "can review and create packages" do

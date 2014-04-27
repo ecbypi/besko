@@ -6,7 +6,7 @@ class Ability
 
     can :read, Receipt, user_id: user.id
 
-    if user.besk_worker?
+    if user.desk_worker?
       can [:read, :create], Delivery
       can [:new, :update], Receipt
       can :create, Recipient

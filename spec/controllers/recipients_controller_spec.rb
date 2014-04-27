@@ -29,7 +29,7 @@ describe RecipientsController do
     it 'allows besk workers' do
       delivery = create(:delivery)
 
-      sign_in create(:user, :besk_worker)
+      sign_in create(:user, :desk_worker)
 
       post :create, format: :json, recipient: attributes
 

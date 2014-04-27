@@ -6,13 +6,13 @@ feature 'Delivery', js: true do
   include EmailSpec::Helpers
 
   background do
-    sign_in create(:user, :besk_worker)
+    sign_in create(:user, :desk_worker)
   end
 
   context 'reviewal' do
     scenario 'shows worker, number of packages, deliverer and timestamp of delivery' do
       mshalp = create(:mshalp)
-      mrhalp = create(:mrhalp, :besk_worker)
+      mrhalp = create(:mrhalp, :desk_worker)
 
       receipts = []
       receipts << attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
@@ -243,8 +243,8 @@ feature 'Delivery', js: true do
 
   context 'search' do
     scenario 'by next or previous day' do
-      mrhalp = create(:mrhalp, :besk_worker)
-      mshalp = create(:mshalp, :besk_worker)
+      mrhalp = create(:mrhalp, :desk_worker)
+      mshalp = create(:mshalp, :desk_worker)
       create(:delivery, created_at: 1.day.ago, deliverer: 'UPS', user: mrhalp)
       create(:delivery, created_at: 1.day.from_now, deliverer: 'USPS', user: mshalp)
 
@@ -267,7 +267,7 @@ feature 'Delivery', js: true do
 
     scenario 'by selecting date on calendar' do
       day = Time.zone.local(2010, 10, 30)
-      user = create(:mrhalp, :besk_worker)
+      user = create(:mrhalp, :desk_worker)
       create(:delivery, created_at: day, deliverer: 'FedEx', user: user)
 
       visit deliveries_path

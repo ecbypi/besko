@@ -11,7 +11,7 @@ feature 'Sidekiq admin dashboard' do
 
     visit root_path
     click_link 'Logout'
-    sign_in create(:user, :besk_worker)
+    sign_in create(:user, :desk_worker)
     visit sidekiq_web_path
 
     page.driver.response.should_not be_successful
