@@ -9,7 +9,7 @@ feature 'Package receipts page' do
 
   scenario 'shows package receipt details' do
     delivery = create(:delivery, deliverer: 'UPS', user: create(:mrhalp, :besk_worker))
-    create(
+    receipt = create(
       :receipt,
       user: user,
       number_packages: 7593,
@@ -25,9 +25,12 @@ feature 'Package receipts page' do
       page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       page.should have_content 'Fragile'
       page.should have_content '10:30 AM on Oct 30, 2010'
-
-      click_button 'Sign Out'
+      page.should have_content 'Awaiting Pickup'
     end
+
+    receipt.update!(signed_out_at: Time.zone.now)
+
+    visit receipts_path
 
     within receipt_element(text: 'UPS') do
       page.should have_content Time.zone.now.strftime('%b %d, %Y')
@@ -42,10 +45,6 @@ feature 'Package receipts page' do
     click_link 'Next', match: :first
 
     page.should have_receipt_element count: 1
-
-    click_button 'Sign Out'
-
-    page.should have_receipt_element count: 1
   end
 
   scenario 'is shown only to signed in users' do
@@ -55,5 +54,28 @@ feature 'Package receipts page' do
 
     current_path.should eq new_user_session_path
     page.should_not have_link 'Packages', href: receipts_path
+  end
+
+  scenario 'can be signed out by desk workers' do
+    worker = create(:user, :besk_worker, first_name: 'Hugh', last_name: 'Lang')
+    recipient = create(:user, first_name: 'Whip', last_name: 'Whitaker')
+    receipt = build(:receipt, user: recipient)
+    delivery = create(:delivery, receipts: [receipt], user: worker, deliverer: 'UPS')
+
+    sign_out!
+    sign_in worker
+
+    visit delivery_path(delivery)
+
+    within receipt_element(text: 'Whip Whitaker') do
+      click_button 'Sign Out'
+    end
+
+    current_path.should eq delivery_path(delivery)
+    notifications.should have_content 'Signed out package for Whip Whitaker delivered by UPS'
+
+    within receipt_element(text: 'Whip Whitaker') do
+      page.should have_content 'Picked Up'
+    end
   end
 end

@@ -9,13 +9,12 @@ describe Ability do
     it "can see and sign out their own packages" do
       package = create(:receipt, user: user)
       ability.should be_able_to(:read, package)
-      ability.should be_able_to(:update, package)
+      ability.should_not be_able_to(:update, package)
     end
 
     it "cannot see or sign out other users' packages" do
       package = create(:receipt)
       ability.should_not be_able_to(:read, package)
-      ability.should_not be_able_to(:update, package)
     end
   end
 
@@ -28,6 +27,7 @@ describe Ability do
       ability.should be_able_to(:read, Delivery)
       ability.should_not be_able_to(:destroy, Delivery)
       ability.should be_able_to(:create, Recipient)
+      ability.should be_able_to(:update, Receipt)
     end
   end
 

@@ -6,4 +6,4 @@
       - if receipt.signed_out?
         Picked Up
       - else
-        = button_to 'Sign Out', receipt, class: 'button'
+        = button_to 'Sign Out', receipt, class: 'button', method: :patch

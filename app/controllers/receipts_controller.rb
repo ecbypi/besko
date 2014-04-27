@@ -1,8 +1,6 @@
 class ReceiptsController < InheritedResources::Base
   layout :determine_layout
 
-  respond_to :html, :js, :json
-
   authorize_resource
 
   def new
@@ -10,15 +8,13 @@ class ReceiptsController < InheritedResources::Base
     @receipt = Receipt.new(user: user)
   end
 
+  def update
+    resource.sign_out!
+
+    respond_with(resource.delivery)
+  end
+
   private
-
-  def smart_resource_url
-    receipts_path(page: params[:page])
-  end
-
-  def update_resource(object, *attributes)
-    object.sign_out!
-  end
 
   def collection
     @receipts ||= begin
@@ -31,5 +27,9 @@ class ReceiptsController < InheritedResources::Base
 
   def determine_layout
     params[:action] == 'new' ? false : 'application'
+  end
+
+  def interpolation_options
+    { recipient: resource.user.name, deliverer: resource.delivery.deliverer }
   end
 end

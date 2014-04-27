@@ -7,7 +7,7 @@ en:
         <<: *forwarding_address
     receipts:
       update:
-        notice: 'Package Signed Out.'
+        notice: 'Signed out package for %{recipient} delivered by %{deliverer}.'
     deliveries:
       create:
         notice: 'Notifications Sent'
