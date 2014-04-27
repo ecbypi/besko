@@ -1,21 +1,26 @@
 .pagination {
-  margin: 14px 0;
-  position: relative;
+  margin: 20px 0;
 
-  .pages {
-    width: 100%;
-    text-align: center;
+  .page {
+    padding: 0 4px;
+
+    a {
+      color: #B8B6B6;
+      text-decoration: none;
+
+      &:hover {
+        color: #000;
+      }
+    }
   }
 
-  .direction {
-    position: absolute;
+  .prev, .next {
+    margin: 0 5px;
   }
 
-  .direction-back {
-    left: 0px;
-  }
-
-  .direction-forward {
-    right: 0px;
+  .next, .prev, .first, .last {
+    a {
+      color: #000;
+    }
   }
 }
