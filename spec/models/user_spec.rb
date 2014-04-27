@@ -125,14 +125,4 @@ describe User do
       user.password.should eq user.password_confirmation
     end
   end
-
-  describe "#skip_confirmation_email!" do
-    let(:user) { build(:user) }
-    it "allows skipping confirmation email, but leaves user in a state requiring confirmation" do
-      user.skip_confirmation_email!
-      user.save!
-
-      last_email.should be_nil
-    end
-  end
 end

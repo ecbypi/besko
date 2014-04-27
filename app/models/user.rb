@@ -91,16 +91,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def skip_confirmation_email!
-    @skip_confirmation_email = true
-  end
-
   private
 
   def send_on_create_confirmation_instructions
-    unless @skip_confirmation_email
-      self.devise_mailer.delay.confirmation_instructions(self)
-    end
+    false
   end
 
   def password_required?

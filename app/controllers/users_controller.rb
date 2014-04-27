@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   respond_to :json
 
   def index
+    authorize!(:index, User)
+
     users = []
     query = params[:term]
     options = params.fetch(:options, {})
@@ -26,7 +28,11 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    user.assign_password.save
+    user.assign_password
+
+    authorize!(:create, user)
+
+    user.save
 
     respond_with(user)
   end

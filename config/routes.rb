@@ -24,7 +24,6 @@ Besko::Application.routes.draw do
   resources :receipts, only: [:update, :index, :new]
   resources :deliveries, only: [:index, :show, :new, :create, :destroy]
   resources :users, only: [:index, :show, :create]
-  resources :recipients, only: [:index, :create]
 
   scope '/accounts' do
     resource :address, as: :forwarding_address, controller: :forwarding_addresses, only: [:create, :update] do

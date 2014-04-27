@@ -84,7 +84,7 @@
 
       this.search = new Besko.Views.AutocompleteSearch({
         el: $('[data-recipient-search]'),
-        collection: new Besko.Collections.Recipients()
+        collection: new Besko.Collections.Users()
       });
 
       this.listenTo(this.search, 'select', this.addRecipient);

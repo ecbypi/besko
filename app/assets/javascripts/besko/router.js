@@ -22,7 +22,7 @@
     newDelivery: function() {
       var deliveryForm = new Besko.Views.DeliveryForm({
         el: $('#new-delivery'),
-        collection: new Besko.Collections.Recipients()
+        collection: new Besko.Collections.Users()
       });
 
       deliveryForm.render();

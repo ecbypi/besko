@@ -9,7 +9,7 @@ class Ability
     if user.desk_worker?
       can [:read, :create], Delivery
       can [:new, :update], Receipt
-      can :create, Recipient
+      can [:index, :create], User
     end
 
     if user.admin?

@@ -4,10 +4,16 @@ describe UsersController do
   include Devise::TestHelpers
 
   describe "GET index.json" do
-    let(:user) { create(:user) }
+    before do
+      sign_in create(:user, :desk_worker)
+    end
 
-    before :each do
-      sign_in user
+    it 'only allows desk workers' do
+      sign_in create(:user, email: 'guy@fake-email.com')
+
+      get :index, format: :json, term: 'guy'
+
+      response.status.should eq 406
     end
 
     it "searches database and MIT directory if no options are specified" do
@@ -43,20 +49,18 @@ describe UsersController do
   end
 
   describe "POST create.json" do
-    let(:attributes) do
-      {
-        first_name: 'Doctor',
-        last_name: 'Halp',
-        login: 'drhalp',
-        email: 'drhalp@mit.edu'
-      }
+    it "only allows desk workers" do
+      sign_in create(:user, :desk_worker)
+
+      expect { post :create, format: :json, user: attributes_for(:user) }.to change { User.count }
     end
 
-    it "returns the persisted user information" do
-      post :create, format: :json, user: attributes
+    it 'denies anyone else' do
+      sign_in create(:user)
 
-      user = JSON.parse(response.body)
-      user.should have_key 'id'
+      expect { post :create, format: :json, user: attributes_for(:user) }.not_to change { User.count }
+
+      response.status.should eq 406
     end
   end
 end
