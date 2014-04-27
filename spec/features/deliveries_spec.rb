@@ -67,7 +67,7 @@ feature 'Delivery', js: true do
 
       'LaserShip'.should appear_before 'UPS'
 
-      within deliveries_collection do
+      within deliveries_element do
         click_link 'Delivered At'
       end
 
@@ -92,7 +92,7 @@ feature 'Delivery', js: true do
 
       visit deliveries_path
 
-      within deliveries_collection do
+      within deliveries_element do
         page.should_not have_button 'Delete'
       end
 
@@ -212,7 +212,7 @@ feature 'Delivery', js: true do
 
       visit new_delivery_path
 
-      page.should_not have_receipts_collection
+      page.should_not have_receipts_element
 
       fill_in_autocomplete with: 'snow'
       autocomplete_result('Jon Snow').click

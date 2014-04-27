@@ -1,4 +1,14 @@
+Capybara.add_selector(:models_element) do
+  xpath { |name| XPath.css("[data-collection='#{name}']") }
+end
+
+Capybara.add_selector(:model_element) do
+  xpath { |name| XPath.css("[data-resource='#{name}']") }
+end
+
 module DOMElementSteps
+  RESOURCES = %w( receipt delivery recipient user user_role )
+
   def notifications
     find('#notifications')
   end
@@ -7,12 +17,12 @@ module DOMElementSteps
     find('.primary-nav')
   end
 
-  def model_collection(model_name)
-    find(:model_collection, model_name.pluralize)
+  def models_element(model_name)
+    find(:models_element, model_name.pluralize)
   end
 
-  def have_model_collection(model_name)
-    have_selector(:model_collection, text: model_name.pluralize)
+  def have_models_element(model_name)
+    have_selector(:models_element, text: model_name.pluralize)
   end
 
   def model_element(model_name, options = {})
@@ -23,14 +33,14 @@ module DOMElementSteps
     have_selector :model_element, model_name, options
   end
 
-  %w( receipt delivery recipient user user_role ).each do |model_name|
+  RESOURCES.each do |model_name|
     class_eval <<-METHODS, __FILE__, __LINE__ + 1
-      def #{model_name.pluralize}_collection
-        model_collection('#{model_name.pluralize}')
+      def #{model_name.pluralize}_element
+        models_element('#{model_name.pluralize}')
       end
 
-      def have_#{model_name.pluralize}_collection
-        have_model_collection('#{model_name.pluralize}')
+      def have_#{model_name.pluralize}_element
+        have_models_element('#{model_name.pluralize}')
       end
 
       def #{model_name}_element(options = {})
@@ -43,3 +53,4 @@ module DOMElementSteps
     METHODS
   end
 end
+
