@@ -1,3 +1,3 @@
-= simple_fields_for current_user.forwarding_address do |f|
+= simple_fields_for current_user.forwarding_address || current_user.build_forwarding_address do |f|
   = f.label :state
   = f.subregion_select :state, params[:code] || current_user.forwarding_address.country || 'US', include_blank: true

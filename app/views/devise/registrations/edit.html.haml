@@ -17,23 +17,18 @@
   .actions
     = f.button :submit, "Update"
 
-= simple_form_for current_user.forwarding_address || current_user.build_forwarding_address, url: forwarding_address_path do |f|
+= simple_form_for current_user.forwarding_address || current_user.build_forwarding_address, url: forwarding_address_path, html: { id: 'edit-address' } do |f|
   .inputs
     = f.input :street
   .inputs
     = f.input :city
-    #state-wrapper.input= render 'subregion_select'
+    .input{ data: { subregion: true } }
+      = render 'subregions/subregion_select'
   .inputs
-    .input
+    .input{ data: { country: true } }
       = f.label :country
-      = f.country_select :country, priority: %W( US CA )
+      = f.country_select :country, priority: ApplicationHelper::PRIORITY_COUNTRIES
     = f.input :postal_code
 
   .inputs
     = f.button :submit, 'Save Forwarding Address'
-
-  :javascript
-    $('#forwarding_address_country').on('change', function(event) {
-      var $selectWrapper = $('#state-wrapper');
-      $selectWrapper.load('/accounts/address/subregions?code=' + $(this).val());
-    });

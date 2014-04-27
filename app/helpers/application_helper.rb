@@ -1,4 +1,6 @@
 module ApplicationHelper
+  PRIORITY_COUNTRIES = %w( US CA )
+
   def bootstrap(data)
     content_for(:bootstrap) do
       content_tag(:script, id: 'bootstrap', type: 'text/json') do

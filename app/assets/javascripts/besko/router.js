@@ -5,7 +5,8 @@
 
     routes: {
       'deliveries/new' : 'newDelivery',
-      'deliveries(?:params)' : 'deliverySearch'
+      'deliveries(?:params)' : 'deliverySearch',
+      'accounts/edit' : 'editAccount'
     },
 
     deliverySearch: function(params) {
@@ -26,6 +27,12 @@
       });
 
       deliveryForm.render();
+    },
+
+    editAccount: function() {
+      new Besko.Views.EditAddressForm({
+        el: $('#edit-address')
+      });
     }
   });
 })();

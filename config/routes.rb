@@ -31,8 +31,9 @@ Besko::Application.routes.draw do
   resources :users, only: [:index, :show, :create]
 
   scope '/accounts' do
-    resource :address, as: :forwarding_address, controller: :forwarding_addresses, only: [:create, :update] do
-      get 'subregions'
+    resource :address, as: :forwarding_address, controller: :forwarding_addresses, only: [:create, :update]
+    scope 'address' do
+      resources :subregions, only: :index
     end
   end
 
