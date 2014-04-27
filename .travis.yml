@@ -11,3 +11,5 @@ before_script:
 script: 'bundle exec rspec spec -t ~driver:selenium'
 env:
   secure: "SmrJ7ow+GC/lCxapEo3WL8aIU/fhY84gJOC0fRVb4/CHJGHKq/gWRUiRi8Lzwh4G5dAVAxQ8JANmFoezA53XZXdYCdMxZt2ux1JBhqymHmknYp0u5WGwZqrnISndeBP2L892CeiU0GBAWjE2BSj5SCA0S0/2ClQ8mQ6QJADqUHY="
+services:
+  - redis-server
