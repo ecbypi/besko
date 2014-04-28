@@ -49,7 +49,7 @@ module Besko
     config.assets.initialize_on_precompile = false
 
     # Default url information
-    config.action_mailer.default_url_options = { host: 'besko.mit.edu', protocol: 'https' }
+    config.action_mailer.default_url_options = { host: ENV['HOST_FOR_EMAIL_URLS'] , protocol: 'https' }
 
     # SMTP settings
     config.action_mailer.smtp_settings = {
