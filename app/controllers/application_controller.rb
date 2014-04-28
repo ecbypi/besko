@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
                end
         redirect_to path, alert: "Access Denied: #{exception.message}"
       end
-      format.json { head :not_acceptable }
+      format.json { head :unauthorized }
     end
   end
 

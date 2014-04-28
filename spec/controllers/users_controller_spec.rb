@@ -13,7 +13,7 @@ describe UsersController do
 
       get :index, format: :json, term: 'guy'
 
-      response.status.should eq 406
+      response.status.should eq 401
     end
 
     it "searches database and MIT directory if no options are specified" do
@@ -60,7 +60,7 @@ describe UsersController do
 
       expect { post :create, format: :json, user: attributes_for(:user) }.not_to change { User.count }
 
-      response.status.should eq 406
+      response.status.should eq 401
     end
   end
 end
