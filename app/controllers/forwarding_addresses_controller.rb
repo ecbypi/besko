@@ -8,7 +8,7 @@ class ForwardingAddressesController < ApplicationController
   end
 
   def update
-    current_user.forwarding_address.update_attributes(address_params)
+    current_user.forwarding_address.update(address_params)
     respond_with(current_user.forwarding_address)
   end
 

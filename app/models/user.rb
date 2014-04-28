@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
         preceded_by_id: previous_address_ids.last
       )
 
-      self.update_attributes(street: address)
+      self.update(street: address)
     end
   end
 
