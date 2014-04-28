@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :receipt do
     delivery
     user

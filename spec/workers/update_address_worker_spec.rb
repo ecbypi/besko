@@ -9,7 +9,7 @@ describe UpdateAddressWorker do
 
       UpdateAddressWorker.perform_async(user.id)
 
-      user = user.reload
+      user.reload
       user.street.should eq '211 Mass Ave'
       user.previous_addresses.last.address.should eq '77 Mass Ave'
     end

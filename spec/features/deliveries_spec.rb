@@ -17,13 +17,11 @@ feature 'Delivery', js: true do
       receipts = []
       receipts << attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
       receipts << attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
-      delivery = create(
-        :delivery,
-        user: mrhalp,
-        deliverer: 'LaserShip',
-        created_at: Time.zone.local(2011, 11, 11, 15, 12, 9),
-        receipts_attributes: receipts
-      )
+      delivery = build(:delivery, user: mrhalp, deliverer: 'LaserShip', receipts_attributes: receipts)
+
+      Timecop.travel(Time.zone.local(2011, 11, 11, 15, 12, 9)) do
+        delivery.save!
+      end
 
       visit deliveries_path(date: '2011-11-11')
 
@@ -245,8 +243,14 @@ feature 'Delivery', js: true do
     scenario 'by next or previous day' do
       mrhalp = create(:mrhalp, :desk_worker)
       mshalp = create(:mshalp, :desk_worker)
-      create(:delivery, created_at: 1.day.ago, deliverer: 'UPS', user: mrhalp)
-      create(:delivery, created_at: 1.day.from_now, deliverer: 'USPS', user: mshalp)
+
+      Timecop.travel(1.day.ago) do
+        create(:delivery, deliverer: 'UPS', user: mrhalp)
+      end
+
+      Timecop.travel(1.day.from_now) do
+        create(:delivery, deliverer: 'USPS', user: mshalp)
+      end
 
       visit deliveries_path
 
@@ -268,7 +272,10 @@ feature 'Delivery', js: true do
     scenario 'by selecting date on calendar' do
       day = Time.zone.local(2010, 10, 30)
       user = create(:mrhalp, :desk_worker)
-      create(:delivery, created_at: day, deliverer: 'FedEx', user: user)
+
+      Timecop.travel(day) do
+        create(:delivery, deliverer: 'FedEx', user: user)
+      end
 
       visit deliveries_path
 
