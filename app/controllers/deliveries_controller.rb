@@ -49,6 +49,7 @@ class DeliveriesController < InheritedResources::Base
       when nil, 'newest'
         deliveries = deliveries.order { created_at.desc }
       else
+        deliveries = deliveries.order { created_at.asc }
       end
 
       deliveries.decorate

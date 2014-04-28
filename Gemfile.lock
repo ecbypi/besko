@@ -173,7 +173,6 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.9.0)
-    mysql2 (0.3.15)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -187,6 +186,7 @@ GEM
     oj (2.6.0)
     orderly (0.0.2)
     orm_adapter (0.5.0)
+    pg (0.17.1)
     poltergeist (1.5.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -360,10 +360,10 @@ DEPENDENCIES
   launchy
   ldaptic
   meta_request
-  mysql2
   newrelic_rpm
   oj
   orderly
+  pg
   poltergeist
   posix-spawn
   pry-rails

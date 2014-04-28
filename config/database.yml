@@ -1,12 +1,12 @@
 development:
-  adapter: mysql2
+  adapter: postgresql
   database: besko
   host: localhost
   encoding: utf8
   pool: 30
 
 test:
-  adapter: mysql2
+  adapter: postgresql
   database: besko_test
   host: localhost
   encoding: utf8
