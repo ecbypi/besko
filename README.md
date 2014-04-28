@@ -6,10 +6,10 @@ A hobby project to improve on many old processes at my old dormitory.
 
 ## The Problem
 
-Prior to this application, the steps for notifying a resident they received a 
+Prior to this application, the steps for notifying a resident they received a
 package was:
 
-* Look up recipients one at a time via the horrible directory search on `web.mit.edu` 
+* Look up recipients one at a time via the horrible directory search on `web.mit.edu`
   and add their email addresses one by one.
 * Check for duplicate emails and update the body of the email to indicate that
   person got more than one package
@@ -50,21 +50,16 @@ been logged and to assist residents who may have questions about their package.
 Anyone intersted in Rails can take a peek and hopefully learn something or
 help me learn something. Some things to look for are:
 
-* Single page interfaces driven by Ember.js.
 * Authententication using Touchstone headers (mostly configured via Apache).
 * Rspec to drive development.
 
 ## Future Plans
 
 Logging packages wasn't the only problem to solve at the dorm. Some unsolved issues are:
-* The tool shop is always losing things. It would be nice if there were a way to track
-  who has wha tools that could keep track of who is less reliable about returning tools
-  or loses them.
-* There are community bikes that needs a more efficient way to be checked out.
 * The groups that permissions fall into are closely tied to mailing lists.
   Updating the permissions should update the mailing lists or permissions
   should check the mailing lists.
-* People forwarding mail that arrives for alumni relabel all the mail one by one. The 
+* People forwarding mail that arrives for alumni relabel all the mail one by one. The
   system for creating deliveries can be abstracted to handle printing labels with the
   correct addresses on them.
 * The desk captain has to manually log all the hours at the end of each week
