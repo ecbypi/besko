@@ -7,14 +7,14 @@ describe Delivery do
   it { should have_many(:recipients).through(:receipts) }
 
   it { should validate_presence_of(:deliverer) }
-  it { should validate_presence_of(:user_id) }
+  it { should validate_presence_of(:user) }
   it { should validate_presence_of(:receipts) }
 
   it { should accept_nested_attributes_for(:receipts) }
 
-  it "sets #delivered_on to date of #created_at" do
+  it "sets #delivered_on on creation" do
     delivery = create(:delivery)
-    delivery.delivered_on.should eq delivery.created_at.to_date
+    delivery.delivered_on.should_not be_nil
   end
 
   it "confirms all users" do
@@ -39,12 +39,8 @@ describe Delivery do
   end
 
   describe ".delivered_on" do
-    before :each do
-      Delivery.delete_all
-    end
-
     let(:todays_delivery) { create(:delivery) }
-    let(:old_delivery) { create(:delivery, delivered_on: '2010-10-30', created_at: '2010-10-30') }
+    let(:old_delivery) { create(:delivery, delivered_on: '2010-10-30') }
 
     it "defaults to today's deliveries" do
       Delivery.delivered_on.should include todays_delivery

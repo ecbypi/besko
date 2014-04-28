@@ -2,7 +2,7 @@
   %td.mail-worker= mail_to receipt.worker.email, receipt.worker.name
   %td.package-count.align-center= receipt.number_packages
   %td.delivered-by
-    = receipt.deliverer
+    = receipt.delivery.deliverer
     .timestamp= receipt.format_timestamp(:created_at)
   %td.comment= receipt.comment
   %td.signed-out-status.align-center

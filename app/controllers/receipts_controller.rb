@@ -9,7 +9,7 @@ class ReceiptsController < InheritedResources::Base
   end
 
   def update
-    resource.sign_out!
+    resource.update(signed_out_at: Time.zone.now)
 
     respond_with(resource.delivery)
   end

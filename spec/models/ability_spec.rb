@@ -2,40 +2,42 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Ability do
-  describe "as a resident" do
-    let(:user) { create(:user) }
-    let(:ability) { Ability.new(user) }
-
-    it "can see and sign out their own packages" do
+  describe "as a normal user" do
+    it "can see and sign out only their own packages" do
+      user = create(:user)
+      ability = Ability.new(user)
       package = create(:receipt, user: user)
+
       ability.should be_able_to(:read, package)
       ability.should_not be_able_to(:update, package)
-    end
 
-    it "cannot see or sign out other users' packages" do
       package = create(:receipt)
+
       ability.should_not be_able_to(:read, package)
     end
   end
 
   describe "as a worker" do
-    let(:worker) { create(:user, :desk_worker) }
-    let(:ability) { Ability.new(worker) }
+    it "can review and create packages and create and search users" do
+      worker = create(:user, :desk_worker)
+      ability = Ability.new(worker)
 
-    it "can review and create packages" do
-      ability.should be_able_to(:create, Delivery)
       ability.should be_able_to(:read, Delivery)
+      ability.should be_able_to(:create, Delivery)
       ability.should_not be_able_to(:destroy, Delivery)
-      ability.should be_able_to(:create, Recipient)
+
+      ability.should be_able_to(:index, User)
+      ability.should be_able_to(:create, User)
+
       ability.should be_able_to(:update, Receipt)
     end
   end
 
   describe "as a admin" do
-    let(:admin) { create(:user, :admin) }
-    let(:ability) { Ability.new(admin) }
-
     it 'can review and delete deliveries' do
+      admin = create(:user, :admin)
+      ability = Ability.new(admin)
+
       ability.should be_able_to(:read, Delivery)
       ability.should be_able_to(:destroy, Delivery)
     end

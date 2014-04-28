@@ -14,10 +14,10 @@ class Delivery < ActiveRecord::Base
   ]
 
   belongs_to :user
-  has_many :receipts, dependent: :delete_all
+  has_many :receipts, dependent: :delete_all, inverse_of: :delivery
   has_many :recipients, through: :receipts, source: :user
 
-  validates :deliverer, :user_id, :receipts, presence: true
+  validates :deliverer, :user, :receipts, presence: true
 
   accepts_nested_attributes_for :receipts
 
@@ -30,7 +30,7 @@ class Delivery < ActiveRecord::Base
   end
 
   def self.delivered_on(date = nil)
-    date ||= Date.today
+    date = date.blank? ? Time.zone.now.to_date : Time.zone.parse(date).to_date
 
     where(:delivered_on => date)
   end

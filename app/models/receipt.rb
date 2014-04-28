@@ -1,21 +1,13 @@
 class Receipt < ActiveRecord::Base
 
-  belongs_to :delivery
+  belongs_to :delivery, inverse_of: :receipts
   belongs_to :user
   has_one :worker, through: :delivery, source: :user
 
-  validates :user_id, presence: true
-  validates :delivery_id, presence: { on: :update }
+  validates :user, :delivery, presence: true
   validates :number_packages, numericality: true
-
-  delegate :deliverer, to: :delivery
 
   def signed_out?
     !!signed_out_at
-  end
-
-  def sign_out!
-    self.signed_out_at = Time.zone.now
-    self.save
   end
 end

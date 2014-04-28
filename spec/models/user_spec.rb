@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe User do
-  let!(:user) { create(:user) }
-
   it { should have_many(:receipts) }
   it { should have_many(:deliveries) }
   it { should have_many(:user_roles) }
@@ -16,12 +14,6 @@ describe User do
   it 'does not require password if :forwarding_account is true' do
     expect { create(:user, :forwarding_account) }.not_to raise_error
     expect { create(:user, password: nil, password_confirmation: nil) }.to raise_error ActiveRecord::RecordInvalid
-  end
-
-  describe "#name" do
-    it "joins first and last names" do
-      user.name.should eq("First Last Name")
-    end
   end
 
   describe ".search" do

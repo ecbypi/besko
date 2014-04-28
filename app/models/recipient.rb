@@ -1,2 +1,0 @@
-class Recipient < User
-end
