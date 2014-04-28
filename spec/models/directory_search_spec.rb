@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe DirectorySearch do
-  before do
-    stub_ldap_server_configuration!
-  end
-
   it 'handles unexpected outcodes' do
     Cocaine::CommandLine.any_instance.should_receive(:run).and_raise(Cocaine::ExitStatusError)
 
@@ -27,16 +23,18 @@ describe DirectorySearch do
 
       search = DirectorySearch.new('mrhalp')
 
-      search.search
-      search.search
+      search.results
+      search.results
     end
 
     it 'does not search if LDAP_SERVER is not configured' do
-      stub_empty_ldap_server_configuration!
+      ldap_server = ENV.delete('LDAP_SERVER')
 
-      search = DirectorySearch.new('mrhalp')
+      search = DirectorySearch.search('mrhalp')
 
-      search.search.should eq []
+      search.should eq []
+
+      ENV['LDAP_SERVER'] = ldap_server
     end
   end
 end
