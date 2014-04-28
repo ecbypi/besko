@@ -1,27 +1,16 @@
 class UpdateAddressWorker
   include Sidekiq::Worker
 
-  attr_reader :user
+  def perform
+    kerberos_principles = User.where.not(login: nil).pluck(:login, :street)
 
-  def self.update_addresses
-    Resident.where { login ^ nil }.pluck(:id).each { |id| perform_async(id) }
-  end
+    kerberos_principles.each do |kerberos, street|
+      result = DirectorySearch.search(kerberos).first || {}
+      result = result['street']
 
-  def perform(user_id)
-    @user = User.find(user_id)
-
-    if user.login? && street.present? && user.street != street
-      user.update_address!(street)
+      if result.present? && result != street
+        User.where(login: kerberos).update_all(street: result)
+      end
     end
-  end
-
-  private
-
-  def street
-    search_result['street']
-  end
-
-  def search_result
-    @search_result ||= DirectorySearch.search(user.login).first || {}
   end
 end

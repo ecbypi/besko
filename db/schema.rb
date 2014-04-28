@@ -40,17 +40,6 @@ ActiveRecord::Schema.define(version: 20130625151246) do
 
   add_index "forwarding_addresses", ["user_id"], name: "index_forwarding_addresses_on_user_id", using: :btree
 
-  create_table "previous_addresses", force: true do |t|
-    t.string   "address"
-    t.integer  "user_id"
-    t.integer  "preceded_by_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "previous_addresses", ["preceded_by_id"], name: "index_previous_addresses_on_preceded_by_id", using: :btree
-  add_index "previous_addresses", ["user_id"], name: "index_previous_addresses_on_user_id", using: :btree
-
   create_table "receipts", force: true do |t|
     t.text     "comment"
     t.integer  "delivery_id"

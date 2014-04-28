@@ -22,9 +22,8 @@ class User < ActiveRecord::Base
   has_many :deliveries
 
   has_one :forwarding_address
-  has_many :previous_addresses
 
-  has_guises :DeskWorker, :Resident, :Admin, association: :user_roles, attribute: :title
+  has_guises :DeskWorker, :Admin, association: :user_roles, attribute: :title
 
   validates :first_name, :last_name, presence: true
   validates :login, uniqueness: { allow_nil: true, case_sensitive: false }
@@ -68,17 +67,6 @@ class User < ActiveRecord::Base
     end
 
     users.compact
-  end
-
-  def update_address!(address)
-    transaction do
-      previous_addresses.create(
-        address: self.street,
-        preceded_by_id: previous_address_ids.last
-      )
-
-      self.update(street: address)
-    end
   end
 
   def assign_password
