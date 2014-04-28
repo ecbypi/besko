@@ -1,6 +1,8 @@
 # Besko Package Mailer
 
-[![Code Climate](https://codeclimate.com/github/ecbypi/besko.png)](https://codeclimate.com/github/ecbypi/besko)
+[![Travis CI](http://img.shields.io/travis/ecbypi/besko.svg)](https://travis-ci.org/ecbypi/besko)
+[![Code Climate](https://img.shields.io/codeclimate/github/ecbypi/besko.svg)](https://codeclimate.com/github/ecbypi/besko)
+[![Code Climate Coverage](http://img.shields.io/codeclimate/coverage/github/ecbypi/besko.svg)](https://codeclimate.com/github/ecbypi/besko)
 
 A hobby project to improve on many old processes at my old dormitory.
 
