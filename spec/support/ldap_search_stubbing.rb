@@ -1,8 +1,4 @@
 module LDAPSearchStubbing
-  def stub_on_campus!
-    MIT.stub(ip_addresses: ['18.0.0.0'])
-  end
-
   def stub_ldap_server_configuration!
     DirectorySearch.stub(server: 'server.edu')
   end
