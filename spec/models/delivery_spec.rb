@@ -17,7 +17,7 @@ describe Delivery do
     delivery.delivered_on.should_not be_nil
   end
 
-  it "confirms all users" do
+  it "activates and confirms all users logged in a delivery" do
     delivery = build(:delivery)
     user     = create(:user, :unconfirmed)
     receipt  = attributes_for(:receipt, user_id: user.id)
@@ -25,8 +25,10 @@ describe Delivery do
     delivery.receipts_attributes = [receipt]
 
     delivery.save!
+    user.reload
 
-    user.reload.should be_confirmed
+    user.should be_confirmed
+    user.should be_activated
   end
 
   describe "#package_count" do

@@ -80,11 +80,15 @@ class User < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    !!activated_at? && super
+    activated? && super
   end
 
   def activate!
     update(activated_at: Time.zone.now)
+  end
+
+  def activated?
+    !!activated_at
   end
 
   private
