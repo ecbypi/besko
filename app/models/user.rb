@@ -79,6 +79,18 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def active_for_authentication?
+    activated? && super
+  end
+
+  def activate!
+    update(activated_at: Time.zone.now)
+  end
+
+  def activated?
+    !!activated_at
+  end
+
   private
 
   def send_on_create_confirmation_instructions

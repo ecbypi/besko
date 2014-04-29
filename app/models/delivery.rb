@@ -26,7 +26,8 @@ class Delivery < ActiveRecord::Base
   end
 
   after_create do
-    recipients.where(:confirmed_at => nil).update_all(:confirmed_at => Time.zone.now)
+    now = Time.zone.now
+    recipients.where(:confirmed_at => nil).update_all(:confirmed_at => now, :activated_at => now)
   end
 
   def self.delivered_on(date = nil)
