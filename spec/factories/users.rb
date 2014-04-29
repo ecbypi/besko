@@ -8,10 +8,15 @@ FactoryGirl.define do
     password_confirmation "password"
     street "77 Mass Ave"
 
+    activated_at 1.month.ago
     confirmed_at 1.month.ago
 
     trait :unconfirmed do
       confirmed_at nil
+    end
+
+    trait :inactive do
+      activated_at nil
     end
 
     trait :forwarding_account do
