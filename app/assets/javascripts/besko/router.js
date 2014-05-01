@@ -4,7 +4,7 @@
   Besko.Router = Backbone.Router.extend({
 
     routes: {
-      'deliveries/new' : 'newDelivery',
+      'deliveries/new(?:params)' : 'newDelivery',
       'deliveries(?:params)' : 'deliverySearch',
       'accounts/edit' : 'editAccount'
     },
@@ -20,10 +20,18 @@
       search.render();
     },
 
-    newDelivery: function() {
+    newDelivery: function(params) {
+      params = $.parseQueryObject(params);
+
+      var recipients = params.r || {};
+
+      _.each(recipients, function(count, recipient) {
+        recipients[recipient] = parseInt(count, 10);
+      });
+
       var deliveryForm = new Besko.Views.DeliveryForm({
         el: $('#new-delivery'),
-        collection: new Besko.Collections.Users()
+        recipients: recipients
       });
 
       deliveryForm.render();

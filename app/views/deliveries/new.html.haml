@@ -1,7 +1,7 @@
 - content_for :title do
   Deliveries
 
-= simple_form_for resource, html: { id: 'new-delivery', class: 'new-delivery' } do |f|
+= simple_form_for resource, html: { id: 'new-delivery', class: ['new-delivery', receipts.any? ? 'open' : ''] } do |f|
   .inputs.inline-inputs
     = f.input :deliverer, as: :select, collection: Delivery::Deliverers
 
@@ -12,7 +12,7 @@
       .loading.autocomplete-fetching{ data: { loading: true } }
       %ul.autocomplete-results{ data: { collection: :users } }
 
-  %table.receipts{ class: receipts.any? ? 'open' :  '' }
+  %table.receipts
     %thead
       %tr
         %th Recipient
