@@ -12,8 +12,6 @@ class DeliveriesController < InheritedResources::Base
       delivery.receipt_ids.each do |receipt_id|
         Mailer.delay.package_confirmation(receipt_id)
       end
-
-      cookies.delete(:delivery_recipients)
     end
 
     respond_with(delivery)
@@ -29,10 +27,13 @@ class DeliveriesController < InheritedResources::Base
 
   def receipts
     @receipts ||= begin
-      ids = cookies.fetch(:delivery_recipients, '').split(',')
+      recipients = params.fetch(:r, {})
 
-      users = User.where(id: ids)
-      users.map { |user| Receipt.new(user: user) }
+      users = User.where(id: recipients.keys)
+      users.map do |user|
+        number_packages = recipients.fetch(user.id.to_s, 1).to_i
+        Receipt.new(user: user, number_packages: number_packages)
+      end
     end
   end
 

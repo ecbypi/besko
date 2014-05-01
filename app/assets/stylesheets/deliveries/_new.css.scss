@@ -1,4 +1,8 @@
 .new-delivery {
+  &.open .receipts {
+    display: table;
+  }
+
   .inline-inputs {
     width: 620px;
     margin: 0 auto;

@@ -1,87 +1,30 @@
-/* global Support, Routes, Cookies */
+/* global Support, Routes */
 (function() {
   'use strict';
 
-  var Receipt = Support.CompositeView.extend({
-    tagName: 'tr',
-
-    events: {
-      'click [data-remove]' : 'leave'
-    },
-
-    render: function() {
-      if ( this.$el.is(':empty') ) {
-        var view = this;
-
-        $.ajax({
-          url: Routes.new_receipt_path(),
-          data: { user_id: this.model.id },
-          dataType: 'html'
-        }).then(function(markup) {
-          var $markup = $(markup);
-
-          view.$el.replaceWith($markup);
-          view.setElement($markup);
-        }, function() {
-          Besko.error('Failed to add recipient ' + view.model.escape('name') + '.');
-        });
-      }
-    },
-
-    incrementPackageCount: function() {
-      var currentCount;
-
-      if ( !this.$input ) {
-        this.$input = this.$('input[type=number]');
-      }
-
-      currentCount = parseInt(this.$input.val(), 10);
-
-      this.$input.val(currentCount + 1);
-    },
-
-    leave: function() {
-      this.trigger('leave', this);
-      Support.CompositeView.prototype.leave.apply(this);
-
-      return false;
-    }
-  });
+  function updateState(view) {
+    window.history.replaceState(
+      view.recipients,
+      document.title,
+      Routes.new_delivery_path({ r: view.recipients })
+    );
+  }
 
   Besko.Views.DeliveryForm = Support.CompositeView.extend({
     events: {
       'click [data-reset]' : 'reset',
+      'click [data-remove]' : 'removeReceipt',
+      'change input[type=number]' : 'incrementUrlPackageCount',
       'submit' : 'validate'
     },
 
-    initialize: function() {
+    initialize: function(options) {
       this.$deliverer = this.$('#delivery_deliverer');
-      this.$table = this.$('[data-collection=receipts]').parent();
-
-      this.listenTo(this.collection, 'add', this.addReceipt);
-      this.listenTo(this.collection, 'add', this.hideShowTable);
-      this.listenTo(this.collection, 'remove', this.hideShowTable);
-      this.listenTo(this.collection, 'reset', this.hideShowTable);
-      this.listenTo(this.collection, 'add', this.updateCookie);
-      this.listenTo(this.collection, 'remove', this.updateCookie);
-      this.listenTo(this.collection, 'reset', this.updateCookie);
+      this.$receipts = this.$('[data-collection=receipts]');
+      this.recipients = options.recipients;
     },
 
     render: function() {
-      var view = this, receipt, recipient, recipientId;
-
-      this.$('[data-resource=receipt]').each(function() {
-        recipientId = parseInt($(this).find('input[type=hidden]').val(), 10);
-
-        recipient = new Backbone.Model({ id: recipientId });
-        view.collection.add(recipient, { silent: true });
-
-        receipt = new Receipt({ model: recipient, el: this });
-
-        view.listenToOnce(receipt, 'leave', view.removeReceipt);
-        view.renderChild(receipt);
-      });
-
       this.search = new Besko.Views.AutocompleteSearch({
         el: $('[data-recipient-search]'),
         collection: new Besko.Collections.Users()
@@ -94,52 +37,62 @@
     },
 
     hideShowTable: function() {
-      if ( this.collection.isEmpty() ) {
-        this.$table.removeClass('open');
+      if ( this.$receipts.children().length ) {
+        this.$el.addClass('open');
       } else {
-        this.$table.addClass('open');
+        this.$el.removeClass('open');
       }
     },
 
-    addRecipient: function(model) {
-      if ( model.id ) {
-        if ( this.collection.get(model) ) {
-          var view = this.children.find(function(child) {
-            return child.model.id === model.id;
-          });
-
-          view.incrementPackageCount();
+    addRecipient: function(recipient) {
+      if ( recipient.id ) {
+        if ( this.recipients[recipient.id] ) {
+          this.incrementPackageCount(recipient);
         } else {
-          this.collection.add(model);
+          this.addReceipt(recipient);
         }
 
         this.search.reset();
       } else {
-        var collection = this.collection;
+        this.listenToOnce(recipient, 'sync', this.addReceipt);
+        this.search.listenToOnce(recipient, 'sync error', this.search.reset);
 
-        model.on('sync', function(recipient) {
-          collection.add(recipient);
+        recipient.once('error', function(model) {
+          Besko.error('Failed to add recipient ' + model.escape('name') + '.');
         });
 
-        model.on('error', function(recipient) {
-          Besko.error('Failed to add recipient ' + recipient.escape('name') + '.');
-        });
-
-        this.search.listenToOnce(model, 'sync error', this.search.reset);
-
-        model.save();
+        recipient.save();
       }
     },
 
-    addReceipt: function(model) {
-      var receipt = new Receipt({ model: model });
+    addReceipt: function(recipient) {
+      var view = this;
 
-      this.listenToOnce(receipt, 'leave', this.removeReceipt);
-      this.appendChildTo(receipt, '[data-collection=receipts]');
+      $.ajax({
+        url: Routes.new_receipt_path(),
+        data: { user_id: recipient.id },
+        dataType: 'html'
+      }).then(function(markup) {
+        view.$receipts.append(markup);
+        view.hideShowTable();
+        view.recipients[recipient.id] = 1;
+
+        updateState(view);
+      }, function() {
+        Besko.error('Failed to add recipient ' + recipient.escape('name') + '.');
+      });
     },
 
-    removeReceipt: function(receipt) {
-      this.collection.remove(receipt.model);
+    removeReceipt: function(event) {
+      var $receipt = $(event.target).parents('[data-resource=receipt]'),
+          recipientId = $receipt.data('recipient');
+
+      delete this.recipients[recipientId];
+      $receipt.remove();
+      this.hideShowTable();
+      updateState(this);
+
+      return false;
     },
 
     validate: function() {
@@ -148,7 +101,7 @@
         return false;
       }
 
-      if ( this.collection.isEmpty() ) {
+      if ( !this.$receipts.children().length ) {
         Besko.error('At least one recipient is required.');
         return false;
       }
@@ -157,23 +110,34 @@
     reset: function() {
       this.$deliverer.val('');
 
-      this.children.each(function(child) {
-        child.leave();
-      });
-
-      this.collection.reset();
-
+      this.$receipts.empty();
+      this.hideShowTable();
       this.search.reset();
+      this.recipients = {};
+
+      updateState(this);
 
       return false;
     },
 
-    updateCookie: function() {
-      var recipientIds = this.collection.map(function(recipient) {
-        return recipient.id;
-      });
+    incrementPackageCount: function(recipient) {
+      var $receipt = this.$receipts.find('[data-recipient=' + recipient.id + ']'),
+          $input = $receipt.find('input[type=number]'),
+          recipientId = $receipt.data('recipient');
 
-      Cookies.set('delivery_recipients', recipientIds);
+      this.recipients[recipientId] += 1;
+      $input.val(this.recipients[recipientId]);
+
+      updateState(this);
+    },
+
+    incrementUrlPackageCount: function(event) {
+      var $input = $(event.target),
+          $receipt = $input.parents('[data-resource=receipt]'),
+          recipientId = $receipt.data('recipient');
+
+      this.recipients[recipientId] += 1;
+      updateState(this);
     }
   });
 })();

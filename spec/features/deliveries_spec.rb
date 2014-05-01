@@ -153,9 +153,9 @@ feature 'Delivery', js: true do
       end
     end
 
-    scenario 'remembers the recipients that were added' do
-      create(:user, first_name: 'Jimmy', last_name: 'McNulty')
-      create(:user, first_name: 'William', last_name: 'Moreland')
+    scenario 'remembers the recipients that were added and how many packages they have' do
+      jimmy = create(:user, first_name: 'Jimmy', last_name: 'McNulty')
+      bunk = create(:user, first_name: 'William', last_name: 'Moreland')
 
       visit new_delivery_path
 
@@ -163,25 +163,27 @@ feature 'Delivery', js: true do
       autocomplete_result('Jimmy McNulty').click
 
       page.should have_receipt_element text: 'Jimmy McNulty'
+      current_url.should include new_delivery_path(:r => { jimmy.id => 1 })
 
-      visit new_delivery_path
+      visit current_url
 
       page.should have_receipt_element text: 'Jimmy McNulty'
 
-      # Ensure it still checks uniqueness of recipients
       fill_in_autocomplete with: 'mcnu'
       autocomplete_result('Jimmy McNulty').click
 
       within receipt_element(text: 'Jimmy McNulty') do
         find('input[type=number]').value.should eq '2'
       end
+      current_url.should include new_delivery_path(:r => { jimmy.id => 2 })
 
       fill_in_autocomplete with: 'more'
       autocomplete_result('William Moreland').click
 
       page.should have_receipt_element text: 'William Moreland'
+      current_url.should include new_delivery_path(:r => { jimmy.id => 2, bunk.id => 1 })
 
-      visit new_delivery_path
+      visit current_url
 
       page.should have_receipt_element text: 'William Moreland'
       page.should have_receipt_element text: 'Jimmy McNulty'
@@ -190,8 +192,9 @@ feature 'Delivery', js: true do
       within receipt_element(text: 'Jimmy McNulty') do
         click_link 'Remove'
       end
+      current_url.should include new_delivery_path(:r => { bunk.id => 1 })
 
-      visit new_delivery_path
+      visit current_url
 
       page.should have_receipt_element text: 'William Moreland'
       page.should_not have_receipt_element text: 'Jimmy McNulty'
@@ -199,7 +202,10 @@ feature 'Delivery', js: true do
       # Ensure all recipients will be removed on page refresh
       click_link 'Cancel'
 
-      visit new_delivery_path
+      page.should_not have_button I18n.t('helpers.submit.delivery.create')
+      current_url.should_not include new_delivery_path(:r => { bunk.id => 1 })
+
+      visit current_url
 
       page.should_not have_receipt_element text: 'William Moreland'
       page.should_not have_receipt_element text: 'Jimmy McNulty'
