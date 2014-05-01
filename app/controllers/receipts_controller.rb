@@ -1,11 +1,11 @@
 class ReceiptsController < InheritedResources::Base
-  layout :determine_layout
-
   authorize_resource
 
   def new
     user = User.find(params[:user_id])
-    @receipt = Receipt.new(user: user)
+    @receipt = Receipt.new(user: user, number_packages: 1)
+
+    render partial: 'form', layout: false, locals: { receipt: @receipt }
   end
 
   def update
@@ -23,10 +23,6 @@ class ReceiptsController < InheritedResources::Base
       receipts = receipts.page(params[:page]).per(10)
       PaginatingDecorator.decorate(receipts)
     end
-  end
-
-  def determine_layout
-    params[:action] == 'new' ? false : 'application'
   end
 
   def interpolation_options
