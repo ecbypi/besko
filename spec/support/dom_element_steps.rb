@@ -53,4 +53,3 @@ module DOMElementSteps
     METHODS
   end
 end
-

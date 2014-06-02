@@ -153,6 +153,21 @@ feature 'Delivery', js: true do
       end
     end
 
+    scenario 'package quantity in the url properly tracks input value' do
+      batman = create(:user, first_name: 'Bruce', last_name: 'Wayne')
+
+      visit new_delivery_path
+
+      fill_in_autocomplete with: 'Bru'
+      autocomplete_result('Bruce Wayne').click
+
+      within receipt_element(text: 'Bruce Wayne') do
+        find('input[type=number]').set 20
+      end
+
+      current_url.should include new_delivery_path(:r => { batman.id => 20 })
+    end
+
     scenario 'remembers the recipients that were added and how many packages they have' do
       jimmy = create(:user, first_name: 'Jimmy', last_name: 'McNulty')
       bunk = create(:user, first_name: 'William', last_name: 'Moreland')

@@ -136,7 +136,7 @@
           $receipt = $input.parents('[data-resource=receipt]'),
           recipientId = $receipt.data('recipient');
 
-      this.recipients[recipientId] += 1;
+      this.recipients[recipientId] = $input.prop('value');
       updateState(this);
     }
   });
