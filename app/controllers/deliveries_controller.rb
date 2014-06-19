@@ -48,9 +48,9 @@ class DeliveriesController < InheritedResources::Base
 
       case params[:sort] || cookies[:delivery_sort]
       when nil, 'newest'
-        deliveries = deliveries.order { created_at.desc }
+        deliveries = deliveries.order(created_at: :desc)
       else
-        deliveries = deliveries.order { created_at.asc }
+        deliveries = deliveries.order(:created_at)
       end
 
       deliveries.decorate
