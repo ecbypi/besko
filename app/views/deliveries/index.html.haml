@@ -9,7 +9,7 @@
   = link_to 'Next Day', deliveries_path(next_date_params), class: 'button next-deliveries-date', data: { pjax: true }
   = link_to 'Previous Day', deliveries_path(previous_date_params), class: 'button prev-deliveries-date', data: { pjax: true }
 
-- if collection.any?
+- if @deliveries.any?
   %table.deliveries-listing.table-striped{ data: { collection: :deliveries } }
     %thead
       %tr
@@ -19,7 +19,7 @@
         %th.delivered-by Delivered By
         %th.package-count Packages
         %th
-    %tbody= render collection
+    %tbody= render @deliveries
 
 - else
   %p.empty-message= t '.no_deliveries'

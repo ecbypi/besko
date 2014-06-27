@@ -1,7 +1,7 @@
 - content_for :title do
   Deliveries
 
-= simple_form_for resource, html: { id: 'new-delivery', class: ['new-delivery', receipts.any? ? 'open' : ''] } do |f|
+= simple_form_for Delivery.new, html: { id: 'new-delivery', class: ['new-delivery', receipts_for_new_delivery.any? ? 'open' : ''] } do |f|
   .inputs.inline-inputs
     = f.input :deliverer, as: :select, collection: Delivery::Deliverers
 
@@ -20,7 +20,7 @@
         %th Comment
         %th
     %tbody{ data: { collection: :receipts } }
-      = render partial: 'receipts/form', collection: receipts, as: :receipt
+      = render partial: 'receipts/form', collection: receipts_for_new_delivery, as: :receipt
     %tfoot
       %tr
         %td

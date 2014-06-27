@@ -1,9 +1,32 @@
-class DeliveriesController < InheritedResources::Base
+class DeliveriesController < ApplicationController
   layout :determine_layout
+
+  responders :flash
+  respond_to :html
+
+  decorates_assigned :delivery
 
   authorize_resource
 
-  helper_method :receipts
+  helper_method :receipts_for_new_delivery
+  hide_action :receipts_for_new_delivery
+
+  def index
+    deliveries = Delivery.includes(:user, receipts: :user).delivered_on(params[:date])
+
+    case params[:sort] || cookies[:delivery_sort]
+    when nil, 'newest'
+      deliveries = deliveries.order(created_at: :desc)
+    else
+      deliveries = deliveries.order(:created_at)
+    end
+
+    @deliveries = deliveries.decorate
+  end
+
+  def show
+    @delivery = Delivery.find(params[:id])
+  end
 
   def create
     delivery = current_user.deliveries.create(delivery_params)
@@ -18,15 +41,16 @@ class DeliveriesController < InheritedResources::Base
   end
 
   def destroy
-    resource.destroy
+    delivery = Delivery.find(params[:id])
+    delivery.destroy
 
-    respond_with(resource, location: deliveries_path(date: resource.delivered_on, sort: cookies[:delivery_sort]))
+    respond_with(delivery, location: deliveries_path(date: delivery.delivered_on, sort: cookies[:delivery_sort]))
   end
 
   private
 
-  def receipts
-    @receipts ||= begin
+  def receipts_for_new_delivery
+    @receipts_for_new_delivery ||= begin
       recipients = params.fetch(:r, {})
 
       users = User.where(id: recipients.keys)
@@ -34,26 +58,6 @@ class DeliveriesController < InheritedResources::Base
         number_packages = recipients.fetch(user.id.to_s, 1).to_i
         Receipt.new(user: user, number_packages: number_packages)
       end
-    end
-  end
-
-  def resource
-    @delivery ||= super.decorate
-  end
-
-  def collection
-    @deliveries ||= begin
-      deliveries = Delivery.includes(:user, receipts: :user)
-      deliveries = deliveries.delivered_on(params[:date])
-
-      case params[:sort] || cookies[:delivery_sort]
-      when nil, 'newest'
-        deliveries = deliveries.order(created_at: :desc)
-      else
-        deliveries = deliveries.order(:created_at)
-      end
-
-      deliveries.decorate
     end
   end
 

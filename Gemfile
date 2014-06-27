@@ -5,7 +5,6 @@ gem 'rails', '4.0.4'
 gem 'pg'
 gem 'devise'
 gem 'cancan'
-gem 'inherited_resources'
 gem 'simple_form'
 gem 'draper'
 gem 'haml-rails'
@@ -22,6 +21,7 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'whenever'
 gem 'dalli'
 gem 'carmen-rails'
+gem 'responders'
 
 group :production, :staging do
   gem 'newrelic_rpm'
