@@ -42,14 +42,11 @@ set :default_environment, {
 
 # For custom symlinks tasks to manage all symlinks in one task
 set :normal_symlinks, %w(
-  config/newrelic.yml
   config/database.yml
-  config/sidekiq.yml
   log
 )
 
 set :odd_symlinks, {
-  'closing' => 'public/closing',
   'sockets' => 'tmp/sockets',
   'pids' => 'tmp/pids',
   'assets' => 'public/assets',
@@ -127,7 +124,7 @@ namespace :deploy do
 end
 
 # Make all symlinks after updating code
-after "deploy:update_code", "deploy:make_symlinks"
+before "deploy:assets:precompile", "deploy:make_symlinks"
 
 # disable/enable the site when migrating
 before "deploy:migrate", "deploy:web:disable"
