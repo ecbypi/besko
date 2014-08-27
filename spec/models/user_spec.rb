@@ -22,7 +22,7 @@ describe User do
       User.search('bob chafe').should include user
       User.search('bob ch').should include user
 
-      User.search('bo hafe').should be_empty
+      User.search('ob hafe').should be_empty
     end
 
     it "can find users based on full or partial login" do

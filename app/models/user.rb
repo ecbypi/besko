@@ -41,15 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(query)
-    terms = query.split
-    likened_terms = terms.map { |term| "#{term}%" }
-
-    where do
-      ( concat(first_name, ' ', last_name).like "#{query}%" ) |
-      ( last_name.like "#{terms.last}%"  ) |
-      ( email.like_any likened_terms     ) |
-      ( login.like_any likened_terms     )
-    end
+    SearchQuery.new(query).result
   end
 
   def self.directory_search(query)

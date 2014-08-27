@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.5'
 
 gem 'pg'
 gem 'devise'
@@ -8,7 +8,6 @@ gem 'cancan'
 gem 'simple_form'
 gem 'draper'
 gem 'haml-rails'
-gem 'squeel'
 gem 'guise'
 gem 'active_model_serializers'
 gem 'kaminari'
