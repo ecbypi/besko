@@ -13,26 +13,26 @@ describe UsersController do
 
       get :index, format: :json, term: 'guy'
 
-      response.status.should eq 401
+      expect(response.status).to eq 401
     end
 
     it "searches database and MIT directory if no options are specified" do
-      User.should_receive(:search).with('micro helpline').and_return([])
-      User.should_receive(:directory_search).with('micro helpline').and_return([])
+      expect(User).to receive(:search).with('micro helpline').and_return([])
+      expect(User).to receive(:directory_search).with('micro helpline').and_return([])
 
       get :index, format: :json, term: 'micro helpline'
     end
 
     it "only searches the database if :local_only param is true" do
-      User.should_receive(:search).with('micro helpline').and_return([])
-      User.should_not_receive(:directory_search)
+      expect(User).to receive(:search).with('micro helpline').and_return([])
+      expect(User).not_to receive(:directory_search)
 
       get :index, format: :json, term: 'micro helpline', options: { local_only: true }
     end
 
     it "only searches the MIT directory if :directory_only param is true" do
-      User.should_receive(:directory_search).with('micro helpline').and_return([])
-      User.should_not_receive(:search)
+      expect(User).to receive(:directory_search).with('micro helpline').and_return([])
+      expect(User).not_to receive(:search)
 
       get :index, format: :json, term: 'micro helpline', options: { directory_only: true }
     end
@@ -44,7 +44,7 @@ describe UsersController do
       get :index, format: :json, term: 'micro helpline'
 
       users = JSON.parse(response.body)
-      users.size.should eq 1
+      expect(users.size).to eq 1
     end
   end
 
@@ -60,7 +60,7 @@ describe UsersController do
 
       expect { post :create, format: :json, user: attributes_for(:user) }.not_to change { User.count }
 
-      response.status.should eq 401
+      expect(response.status).to eq 401
     end
   end
 end

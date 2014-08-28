@@ -15,7 +15,7 @@ describe ApplicationDecorator do
 
   describe "#format_timestamp" do
     it "prettifies the supplied attribute" do
-      decorator.format_timestamp(:something_at).should eq '10:30 AM on Oct 30, 2010'
+      expect(decorator.format_timestamp(:something_at)).to eq '10:30 AM on Oct 30, 2010'
     end
   end
 end

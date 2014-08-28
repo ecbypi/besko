@@ -3,6 +3,6 @@ module LDAPSearchStubbing
     attributes.reverse_merge!(attributes_for(:ldap_entry))
 
     template = File.read(Rails.root.join('spec/fixtures/ldapsearch.erb'))
-    DirectorySearch.any_instance.stub(command_output: ERB.new(template).result(binding))
+    allow_any_instance_of(DirectorySearch).to receive_messages(command_output: ERB.new(template).result(binding))
   end
 end

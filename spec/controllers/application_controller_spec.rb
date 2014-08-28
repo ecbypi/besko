@@ -16,8 +16,8 @@ describe ApplicationController do
       request.env['REMOTE_USER'] = 'mrhalp@mit.edu'
       get :index
 
-      session['warden.user.user.key'].should_not be_nil
-      session['warden.user.user.session'].should_not be_nil
+      expect(session['warden.user.user.key']).not_to be_nil
+      expect(session['warden.user.user.session']).not_to be_nil
     end
   end
 end

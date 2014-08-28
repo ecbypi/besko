@@ -34,17 +34,17 @@ describe Mailer do
 
       mail = Mailer.package_confirmation(receipt.id)
 
-      mail.should be_delivered_to 'frank@whitehouse.gov'
-      mail.should be_delivered_from 'Remy Danton <remy@whitehouse.gov>'
-      mail.should have_subject '[Besko] Delivery from FedEx at the front desk'
+      expect(mail).to be_delivered_to 'frank@whitehouse.gov'
+      expect(mail).to be_delivered_from 'Remy Danton <remy@whitehouse.gov>'
+      expect(mail).to have_subject '[Besko] Delivery from FedEx at the front desk'
 
-      mail.should have_body_text 'Frank Underwood'
-      mail.should have_body_text 'Remy Danton (remy@whitehouse.gov)'
-      mail.should have_body_text 'Delivered By: FedEx'
-      mail.should have_body_text 'Number of Packages: 3'
-      mail.should have_body_text 'Delivered At: October 30, 2010 at 10:00:00 AM'
-      mail.should have_body_text "Comment:\nBig and heavy"
-      mail.should have_body_text receipts_url
+      expect(mail).to have_body_text 'Frank Underwood'
+      expect(mail).to have_body_text 'Remy Danton (remy@whitehouse.gov)'
+      expect(mail).to have_body_text 'Delivered By: FedEx'
+      expect(mail).to have_body_text 'Number of Packages: 3'
+      expect(mail).to have_body_text 'Delivered At: October 30, 2010 at 10:00:00 AM'
+      expect(mail).to have_body_text "Comment:\nBig and heavy"
+      expect(mail).to have_body_text receipts_url
     end
   end
 end

@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe DirectorySearch do
   it 'handles unexpected outcodes' do
-    Cocaine::CommandLine.any_instance.should_receive(:run).and_raise(Cocaine::ExitStatusError)
+    expect_any_instance_of(Cocaine::CommandLine).to receive(:run).and_raise(Cocaine::ExitStatusError)
 
-    DirectorySearch.search('mrhalp').should eq []
+    expect(DirectorySearch.search('mrhalp')).to eq []
   end
 
   it 'times out after 2 seconds' do
     Timeout.timeout(3) do
-      Cocaine::CommandLine.any_instance.stub(:run) { sleep 120 }
+      allow_any_instance_of(Cocaine::CommandLine).to receive(:run) { sleep 120 }
 
-      DirectorySearch.search('mrhalp').should eq []
+      expect(DirectorySearch.search('mrhalp')).to eq []
     end
   end
 
@@ -19,7 +19,7 @@ describe DirectorySearch do
     it 'is idempotent per instance' do
       stub_ldap!
 
-      DirectorySearch.any_instance.should_receive(:command_output).exactly(:once)
+      expect_any_instance_of(DirectorySearch).to receive(:command_output).exactly(:once)
 
       search = DirectorySearch.new('mrhalp')
 
@@ -32,7 +32,7 @@ describe DirectorySearch do
 
       search = DirectorySearch.search('mrhalp')
 
-      search.should eq []
+      expect(search).to eq []
 
       ENV['LDAP_SERVER'] = ldap_server
     end

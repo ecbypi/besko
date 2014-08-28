@@ -8,12 +8,12 @@ describe Ability do
       ability = Ability.new(user)
       package = create(:receipt, user: user)
 
-      ability.should be_able_to(:read, package)
-      ability.should_not be_able_to(:update, package)
+      expect(ability).to be_able_to(:read, package)
+      expect(ability).not_to be_able_to(:update, package)
 
       package = create(:receipt)
 
-      ability.should_not be_able_to(:read, package)
+      expect(ability).not_to be_able_to(:read, package)
     end
   end
 
@@ -22,14 +22,14 @@ describe Ability do
       worker = create(:user, :desk_worker)
       ability = Ability.new(worker)
 
-      ability.should be_able_to(:read, Delivery)
-      ability.should be_able_to(:create, Delivery)
-      ability.should_not be_able_to(:destroy, Delivery)
+      expect(ability).to be_able_to(:read, Delivery)
+      expect(ability).to be_able_to(:create, Delivery)
+      expect(ability).not_to be_able_to(:destroy, Delivery)
 
-      ability.should be_able_to(:index, User)
-      ability.should be_able_to(:create, User)
+      expect(ability).to be_able_to(:index, User)
+      expect(ability).to be_able_to(:create, User)
 
-      ability.should be_able_to(:update, Receipt)
+      expect(ability).to be_able_to(:update, Receipt)
     end
   end
 
@@ -38,8 +38,8 @@ describe Ability do
       admin = create(:user, :admin)
       ability = Ability.new(admin)
 
-      ability.should be_able_to(:read, Delivery)
-      ability.should be_able_to(:destroy, Delivery)
+      expect(ability).to be_able_to(:read, Delivery)
+      expect(ability).to be_able_to(:destroy, Delivery)
     end
   end
 end

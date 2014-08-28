@@ -14,7 +14,7 @@ describe Delivery do
 
   it "sets #delivered_on on creation" do
     delivery = create(:delivery)
-    delivery.delivered_on.should_not be_nil
+    expect(delivery.delivered_on).not_to be_nil
   end
 
   it "activates and confirms all users logged in a delivery" do
@@ -27,8 +27,8 @@ describe Delivery do
     delivery.save!
     user.reload
 
-    user.should be_confirmed
-    user.should be_activated
+    expect(user).to be_confirmed
+    expect(user).to be_activated
   end
 
   describe "#package_count" do
@@ -36,7 +36,7 @@ describe Delivery do
       receipts = build_list(:receipt, 3, number_packages: 3)
       delivery = create(:delivery, receipts: receipts)
 
-      delivery.package_count.should eq 9
+      expect(delivery.package_count).to eq 9
     end
   end
 
@@ -45,13 +45,13 @@ describe Delivery do
     let(:old_delivery) { create(:delivery, delivered_on: '2010-10-30') }
 
     it "defaults to today's deliveries" do
-      Delivery.delivered_on.should include todays_delivery
-      Delivery.delivered_on.should_not include old_delivery
+      expect(Delivery.delivered_on).to include todays_delivery
+      expect(Delivery.delivered_on).not_to include old_delivery
     end
 
     it "finds packages on the supplied date otherwise" do
-      Delivery.delivered_on('2010-10-30').should include old_delivery
-      Delivery.delivered_on('2010-10-30').should_not include todays_delivery
+      expect(Delivery.delivered_on('2010-10-30')).to include old_delivery
+      expect(Delivery.delivered_on('2010-10-30')).not_to include todays_delivery
     end
   end
 end

@@ -14,13 +14,13 @@ describe Receipt do
     it "is false when receipt's packages is not signed out" do
       receipt = create(:receipt)
 
-      receipt.signed_out?.should eq(false)
+      expect(receipt.signed_out?).to eq(false)
     end
 
     it "is true when signed out" do
       receipt = create(:receipt, signed_out_at: Time.zone.now)
 
-      receipt.signed_out?.should eq(true)
+      expect(receipt.signed_out?).to eq(true)
     end
   end
 end

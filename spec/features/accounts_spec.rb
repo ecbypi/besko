@@ -12,8 +12,8 @@ feature 'Accounts can be edited' do
     fill_in 'Confirm New Password', with: 'sekr1t'
     click_button 'Update'
 
-    current_path.should eq edit_user_registration_path
-    page.should have_field 'Email', with: 'new@fake.com'
+    expect(current_path).to eq edit_user_registration_path
+    expect(page).to have_field 'Email', with: 'new@fake.com'
 
     click_link 'Logout'
 
@@ -23,8 +23,8 @@ feature 'Accounts can be edited' do
     fill_in 'Password', with: 'sekr1t'
     click_button 'Sign In'
 
-    current_path.should eq receipts_path
-    page.should have_content 'Signed in successfully.'
+    expect(current_path).to eq receipts_path
+    expect(page).to have_content 'Signed in successfully.'
   end
 
   scenario 'to enter or change their forwarding address', js: true do
@@ -36,8 +36,8 @@ feature 'Accounts can be edited' do
 
     visit edit_user_registration_path
 
-    page.should have_select 'Country', selected: 'United States'
-    page.should have_select 'State', with_options: us_regions
+    expect(page).to have_select 'Country', selected: 'United States'
+    expect(page).to have_select 'State', with_options: us_regions
 
     fill_in 'Street', with: '77 Mass Ave'
     fill_in 'City', with: 'Cambridge'
@@ -45,27 +45,27 @@ feature 'Accounts can be edited' do
     fill_in 'Postal code', with: '02139'
     click_button 'Update Forwarding Address'
 
-    current_path.should eq edit_user_registration_path
-    notifications.should have_content 'Updated forwarding address.'
+    expect(current_path).to eq edit_user_registration_path
+    expect(notifications).to have_content 'Updated forwarding address.'
 
     visit edit_user_registration_path
 
-    page.should have_field 'Street', with: '77 Mass Ave'
-    page.should have_field 'City', with: 'Cambridge'
-    page.should have_select 'State', selected: 'Massachusetts'
-    page.should have_field 'Postal code', with: '02139'
-    page.should have_select 'Country', selected: 'United States'
+    expect(page).to have_field 'Street', with: '77 Mass Ave'
+    expect(page).to have_field 'City', with: 'Cambridge'
+    expect(page).to have_select 'State', selected: 'Massachusetts'
+    expect(page).to have_field 'Postal code', with: '02139'
+    expect(page).to have_select 'Country', selected: 'United States'
 
     # with the `:priority` option, carmen-rails duplicates options
     select 'Canada', from: 'Country', match: :first
-    page.should have_select 'State', with_options: ca_regions
+    expect(page).to have_select 'State', with_options: ca_regions
 
     select 'Yukon', from: 'State'
     click_button 'Update Forwarding Address'
 
-    current_path.should eq edit_user_registration_path
-    notifications.should have_content 'Updated forwarding address.'
-    page.should have_select 'Country', selected: 'Canada'
-    page.should have_select 'State', selected: 'Yukon'
+    expect(current_path).to eq edit_user_registration_path
+    expect(notifications).to have_content 'Updated forwarding address.'
+    expect(page).to have_select 'Country', selected: 'Canada'
+    expect(page).to have_select 'State', selected: 'Yukon'
   end
 end

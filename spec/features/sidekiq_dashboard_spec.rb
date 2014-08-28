@@ -7,20 +7,20 @@ feature 'Sidekiq admin dashboard' do
     sign_in
     visit sidekiq_web_path
 
-    page.driver.response.should_not be_successful
+    expect(page.driver.response).not_to be_successful
 
     visit root_path
     click_link 'Logout'
     sign_in create(:user, :desk_worker)
     visit sidekiq_web_path
 
-    page.driver.response.should_not be_successful
+    expect(page.driver.response).not_to be_successful
 
     visit root_path
     click_link 'Logout'
     sign_in create(:user, :admin)
     visit sidekiq_web_path
 
-    page.driver.response.should be_successful
+    expect(page.driver.response).to be_successful
   end
 end
