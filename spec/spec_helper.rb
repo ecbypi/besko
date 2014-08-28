@@ -23,6 +23,8 @@ Capybara.register_driver :chrome do |app|
 end
 
 RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
+  config.expose_dsl_globally = false
   config.order = 'random'
 
   config.before(:suite) do
@@ -49,24 +51,4 @@ RSpec.configure do |config|
   config.include SessionSteps, type: :feature
   config.include DOMElementSteps, type: :feature
   config.include PageRenderHelper, type: :feature, js: true
-
-  # rspec-rails 3 will no longer automatically infer an example group's spec type
-  # from the file location. You can explicitly opt-in to the feature using this
-  # config option.
-  # To explicitly tag specs without using automatic inference, set the `:type`
-  # metadata manually:
-  #
-  #     describe ThingsController, :type => :controller do
-  #       # Equivalent to being in spec/controllers
-  #     end
-  config.infer_spec_type_from_file_location!
-
-  # Setting this config option `false` removes rspec-core's monkey patching of the
-  # top level methods like `describe`, `shared_examples_for` and `shared_context`
-  # on `main` and `Module`. The methods are always available through the `RSpec`
-  # module like `RSpec.describe` regardless of this setting.
-  # For backwards compatibility this defaults to `true`.
-  #
-  # https://relishapp.com/rspec/rspec-core/v/3-0/docs/configuration/global-namespace-dsl
-  config.expose_dsl_globally = false
 end
