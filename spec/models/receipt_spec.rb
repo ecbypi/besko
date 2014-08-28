@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Receipt do
+RSpec.describe Receipt do
 
   it { should belong_to(:user) }
   it { should belong_to(:delivery) }

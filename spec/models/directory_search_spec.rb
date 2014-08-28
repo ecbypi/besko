@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DirectorySearch do
+RSpec.describe DirectorySearch do
   it 'handles unexpected outcodes' do
     expect_any_instance_of(Cocaine::CommandLine).to receive(:run).and_raise(Cocaine::ExitStatusError)
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DeliveriesController do
+RSpec.describe DeliveriesController do
   include Devise::TestHelpers
 
   describe 'DELETE destroy' do

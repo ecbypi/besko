@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Delivery do
+RSpec.describe Delivery do
 
   it { should belong_to(:user) }
   it { should have_many(:receipts).dependent(:delete_all) }

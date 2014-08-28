@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Password resets' do
+RSpec.feature 'Password resets' do
   include EmailSpec::Matchers
   include EmailSpec::Helpers
   include ExtractDeviseTokenFromEmail

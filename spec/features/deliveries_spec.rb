@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Delivery', js: true do
+RSpec.feature 'Delivery', js: true do
   include AutocompleteSteps
   include EmailSpec::Matchers
   include EmailSpec::Helpers

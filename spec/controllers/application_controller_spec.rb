@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationController do
+RSpec.describe ApplicationController do
   include Devise::TestHelpers
 
   describe "#touchstone_sign_in" do

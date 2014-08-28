@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ForwardingAddress do
+RSpec.describe ForwardingAddress do
   it { should belong_to(:user) }
 
   it { should validate_presence_of(:street) }

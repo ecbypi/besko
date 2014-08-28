@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Package receipts page' do
+RSpec.feature 'Package receipts page' do
   let(:user) { create(:user) }
 
   background do

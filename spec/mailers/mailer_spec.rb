@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Mailer do
+RSpec.describe Mailer do
   describe "#package_confirmation" do
     it 'is from the desk worker, to the recipient of the package containing receipt information' do
       recipient = create(

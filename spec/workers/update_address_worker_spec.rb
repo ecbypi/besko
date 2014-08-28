@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UpdateAddressWorker do
+RSpec.describe UpdateAddressWorker do
   describe '#perform' do
     it 'updates the address of a package recipient' do
       stub_ldap! street: '211 Mass Ave'

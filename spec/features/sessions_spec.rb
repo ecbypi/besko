@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Sessions' do
+RSpec.feature 'Sessions' do
   scenario 'are allowed for confirmed and activated users' do
     user = create(:user, :unconfirmed, :inactive, email: 'guy@fake-email.com', password: 'password')
 

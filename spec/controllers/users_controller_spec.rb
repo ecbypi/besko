@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UsersController do
+RSpec.describe UsersController do
   include Devise::TestHelpers
 
   describe "GET index.json" do

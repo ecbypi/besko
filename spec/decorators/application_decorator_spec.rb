@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationDecorator do
+RSpec.describe ApplicationDecorator do
   class TestModel
     def something_at
       Time.zone.local(2010, 10, 30, 10, 30)

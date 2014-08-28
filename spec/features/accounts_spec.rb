@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Accounts can be edited' do
+RSpec.feature 'Accounts can be edited' do
   scenario 'to change their email address and password' do
     sign_in create(:user, password: 'sekrit', password_confirmation: 'sekrit')
 
