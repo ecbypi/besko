@@ -10,7 +10,7 @@ set :stages, %w( production staging )
 set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
 
-require 'sidekiq/capistrano'
+require 'capistrano/sidekiq'
 
 require 'whenever/capistrano'
 set :whenever_command, 'bundle exec whenever'

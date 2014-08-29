@@ -44,6 +44,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'respec'
+  gem 'capistrano-sidekiq'
 end
 
 group :development, :test do
