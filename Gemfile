@@ -20,10 +20,10 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'dalli'
 gem 'carmen-rails'
 gem 'responders'
+gem 'honeybadger'
 
 group :production, :staging do
   gem 'newrelic_rpm'
-  gem 'honeybadger'
 end
 
 # assets
