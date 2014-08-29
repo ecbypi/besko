@@ -22,10 +22,7 @@ gem 'carmen-rails'
 gem 'responders'
 gem 'honeybadger'
 gem 'sidetiq'
-
-group :production, :staging do
-  gem 'newrelic_rpm'
-end
+gem 'newrelic_rpm'
 
 # assets
 gem 'jquery-rails'
