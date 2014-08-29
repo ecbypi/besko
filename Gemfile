@@ -36,7 +36,6 @@ gem 'js-routes'
 
 group :development do
   gem 'capistrano', '< 3'
-  gem 'foreman'
   gem 'meta_request'
   gem 'better_errors'
   gem 'binding_of_caller'
