@@ -12,11 +12,6 @@ require 'capistrano/ext/multistage'
 
 require 'capistrano/sidekiq'
 
-require 'whenever/capistrano'
-set :whenever_command, 'bundle exec whenever'
-set :whenever_environment, defer { stage }
-set :whenever_identifier, defer { "#{application}_#{stage}" }
-
 # Server(s) deploying to
 set :application, 'besko'
 server 'besko.mit.edu', :web, :app, :db, primary: true
