@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Package receipts page' do
+RSpec.feature 'Package receipts page' do
   let(:user) { create(:user) }
 
   background do
@@ -21,11 +21,11 @@ feature 'Package receipts page' do
     visit receipts_path
 
     within receipt_element(text: 'UPS') do
-      page.should have_content '7593'
-      page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-      page.should have_content 'Fragile'
-      page.should have_content '10:30 AM on Oct 30, 2010'
-      page.should have_content 'Awaiting Pickup'
+      expect(page).to have_content '7593'
+      expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+      expect(page).to have_content 'Fragile'
+      expect(page).to have_content '10:30 AM on Oct 30, 2010'
+      expect(page).to have_content 'Awaiting Pickup'
     end
 
     receipt.update!(signed_out_at: Time.zone.now)
@@ -33,7 +33,7 @@ feature 'Package receipts page' do
     visit receipts_path
 
     within receipt_element(text: 'UPS') do
-      page.should have_content Time.zone.now.strftime('%b %d, %Y')
+      expect(page).to have_content Time.zone.now.strftime('%b %d, %Y')
     end
   end
 
@@ -44,7 +44,7 @@ feature 'Package receipts page' do
 
     click_link 'Next', match: :first
 
-    page.should have_receipt_element count: 1
+    expect(page).to have_receipt_element count: 1
   end
 
   scenario 'is shown only to signed in users' do
@@ -52,8 +52,8 @@ feature 'Package receipts page' do
 
     visit receipts_path
 
-    current_path.should eq new_user_session_path
-    page.should_not have_link 'Packages', href: receipts_path
+    expect(current_path).to eq new_user_session_path
+    expect(page).not_to have_link 'Packages', href: receipts_path
   end
 
   scenario 'can be signed out by desk workers' do
@@ -71,11 +71,11 @@ feature 'Package receipts page' do
       click_button 'Sign Out'
     end
 
-    current_path.should eq delivery_path(delivery)
-    notifications.should have_content 'Signed out package for Whip Whitaker delivered by UPS'
+    expect(current_path).to eq delivery_path(delivery)
+    expect(notifications).to have_content 'Signed out package for Whip Whitaker delivered by UPS'
 
     within receipt_element(text: 'Whip Whitaker') do
-      page.should have_content 'Picked Up'
+      expect(page).to have_content 'Picked Up'
     end
   end
 end

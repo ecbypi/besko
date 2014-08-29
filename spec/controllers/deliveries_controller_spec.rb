@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DeliveriesController do
+RSpec.describe DeliveriesController do
   include Devise::TestHelpers
 
   describe 'DELETE destroy' do
@@ -9,7 +9,7 @@ describe DeliveriesController do
 
       delete :destroy, id: delivery.id
 
-      Delivery.exists?(delivery.id).should be_true
+      expect(Delivery.exists?(delivery.id)).to be true
     end
 
     it 'denies regular users' do
@@ -19,7 +19,7 @@ describe DeliveriesController do
 
       delete :destroy, id: delivery.id
 
-      Delivery.exists?(delivery.id).should be_true
+      expect(Delivery.exists?(delivery.id)).to be true
     end
 
     it 'denies besk workers' do
@@ -29,7 +29,7 @@ describe DeliveriesController do
 
       delete :destroy, id: delivery.id
 
-      Delivery.exists?(delivery.id).should be_true
+      expect(Delivery.exists?(delivery.id)).to be true
     end
 
     it 'allows admins' do
@@ -39,7 +39,7 @@ describe DeliveriesController do
 
       delete :destroy, id: delivery.id
 
-      Delivery.exists?(delivery.id).should be_false
+      expect(Delivery.exists?(delivery.id)).to be false
     end
   end
 end

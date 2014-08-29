@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Delivery', js: true do
+RSpec.feature 'Delivery', js: true do
   include AutocompleteSteps
   include EmailSpec::Matchers
   include EmailSpec::Helpers
@@ -26,32 +26,32 @@ feature 'Delivery', js: true do
       visit deliveries_path(date: '2011-11-11')
 
       within delivery_element(text: 'LaserShip') do
-        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        page.should have_content '03:12:09 pm'
-        page.should have_content '3457'
-        page.should_not have_button 'Delete'
+        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        expect(page).to have_content '03:12:09 pm'
+        expect(page).to have_content '3457'
+        expect(page).not_to have_button 'Delete'
       end
 
       within delivery_element(text: 'LaserShip') do
         click_link 'Details'
       end
 
-      current_path.should eq delivery_path(delivery)
+      expect(current_path).to eq delivery_path(delivery)
 
       within delivery_element(text: 'LaserShip') do
-        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        page.should have_content 'Delivered On Friday, November 11, 2011'
-        page.should have_content 'Total Packages 3457'
+        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        expect(page).to have_content 'Delivered On Friday, November 11, 2011'
+        expect(page).to have_content 'Total Packages 3457'
       end
 
       within receipt_element(text: 'Ms Helpline') do
-        page.should have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
-        page.should have_content '3455'
+        expect(page).to have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
+        expect(page).to have_content '3455'
       end
 
       within receipt_element(text: 'Micro Helpline') do
-        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        page.should have_content '2'
+        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        expect(page).to have_content '2'
       end
     end
 
@@ -63,25 +63,25 @@ feature 'Delivery', js: true do
 
       visit deliveries_path
 
-      'LaserShip'.should appear_before 'UPS'
+      expect('LaserShip').to appear_before 'UPS'
 
       within deliveries_element do
         click_link 'Delivered At'
       end
 
       sleep 1
-      'UPS'.should appear_before 'LaserShip'
+      expect('UPS').to appear_before 'LaserShip'
 
       visit current_url
 
-      'UPS'.should appear_before 'LaserShip'
+      expect('UPS').to appear_before 'LaserShip'
 
       visit deliveries_path
 
-      current_url.should include 'sort=oldest'
-      'UPS'.should appear_before 'LaserShip'
+      expect(current_url).to include 'sort=oldest'
+      expect('UPS').to appear_before 'LaserShip'
       # hacky way to ensure the sort arrow is pointing the right way
-      page.should have_css '.sort-column.up'
+      expect(page).to have_css '.sort-column.up'
     end
 
     scenario 'allows deletion by admins' do
@@ -91,7 +91,7 @@ feature 'Delivery', js: true do
       visit deliveries_path
 
       within deliveries_element do
-        page.should_not have_button 'Delete'
+        expect(page).not_to have_button 'Delete'
       end
 
       click_link 'Logout'
@@ -100,14 +100,14 @@ feature 'Delivery', js: true do
 
       visit deliveries_path
 
-      page.should have_delivery_element text: 'FedEx', count: 2
+      expect(page).to have_delivery_element text: 'FedEx', count: 2
 
       within delivery_element(text: 'Micro Helpline') do
         click_button 'Delete'
       end
 
-      page.should have_delivery_element text: 'FedEx', count: 1
-      current_url.should include deliveries_path(date: Time.zone.now.to_date, sort: 'newest')
+      expect(page).to have_delivery_element text: 'FedEx', count: 1
+      expect(current_url).to include deliveries_path(date: Time.zone.now.to_date, sort: 'newest')
     end
   end
 
@@ -125,12 +125,12 @@ feature 'Delivery', js: true do
 
       click_button 'Send Notifications'
 
-      notifications.should have_content 'A deliverer is required to log a delivery.'
+      expect(notifications).to have_content 'A deliverer is required to log a delivery.'
 
       select 'UPS', from: 'Delivery Company'
       click_button 'Send Notifications'
 
-      notifications.should have_content 'At least one recipient is required.'
+      expect(notifications).to have_content 'At least one recipient is required.'
     end
 
     scenario 'auto-increments number of packages for a user that is added twice' do
@@ -141,15 +141,15 @@ feature 'Delivery', js: true do
       fill_in_autocomplete with: 'walt'
       autocomplete_result('Walter White').click
 
-      page.should have_receipt_element text: 'Walter White'
+      expect(page).to have_receipt_element text: 'Walter White'
 
       fill_in_autocomplete with: 'walt'
       autocomplete_result('Walter White').click
 
-      page.should have_receipt_element text: 'Walter White', count: 1
+      expect(page).to have_receipt_element text: 'Walter White', count: 1
 
       within receipt_element(text: 'Walter White') do
-        find('input[type=number]').value.should eq '2'
+        expect(find('input[type=number]').value).to eq '2'
       end
     end
 
@@ -165,7 +165,7 @@ feature 'Delivery', js: true do
         find('input[type=number]').set 20
       end
 
-      current_url.should include new_delivery_path(:r => { batman.id => 20 })
+      expect(current_url).to include new_delivery_path(:r => { batman.id => 20 })
     end
 
     scenario 'remembers the recipients that were added and how many packages they have' do
@@ -177,53 +177,53 @@ feature 'Delivery', js: true do
       fill_in_autocomplete with: 'mcnu'
       autocomplete_result('Jimmy McNulty').click
 
-      page.should have_receipt_element text: 'Jimmy McNulty'
-      current_url.should include new_delivery_path(:r => { jimmy.id => 1 })
+      expect(page).to have_receipt_element text: 'Jimmy McNulty'
+      expect(current_url).to include new_delivery_path(:r => { jimmy.id => 1 })
 
       visit current_url
 
-      page.should have_receipt_element text: 'Jimmy McNulty'
+      expect(page).to have_receipt_element text: 'Jimmy McNulty'
 
       fill_in_autocomplete with: 'mcnu'
       autocomplete_result('Jimmy McNulty').click
 
       within receipt_element(text: 'Jimmy McNulty') do
-        find('input[type=number]').value.should eq '2'
+        expect(find('input[type=number]').value).to eq '2'
       end
-      current_url.should include new_delivery_path(:r => { jimmy.id => 2 })
+      expect(current_url).to include new_delivery_path(:r => { jimmy.id => 2 })
 
       fill_in_autocomplete with: 'more'
       autocomplete_result('William Moreland').click
 
-      page.should have_receipt_element text: 'William Moreland'
-      current_url.should include new_delivery_path(:r => { jimmy.id => 2, bunk.id => 1 })
+      expect(page).to have_receipt_element text: 'William Moreland'
+      expect(current_url).to include new_delivery_path(:r => { jimmy.id => 2, bunk.id => 1 })
 
       visit current_url
 
-      page.should have_receipt_element text: 'William Moreland'
-      page.should have_receipt_element text: 'Jimmy McNulty'
+      expect(page).to have_receipt_element text: 'William Moreland'
+      expect(page).to have_receipt_element text: 'Jimmy McNulty'
 
       # Ensure individual recipients will be removed on page refresh
       within receipt_element(text: 'Jimmy McNulty') do
         click_link 'Remove'
       end
-      current_url.should include new_delivery_path(:r => { bunk.id => 1 })
+      expect(current_url).to include new_delivery_path(:r => { bunk.id => 1 })
 
       visit current_url
 
-      page.should have_receipt_element text: 'William Moreland'
-      page.should_not have_receipt_element text: 'Jimmy McNulty'
+      expect(page).to have_receipt_element text: 'William Moreland'
+      expect(page).not_to have_receipt_element text: 'Jimmy McNulty'
 
       # Ensure all recipients will be removed on page refresh
       click_link 'Cancel'
 
-      page.should_not have_button I18n.t('helpers.submit.delivery.create')
-      current_url.should_not include new_delivery_path(:r => { bunk.id => 1 })
+      expect(page).not_to have_button I18n.t('helpers.submit.delivery.create')
+      expect(current_url).not_to include new_delivery_path(:r => { bunk.id => 1 })
 
       visit current_url
 
-      page.should_not have_receipt_element text: 'William Moreland'
-      page.should_not have_receipt_element text: 'Jimmy McNulty'
+      expect(page).not_to have_receipt_element text: 'William Moreland'
+      expect(page).not_to have_receipt_element text: 'Jimmy McNulty'
     end
 
     scenario 'allows adding local DB and LDAP records' do
@@ -231,12 +231,12 @@ feature 'Delivery', js: true do
 
       visit new_delivery_path
 
-      page.should_not have_receipts_element
+      expect(page).not_to have_receipts_element
 
       fill_in_autocomplete with: 'snow'
       autocomplete_result('Jon Snow').click
 
-      page.should have_receipt_element text: 'Jon Snow'
+      expect(page).to have_receipt_element text: 'Jon Snow'
 
       fill_in_autocomplete with: 'help'
       autocomplete_result('Micro Helpline').click
@@ -246,17 +246,17 @@ feature 'Delivery', js: true do
       end
 
       # Ensures user is created
-      User.last.email.should eq 'mrhalp@mit.edu'
+      expect(User.last.email).to eq 'mrhalp@mit.edu'
 
       select 'UPS', from: 'Delivery Company'
       click_button 'Send Notifications'
 
-      page.should have_content 'Notifications Sent'
-      last_email.should be_delivered_to 'mrhalp@mit.edu'
+      expect(page).to have_content 'Notifications Sent'
+      expect(last_email).to be_delivered_to 'mrhalp@mit.edu'
 
-      current_path.should eq delivery_path(Delivery.last!)
-      page.should have_content 'Jon Snow 1'
-      page.should have_content 'Micro Helpline 2'
+      expect(current_path).to eq delivery_path(Delivery.last!)
+      expect(page).to have_content 'Jon Snow 1'
+      expect(page).to have_content 'Micro Helpline 2'
     end
   end
 
@@ -278,7 +278,7 @@ feature 'Delivery', js: true do
       click_link 'Previous Day'
 
       within delivery_element(text: 'UPS') do
-        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       end
 
       click_link 'Next Day'
@@ -286,7 +286,7 @@ feature 'Delivery', js: true do
       click_link 'Next Day'
 
       within delivery_element(text: 'USPS') do
-        page.should have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
+        expect(page).to have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
       end
     end
 
@@ -308,16 +308,16 @@ feature 'Delivery', js: true do
         find('a.ui-state-default:not(.ui-priority-secondary)', text: day.day.to_s).click
       end
 
-      current_url.should include deliveries_path(date: '2010-10-30', sort: 'newest')
+      expect(current_url).to include deliveries_path(date: '2010-10-30', sort: 'newest')
 
       within delivery_element(text: 'FedEx') do
-        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       end
 
       visit current_url
 
       within delivery_element(text: 'FedEx') do
-        page.should have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
       end
     end
   end
@@ -328,12 +328,12 @@ feature 'Delivery', js: true do
 
     visit new_delivery_path
 
-    current_path.should eq receipts_path
-    navigation.should_not have_link 'Log New Delivery', href: new_delivery_path
+    expect(current_path).to eq receipts_path
+    expect(navigation).not_to have_link 'Log New Delivery', href: new_delivery_path
 
     visit deliveries_path
 
-    current_path.should eq receipts_path
-    navigation.should_not have_link 'Deliveries', href: deliveries_path
+    expect(current_path).to eq receipts_path
+    expect(navigation).not_to have_link 'Deliveries', href: deliveries_path
   end
 end

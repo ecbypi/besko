@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UpdateAddressWorker do
+RSpec.describe UpdateAddressWorker do
   describe '#perform' do
     it 'updates the address of a package recipient' do
       stub_ldap! street: '211 Mass Ave'
@@ -9,11 +9,11 @@ describe UpdateAddressWorker do
 
       UpdateAddressWorker.perform_async
 
-      user.reload.street.should eq '211 Mass Ave'
+      expect(user.reload.street).to eq '211 Mass Ave'
     end
 
     it 'does nothing if there is no LDAP information for the user' do
-      DirectorySearch.any_instance.stub(command_output: '')
+      allow_any_instance_of(DirectorySearch).to receive_messages(command_output: '')
 
       user = create(:user, street: '77 Mass Ave')
 

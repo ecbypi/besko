@@ -1,19 +1,19 @@
 require 'spec_helper'
 require 'cancan/matchers'
 
-describe Ability do
+RSpec.describe Ability do
   describe "as a normal user" do
     it "can see and sign out only their own packages" do
       user = create(:user)
       ability = Ability.new(user)
       package = create(:receipt, user: user)
 
-      ability.should be_able_to(:read, package)
-      ability.should_not be_able_to(:update, package)
+      expect(ability.can?(:read, package)).to eq true
+      expect(ability.can?(:update, package)).to eq false
 
       package = create(:receipt)
 
-      ability.should_not be_able_to(:read, package)
+      expect(ability.can?(:read, package)).to eq false
     end
   end
 
@@ -22,14 +22,14 @@ describe Ability do
       worker = create(:user, :desk_worker)
       ability = Ability.new(worker)
 
-      ability.should be_able_to(:read, Delivery)
-      ability.should be_able_to(:create, Delivery)
-      ability.should_not be_able_to(:destroy, Delivery)
+      expect(ability.can?(:read, Delivery)).to eq true
+      expect(ability.can?(:create, Delivery)).to eq true
+      expect(ability.can?(:destroy, Delivery)).to eq false
 
-      ability.should be_able_to(:index, User)
-      ability.should be_able_to(:create, User)
+      expect(ability.can?(:index, User)).to eq true
+      expect(ability.can?(:create, User)).to eq true
 
-      ability.should be_able_to(:update, Receipt)
+      expect(ability.can?(:update, Receipt)).to eq true
     end
   end
 
@@ -38,8 +38,8 @@ describe Ability do
       admin = create(:user, :admin)
       ability = Ability.new(admin)
 
-      ability.should be_able_to(:read, Delivery)
-      ability.should be_able_to(:destroy, Delivery)
+      expect(ability.can?(:read, Delivery)).to eq true
+      expect(ability.can?(:destroy, Delivery)).to eq true
     end
   end
 end

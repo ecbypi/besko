@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do
+RSpec.describe User do
   it { should have_many(:receipts) }
   it { should have_many(:deliveries) }
   it { should have_many(:user_roles) }
@@ -19,37 +19,37 @@ describe User do
     it "finds based on first_name and last_name concatenation" do
       user = create(:user, first_name: 'bob', last_name: 'chafe')
 
-      User.search('bob chafe').should include user
-      User.search('bob ch').should include user
+      expect(User.search('bob chafe')).to include user
+      expect(User.search('bob ch')).to include user
 
-      User.search('ob hafe').should be_empty
+      expect(User.search('ob hafe')).to be_empty
     end
 
     it "can find users based on full or partial login" do
       user = create(:user, login: 'mrhalp')
 
-      User.search('mrhalp').should include user
-      User.search('mrh').should include user
+      expect(User.search('mrhalp')).to include user
+      expect(User.search('mrh')).to include user
 
-      User.search('halp').should be_empty
+      expect(User.search('halp')).to be_empty
     end
 
     it "can find users based on full or partial email" do
       user = create(:user, email: 'mrhalp@mit.edu')
 
-      User.search('mrhalp@mit.edu').should include user
-      User.search('mrhalp@').should include user
+      expect(User.search('mrhalp@mit.edu')).to include user
+      expect(User.search('mrhalp@')).to include user
 
-      User.search('edu').should be_empty
+      expect(User.search('edu')).to be_empty
     end
 
     it "matches based on full or partial last name if it does not match by full name" do
       user = create(:user, first_name: 'Robert', last_name: 'Chafe')
 
-      User.search('bob chafe').should include user
-      User.search('chaf').should include user
+      expect(User.search('bob chafe')).to include user
+      expect(User.search('chaf')).to include user
 
-      User.search('hafe').should be_empty
+      expect(User.search('hafe')).to be_empty
     end
   end
 
@@ -58,13 +58,13 @@ describe User do
       stub_ldap!
       users = User.directory_search('micro helpline')
 
-      users.should_not be_empty # Ensures stubbing worked correctly
+      expect(users).not_to be_empty # Ensures stubbing worked correctly
 
       user = users.first
 
-      user.first_name.should eq 'Micro'
-      user.last_name.should eq 'Helpline'
-      user.email.should eq 'mrhalp@mit.edu'
+      expect(user.first_name).to eq 'Micro'
+      expect(user.last_name).to eq 'Helpline'
+      expect(user.email).to eq 'mrhalp@mit.edu'
     end
 
     it "filters out results missing required attributes" do
@@ -75,7 +75,7 @@ describe User do
 
         users = User.directory_search('micro helpline')
 
-        users.should be_empty
+        expect(users).to be_empty
       end
     end
   end
@@ -86,10 +86,10 @@ describe User do
 
       user.assign_password
 
-      user.password.should be_present
-      user.password_confirmation.should be_present
+      expect(user.password).to be_present
+      expect(user.password_confirmation).to be_present
 
-      user.password.should eq user.password_confirmation
+      expect(user.password).to eq user.password_confirmation
     end
   end
 end

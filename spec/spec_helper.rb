@@ -23,7 +23,11 @@ Capybara.register_driver :chrome do |app|
 end
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+  config.infer_spec_type_from_file_location!
+  config.expose_dsl_globally = false
   config.order = 'random'
 
   config.before(:suite) do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Password resets' do
+RSpec.feature 'Password resets' do
   include EmailSpec::Matchers
   include EmailSpec::Helpers
   include ExtractDeviseTokenFromEmail
@@ -15,9 +15,9 @@ feature 'Password resets' do
     fill_in 'Email', with: 'forgetful@mit.edu'
     click_button 'Send Reset Email'
 
-    notifications.should have_content I18n.t('devise.passwords.send_instructions')
+    expect(notifications).to have_content I18n.t('devise.passwords.send_instructions')
 
-    last_email.should be_delivered_to 'forgetful@mit.edu'
+    expect(last_email).to be_delivered_to 'forgetful@mit.edu'
 
     user.reload
 
@@ -29,8 +29,8 @@ feature 'Password resets' do
     fill_in 'Confirm Password', with: 'password'
     click_button 'Change Password'
 
-    current_path.should eq receipts_path
+    expect(current_path).to eq receipts_path
 
-    notifications.should have_content 'Your password was changed successfully. You are now signed in.'
+    expect(notifications).to have_content 'Your password was changed successfully. You are now signed in.'
   end
 end
