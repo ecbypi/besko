@@ -50,7 +50,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Helpers, type: :mailer
   config.include FactoryGirl::Syntax::Methods
 
-  config.include LDAPSearchStubbing
+  config.include CommandStubbing
   config.include EmailSteps
 
   config.include SessionSteps, type: :feature
