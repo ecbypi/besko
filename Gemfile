@@ -23,6 +23,7 @@ gem 'responders'
 gem 'honeybadger'
 gem 'sidetiq'
 gem 'newrelic_rpm'
+gem 'unicorn'
 
 # assets
 gem 'jquery-rails'
