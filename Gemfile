@@ -21,6 +21,7 @@ gem 'dalli'
 gem 'carmen-rails'
 gem 'responders'
 gem 'honeybadger'
+gem 'sidetiq'
 
 group :production, :staging do
   gem 'newrelic_rpm'
