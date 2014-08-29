@@ -17,14 +17,14 @@ gem 'posix-spawn'
 gem 'ldaptic'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'whenever'
 gem 'dalli'
 gem 'carmen-rails'
 gem 'responders'
+gem 'honeybadger'
+gem 'sidetiq'
 
 group :production, :staging do
   gem 'newrelic_rpm'
-  gem 'honeybadger'
 end
 
 # assets
@@ -44,6 +44,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'respec'
+  gem 'capistrano-sidekiq'
 end
 
 group :development, :test do

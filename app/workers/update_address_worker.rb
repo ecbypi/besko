@@ -1,5 +1,8 @@
 class UpdateAddressWorker
   include Sidekiq::Worker
+  include Sidetiq::Schedulable
+
+  recurrence { weekly.day(:sunday) }
 
   def perform
     kerberos_principles = User.where.not(login: nil).pluck(:login, :street)
