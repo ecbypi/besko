@@ -10,7 +10,15 @@ set :stages, %w( production staging )
 set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
 
+# Sidekiq start/stop/restart tasks
 require 'capistrano/sidekiq'
+
+# Capistrano tasks
+require 'capistrano-unicorn'
+set :unicorn_bin, 'unicorn_rails'
+after 'deploy:start', 'unicorn:start'
+after 'deploy:restart', 'unicorn:duplicate'
+after 'deploy:stop', 'unicorn:stop'
 
 # Server(s) deploying to
 set :application, 'besko'
@@ -53,14 +61,6 @@ set :normalize_assets_timestamps, false
 set :shared_children, []
 
 namespace :deploy do
-  task :start do; end
-  task :stop do; end
-
-  desc "Touch restart.txt to tell passenger to restart"
-  task :restart, roles: :app, except: { no_release: true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-
   # Make default symlink tasks a no-op
   task :symlink do ; end
 

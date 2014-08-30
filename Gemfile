@@ -43,6 +43,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'respec'
   gem 'capistrano-sidekiq'
+  gem 'capistrano-unicorn'
 end
 
 group :development, :test do
