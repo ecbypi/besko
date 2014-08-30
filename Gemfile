@@ -44,6 +44,7 @@ group :development do
   gem 'respec'
   gem 'capistrano-sidekiq'
   gem 'capistrano-unicorn'
+  gem 'capistrano-env', github: 'ecbypi/capistrano-env'
 end
 
 group :development, :test do

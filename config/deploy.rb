@@ -1,6 +1,9 @@
 # dependencies
 require 'bundler/capistrano'
 require 'pathname'
+require 'dotenv'
+
+Dotenv.load!
 
 # honeybadger configuration/tasks
 require './config/boot'
@@ -19,6 +22,13 @@ set :unicorn_bin, 'unicorn_rails'
 after 'deploy:start', 'unicorn:start'
 after 'deploy:restart', 'unicorn:duplicate'
 after 'deploy:stop', 'unicorn:stop'
+
+# ENV management via S3
+require 'capistrano/env'
+set :env_bucket_name, 'besko-env-files'
+after 'env:set', 'deploy:restart', 'env:read'
+after 'env:unset', 'deploy:restart', 'env:read'
+before 'symlinks:make', 'env:export'
 
 # Server(s) deploying to
 set :application, 'besko'
