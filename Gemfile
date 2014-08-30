@@ -24,6 +24,7 @@ gem 'honeybadger'
 gem 'sidetiq'
 gem 'newrelic_rpm'
 gem 'unicorn'
+gem 'dotenv', require: false
 
 # assets
 gem 'jquery-rails'
