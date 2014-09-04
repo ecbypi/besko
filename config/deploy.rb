@@ -30,7 +30,7 @@ server 'besko.mit.edu', :web, :app, :db, primary: true
 set :scm, :git
 set :scm_username, 'git'
 set :repository, 'git@github.com:ecbypi/besko.git'
-set :branch, 'master'
+set :branch, ENV.fetch('BRANCH', 'master')
 set :deploy_via, :remote_cache
 
 # Environment settings
