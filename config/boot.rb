@@ -4,3 +4,7 @@ require 'rubygems'
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
 require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+
+# NOTE: Load the ENV before loading any of the application.
+require 'dotenv'
+Dotenv.load

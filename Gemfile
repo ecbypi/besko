@@ -23,6 +23,7 @@ gem 'responders'
 gem 'honeybadger'
 gem 'sidetiq'
 gem 'newrelic_rpm'
+gem 'dotenv'
 
 # assets
 gem 'jquery-rails'
@@ -41,6 +42,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'respec'
   gem 'capistrano-sidekiq'
+  gem 'capistrano-env', github: 'ecbypi/capistrano-env'
 end
 
 group :development, :test do
