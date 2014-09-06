@@ -4,10 +4,12 @@ RSpec.describe ShibbolethSessionsController do
   describe "POST create" do
     context "when ENV['SHIBBOLETH_LOGIN_HANDLER'] is set" do
       it "redirects to the login handler with a redirect param to login page" do
+        target_url = CGI.escape(new_user_session_url)
+
         post :create
 
         expect(response.status).to eq 302
-        expect(response.location).to eq "https://testshib.org/Shibboleth.sso"
+        expect(response.location).to eq "https://testshib.org/Shibboleth.sso/Login?target=#{target_url}"
       end
     end
 

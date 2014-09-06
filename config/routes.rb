@@ -12,7 +12,8 @@ Besko::Application.routes.draw do
     },
     controllers: {
       passwords: 'passwords',
-      registrations: 'registrations'
+      registrations: 'registrations',
+      sessions: "sessions"
     },
     skip: %w( registrations )
 
