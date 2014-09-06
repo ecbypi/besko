@@ -41,9 +41,16 @@ RSpec.feature 'Sessions' do
     expect(notifications).to have_content 'Signed in successfully.'
   end
 
-  scenario 'are available via touchstone' do
+  scenario "are available via touchstone if login handler is configured via ENV" do
     visit new_user_session_path
 
     expect(page).to have_button 'Sign In with Touchstone'
+
+    login_handler = ENV.delete("SHIBBOLETH_LOGIN_HANDLER")
+    visit new_user_session_path
+
+    expect(page).not_to have_button "Sign In with Touchstone"
+
+    ENV["SHIBBOLETH_LOGIN_HANDLER"] = login_handler
   end
 end

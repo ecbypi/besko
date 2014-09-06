@@ -12,9 +12,12 @@ Besko::Application.routes.draw do
     },
     controllers: {
       passwords: 'passwords',
-      registrations: 'registrations'
+      registrations: 'registrations',
+      sessions: "sessions"
     },
     skip: %w( registrations )
+
+  post "/login/touchstone", to: "shibboleth_sessions#create", as: :shibboleth_session
 
   authenticated :user do
     root to: redirect('/receipts')

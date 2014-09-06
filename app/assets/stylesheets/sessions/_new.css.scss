@@ -6,11 +6,13 @@
   }
 
   .touchstone-sign-in {
+    float: left;
     width: 35%;
   }
 
   .local-sign-in {
-    float: right;
+    float: left;
     width: 62%;
+    margin-right: 3%;
   }
 }
