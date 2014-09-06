@@ -16,15 +16,16 @@
       = f.button :submit, "Sign In"
       = link_to 'Forgot password?', new_user_password_path
 
-= form_tag '/touchstone', class: 'actionable touchstone-sign-in new-session' do
-  .actionable-header
-    %h2 Touchstone Sign In
+- if ENV["SHIBBOLETH_LOGIN_HANDLER"]
+  .actionable.touchstone-sign-in.new-session
+    .actionable-header
+      %h2 Touchstone Sign In
 
-  .actionable-body
-    %p Using Touchstone you can sign in with your:
-    %ul
-      %li MIT web certificate
-      %li Kerberos account
+    .actionable-body
+      %p Using Touchstone you can sign in with your:
+      %ul
+        %li MIT web certificate
+        %li Kerberos account
 
-  .actionable-footer
-    = button_tag 'Sign In with Touchstone', class: 'button'
+    .actionable-footer
+      = button_to "Sign In with Touchstone", shibboleth_session_path, class: "button"

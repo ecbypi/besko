@@ -16,6 +16,8 @@ Besko::Application.routes.draw do
     },
     skip: %w( registrations )
 
+  post "/login/touchstone", to: "shibboleth_sessions#create", as: :shibboleth_session
+
   authenticated :user do
     root to: redirect('/receipts')
   end
