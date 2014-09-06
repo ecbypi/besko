@@ -38,4 +38,15 @@ RSpec.describe SessionsController do
       expect(session['warden.user.user.session']).to be_nil
     end
   end
+
+  describe "DELETE destroy" do
+    it "redirects to delete Shibboleth logout handler" do
+      return_url = CGI.escape(root_url)
+
+      delete :destroy
+
+      expect(response.status).to eq 302
+      expect(response.location).to eq "https://testshib.org/Shibboleth.sso/Logout?return=#{return_url}"
+    end
+  end
 end

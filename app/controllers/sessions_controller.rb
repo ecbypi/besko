@@ -16,4 +16,15 @@ class SessionsController < Devise::SessionsController
   def after_sign_in_path_for(user)
     receipts_url
   end
+
+  def after_sign_out_path_for(user)
+    shibboleth_logout_handler = URI.parse(ENV["SHIBBOLETH_LOGOUT_HANDLER"]) rescue nil
+
+    if shibboleth_logout_handler
+      shibboleth_logout_handler.query = { return: root_url }.to_param
+      shibboleth_logout_handler.to_s
+    else
+      root_url
+    end
+  end
 end
