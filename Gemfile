@@ -34,6 +34,8 @@ gem 'bourbon'
 gem 'therubyracer', require: 'v8' # for precompiling assets
 gem 'backbone-support', github: 'ecbypi/backbone-support'
 gem 'js-routes'
+gem 'neat'
+gem 'bitters'
 
 group :development do
   gem 'capistrano', '< 3'
