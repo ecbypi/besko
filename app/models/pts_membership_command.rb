@@ -23,7 +23,7 @@ class PtsMembershipCommand
 
   def command_output
     @command_output ||= begin
-      command.run(group: group)
+      command.run(group_name: group_name)
     rescue Cocaine::ExitStatusError
       ""
     end
@@ -34,7 +34,7 @@ class PtsMembershipCommand
   def command
     @command ||= Cocaine::CommandLine.new(
       "pts",
-      "membership -noauth system::group",
+      "membership -noauth system::group_name",
       logger: Rails.logger
     )
   end
