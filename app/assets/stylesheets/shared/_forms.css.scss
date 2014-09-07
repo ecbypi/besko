@@ -79,7 +79,7 @@ $input-margin: 5px 0 10px;
   outline: none;
   @include box-sizing(border-box);
   border-radius: 4px;
-  @include box-shadow(inset 0 2px 2px #bbb);
+  box-shadow: inset 0 2px 2px #bbb;
   @include transition;
 
   & ~ label {
@@ -87,7 +87,7 @@ $input-margin: 5px 0 10px;
   }
 
   &:hover, &:focus, &:disabled {
-    @include box-shadow(inset 0 1px 3px #aaa);
+    box-shadow: inset 0 1px 3px #aaa;
   }
 
   &:focus {
@@ -95,7 +95,7 @@ $input-margin: 5px 0 10px;
   }
 
   &:disabled {
-    @include box-shadow(none);
+    box-shadow: none;
   }
 }
 
@@ -124,7 +124,7 @@ input[type=checkbox], input[type=radio] {
   }
 
   &:hover {
-    @include box-shadow(0 0 2px #999);
+    box-shadow: 0 0 2px #999;
     text-decoration: none;
   }
 }

@@ -70,7 +70,7 @@
     border-radius: 5px;
     margin-left: 150px;
 
-    @include box-shadow(0 0 5px #000);
+    box-shadow: 0 0 5px #000;
 
     .autocomplete-result {
       font-size: 18px;
