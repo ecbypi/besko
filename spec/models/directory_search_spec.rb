@@ -19,7 +19,9 @@ RSpec.describe DirectorySearch do
     it 'is idempotent per instance' do
       stub_ldap!
 
-      expect_any_instance_of(DirectorySearch).to receive(:command_output).exactly(:once)
+      expect_any_instance_of(DirectorySearch).to receive(:command_output).
+        exactly(:once).
+        and_call_original
 
       search = DirectorySearch.new('mrhalp')
 
