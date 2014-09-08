@@ -2,10 +2,6 @@
   @include box-sizing(border-box);
 }
 
-body {
-  font-family: $helvetica;
-}
-
 .inside {
   width: 900px;
   margin: {
