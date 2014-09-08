@@ -42,7 +42,7 @@ p {
   margin: 0 0 ($base-line-height * .5);
 }
 
-a {
+a, a:visited {
   @include transition(color 0.1s linear);
   color: $base-link-color;
   text-decoration: none;
