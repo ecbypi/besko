@@ -10,25 +10,6 @@
   }
 }
 
-.button {
-  color: #000 !important;
-  padding: 5px 6px;
-  border: 1px solid #999;
-  font-size: 14px;
-  border-radius: 2px;
-  @include linear-gradient(#eee, #ccc);
-  @include transition(box-shadow);
-
-  &:active {
-    @include linear-gradient(#c9c3c3, #eee);
-  }
-
-  &:hover {
-    box-shadow: 0 0 2px #999;
-    text-decoration: none;
-  }
-}
-
 .field_with_errors {
   input, select {
     border: 1px solid red !important;
