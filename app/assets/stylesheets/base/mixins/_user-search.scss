@@ -1,3 +1,4 @@
+// TODO: Remove this mixin
 @mixin user-search($label-width: 200px) {
   label {
     width: $label-width;
@@ -8,14 +9,4 @@
     width: 310px;
     height: 35px;
   }
-}
-
-.field_with_errors {
-  input, select {
-    border: 1px solid red !important;
-  }
-}
-
-.button_to {
-  display: inline-block;
 }
