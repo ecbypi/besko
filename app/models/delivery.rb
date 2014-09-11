@@ -30,10 +30,8 @@ class Delivery < ActiveRecord::Base
     recipients.where(:confirmed_at => nil).update_all(:confirmed_at => now, :activated_at => now)
   end
 
-  def self.delivered_on(date = nil)
-    date = date.blank? ? Time.zone.today : Time.zone.parse(date).to_date
-
-    where(:delivered_on => date)
+  def self.waiting_for_pickup
+    joins(:receipts).where(receipts: { signed_out_at: nil }).uniq
   end
 
   def package_count

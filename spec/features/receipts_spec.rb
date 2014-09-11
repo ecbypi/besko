@@ -60,22 +60,19 @@ RSpec.feature 'Package receipts page' do
     worker = create(:user, :desk_worker, first_name: 'Hugh', last_name: 'Lang')
     recipient = create(:user, first_name: 'Whip', last_name: 'Whitaker')
     receipt = build(:receipt, user: recipient)
-    delivery = create(:delivery, receipts: [receipt], user: worker, deliverer: 'UPS')
+    create(:delivery, receipts: [receipt], user: worker, deliverer: 'UPS')
 
     sign_out!
     sign_in worker
 
-    visit deliveries_path(date: delivery.delivered_on)
+    visit deliveries_path
 
     within receipt_element(text: 'Whip Whitaker') do
       click_button 'Sign Out'
     end
 
-    expect(current_url).to include deliveries_path(date: delivery.delivered_on)
+    expect(current_path).to eq deliveries_path
     expect(notifications).to have_content 'Signed out package for Whip Whitaker delivered by UPS'
-
-    within receipt_element(text: 'Whip Whitaker') do
-      expect(page).to have_content 'Picked Up'
-    end
+    expect(page).not_to have_receipt_element(text: 'Whip Whitaker')
   end
 end

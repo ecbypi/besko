@@ -1,25 +1,21 @@
 - content_for :title do
   Deliveries
 
-%h2.current-date
-  %button.button.open-calendar{ data: { open_calendar: true } } Change
-  = text_field_tag 'delivered-on', formatted_delivered_on, disabled: true
+- if @deliveries.length > 0
+  = paginate @deliveries
 
-%section.delivery-pagination
-  = link_to 'Next Day', deliveries_path(next_date_params), class: 'button next-deliveries-date', data: { pjax: true }
-  = link_to 'Previous Day', deliveries_path(previous_date_params), class: 'button prev-deliveries-date', data: { pjax: true }
-
-- if @deliveries.any?
   %table.deliveries-listing{ data: { collection: :deliveries } }
     %thead
       %tr
         %th.sortable-column.delivered-at
-          = link_to 'Delivered At', deliveries_path(reverse_sort_params), class: sorting_css_class, data: { pjax: true, sort: true }
+          = link_to "Delivered At", deliveries_path(delivery_search_params_with_reverse_sorting), class: delivery_sorting_css_class, data: { pjax: true, sort: true }
         %th.received-by Sorted By
         %th.delivered-by Delivered By
         %th.package-count Packages
         %th
     %tbody= render @deliveries
 
+  = paginate @deliveries
+
 - else
-  %p.empty-message= t '.no_deliveries'
+  %p.empty-message= t ".all_deliveries_signed_out"

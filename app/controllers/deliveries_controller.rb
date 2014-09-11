@@ -10,7 +10,10 @@ class DeliveriesController < ApplicationController
   hide_action :receipts_for_new_delivery
 
   def index
-    deliveries = Delivery.includes(:user, receipts: :user).delivered_on(params[:date])
+    deliveries = Delivery.includes(:user, receipts: :user).
+      waiting_for_pickup.
+      page(params[:page]).
+      per(20)
 
     case params[:sort] || cookies[:delivery_sort]
     when nil, 'newest'
@@ -19,7 +22,7 @@ class DeliveriesController < ApplicationController
       deliveries = deliveries.order(:created_at)
     end
 
-    @deliveries = deliveries.decorate
+    @deliveries = PaginatingDecorator.decorate(deliveries)
   end
 
   def create
@@ -38,7 +41,7 @@ class DeliveriesController < ApplicationController
     delivery = Delivery.find(params[:id])
     delivery.destroy
 
-    respond_with(delivery, location: deliveries_path(date: delivery.delivered_on, sort: cookies[:delivery_sort]))
+    respond_with(delivery, location: deliveries_path(sort: cookies[:delivery_sort]))
   end
 
   private

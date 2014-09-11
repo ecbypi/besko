@@ -1,5 +1,5 @@
 - cache receipt do
-  %tr.delivery-receipt-details{ data: { resource: :receipt } }
+  %tr.delivery-receipt-details{ class: receipt.delivery_details_css_class, data: { resource: :receipt } }
     %td
     %td= receipt.user.name
     %td= receipt.comment

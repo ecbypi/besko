@@ -23,10 +23,7 @@ class ReceiptsController < ApplicationController
     @receipt = Receipt.find(params[:id])
     @receipt.update!(signed_out_at: Time.zone.now)
 
-    respond_with(
-      @receipt,
-      location: deliveries_path(date: @receipt.delivery.delivered_on)
-    )
+    respond_with(@receipt, location: request.referrer)
   end
 
   private
