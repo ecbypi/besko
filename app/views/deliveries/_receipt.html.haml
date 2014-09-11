@@ -1,8 +1,10 @@
 - cache receipt do
-  %tr{ data: { resource: :receipt } }
-    %td.receipt-recipient= mail_to receipt.user.email, receipt.user.name
-    %td.receipt-package-count= receipt.number_packages
-    %td.actions
+  %tr.delivery-receipt-details{ data: { resource: :receipt } }
+    %td
+    %td= receipt.user.name
+    %td= receipt.comment
+    %td.package-count= receipt.number_packages
+    %td
       - if receipt.signed_out?
         Picked Up
       - else

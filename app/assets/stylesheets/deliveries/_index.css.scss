@@ -38,6 +38,14 @@
 .deliveries-listing {
   width: 100%;
 
+  thead, tbody {
+    border: 1px solid #DDD;
+  }
+
+  thead, tbody:nth-child(even) {
+    background-color: #F8F8F8;
+  }
+
   th {
     text-align: left;
   }
@@ -88,6 +96,11 @@
 
   .delete-delivery {
     display: none;
+  }
+
+  .delivery-receipt-details td {
+    padding-top: 0;
+    vertical-align: top;
   }
 }
 

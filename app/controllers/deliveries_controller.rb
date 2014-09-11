@@ -1,10 +1,8 @@
 class DeliveriesController < ApplicationController
   layout :determine_layout
 
-  responders :flash
+  responders :flash, :collection
   respond_to :html
-
-  decorates_assigned :delivery
 
   authorize_resource
 
@@ -22,10 +20,6 @@ class DeliveriesController < ApplicationController
     end
 
     @deliveries = deliveries.decorate
-  end
-
-  def show
-    @delivery = Delivery.find(params[:id])
   end
 
   def create

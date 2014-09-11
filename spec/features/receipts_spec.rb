@@ -65,13 +65,13 @@ RSpec.feature 'Package receipts page' do
     sign_out!
     sign_in worker
 
-    visit delivery_path(delivery)
+    visit deliveries_path(date: delivery.delivered_on)
 
     within receipt_element(text: 'Whip Whitaker') do
       click_button 'Sign Out'
     end
 
-    expect(current_path).to eq delivery_path(delivery)
+    expect(current_url).to include deliveries_path(date: delivery.delivered_on)
     expect(notifications).to have_content 'Signed out package for Whip Whitaker delivered by UPS'
 
     within receipt_element(text: 'Whip Whitaker') do

@@ -13,13 +13,18 @@ RSpec.feature 'Delivery', js: true do
       mshalp = create(:mshalp)
       mrhalp = create(:mrhalp, :desk_worker)
 
-      receipts = []
-      receipts << attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
-      receipts << attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
-      delivery = build(:delivery, user: mrhalp, deliverer: 'LaserShip', receipts_attributes: receipts)
-
       Timecop.travel(Time.zone.local(2011, 11, 11, 15, 12, 9)) do
-        delivery.save!
+        build(:delivery, user: mrhalp, deliverer: "LaserShip") do |delivery|
+          delivery.receipts << build(:receipt, user: mshalp, number_packages: 3455)
+          delivery.receipts << build(
+            :receipt,
+            user: mrhalp,
+            number_packages: 2,
+            signed_out_at: 3.seconds.from_now
+          )
+
+          delivery.save!
+        end
       end
 
       visit deliveries_path(date: '2011-11-11')
@@ -29,28 +34,16 @@ RSpec.feature 'Delivery', js: true do
         expect(page).to have_content '03:12:09 pm'
         expect(page).to have_content '3457'
         expect(page).not_to have_button 'Delete'
-      end
 
-      within delivery_element(text: 'LaserShip') do
-        click_link 'Details'
-      end
+        within receipt_element(text: "Micro Helpline") do
+          expect(page).to have_content "Micro Helpline"
+          expect(page).to have_content "2"
+        end
 
-      expect(current_path).to eq delivery_path(delivery)
-
-      within delivery_element(text: 'LaserShip') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        expect(page).to have_content 'Delivered On Friday, November 11, 2011'
-        expect(page).to have_content 'Total Packages 3457'
-      end
-
-      within receipt_element(text: 'Ms Helpline') do
-        expect(page).to have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
-        expect(page).to have_content '3455'
-      end
-
-      within receipt_element(text: 'Micro Helpline') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        expect(page).to have_content '2'
+        within receipt_element(text: "Ms Helpline") do
+          expect(page).to have_content "Ms Helpline"
+          expect(page).to have_content "3455"
+        end
       end
     end
 
@@ -253,7 +246,7 @@ RSpec.feature 'Delivery', js: true do
       expect(page).to have_content 'Notifications Sent'
       expect(last_email).to be_delivered_to 'mrhalp@mit.edu'
 
-      expect(current_path).to eq delivery_path(Delivery.last!)
+      expect(current_path).to eq deliveries_path
       expect(page).to have_content 'Jon Snow 1'
       expect(page).to have_content 'Micro Helpline 2'
     end
