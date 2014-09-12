@@ -33,17 +33,7 @@
         params.sort = Cookies.get('delivery_sort') || 'newest';
       }
 
-      if ( !Cookies.get('delivery_sort') ) {
-        Cookies.set('delivery_sort', params.sort);
-      }
-
       window.history.replaceState(null, document.title, Routes.deliveries_path(params));
-    },
-
-    render: function() {
-      this.$el.pjax('[data-pjax]', this.pjaxContainerSelector);
-
-      return this;
     },
 
     filterDeliveries: function(event) {

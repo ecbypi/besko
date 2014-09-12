@@ -1,14 +1,4 @@
 module DeliveriesHelper
-  FILTER_OPTIONS = %w( waiting all )
-  SORT_OPTIONS = %w( newest oldest )
-
-  def delivery_search_params
-    @delivery_search_params ||= params.slice(:page, :sort, :filter).reverse_merge(
-      sort: cookies[:delivery_sort],
-      fitler: "waiting"
-    )
-  end
-
   def delivery_search_results_css_class
     css_class = "deliveries-listing"
 
@@ -20,14 +10,20 @@ module DeliveriesHelper
   end
 
   def delivery_search_filter_options
-    @delivery_search_filter_options ||= FILTER_OPTIONS.map do |value|
-      [t(".delivery_search.filter_labels.#{value}"), value]
-    end
+    @delivery_search_filter_options ||=
+      DeliveryQuery::FILTER_OPTIONS.map do |key, value|
+        [t(".delivery_search.filter_labels.#{key}"), value]
+      end
   end
 
   def delivery_search_sort_options
-    @delivery_search_sort_options ||= SORT_OPTIONS.map do |value|
-      [t(".delivery_search.sort_labels.#{value}"), value]
-    end
+    @delivery_search_sort_options ||=
+      DeliveryQuery::SORT_OPTIONS.map do |key, value|
+        [t(".delivery_search.sort_labels.#{key}"), value]
+      end
+  end
+
+  def delivery_search_deliverer_options
+    Delivery::Deliverers
   end
 end

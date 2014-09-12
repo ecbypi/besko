@@ -10,6 +10,10 @@
     = label_tag :sort, "Sort by"
     = select_tag :sort, options_for_select(delivery_search_sort_options, delivery_search_params[:sort]), data: { sort: true }
 
+  .input
+    = label_tag :delivered_by, "Delivered by"
+    = select_tag :delivered_by, options_for_select(delivery_search_deliverer_options, delivery_search_params[:delivered_by]), include_blank: true
+
 - if @deliveries.length > 0
   = paginate @deliveries
 

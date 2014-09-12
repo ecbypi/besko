@@ -6,24 +6,17 @@ class DeliveriesController < ApplicationController
 
   authorize_resource
 
-  helper_method :receipts_for_new_delivery
-  hide_action :receipts_for_new_delivery
+  helper_method :receipts_for_new_delivery, :delivery_search_params
+  hide_action :receipts_for_new_delivery, :delivery_search_params
 
   def index
-    deliveries = Delivery.includes(:user, receipts: :user).
+    cookies[:delivery_sort] ||= DeliveryQuery::SORT_OPTIONS[:desc]
+
+    deliveries = Delivery.
+      includes(:user, receipts: :user).
+      paraphrase(delivery_search_params).
       page(params[:page]).
       per(20)
-
-    case params[:sort] || cookies[:delivery_sort]
-    when nil, 'newest'
-      deliveries = deliveries.order(created_at: :desc)
-    else
-      deliveries = deliveries.order(:created_at)
-    end
-
-    if params[:filter].blank? || params[:filter] == 'waiting'
-      deliveries = deliveries.waiting_for_pickup
-    end
 
     @deliveries = PaginatingDecorator.decorate(deliveries)
   end
@@ -58,6 +51,16 @@ class DeliveriesController < ApplicationController
         number_packages = recipients.fetch(user.id.to_s, 1).to_i
         Receipt.new(user: user, number_packages: number_packages)
       end
+    end
+  end
+
+  def delivery_search_params
+    @delivery_search_params ||= begin
+      filtered_params = params.slice(*DeliveryQuery.keys)
+      filtered_params.reverse_merge(
+        sort: cookies[:delivery_sort],
+        filter: DeliveryQuery::FILTER_OPTIONS[:waiting]
+      )
     end
   end
 

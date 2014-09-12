@@ -117,24 +117,26 @@ RSpec.feature "Delivery", :js do
     end
 
     scenario 'allows sorting by time of day received, remembering sorting across page refresh' do
+      richard = create(:user, first_name: "Richard")
+      alfred = create(:user, first_name: "Alfred")
       Timecop.travel(5.minutes.ago) do
-        create(:delivery, deliverer: 'UPS')
+        create(:delivery, user: richard)
       end
-      create(:delivery, deliverer: 'LaserShip')
+      create(:delivery, user: alfred)
 
       visit deliveries_path
 
       expect(page).to have_select "Sort by", selected: "Newest"
-      expect('LaserShip').to appear_before 'UPS'
+      expect("Alfred").to appear_before "Richard"
 
       select "Oldest", from: "Sort by"
       sleep 1
 
-      expect('UPS').to appear_before 'LaserShip'
+      expect("Richard").to appear_before "Alfred"
 
       visit current_url
 
-      expect('UPS').to appear_before 'LaserShip'
+      expect("Richard").to appear_before "Alfred"
 
       visit deliveries_path
 
@@ -144,7 +146,7 @@ RSpec.feature "Delivery", :js do
       select "Newest", from: "Sort by"
       sleep 1
 
-      expect("LaserShip").to appear_before "UPS"
+      expect("Alfred").to appear_before "Richard"
     end
 
     scenario 'allows deletion by admins' do
@@ -320,6 +322,22 @@ RSpec.feature "Delivery", :js do
       expect(current_path).to eq deliveries_path
       expect(page).to have_content 'Jon Snow 1'
       expect(page).to have_content 'Micro Helpline 2'
+    end
+  end
+
+  context "searching can be done by the" do
+    scenario "company that delivered the packages" do
+      create(:delivery, deliverer: "LaserShip")
+      create(:delivery, deliverer: "USPS")
+
+      visit deliveries_path
+
+      expect(page).to have_delivery_element count: 2
+
+      select "LaserShip", from: "Delivered by"
+
+      expect(page).to have_delivery_element count: 1
+      expect(page).to have_delivery_element text: "LaserShip"
     end
   end
 

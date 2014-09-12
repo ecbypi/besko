@@ -22,8 +22,8 @@ en:
           waiting: 'Waiting for Pickup'
           all: 'All Deliveries'
         sort_labels:
-          newest: 'Newest'
-          oldest: 'Oldest'
+          desc: 'Newest'
+          asc: 'Oldest'
     delivery:
       confirm_deletion: 'Delete delivery from %{deliverer} received by %{worker}?'
     new:
