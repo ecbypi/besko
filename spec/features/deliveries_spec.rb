@@ -80,6 +80,7 @@ RSpec.feature "Delivery", :js do
 
       visit deliveries_path
 
+      expect(page).to have_select "Filter by", selected: "Waiting for Pickup"
       expect(page).not_to have_delivery_element text: "USPS"
       expect("UPS").to appear_before "Amazon"
 
@@ -92,6 +93,27 @@ RSpec.feature "Delivery", :js do
         expect(page).to have_receipt_element text: "Sarah Hurnt"
         expect(page).not_to have_receipt_element text: "Kiel Henderson"
       end
+
+      select "All Deliveries", from: "Filter by"
+      sleep 1
+
+      expect("UPS").to appear_before "USPS"
+      expect("USPS").to appear_before "Amazon"
+
+      within delivery_element(text: "Amazon") do
+        expect(page).to have_receipt_element text: "Kiel Henderson"
+        expect(page).to have_receipt_element text: "Sarah Hurnt"
+      end
+
+      within delivery_element(text: "UPS") do
+        expect(page).to have_receipt_element text: "Sarah Hurnt"
+        expect(page).to have_receipt_element text: "Kiel Henderson"
+      end
+
+      within delivery_element(text: "USPS") do
+        expect(page).to have_receipt_element text: "Leslie Meyens"
+        expect(page).to have_receipt_element text: "Sarah Hurnt"
+      end
     end
 
     scenario 'allows sorting by time of day received, remembering sorting across page refresh' do
@@ -102,13 +124,12 @@ RSpec.feature "Delivery", :js do
 
       visit deliveries_path
 
+      expect(page).to have_select "Sort by", selected: "Newest"
       expect('LaserShip').to appear_before 'UPS'
 
-      within deliveries_element do
-        click_link 'Delivered At'
-      end
-
+      select "Oldest", from: "Sort by"
       sleep 1
+
       expect('UPS').to appear_before 'LaserShip'
 
       visit current_url
@@ -119,8 +140,11 @@ RSpec.feature "Delivery", :js do
 
       expect(current_url).to include 'sort=oldest'
       expect('UPS').to appear_before 'LaserShip'
-      # hacky way to ensure the sort arrow is pointing the right way
-      expect(page).to have_css '.sort-column.up'
+
+      select "Newest", from: "Sort by"
+      sleep 1
+
+      expect("LaserShip").to appear_before "UPS"
     end
 
     scenario 'allows deletion by admins' do
@@ -146,7 +170,7 @@ RSpec.feature "Delivery", :js do
       end
 
       expect(page).to have_delivery_element text: 'FedEx', count: 1
-      expect(current_url).to include deliveries_path(sort: 'newest')
+      expect(current_url).to include deliveries_path(filter: "waiting", sort: "newest")
     end
   end
 

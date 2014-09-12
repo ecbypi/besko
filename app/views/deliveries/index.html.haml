@@ -1,14 +1,22 @@
 - content_for :title do
   Deliveries
 
+= form_tag deliveries_path, method: :get, data: { deliveries_filter: true } do
+  .input
+    = label_tag :filter, "Filter by"
+    = select_tag :filter, options_for_select(delivery_search_filter_options, delivery_search_params[:filter])
+
+  .input
+    = label_tag :sort, "Sort by"
+    = select_tag :sort, options_for_select(delivery_search_sort_options, delivery_search_params[:sort]), data: { sort: true }
+
 - if @deliveries.length > 0
   = paginate @deliveries
 
-  %table.deliveries-listing{ data: { collection: :deliveries } }
+  %table{ class: delivery_search_results_css_class, data: { collection: :deliveries } }
     %thead
       %tr
-        %th.sortable-column.delivered-at
-          = link_to "Delivered At", deliveries_path(delivery_search_params_with_reverse_sorting), class: delivery_sorting_css_class, data: { pjax: true, sort: true }
+        %th.sortable-column.delivered-at Delivered At
         %th.received-by Sorted By
         %th.delivered-by Delivered By
         %th.package-count Packages

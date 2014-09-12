@@ -17,6 +17,13 @@ en:
   deliveries:
     index:
       all_deliveries_signed_out: "All deliveries have been signed out."
+      delivery_search:
+        filter_labels:
+          waiting: 'Waiting for Pickup'
+          all: 'All Deliveries'
+        sort_labels:
+          newest: 'Newest'
+          oldest: 'Oldest'
     delivery:
       confirm_deletion: 'Delete delivery from %{deliverer} received by %{worker}?'
     new:

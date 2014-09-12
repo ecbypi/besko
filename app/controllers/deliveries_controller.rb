@@ -11,7 +11,6 @@ class DeliveriesController < ApplicationController
 
   def index
     deliveries = Delivery.includes(:user, receipts: :user).
-      waiting_for_pickup.
       page(params[:page]).
       per(20)
 
@@ -20,6 +19,10 @@ class DeliveriesController < ApplicationController
       deliveries = deliveries.order(created_at: :desc)
     else
       deliveries = deliveries.order(:created_at)
+    end
+
+    if params[:filter].blank? || params[:filter] == 'waiting'
+      deliveries = deliveries.waiting_for_pickup
     end
 
     @deliveries = PaginatingDecorator.decorate(deliveries)

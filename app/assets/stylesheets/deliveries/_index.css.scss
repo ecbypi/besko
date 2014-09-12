@@ -69,6 +69,10 @@
   .delivery-signed-out-receipt {
     display: none;
   }
+
+  &.all-deliveries-listing .delivery-signed-out-receipt {
+    display: table-row;
+  }
 }
 
 body.admin .deliveries-listing .delete-delivery {
