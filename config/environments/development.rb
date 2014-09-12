@@ -29,4 +29,7 @@ Besko::Application.configure do
   config.action_mailer.perform_deliveries = false
 
   config.eager_load = false
+
+  # Raise errors if a translation is missing
+  config.action_view.raise_on_missing_translations = true
 end

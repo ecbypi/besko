@@ -40,4 +40,7 @@ Besko::Application.configure do
   config.cache_store = :memory_store
 
   config.eager_load = false
+
+  # Raise errors if a translation is missing
+  config.action_view.raise_on_missing_translations = true
 end

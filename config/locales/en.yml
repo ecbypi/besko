@@ -17,5 +17,7 @@ en:
   deliveries:
     delivery:
       confirm_deletion: 'Delete delivery from %{deliverer} received by %{worker}?'
+    index:
+      no_deliveries: 'No deliveries for this date'
     new:
       confirm_cancel_new_delivery: 'Are you sure you want to stop logging this delivery?'
