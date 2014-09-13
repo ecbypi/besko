@@ -86,14 +86,7 @@
     },
 
     focus: function() {
-      var current = this.parent.currentlyFocusedResult();
-
-      if ( current ) {
-        current.blur();
-      }
-
-      this.focused = true;
-      this.$el.addClass('focused');
+      this.parent.changeFocusedResult(this);
     },
 
     blur: function() {
@@ -126,7 +119,7 @@
       return this;
     },
 
-    currentlyFocusedResult: function() {
+    currentFocusedResult: function() {
       return this.children.find(function(child) {
         return child.focused === true;
       }).value();
@@ -136,7 +129,7 @@
       // If called from pressing 'Enter' with no arguments, find the focused
       // result or default to the first one if none have been highlighted
       if ( !model ) {
-        var focusedView = this.currentlyFocusedResult() || this.children.first().value();
+        var focusedView = this.currentFocusedResult() || this.children.first().value();
         model = focusedView.model;
       }
 
@@ -153,7 +146,7 @@
 
     navigate: function(direction) {
       var target, targetIndex,
-          focused = this.currentlyFocusedResult(),
+          focused = this.currentFocusedResult(),
           children = this.children.value(),
           endPosition = direction === 1 ? _.first : _.last;
 
@@ -172,6 +165,17 @@
       }
 
       target.focus();
+    },
+
+    changeFocusedResult: function(targetResult) {
+      var currentResult = this.currentFocusedResult();
+
+      if ( currentResult ) {
+        currentResult.blur();
+      }
+
+      targetResult.focused = true;
+      targetResult.$el.addClass('focused');
     }
   });
 
