@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.feature 'Delivery', js: true do
-  include AutocompleteSteps
   include EmailSpec::Matchers
   include EmailSpec::Helpers
 
@@ -138,13 +137,13 @@ RSpec.feature 'Delivery', js: true do
 
       visit new_delivery_path
 
-      fill_in_autocomplete with: 'walt'
-      autocomplete_result('Walter White').click
+      fill_in "Recipient", with: "walt"
+      autocomplete_result_element(text: "Walter White").click
 
       expect(page).to have_receipt_element text: 'Walter White'
 
-      fill_in_autocomplete with: 'walt'
-      autocomplete_result('Walter White').click
+      fill_in "Recipient", with: "walt"
+      autocomplete_result_element(text: "Walter White").click
 
       expect(page).to have_receipt_element text: 'Walter White', count: 1
 
@@ -158,8 +157,8 @@ RSpec.feature 'Delivery', js: true do
 
       visit new_delivery_path
 
-      fill_in_autocomplete with: 'Bru'
-      autocomplete_result('Bruce Wayne').click
+      fill_in "Recipient", with: "Bru"
+      autocomplete_result_element(text: "Bruce Wayne").click
 
       within receipt_element(text: 'Bruce Wayne') do
         find('input[type=number]').set 20
@@ -174,8 +173,8 @@ RSpec.feature 'Delivery', js: true do
 
       visit new_delivery_path
 
-      fill_in_autocomplete with: 'mcnu'
-      autocomplete_result('Jimmy McNulty').click
+      fill_in "Recipient", with: 'mcnu'
+      autocomplete_result_element(text: "Jimmy McNulty").click
 
       expect(page).to have_receipt_element text: 'Jimmy McNulty'
       expect(current_url).to include new_delivery_path(:r => { jimmy.id => 1 })
@@ -184,16 +183,16 @@ RSpec.feature 'Delivery', js: true do
 
       expect(page).to have_receipt_element text: 'Jimmy McNulty'
 
-      fill_in_autocomplete with: 'mcnu'
-      autocomplete_result('Jimmy McNulty').click
+      fill_in "Recipient", with: 'mcnu'
+      autocomplete_result_element(text: "Jimmy McNulty").click
 
       within receipt_element(text: 'Jimmy McNulty') do
         expect(find('input[type=number]').value).to eq '2'
       end
       expect(current_url).to include new_delivery_path(:r => { jimmy.id => 2 })
 
-      fill_in_autocomplete with: 'more'
-      autocomplete_result('William Moreland').click
+      fill_in "Recipient", with: "more"
+      autocomplete_result_element(text: "William Moreland").click
 
       expect(page).to have_receipt_element text: 'William Moreland'
       expect(current_url).to include new_delivery_path(:r => { jimmy.id => 2, bunk.id => 1 })
@@ -233,13 +232,13 @@ RSpec.feature 'Delivery', js: true do
 
       expect(page).not_to have_receipts_element
 
-      fill_in_autocomplete with: 'snow'
-      autocomplete_result('Jon Snow').click
+      fill_in "Recipient", with: "snow"
+      autocomplete_result_element(text: "Jon Snow").click
 
       expect(page).to have_receipt_element text: 'Jon Snow'
 
-      fill_in_autocomplete with: 'help'
-      autocomplete_result('Micro Helpline').click
+      fill_in "Recipient", with: "help"
+      autocomplete_result_element(text: "Micro Helpline").click
 
       within receipt_element(text: 'Micro Helpline') do
         find('input[type=number]').set('2')

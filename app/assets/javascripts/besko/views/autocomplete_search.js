@@ -66,7 +66,7 @@
     className: 'autocomplete-result',
 
     attributes: {
-      'data-resource' : 'user'
+      'data-resource' : 'autocomplete_result'
     },
 
     template: _.template('\

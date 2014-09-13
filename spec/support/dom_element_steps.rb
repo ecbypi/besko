@@ -7,7 +7,7 @@ Capybara.add_selector(:model_element) do
 end
 
 module DOMElementSteps
-  RESOURCES = %w( receipt delivery recipient user user_role )
+  RESOURCES = %w( receipt delivery recipient user user_role autocomplete_result )
 
   def notifications
     find('#notifications')
