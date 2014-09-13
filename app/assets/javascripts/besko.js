@@ -4,6 +4,7 @@
 //= require parsing
 
 //= require ./besko/router
+//= require_tree ./besko/models
 //= require_tree ./besko/collections
 //= require_tree ./besko/views
 
@@ -11,6 +12,7 @@
   "use strict";
 
   window.Besko = {
+    Models: {},
     Collections: {},
     Views: {}
   };

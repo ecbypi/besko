@@ -70,12 +70,9 @@
     },
 
     template: _.template('\
-      <%= escape("first_name") %> <%= escape("last_name") %>\
+      <%= escape("value") %>\
       <div class="result-details">\
-        <%= escape("email") %>\
-        <% if ( !!get("street") ) { %>\
-          | <%= escape("street") %>\
-        <% } %>\
+        <%= escape("details") %>\
       </div>'),
 
     render: function() {
