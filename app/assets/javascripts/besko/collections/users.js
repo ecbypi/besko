@@ -3,6 +3,7 @@
   'use strict';
 
   Besko.Collections.Users = Backbone.Collection.extend({
-    url: Routes.users_path()
+    url: Routes.users_path(),
+    model: Besko.Models.User
   });
 })();
