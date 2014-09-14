@@ -2,6 +2,8 @@
   'use strict';
 
   Besko.Models.User = Backbone.Model.extend({
+    urlRoot: Routes.users_path(),
+
     initialize: function(attributes) {
       var value, details;
 

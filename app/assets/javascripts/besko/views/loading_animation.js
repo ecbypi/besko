@@ -21,10 +21,10 @@
       left: 'auto' // Left position relative to parent in px
     },
     small: {
-      lines: 9, // The number of lines to draw
+      lines: 8, // The number of lines to draw
       length: 4, // The length of each line
       width: 3, // The line thickness
-      radius: 6, // The radius of the inner circle
+      radius: 4, // The radius of the inner circle
       corners: 0.9, // Corner roundness (0..1)
       rotate: 0, // The rotation offset
       color: '#000', // #rgb or #rrggbb
@@ -40,6 +40,8 @@
   };
 
   Besko.Views.LoadingAnimation = Support.CompositeView.extend({
+    className: 'loading autocomplete-fetching',
+
     initialize: function(options) {
       var view = this,
           resource = this.collection || this.model;
@@ -47,7 +49,7 @@
       this.version = options.version || 'small';
 
       if ( resource ) {
-        this.listenTo(resource, 'sync', function() {
+        this.listenTo(resource, 'sync reset', function() {
           view.$el.hide();
         });
 

@@ -7,10 +7,7 @@
 
     .input.search.autocomplete-search{ data: { recipient_search: true } }
       = label_tag 'autocomplete-search', 'Recipient'
-      = text_field_tag 'autocomplete-search', nil, autofocus: true, class: 'autocomplete-input', placeholder: t('simple_form.placeholders.delivery.recipients')
-      %span.autocomplete-close.close{ data: { clear_results: true } }
-      .loading.autocomplete-fetching{ data: { loading: true } }
-      %ul.autocomplete-results{ data: { collection: :users } }
+      = search_field_tag 'autocomplete-search', nil, autofocus: true, class: 'autocomplete-input', placeholder: t('simple_form.placeholders.delivery.recipients')
       .hint= t('simple_form.hints.delivery.recipients')
 
   %table.receipts

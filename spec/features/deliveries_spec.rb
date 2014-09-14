@@ -307,6 +307,7 @@ RSpec.feature "Delivery", :js do
 
       # Ensures user is created
       expect(User.last.email).to eq 'mrhalp@mit.edu'
+      expect(page).not_to have_css '[data-loading]'
 
       select 'UPS', from: 'Delivery Company'
       click_button 'Send Notifications'

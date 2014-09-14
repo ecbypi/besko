@@ -22,12 +22,17 @@
       this.$deliverer = this.$('#delivery_deliverer');
       this.$receipts = this.$('[data-collection=receipts]');
       this.recipients = options.recipients;
+
+      _.bindAll(this, 'addRecipient');
     },
 
     render: function() {
       this.search = new Besko.Views.AutocompleteSearch({
         el: $('[data-recipient-search]'),
-        collection: new Besko.Collections.Users()
+        collection: new Besko.Collections.Users(),
+        onSelect: function(searchView, model) {
+          searchView.input.$el.val('');
+        }
       });
 
       this.listenTo(this.search, 'select', this.addRecipient);
@@ -51,17 +56,14 @@
         } else {
           this.addReceipt(recipient);
         }
-
-        this.search.reset();
       } else {
-        this.listenToOnce(recipient, 'sync', this.addReceipt);
-        this.search.listenToOnce(recipient, 'sync error', this.search.reset);
+        var view = this;
 
-        recipient.once('error', function(model) {
-          Besko.error('Failed to add recipient ' + model.escape('name') + '.');
+        recipient.save().then(function() {
+          view.addReceipt(recipient);
+        }, function() {
+          Besko.error('Failed to add recipient ' + recipient.escape('name') + '.');
         });
-
-        recipient.save();
       }
     },
 
