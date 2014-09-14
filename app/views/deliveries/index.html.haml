@@ -1,7 +1,7 @@
 - content_for :title do
   Deliveries
 
-= form_tag deliveries_path, method: :get, id: "delivery-search" do
+= form_tag deliveries_path, method: :get, id: "delivery-search", class: "delivery-search actionable" do
   .input
     = label_tag :filter, "Filter by"
     = select_tag :filter, options_for_select(delivery_search_filter_options, delivery_search_params[:filter])
