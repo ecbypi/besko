@@ -8,7 +8,7 @@
     .input.search.autocomplete-search{ data: { recipient_search: true } }
       = label_tag 'autocomplete-search', 'Recipient'
       = text_field_tag 'autocomplete-search', nil, autofocus: true, class: 'autocomplete-input'
-      %span.autocomplete-close.close{ data: { clear_results: true } }
+      %button.link-button.autocomplete-close.close{ type: :button, data: { clear_results: true } }
       .loading.autocomplete-fetching{ data: { loading: true } }
       %ul.autocomplete-results{ data: { collection: :users } }
 

@@ -4,7 +4,25 @@
 
   var AutocompleteInput,
       AutocompleteResult,
-      AutocompleteResults;
+      AutocompleteResults,
+      AutocompleteResetButton;
+
+  function defaultOnSelectCallback(searchView, model) {
+    var input = searchView.input,
+        resetButton = searchView.resetButton;
+
+    input.$el.
+      val(model.escape("value")).
+      attr('disabled', '');
+
+    resetButton.show();
+  }
+
+  function defaultOnResetCallback(searchView) {
+    searchView.input.$el.
+      val('').
+      removeAttr('disabled');
+  }
 
   AutocompleteInput = Support.CompositeView.extend({
     events: {
@@ -47,10 +65,6 @@
 
     isEmpty: function() {
       return !this.$el.val();
-    },
-
-    reset: function() {
-      this.$el.val('').focus();
     }
   });
 
@@ -176,44 +190,88 @@
     }
   });
 
-  Besko.Views.AutocompleteSearch = Support.CompositeView.extend({
+  AutocompleteResetButton = Support.CompositeView.extend({
     events: {
-      'keydown' : 'navigateResults',
-      'click [data-clear-results]' : 'reset'
+      'click' : 'reset'
     },
 
-    initialize: function() {
-      var $clearSearch = this.$('[data-clear-results]');
+    render: function() {
+      var view = this;
 
-      this.listenTo(this.collection, 'request', function() {
-        $clearSearch.hide();
-      });
+      this.listenTo(this.collection, 'request', this.hide);
       this.listenTo(this.collection, 'reset', function(collection) {
+        var value = this.parent.input.$el.val();
+
         if ( collection.isEmpty() ) {
-          $clearSearch.hide();
+          if ( !!value ) {
+            view.show();
+          } else {
+            view.hide();
+          }
         } else {
-          $clearSearch.show();
+          view.show();
         }
       });
     },
 
+    show: function() {
+      this.$el.show();
+    },
+
+    hide: function() {
+      this.$el.hide();
+    },
+
+    reset: function() {
+      this.hide();
+      this.trigger('reset');
+    }
+  });
+
+  Besko.Views.AutocompleteSearch = Support.CompositeView.extend({
+    events: {
+      'keydown' : 'navigateResults'
+    },
+
+    initialize: function(options) {
+      this.onSelect = options.onSelect || defaultOnSelectCallback;
+      this.onReset = options.onReset || defaultOnResetCallback;
+    },
+
     render: function() {
-      this.input = new AutocompleteInput({
+      var input, results, loading, resetButton;
+
+      input = new AutocompleteInput({
         el: this.$('input'),
         collection: this.collection
       });
+      this.renderChild(input);
 
-      this.results = new AutocompleteResults({
+      results = new AutocompleteResults({
         el: this.$('[data-collection]'),
         collection: this.collection
       });
-      this.listenTo(this.results, 'select', this.select);
+      this.renderChild(results);
 
-      this.loading = new Besko.Views.LoadingAnimation({
+      loading = new Besko.Views.LoadingAnimation({
         el: this.$('[data-loading]'),
         collection: this.collection
       });
-      this.loading.render();
+      this.renderChild(loading);
+
+      resetButton = new AutocompleteResetButton({
+        el: this.$('[data-clear-results]'),
+        collection: this.collection
+      });
+      this.renderChild(resetButton);
+
+      this.listenTo(results, 'select', this.select);
+      this.listenTo(resetButton, 'clear', this.reset);
+
+      this.input = input;
+      this.results = results;
+      this.loading = loading;
+      this.resetButton = resetButton;
 
       return this;
     },
@@ -246,12 +304,15 @@
     },
 
     select: function(model) {
+      this.collection.reset();
+      this.onSelect(this, model);
       this.trigger('select', model);
     },
 
     reset: function() {
       this.collection.reset();
-      this.input.reset();
+      this.onReset(this);
+      this.trigger('reset');
     }
   });
 })();

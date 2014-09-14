@@ -129,6 +129,10 @@ input[type=checkbox], input[type=radio] {
   }
 }
 
+.link-button {
+  border: none;
+}
+
 .field_with_errors {
   input, select {
     border: 1px solid red !important;

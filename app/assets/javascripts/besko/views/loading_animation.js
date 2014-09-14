@@ -47,7 +47,7 @@
       this.version = options.version || 'small';
 
       if ( resource ) {
-        this.listenTo(resource, 'sync', function() {
+        this.listenTo(resource, 'sync reset', function() {
           view.$el.hide();
         });
 
