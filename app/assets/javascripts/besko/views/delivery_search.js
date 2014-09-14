@@ -9,25 +9,8 @@
       'submit' : 'filterDeliveries'
     },
 
-    initialize: function(options) {
-      var params = {
-        filter: null,
-        sort: null
-      }
-
-      _.extend(params, options.params);
-
+    initialize: function() {
       this.pjaxContainerSelector = '[data-pjax-container]';
-
-      if ( !params.filter ) {
-        params.filter = 'waiting';
-      }
-
-      if ( !params.sort ) {
-        params.sort = Cookies.get('delivery_sort') || 'newest';
-      }
-
-      window.history.replaceState(null, document.title, Routes.deliveries_path(params));
     },
 
     filterDeliveries: function(event) {
