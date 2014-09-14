@@ -4,15 +4,9 @@
 
   Besko.Views.DeliverySearch = Backbone.View.extend({
     events: {
-      'change [data-sort]' : function(event) {
-        var sorting = $(event.target).val();
-
-        Cookies.set('delivery_sort', sorting);
-      },
-      'change [data-deliveries-filter]' : function(event) {
-        $(event.target).submit();
-      },
-      'submit [data-deliveries-filter]' : 'filterDeliveries'
+      'change [data-sort]' : 'updateSortingCookie',
+      'change select' : 'submitForm',
+      'submit' : 'filterDeliveries'
     },
 
     initialize: function(options) {
@@ -23,7 +17,7 @@
 
       _.extend(params, options.params);
 
-      this.pjaxContainerSelector = '#' + this.el.id;
+      this.pjaxContainerSelector = '[data-pjax-container]';
 
       if ( !params.filter ) {
         params.filter = 'waiting';
@@ -38,6 +32,16 @@
 
     filterDeliveries: function(event) {
       $.pjax.submit(event, this.pjaxContainerSelector);
+    },
+
+    submitForm: function() {
+      this.$el.submit();
+    },
+
+    updateSortingCookie: function(event) {
+      var sorting = $(event.target).val();
+
+      Cookies.set('delivery_sort', sorting);
     }
   });
 })();

@@ -13,7 +13,7 @@
       params = $.parseQueryObject(params);
 
       var search = new Besko.Views.DeliverySearch({
-        el: $('#content'),
+        el: $('#delivery-search'),
         params: params
       });
 

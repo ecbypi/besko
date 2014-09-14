@@ -1,6 +1,4 @@
 class DeliveriesController < ApplicationController
-  layout :determine_layout
-
   responders :flash, :collection
   respond_to :html
 
@@ -19,6 +17,16 @@ class DeliveriesController < ApplicationController
       per(20)
 
     @deliveries = PaginatingDecorator.decorate(deliveries)
+
+    if request.headers["X-PJAX"]
+      render(
+        partial: "search_results",
+        layout: false,
+        locals: { deliveries: @deliveries }
+      )
+    else
+      respond_with(@deliveries)
+    end
   end
 
   def create
@@ -66,9 +74,5 @@ class DeliveriesController < ApplicationController
 
   def delivery_params
     params.require(:delivery).permit(:deliverer, receipts_attributes: [:user_id, :number_packages, :comment])
-  end
-
-  def determine_layout
-    request.headers['X-PJAX'] ? false : 'application'
   end
 end

@@ -1,7 +1,7 @@
 - content_for :title do
   Deliveries
 
-= form_tag deliveries_path, method: :get, data: { deliveries_filter: true } do
+= form_tag deliveries_path, method: :get, id: "delivery-search" do
   .input
     = label_tag :filter, "Filter by"
     = select_tag :filter, options_for_select(delivery_search_filter_options, delivery_search_params[:filter])
@@ -14,20 +14,5 @@
     = label_tag :delivered_by, "Delivered by"
     = select_tag :delivered_by, options_for_select(delivery_search_deliverer_options, delivery_search_params[:delivered_by]), include_blank: true
 
-- if @deliveries.length > 0
-  = paginate @deliveries
-
-  %table{ class: delivery_search_results_css_class, data: { collection: :deliveries } }
-    %thead
-      %tr
-        %th.sortable-column.delivered-at Delivered At
-        %th.received-by Sorted By
-        %th.delivered-by Delivered By
-        %th.package-count Packages
-        %th
-    %tbody= render @deliveries
-
-  = paginate @deliveries
-
-- else
-  %p.empty-message= t ".all_deliveries_signed_out"
+#delivery-search-results{ data: { pjax_container: true } }
+  = render 'search_results', deliveries: @deliveries
