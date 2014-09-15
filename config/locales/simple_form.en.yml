@@ -21,6 +21,8 @@ en:
         password: 'New Password'
         password_confirmation: 'Confirm New Password'
     hints:
+      delivery:
+        recipients: "multiple recipients can be added; add all for the same delivery"
       user:
         first_name: 'read-only'
         last_name: 'read-only'
@@ -28,3 +30,6 @@ en:
         current_password: 'used to confirm changes'
         edit:
           password: 'leave blank if no change desired'
+    placeholders:
+      delivery:
+        recipients: "enter recipients' name or email"
