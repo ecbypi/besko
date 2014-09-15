@@ -24,6 +24,7 @@ gem 'honeybadger'
 gem 'sidetiq'
 gem 'newrelic_rpm'
 gem 'dotenv'
+gem 'paraphrase'
 
 # assets
 gem 'jquery-rails'

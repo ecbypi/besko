@@ -1,0 +1,17 @@
+- if deliveries.length > 0
+  = paginate deliveries
+
+  %table{ class: delivery_search_results_css_class, data: { collection: :deliveries } }
+    %thead
+      %tr
+        %th.sortable-column.delivered-at Delivered At
+        %th.received-by Sorted By
+        %th.delivered-by Delivered By
+        %th.package-count Packages
+        %th
+    %tbody= render deliveries
+
+  = paginate deliveries
+
+- else
+  %p.empty-message= t ".all_deliveries_signed_out"

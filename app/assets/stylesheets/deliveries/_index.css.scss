@@ -1,42 +1,26 @@
-.current-date {
-  position: relative;
+.delivery-search {
+  width: 100%;
+  padding: 10px;
+  background-color: #F8F8F8;
+  margin-bottom: 15px;
 
-  .open-calendar {
-    position: absolute;
-    left: 0;
-  }
-
-  input {
-    margin-left: 80px;
-    padding: 0;
-    font-weight: 700;
-    border: none;
-    outline: none;
-    color: #000;
-
-    @include transition(none);
-  }
-}
-
-.delivery-pagination {
-  height: 35px;
-  position: relative;
-
-  .button {
-    position: absolute;
-  }
-
-  .prev-deliveries-date {
-    left: 0;
-  }
-
-  .next-deliveries-date {
-    right: 0;
+  .input {
+    display: inline-block;
+    width: auto;
+    margin-right: 15px;
   }
 }
 
 .deliveries-listing {
   width: 100%;
+
+  thead {
+    background-color: #F8F8F8;
+  }
+
+  thead, tbody {
+    border: 1px solid #DDD;
+  }
 
   th {
     text-align: left;
@@ -88,6 +72,19 @@
 
   .delete-delivery {
     display: none;
+  }
+
+  .delivery-receipt-details td {
+    padding-top: 0;
+    vertical-align: top;
+  }
+
+  .delivery-signed-out-receipt {
+    display: none;
+  }
+
+  &.all-deliveries-listing .delivery-signed-out-receipt {
+    display: table-row;
   }
 }
 

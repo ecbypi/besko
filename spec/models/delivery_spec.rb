@@ -39,19 +39,4 @@ RSpec.describe Delivery do
       expect(delivery.package_count).to eq 9
     end
   end
-
-  describe ".delivered_on" do
-    let(:todays_delivery) { create(:delivery) }
-    let(:old_delivery) { create(:delivery, delivered_on: '2010-10-30') }
-
-    it "defaults to today's deliveries" do
-      expect(Delivery.delivered_on).to include todays_delivery
-      expect(Delivery.delivered_on).not_to include old_delivery
-    end
-
-    it "finds packages on the supplied date otherwise" do
-      expect(Delivery.delivered_on('2010-10-30')).to include old_delivery
-      expect(Delivery.delivered_on('2010-10-30')).not_to include todays_delivery
-    end
-  end
 end

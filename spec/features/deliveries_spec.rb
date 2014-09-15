@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature 'Delivery', js: true do
+RSpec.feature "Delivery", :js do
   include EmailSpec::Matchers
   include EmailSpec::Helpers
 
@@ -13,74 +13,140 @@ RSpec.feature 'Delivery', js: true do
       mshalp = create(:mshalp)
       mrhalp = create(:mrhalp, :desk_worker)
 
-      receipts = []
-      receipts << attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
-      receipts << attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
-      delivery = build(:delivery, user: mrhalp, deliverer: 'LaserShip', receipts_attributes: receipts)
-
       Timecop.travel(Time.zone.local(2011, 11, 11, 15, 12, 9)) do
-        delivery.save!
+        build(:delivery, user: mrhalp, deliverer: "LaserShip") do |delivery|
+          delivery.receipts.build(
+            attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
+          )
+          delivery.receipts.build(
+            attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
+          )
+
+          delivery.save!
+        end
       end
 
-      visit deliveries_path(date: '2011-11-11')
+      visit deliveries_path
 
       within delivery_element(text: 'LaserShip') do
         expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
+        expect(page).to have_content "Nov 11, 2011"
         expect(page).to have_content '03:12:09 pm'
         expect(page).to have_content '3457'
         expect(page).not_to have_button 'Delete'
+
+        within receipt_element(text: "Micro Helpline") do
+          expect(page).to have_content "Micro Helpline"
+          expect(page).to have_content "2"
+        end
+
+        within receipt_element(text: "Ms Helpline") do
+          expect(page).to have_content "Ms Helpline"
+          expect(page).to have_content "3455"
+        end
+      end
+    end
+
+    scenario "defaults to only showing deliveries with receipts waiting pickup" do
+      robert = create(:user, :desk_worker, first_name: "Kiel", last_name: "Henderson")
+      sarah = create(:user, first_name: "Sarah", last_name: "Hurnt")
+      leslie = create(:user, first_name: "Leslie", last_name: "Meyens")
+
+      build(:delivery, user: robert, deliverer: "Amazon") do |delivery|
+        delivery.receipts.build(
+          attributes_for(:receipt, :signed_out, user_id: sarah.id)
+        )
+        delivery.receipts.build(
+          attributes_for(:receipt, user_id: robert.id)
+        )
+        delivery.save!
       end
 
-      within delivery_element(text: 'LaserShip') do
-        click_link 'Details'
+      build(:delivery, user: robert, deliverer: "USPS") do |delivery|
+        delivery.receipts.build(
+          attributes_for(:receipt, :signed_out, user_id: leslie.id)
+        )
+        delivery.receipts.build(
+          attributes_for(:receipt, :signed_out, user_id: sarah.id)
+        )
+        delivery.save!
       end
 
-      expect(current_path).to eq delivery_path(delivery)
-
-      within delivery_element(text: 'LaserShip') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        expect(page).to have_content 'Delivered On Friday, November 11, 2011'
-        expect(page).to have_content 'Total Packages 3457'
+      build(:delivery, user: robert, deliverer: "UPS") do |delivery|
+        delivery.receipts.build(attributes_for(:receipt, :signed_out, user_id: robert.id))
+        delivery.receipts.build(attributes_for(:receipt, user_id: sarah.id))
+        delivery.save!
       end
 
-      within receipt_element(text: 'Ms Helpline') do
-        expect(page).to have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
-        expect(page).to have_content '3455'
+      visit deliveries_path
+
+      expect(page).to have_select "Filter by", selected: "Waiting for Pickup"
+      expect(page).not_to have_delivery_element text: "USPS"
+      expect("UPS").to appear_before "Amazon"
+
+      within delivery_element(text: "Amazon") do
+        expect(page).to have_receipt_element text: "Kiel Henderson"
+        expect(page).not_to have_receipt_element text: "Sarah Hurnt"
       end
 
-      within receipt_element(text: 'Micro Helpline') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        expect(page).to have_content '2'
+      within delivery_element(text: "UPS") do
+        expect(page).to have_receipt_element text: "Sarah Hurnt"
+        expect(page).not_to have_receipt_element text: "Kiel Henderson"
+      end
+
+      select "All Deliveries", from: "Filter by"
+      sleep 1
+
+      expect("UPS").to appear_before "USPS"
+      expect("USPS").to appear_before "Amazon"
+
+      within delivery_element(text: "Amazon") do
+        expect(page).to have_receipt_element text: "Kiel Henderson"
+        expect(page).to have_receipt_element text: "Sarah Hurnt"
+      end
+
+      within delivery_element(text: "UPS") do
+        expect(page).to have_receipt_element text: "Sarah Hurnt"
+        expect(page).to have_receipt_element text: "Kiel Henderson"
+      end
+
+      within delivery_element(text: "USPS") do
+        expect(page).to have_receipt_element text: "Leslie Meyens"
+        expect(page).to have_receipt_element text: "Sarah Hurnt"
       end
     end
 
     scenario 'allows sorting by time of day received, remembering sorting across page refresh' do
+      richard = create(:user, first_name: "Richard")
+      alfred = create(:user, first_name: "Alfred")
       Timecop.travel(5.minutes.ago) do
-        create(:delivery, deliverer: 'UPS')
+        create(:delivery, user: richard)
       end
-      create(:delivery, deliverer: 'LaserShip')
+      create(:delivery, user: alfred)
 
       visit deliveries_path
 
-      expect('LaserShip').to appear_before 'UPS'
+      expect(page).to have_select "Sort by", selected: "Newest"
+      expect("Alfred").to appear_before "Richard"
 
-      within deliveries_element do
-        click_link 'Delivered At'
-      end
-
+      select "Oldest", from: "Sort by"
       sleep 1
-      expect('UPS').to appear_before 'LaserShip'
+
+      expect("Richard").to appear_before "Alfred"
 
       visit current_url
 
-      expect('UPS').to appear_before 'LaserShip'
+      expect("Richard").to appear_before "Alfred"
 
       visit deliveries_path
 
       expect(current_url).to include 'sort=oldest'
       expect('UPS').to appear_before 'LaserShip'
-      # hacky way to ensure the sort arrow is pointing the right way
-      expect(page).to have_css '.sort-column.up'
+
+      select "Newest", from: "Sort by"
+      sleep 1
+
+      expect("Alfred").to appear_before "Richard"
     end
 
     scenario 'allows deletion by admins' do
@@ -106,7 +172,7 @@ RSpec.feature 'Delivery', js: true do
       end
 
       expect(page).to have_delivery_element text: 'FedEx', count: 1
-      expect(current_url).to include deliveries_path(date: Time.zone.now.to_date, sort: 'newest')
+      expect(current_url).to include deliveries_path(filter: "waiting", sort: "newest")
     end
   end
 
@@ -253,71 +319,25 @@ RSpec.feature 'Delivery', js: true do
       expect(page).to have_content 'Notifications Sent'
       expect(last_email).to be_delivered_to 'mrhalp@mit.edu'
 
-      expect(current_path).to eq delivery_path(Delivery.last!)
+      expect(current_path).to eq deliveries_path
       expect(page).to have_content 'Jon Snow 1'
       expect(page).to have_content 'Micro Helpline 2'
     end
   end
 
-  context 'search' do
-    scenario 'by next or previous day' do
-      mrhalp = create(:mrhalp, :desk_worker)
-      mshalp = create(:mshalp, :desk_worker)
-
-      Timecop.travel(1.day.ago) do
-        create(:delivery, deliverer: 'UPS', user: mrhalp)
-      end
-
-      Timecop.travel(1.day.from_now) do
-        create(:delivery, deliverer: 'USPS', user: mshalp)
-      end
+  context "searching can be done by the" do
+    scenario "company that delivered the packages" do
+      create(:delivery, deliverer: "LaserShip")
+      create(:delivery, deliverer: "USPS")
 
       visit deliveries_path
 
-      click_link 'Previous Day'
+      expect(page).to have_delivery_element count: 2
 
-      within delivery_element(text: 'UPS') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-      end
+      select "LaserShip", from: "Delivered by"
 
-      click_link 'Next Day'
-      sleep 1
-      click_link 'Next Day'
-
-      within delivery_element(text: 'USPS') do
-        expect(page).to have_link 'Ms Helpline', href: 'mailto:mshalp@mit.edu'
-      end
-    end
-
-    scenario 'by selecting date on calendar' do
-      day = Time.zone.local(2010, 10, 30)
-      user = create(:mrhalp, :desk_worker)
-
-      Timecop.travel(day) do
-        create(:delivery, deliverer: 'FedEx', user: user)
-      end
-
-      visit deliveries_path
-
-      click_button 'Change'
-
-      within 'div#ui-datepicker-div' do
-        find('select.ui-datepicker-year option', text: day.year.to_s).select_option
-        find('select.ui-datepicker-month option', text: day.strftime('%b')).select_option
-        find('a.ui-state-default:not(.ui-priority-secondary)', text: day.day.to_s).click
-      end
-
-      expect(current_url).to include deliveries_path(date: '2010-10-30', sort: 'newest')
-
-      within delivery_element(text: 'FedEx') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-      end
-
-      visit current_url
-
-      within delivery_element(text: 'FedEx') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-      end
+      expect(page).to have_delivery_element count: 1
+      expect(page).to have_delivery_element text: "LaserShip"
     end
   end
 

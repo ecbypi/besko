@@ -21,9 +21,9 @@ class ReceiptsController < ApplicationController
 
   def update
     @receipt = Receipt.find(params[:id])
-    @receipt.update(signed_out_at: Time.zone.now)
+    @receipt.update!(signed_out_at: Time.zone.now)
 
-    respond_with(@receipt.delivery)
+    respond_with(@receipt, location: request.referrer)
   end
 
   private

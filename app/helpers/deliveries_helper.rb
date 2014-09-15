@@ -1,46 +1,29 @@
 module DeliveriesHelper
-  DATE_FORMAT = '%Y-%m-%d'
+  def delivery_search_results_css_class
+    css_class = "deliveries-listing"
 
-  def formatted_delivered_on
-    delivered_on.strftime('%a, %b %d, %Y')
-  end
-
-  def delivered_on
-    @delivered_on ||= if params.key?(:date)
-      Time.zone.parse(params[:date]).to_date
-    else
-      Time.zone.now.to_date
-    end
-  end
-
-  def next_date_params
-    next_date = (delivered_on + 1).strftime(DATE_FORMAT)
-    search_params.merge(date: next_date)
-  end
-
-  def previous_date_params
-    previous_date = (delivered_on - 1).strftime(DATE_FORMAT)
-    search_params.merge(date: previous_date)
-  end
-
-  def reverse_sort_params
-    sort_direction = search_params[:sort] == 'oldest' ? 'newest' : 'oldest'
-    search_params.merge(sort: sort_direction)
-  end
-
-  def search_params
-    @search_params ||= params.slice(:date, :sort).reverse_merge(
-      sort: cookies[:delivery_sort]
-    )
-  end
-
-  def sorting_css_class
-    css_class = 'sort-column'
-
-    if search_params[:sort] == 'oldest'
-      css_class << ' up'
+    if delivery_search_params[:filter] == "all"
+      css_class << " all-deliveries-listing"
     end
 
     css_class
+  end
+
+  def delivery_search_filter_options
+    @delivery_search_filter_options ||=
+      DeliveryQuery::FILTER_OPTIONS.map do |key, value|
+        [t(".delivery_search.filter_labels.#{key}"), value]
+      end
+  end
+
+  def delivery_search_sort_options
+    @delivery_search_sort_options ||=
+      DeliveryQuery::SORT_OPTIONS.map do |key, value|
+        [t(".delivery_search.sort_labels.#{key}"), value]
+      end
+  end
+
+  def delivery_search_deliverer_options
+    Delivery::Deliverers
   end
 end

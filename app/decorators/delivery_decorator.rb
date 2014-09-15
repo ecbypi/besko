@@ -1,4 +1,10 @@
 class DeliveryDecorator < ApplicationDecorator
+  decorates_association :receipts
+
+  def date_of_delivery
+    object.created_at.strftime("%b %d, %Y")
+  end
+
   def time_of_delivery
     object.created_at.strftime('%I:%M:%S %P')
   end

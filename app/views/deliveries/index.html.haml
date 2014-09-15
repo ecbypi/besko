@@ -1,25 +1,18 @@
 - content_for :title do
   Deliveries
 
-%h2.current-date
-  %button.button.open-calendar{ data: { open_calendar: true } } Change
-  = text_field_tag 'delivered-on', formatted_delivered_on, disabled: true
+= form_tag deliveries_path, method: :get, id: "delivery-search", class: "delivery-search actionable" do
+  .input
+    = label_tag :filter, "Filter by"
+    = select_tag :filter, options_for_select(delivery_search_filter_options, delivery_search_params[:filter])
 
-%section.delivery-pagination
-  = link_to 'Next Day', deliveries_path(next_date_params), class: 'button next-deliveries-date', data: { pjax: true }
-  = link_to 'Previous Day', deliveries_path(previous_date_params), class: 'button prev-deliveries-date', data: { pjax: true }
+  .input
+    = label_tag :sort, "Sort by"
+    = select_tag :sort, options_for_select(delivery_search_sort_options, delivery_search_params[:sort]), data: { sort: true }
 
-- if @deliveries.any?
-  %table.deliveries-listing.table-striped{ data: { collection: :deliveries } }
-    %thead
-      %tr
-        %th.sortable-column.delivered-at
-          = link_to 'Delivered At', deliveries_path(reverse_sort_params), class: sorting_css_class, data: { pjax: true, sort: true }
-        %th.received-by Sorted By
-        %th.delivered-by Delivered By
-        %th.package-count Packages
-        %th
-    %tbody= render @deliveries
+  .input
+    = label_tag :delivered_by, "Delivered by"
+    = select_tag :delivered_by, options_for_select(delivery_search_deliverer_options, delivery_search_params[:delivered_by]), include_blank: true
 
-- else
-  %p.empty-message= t '.no_deliveries'
+#delivery-search-results{ data: { pjax_container: true } }
+  = render 'search_results', deliveries: @deliveries

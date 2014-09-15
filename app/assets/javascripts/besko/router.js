@@ -10,11 +10,26 @@
     },
 
     deliverySearch: function(params) {
+      var queryParams = {
+        filter: null,
+        sort: null
+      }
+
       params = $.parseQueryObject(params);
+      _.extend(queryParams, params);
+
+      if ( !queryParams.filter ) {
+        queryParams.filter = 'waiting';
+      }
+
+      if ( !queryParams.sort ) {
+        queryParams.sort = Cookies.get('delivery_sort') || 'newest';
+      }
+
+      window.history.replaceState(null, document.title, Routes.deliveries_path(queryParams));
 
       var search = new Besko.Views.DeliverySearch({
-        el: $('#content'),
-        params: params
+        el: $('#delivery-search')
       });
 
       search.render();

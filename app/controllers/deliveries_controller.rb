@@ -1,31 +1,32 @@
 class DeliveriesController < ApplicationController
-  layout :determine_layout
-
-  responders :flash
+  responders :flash, :collection
   respond_to :html
-
-  decorates_assigned :delivery
 
   authorize_resource
 
-  helper_method :receipts_for_new_delivery
-  hide_action :receipts_for_new_delivery
+  helper_method :receipts_for_new_delivery, :delivery_search_params
+  hide_action :receipts_for_new_delivery, :delivery_search_params
 
   def index
-    deliveries = Delivery.includes(:user, receipts: :user).delivered_on(params[:date])
+    cookies[:delivery_sort] ||= DeliveryQuery::SORT_OPTIONS[:desc]
 
-    case params[:sort] || cookies[:delivery_sort]
-    when nil, 'newest'
-      deliveries = deliveries.order(created_at: :desc)
+    deliveries = Delivery.
+      includes(:user, receipts: :user).
+      paraphrase(delivery_search_params).
+      page(params[:page]).
+      per(20)
+
+    @deliveries = PaginatingDecorator.decorate(deliveries)
+
+    if request.headers["X-PJAX"]
+      render(
+        partial: "search_results",
+        layout: false,
+        locals: { deliveries: @deliveries }
+      )
     else
-      deliveries = deliveries.order(:created_at)
+      respond_with(@deliveries)
     end
-
-    @deliveries = deliveries.decorate
-  end
-
-  def show
-    @delivery = Delivery.find(params[:id])
   end
 
   def create
@@ -44,7 +45,7 @@ class DeliveriesController < ApplicationController
     delivery = Delivery.find(params[:id])
     delivery.destroy
 
-    respond_with(delivery, location: deliveries_path(date: delivery.delivered_on, sort: cookies[:delivery_sort]))
+    respond_with(delivery, location: deliveries_path(sort: cookies[:delivery_sort]))
   end
 
   private
@@ -61,11 +62,17 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  def delivery_params
-    params.require(:delivery).permit(:deliverer, receipts_attributes: [:user_id, :number_packages, :comment])
+  def delivery_search_params
+    @delivery_search_params ||= begin
+      filtered_params = params.slice(*DeliveryQuery.keys)
+      filtered_params.reverse_merge(
+        sort: cookies[:delivery_sort],
+        filter: DeliveryQuery::FILTER_OPTIONS[:waiting]
+      )
+    end
   end
 
-  def determine_layout
-    request.headers['X-PJAX'] ? false : 'application'
+  def delivery_params
+    params.require(:delivery).permit(:deliverer, receipts_attributes: [:user_id, :number_packages, :comment])
   end
 end
