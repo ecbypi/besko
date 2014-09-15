@@ -30,6 +30,8 @@ RSpec.describe DeskWorkerSynchronizationWorker do
 
     user = User.find_by!(login: "mshalp")
     expect(user).to be_a_desk_worker
+    expect(user).to be_confirmed
+    expect(user).to be_activated
   end
 
   it "notifies Honeybadger if ENV['DESK_WORKERS_GROUP'] variable is missing" do

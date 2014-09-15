@@ -56,6 +56,10 @@ class DeskWorkerSynchronizationWorker
       notify_of_failure("User '#{login}' not found in directory")
     else
       user.assign_password
+      user.assign_attributes(
+        confirmed_at: Time.zone.now,
+        activated_at: Time.zone.now
+      )
       user.save!
 
       user
