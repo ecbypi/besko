@@ -25,6 +25,7 @@ gem 'sidetiq'
 gem 'newrelic_rpm'
 gem 'dotenv'
 gem 'paraphrase'
+gem 'faker', require: false
 
 # assets
 gem 'jquery-rails'
