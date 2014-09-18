@@ -32,4 +32,12 @@ class DeliveryQuery < Paraphrase::Query
   scope :with_deliverer do |deliverer|
     relation.where(deliverer: deliverer)
   end
+
+  param :sort do
+    params[:sort].presence || DeliveryQuery::SORT_OPTIONS[:desc]
+  end
+
+  param :filter do
+    params[:filter].presence || DeliveryQuery::FILTER_OPTIONS[:waiting]
+  end
 end

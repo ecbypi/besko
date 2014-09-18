@@ -4,15 +4,15 @@
 = form_tag deliveries_path, method: :get, id: "delivery-search", class: "delivery-search actionable" do
   .input
     = label_tag :filter, "Filter by"
-    = select_tag :filter, options_for_select(delivery_search_filter_options, delivery_search_params[:filter])
+    = select_tag :filter, options_for_select(delivery_search_filter_options, @query.filter)
 
   .input
     = label_tag :sort, "Sort by"
-    = select_tag :sort, options_for_select(delivery_search_sort_options, delivery_search_params[:sort])
+    = select_tag :sort, options_for_select(delivery_search_sort_options, @query.sort)
 
   .input
     = label_tag :delivered_by, "Delivered by"
-    = select_tag :delivered_by, options_for_select(delivery_search_deliverer_options, delivery_search_params[:delivered_by]), include_blank: true
+    = select_tag :delivered_by, options_for_select(delivery_search_deliverer_options, @query.delivered_by), include_blank: true
 
 #delivery-search-results{ data: { pjax_container: true } }
-  = render 'search_results', deliveries: @deliveries
+  = render 'search_results', deliveries: @deliveries, query: @query

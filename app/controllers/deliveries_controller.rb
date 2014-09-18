@@ -4,26 +4,38 @@ class DeliveriesController < ApplicationController
 
   authorize_resource
 
-  helper_method :receipts_for_new_delivery, :delivery_search_params
-  hide_action :receipts_for_new_delivery, :delivery_search_params
-
   def index
     deliveries = Delivery.
       includes(:user, receipts: :user).
-      paraphrase(delivery_search_params).
       page(params[:page]).
       per(20)
 
-    @deliveries = PaginatingDecorator.decorate(deliveries)
+    @query = DeliveryQuery.new(params, deliveries)
+    @deliveries = PaginatingDecorator.decorate(@query.result)
 
     if request.headers["X-PJAX"]
       render(
         partial: "search_results",
         layout: false,
-        locals: { deliveries: @deliveries }
+        locals: {
+          deliveries: @deliveries,
+          query: @query
+        }
       )
     else
       respond_with(@deliveries)
+    end
+  end
+
+  def new
+    @delivery = Delivery.new
+
+    recipients = params.fetch(:r, {})
+
+    users = User.where(id: recipients.keys)
+    users.each do |user|
+      number_packages = recipients.fetch(user.id.to_s, 1).to_i
+      @delivery.receipts.build(user: user, number_packages: number_packages)
     end
   end
 
@@ -47,28 +59,6 @@ class DeliveriesController < ApplicationController
   end
 
   private
-
-  def receipts_for_new_delivery
-    @receipts_for_new_delivery ||= begin
-      recipients = params.fetch(:r, {})
-
-      users = User.where(id: recipients.keys)
-      users.map do |user|
-        number_packages = recipients.fetch(user.id.to_s, 1).to_i
-        Receipt.new(user: user, number_packages: number_packages)
-      end
-    end
-  end
-
-  def delivery_search_params
-    @delivery_search_params ||= begin
-      filtered_params = params.slice(*DeliveryQuery.keys)
-      filtered_params.reverse_merge(
-        sort: DeliveryQuery::SORT_OPTIONS[:desc],
-        filter: DeliveryQuery::FILTER_OPTIONS[:waiting]
-      )
-    end
-  end
 
   def delivery_params
     params.require(:delivery).permit(:deliverer, receipts_attributes: [:user_id, :number_packages, :comment])

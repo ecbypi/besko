@@ -1,7 +1,7 @@
 - if deliveries.length > 0
   = paginate deliveries
 
-  %table{ class: delivery_search_results_css_class, data: { collection: :deliveries } }
+  %table{ class: delivery_search_results_css_class(query), data: { collection: :deliveries } }
     %thead
       %tr
         %th.sortable-column.delivered-at Delivered At

@@ -1,8 +1,8 @@
 module DeliveriesHelper
-  def delivery_search_results_css_class
+  def delivery_search_results_css_class(query)
     css_class = "deliveries-listing"
 
-    if delivery_search_params[:filter] == "all"
+    if query.filter == DeliveryQuery::FILTER_OPTIONS[:all]
       css_class << " all-deliveries-listing"
     end
 
