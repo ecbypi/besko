@@ -8,7 +8,7 @@
 
   .input
     = label_tag :sort, "Sort by"
-    = select_tag :sort, options_for_select(delivery_search_sort_options, delivery_search_params[:sort]), data: { sort: true }
+    = select_tag :sort, options_for_select(delivery_search_sort_options, delivery_search_params[:sort])
 
   .input
     = label_tag :delivered_by, "Delivered by"

@@ -23,7 +23,7 @@
       }
 
       if ( !queryParams.sort ) {
-        queryParams.sort = Cookies.get('delivery_sort') || 'newest';
+        queryParams.sort = 'newest';
       }
 
       window.history.replaceState(null, document.title, Routes.deliveries_path(queryParams));

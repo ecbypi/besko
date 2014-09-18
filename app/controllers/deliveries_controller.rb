@@ -8,8 +8,6 @@ class DeliveriesController < ApplicationController
   hide_action :receipts_for_new_delivery, :delivery_search_params
 
   def index
-    cookies[:delivery_sort] ||= DeliveryQuery::SORT_OPTIONS[:desc]
-
     deliveries = Delivery.
       includes(:user, receipts: :user).
       paraphrase(delivery_search_params).
@@ -45,7 +43,7 @@ class DeliveriesController < ApplicationController
     delivery = Delivery.find(params[:id])
     delivery.destroy
 
-    respond_with(delivery, location: deliveries_path(sort: cookies[:delivery_sort]))
+    respond_with(delivery, location: request.referrer)
   end
 
   private
@@ -66,7 +64,7 @@ class DeliveriesController < ApplicationController
     @delivery_search_params ||= begin
       filtered_params = params.slice(*DeliveryQuery.keys)
       filtered_params.reverse_merge(
-        sort: cookies[:delivery_sort],
+        sort: DeliveryQuery::SORT_OPTIONS[:desc],
         filter: DeliveryQuery::FILTER_OPTIONS[:waiting]
       )
     end

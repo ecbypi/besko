@@ -138,11 +138,6 @@ RSpec.feature "Delivery", :js do
 
       expect("Richard").to appear_before "Alfred"
 
-      visit deliveries_path
-
-      expect(current_url).to include 'sort=oldest'
-      expect('UPS').to appear_before 'LaserShip'
-
       select "Newest", from: "Sort by"
       sleep 1
 
