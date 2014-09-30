@@ -22,7 +22,7 @@ en:
         password_confirmation: 'Confirm New Password'
     hints:
       delivery:
-        recipients: "multiple recipients can be added; add all for the same delivery"
+        recipients: "add all recipients in the same delivery"
       user:
         first_name: 'read-only'
         last_name: 'read-only'
