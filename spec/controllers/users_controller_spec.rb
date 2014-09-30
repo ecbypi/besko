@@ -46,6 +46,31 @@ RSpec.describe UsersController do
       users = JSON.parse(response.body)
       expect(users.size).to eq 1
     end
+
+    context 'when `category` param is present' do
+      before do
+        create(:user, :desk_worker, first_name: 'Ron', last_name: 'Howard')
+        create(:user, first_name: 'Ron', last_name: 'Burgundy') do |user|
+          create(:receipt, user: user)
+        end
+      end
+
+      it 'filters for desk workers when param is "desk_worker"' do
+        get :index, format: :json, term: 'Ron', category: 'desk_worker'
+        users = JSON.parse(response.body)
+
+        expect(users.size).to eq 1
+        expect(users.first['last_name']).to eq 'Howard'
+      end
+
+      it 'filters for users with any packages when param is "recipient"' do
+        get :index, format: :json, term: 'Ron', category: 'recipient'
+        users = JSON.parse(response.body)
+
+        expect(users.size).to eq 1
+        expect(users.first['last_name']).to eq 'Burgundy'
+      end
+    end
   end
 
   describe "POST create.json" do

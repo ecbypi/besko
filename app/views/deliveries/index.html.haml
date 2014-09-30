@@ -1,18 +1,28 @@
 - content_for :title do
   Deliveries
 
-= form_tag deliveries_path, method: :get, id: "delivery-search", class: "delivery-search actionable" do
+= form_tag deliveries_path, method: :get, id: 'delivery-search', class: 'delivery-search actionable' do
   .input
-    = label_tag :filter, "Filter by"
+    = label_tag :filter, 'Filter by'
     = select_tag :filter, options_for_select(delivery_search_filter_options, @query.filter)
 
   .input
-    = label_tag :sort, "Sort by"
+    = label_tag :sort, 'Sort by'
     = select_tag :sort, options_for_select(delivery_search_sort_options, @query.sort)
 
   .input
-    = label_tag :delivered_by, "Delivered by"
+    = label_tag :delivered_by, 'Delivered by'
     = select_tag :delivered_by, options_for_select(delivery_search_deliverer_options, @query.delivered_by), include_blank: true
+
+  .input.autocomplete-search{ data: { autocomplete_input: '', category: :desk_worker } }
+    = label_tag :received_by_autocomplete, 'Received by'
+    = search_field_tag :received_by_autocomplete, delivery_search_autocomplete_value(@query, :received_by), name: nil, disabled: @query.received_by
+    = hidden_field_tag :received_by, @query.received_by
+
+  .input.autocomplete-search{ data: { autocomplete_input: '', category: :recipient } }
+    = label_tag :delivered_to_autocomplete, 'Delivered to'
+    = search_field_tag :delivered_to_autocomplete, delivery_search_autocomplete_value(@query, :delivered_to), name: nil, disabled: @query.delivered_to
+    = hidden_field_tag :delivered_to, @query.delivered_to
 
 #delivery-search-results{ data: { pjax_container: true } }
   = render 'search_results', deliveries: @deliveries, query: @query

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     end
 
     unless options[:directory_only]
-      users.concat User.search(query)
+      users.concat User.paraphrase(params)
     end
 
     unless options[:local_only]

@@ -276,6 +276,10 @@
       input.$el.wrap('<div class="autocomplete-input-wrapper">');
       input.$el.after(resetButton.el, loading.el, results.el);
 
+      if ( !input.isEmpty() ) {
+        resetButton.show();
+      }
+
       this.listenTo(results, 'select', this.select);
       this.listenTo(resetButton, 'reset', this.reset);
 

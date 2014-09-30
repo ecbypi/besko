@@ -335,6 +335,57 @@ RSpec.feature "Delivery", :js do
       expect(page).to have_delivery_element count: 1
       expect(page).to have_delivery_element text: "LaserShip"
     end
+
+    scenario "desk worker that logged the delivery" do
+      ron = create(:user, first_name: "Ron", last_name: "Swanson")
+      create(:delivery, deliverer: "Amazon", user: ron)
+      create(:delivery, deliverer: "Amazon")
+
+      visit deliveries_path
+
+      expect(page).to have_delivery_element text: "Amazon", count: 2
+
+      fill_in "Received by", with: "ron"
+      autocomplete_result_element(text: "Ron Swanson").click
+
+      expect(page).to have_delivery_element text: "Amazon", count: 1
+      within delivery_element(text: "Amazon") do
+        expect(page).to have_content "Ron Swanson"
+      end
+
+      visit current_url
+
+      expect(page).to have_field "Received by", with: "Ron Swanson", disabled: true
+      within ".input", text: "Received by" do
+        expect(page).to have_button
+      end
+    end
+
+    scenario "recipient the delivery was for" do
+      rebecca = create(:user, first_name: "Rebecca", last_name: "Lemon")
+      build(:delivery) do |delivery|
+        delivery.receipts.build(attributes_for(:receipt, user_id: rebecca.id))
+        delivery.save!
+      end
+      create(:delivery)
+
+      visit deliveries_path
+
+      expect(page).to have_delivery_element count: 2
+
+      fill_in "Delivered to", with: "lemon"
+      autocomplete_result_element(text: "Rebecca Lemon").click
+
+      expect(page).to have_delivery_element count: 1
+      expect(page).to have_delivery_element text: "Rebecca Lemon"
+
+      visit current_url
+
+      expect(page).to have_field "Deliveried to", with: "Rebecca Lemon"
+      within ".input", text: "Delivered to" do
+        expect(page).to have_button
+      end
+    end
   end
 
   scenario 'is accessible to besk workers' do

@@ -26,4 +26,9 @@ module DeliveriesHelper
   def delivery_search_deliverer_options
     Delivery::Deliverers
   end
+
+  def delivery_search_autocomplete_value(query, key)
+    value = query.send(key)
+    value && User.find(value).name
+  end
 end
