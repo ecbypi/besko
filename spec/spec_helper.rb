@@ -58,7 +58,7 @@ RSpec.configure do |config|
 
   config.include EmailSpec::Matchers, type: :mailer
   config.include EmailSpec::Helpers, type: :mailer
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.include CommandStubbing
   config.include EmailSteps

@@ -1,44 +1,44 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
-    first_name "First"
-    last_name "Last Name"
+    first_name { "First" }
+    last_name { "Last Name" }
     sequence(:login) { |n| "bexley#{n}" }
     sequence(:email) { |n| "name#{n}@email.com" }
-    password "password"
-    password_confirmation "password"
-    street "77 Mass Ave"
+    password { "password" }
+    password_confirmation { "password" }
+    street { "77 Mass Ave" }
 
-    activated_at 1.month.ago
-    confirmed_at 1.month.ago
+    activated_at { 1.month.ago }
+    confirmed_at { 1.month.ago }
 
     trait :unconfirmed do
-      confirmed_at nil
+      confirmed_at { nil }
     end
 
     trait :inactive do
-      activated_at nil
+      activated_at { nil }
     end
 
     trait :forwarding_account do
-      forwarding_account true
-      password nil
-      password_confirmation nil
+      forwarding_account { true }
+      password { nil }
+      password_confirmation { nil }
     end
 
     factory :mrhalp do
-      first_name 'Micro'
-      last_name 'Helpline'
-      email 'mrhalp@mit.edu'
-      login 'mrhalp'
-      street 'N42'
+      first_name { 'Micro' }
+      last_name { 'Helpline' }
+      email { 'mrhalp@mit.edu' }
+      login { 'mrhalp' }
+      street { 'N42' }
     end
 
     factory :mshalp do
-      first_name 'Ms'
-      last_name 'Helpline'
-      email 'mshalp@mit.edu'
-      login 'mshalp'
-      street 'N42'
+      first_name { 'Ms' }
+      last_name { 'Helpline' }
+      email { 'mshalp@mit.edu' }
+      login { 'mshalp' }
+      street { 'N42' }
     end
 
     User.guises.each do |guise|
@@ -58,7 +58,7 @@ FactoryGirl.define do
     User.guises.each do |guise|
       trait_name = guise.underscore.to_sym
       trait trait_name do
-        title guise
+        title { guise }
       end
     end
   end

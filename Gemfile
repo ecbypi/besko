@@ -24,6 +24,7 @@ gem 'sidetiq'
 gem 'dotenv'
 gem 'paraphrase'
 gem 'faker', require: false
+gem "rake", "< 11"
 
 # assets
 gem 'jquery-rails'
@@ -55,7 +56,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'launchy'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'email_spec'
   gem 'selenium-webdriver'
