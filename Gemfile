@@ -50,13 +50,14 @@ group :development, :test do
 end
 
 group :test do
+  gem "capybara"
   gem 'orderly'
   gem 'shoulda-matchers'
   gem 'timecop'
-  gem 'poltergeist'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'email_spec'
   gem 'selenium-webdriver'
+  gem "webdrivers"
 end

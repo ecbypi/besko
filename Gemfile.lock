@@ -49,7 +49,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    addressable (2.3.6)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     arel (5.0.1.20140414130214)
     aws-sdk (1.67.0)
       aws-sdk-v1 (= 1.67.0)
@@ -73,12 +74,13 @@ GEM
     capistrano-sidekiq (0.3.6)
       capistrano
       sidekiq
-    capybara (2.4.1)
-      mime-types (>= 1.16)
+    capybara (2.18.0)
+      addressable
+      mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
-      xpath (~> 2.0)
+      xpath (>= 2.0, < 4.0)
     carmen (1.0.1)
       unicode_utils (~> 1.4.0)
     carmen-rails (1.0.1)
@@ -86,11 +88,9 @@ GEM
       rails
     celluloid (0.15.2)
       timers (~> 1.1.0)
-    childprocess (0.5.1)
-      ffi (~> 1.0, >= 1.0.11)
+    childprocess (3.0.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cliver (0.3.2)
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
@@ -131,7 +131,6 @@ GEM
       railties (>= 3.0.0)
     faker (1.3.0)
       i18n (~> 0.5)
-    ffi (1.9.3)
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
@@ -168,9 +167,10 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
+    mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.4.1)
-    multi_json (1.10.1)
+    multi_json (1.14.1)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -187,11 +187,6 @@ GEM
       activerecord (>= 3.1, < 4.2)
       activesupport (>= 3.1, < 4.2)
     pg (0.17.1)
-    poltergeist (1.5.1)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      multi_json (~> 1.0)
-      websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
     posix-spawn (0.3.8)
     pry (0.9.12.6)
@@ -203,12 +198,13 @@ GEM
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
+    public_suffix (4.0.5)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
-    rack (1.5.2)
+    rack (1.5.5)
     rack-protection (1.5.0)
       rack
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.1.5)
       actionmailer (= 4.1.5)
@@ -255,18 +251,16 @@ GEM
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
     ruby-progressbar (1.5.1)
-    rubyzip (1.1.1)
+    rubyzip (1.3.0)
     sass (3.2.15)
     sass-rails (4.0.2)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0.0)
-    selenium-webdriver (2.40.0)
-      childprocess (>= 0.5.0)
-      multi_json (~> 1.0)
-      rubyzip (~> 1.0)
-      websocket (~> 1.0.4)
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     shoulda-matchers (2.6.2)
       activesupport (>= 3.0.0)
     sidekiq (3.2.2)
@@ -312,10 +306,12 @@ GEM
     unicode_utils (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
-    websocket (1.0.7)
-    websocket-driver (0.3.4)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
+    webdrivers (4.2.0)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (>= 3.0, < 4.0)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
 
 PLATFORMS
   ruby
@@ -328,6 +324,7 @@ DEPENDENCIES
   capistrano (< 3)
   capistrano-env!
   capistrano-sidekiq
+  capybara
   carmen-rails
   cocaine
   dalli
@@ -351,7 +348,6 @@ DEPENDENCIES
   orderly
   paraphrase
   pg
-  poltergeist
   posix-spawn
   pry-rails
   pry-remote
@@ -369,6 +365,7 @@ DEPENDENCIES
   sinatra (>= 1.3.0)
   timecop
   uglifier (>= 1.3.0)
+  webdrivers
 
 BUNDLED WITH
    1.17.2

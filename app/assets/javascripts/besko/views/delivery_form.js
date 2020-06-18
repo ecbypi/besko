@@ -14,7 +14,7 @@
     events: {
       'click [data-reset]' : 'reset',
       'click [data-remove]' : 'removeReceipt',
-      'change input[type=number]' : 'incrementUrlPackageCount',
+      'input input[type=number]' : 'incrementUrlPackageCount',
       'submit' : 'validate'
     },
 

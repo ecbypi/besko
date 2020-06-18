@@ -163,7 +163,9 @@ RSpec.feature "Delivery", :js do
       expect(page).to have_delivery_element text: 'FedEx', count: 2
 
       within delivery_element(text: 'Micro Helpline') do
-        click_button 'Delete'
+        accept_confirm do
+          click_button 'Delete'
+        end
       end
 
       expect(page).to have_delivery_element text: 'FedEx', count: 1

@@ -9,17 +9,29 @@ ENV["DESK_WORKERS_GROUP"] ||= "fakegroup"
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
 require 'sidekiq/testing/inline'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-Capybara.javascript_driver = :poltergeist
-Capybara.ignore_hidden_elements = true
+require "webdrivers/chromedriver"
+Webdrivers.cache_time = 0
+Selenium::WebDriver::Chrome::Service.driver_path = Webdrivers::Chromedriver.update
 
-require 'selenium/webdriver'
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+Capybara.register_driver(:chrome_headless) do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+
+  unless ENV.key?("DISABLE_HEADLESS")
+    options.headless!
+  end
+
+  options.add_argument("--window-size=1400,1200")
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+
+Capybara.configure do |config|
+  config.javascript_driver = :chrome_headless
+  config.ignore_hidden_elements = true
 end
 
 RSpec.configure do |config|
