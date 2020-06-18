@@ -1,6 +1,3 @@
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
-
 ENV["RAILS_ENV"] ||= 'test'
 ENV['DEVISE_EMAIL'] ||= 'besko-test@mit.edu'
 ENV['HOST_FOR_EMAIL_URLS'] ||= 'besko-test.mit.edu'

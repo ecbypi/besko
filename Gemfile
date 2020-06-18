@@ -64,5 +64,4 @@ group :test do
   gem 'database_cleaner'
   gem 'email_spec'
   gem 'selenium-webdriver'
-  gem 'codeclimate-test-reporter'
 end
