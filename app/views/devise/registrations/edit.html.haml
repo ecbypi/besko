@@ -16,20 +16,3 @@
     = f.input :password_confirmation, required: false
   .actions
     = f.button :submit, "Update"
-
-= simple_form_for current_user.forwarding_address || current_user.build_forwarding_address, url: forwarding_address_path, html: { id: 'edit-address' } do |f|
-  .inputs
-    = f.input :street
-    = f.input :city
-  .inputs
-    .input{ data: { subregion: true } }
-      = render 'subregions/subregion_select'
-  .inputs
-    .input{ data: { country: true } }
-      = f.label :country
-      = f.country_select :country, priority: ApplicationHelper::PRIORITY_COUNTRIES
-  .inputs
-    = f.input :postal_code
-
-  .inputs
-    = f.button :submit

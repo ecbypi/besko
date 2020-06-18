@@ -3,6 +3,3 @@ en:
     submit:
       delivery:
         create: 'Send Notifications'
-      forwarding_address:
-        create: 'Update Forwarding Address'
-        update: 'Update Forwarding Address'

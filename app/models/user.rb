@@ -21,8 +21,6 @@ class User < ActiveRecord::Base
   has_many :receipts
   has_many :deliveries
 
-  has_one :forwarding_address
-
   has_guises :DeskWorker, :Admin, association: :user_roles, attribute: :title
 
   validates :first_name, :last_name, presence: true

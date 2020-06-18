@@ -1,10 +1,5 @@
 en:
   flash:
-    forwarding_addresses:
-      create: &forwarding_address
-        notice: 'Updated forwarding address.'
-      update:
-        <<: *forwarding_address
     receipts:
       update:
         notice: 'Signed out package for %{recipient} delivered by %{deliverer}.'

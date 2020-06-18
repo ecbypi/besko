@@ -16,7 +16,6 @@ gem 'ldaptic'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'dalli'
-gem 'carmen-rails'
 gem 'responders'
 gem 'dotenv'
 gem 'paraphrase'
