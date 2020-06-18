@@ -56,7 +56,5 @@ module Besko
       address: 'outgoing.mit.edu',
       port: 25
     }
-
-    config.cache_store = :dalli_store, { namespace: "besko-#{Rails.env}" }
   end
 end

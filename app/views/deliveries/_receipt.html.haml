@@ -1,11 +1,10 @@
-- cache receipt do
-  %tr.delivery-receipt-details{ class: receipt_delivery_details_css_class(receipt), data: { resource: :receipt } }
-    %td
-    %td= receipt.user.name
-    %td= receipt.comment
-    %td.package-count= receipt.number_packages
-    %td
-      - if receipt.signed_out?
-        Picked Up
-      - else
-        = button_to 'Sign Out', receipt, class: 'button', method: :patch
+%tr.delivery-receipt-details{ class: receipt_delivery_details_css_class(receipt), data: { resource: :receipt } }
+  %td
+  %td= receipt.user.name
+  %td= receipt.comment
+  %td.package-count= receipt.number_packages
+  %td
+    - if receipt.signed_out?
+      Picked Up
+    - else
+      = button_to 'Sign Out', receipt, class: 'button', method: :patch

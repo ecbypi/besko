@@ -56,12 +56,10 @@ class DirectorySearch
   end
 
   def command_output
-    Rails.cache.fetch(cache_key, expires_in: 1.month) do
-      begin
-        command.run(filter: filter.to_s, server: ENV['LDAP_SERVER'])
-      rescue Cocaine::ExitStatusError
-        ''
-      end
+    begin
+      command.run(filter: filter.to_s, server: ENV['LDAP_SERVER'])
+    rescue Cocaine::ExitStatusError
+      ''
     end
   end
 

@@ -91,7 +91,6 @@ GEM
     coffee-script-source (1.7.0)
     concurrent-ruby (1.1.6)
     connection_pool (2.0.0)
-    dalli (2.7.0)
     database_cleaner (1.2.0)
     devise (3.2.3)
       bcrypt-ruby (~> 3.0)
@@ -284,7 +283,6 @@ DEPENDENCIES
   capistrano-sidekiq
   capybara
   cocaine
-  dalli
   database_cleaner
   devise
   dotenv

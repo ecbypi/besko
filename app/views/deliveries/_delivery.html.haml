@@ -1,13 +1,12 @@
-- cache delivery do
-  %tbody{ data: { resource: :delivery } }
-    %tr.delivery-row
-      %td.delivered-at
-        .delivery-date-of-delivery= l delivery.created_at, format: "%b %d, %Y"
-        .delivery-time-of-delivery= l delivery.created_at, format: "%I:%M:%S %P"
-      %td.received-by= mail_to delivery.user.email, delivery.user.name
-      %td.delivered-by= delivery.deliverer
-      %td.package-count= delivery.package_count
-      %td
-        = button_to 'Delete', delivery, method: :delete, class: 'button delete-delivery', data: { confirm: t('.confirm_deletion', deliverer: delivery.deliverer, worker: delivery.user.name) }
+%tbody{ data: { resource: :delivery } }
+  %tr.delivery-row
+    %td.delivered-at
+      .delivery-date-of-delivery= l delivery.created_at, format: "%b %d, %Y"
+      .delivery-time-of-delivery= l delivery.created_at, format: "%I:%M:%S %P"
+    %td.received-by= mail_to delivery.user.email, delivery.user.name
+    %td.delivered-by= delivery.deliverer
+    %td.package-count= delivery.package_count
+    %td
+      = button_to 'Delete', delivery, method: :delete, class: 'button delete-delivery', data: { confirm: t('.confirm_deletion', deliverer: delivery.deliverer, worker: delivery.user.name) }
 
-    = render partial: "receipt", collection: delivery.receipts
+  = render partial: "receipt", collection: delivery.receipts
