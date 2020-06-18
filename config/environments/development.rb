@@ -1,35 +1,15 @@
-Besko::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
-
-  # In the development environment your application's code is reloaded on
-  # every request.  This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
-
-  # Show full error reports and enable caching
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = true
-
-  # Don't care if the mailer can't send
+Rails.application.configure do
+  config.action_controller.perform_caching = false
   config.action_mailer.raise_delivery_errors = false
-
-  # Print deprecation notices to the Rails logger
+  config.action_view.raise_on_missing_translations = true
+  config.active_record.migration_error = :page_load
   config.active_support.deprecation = :log
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
-
-  # Do not compress assets
-  config.assets.compress = false
-
-  # Expands the lines which load the assets
   config.assets.debug = true
+  config.assets.digest = true
+  config.assets.raise_runtime_errors = true
 
-  # Don't send emails in development
-  config.action_mailer.perform_deliveries = false
-
+  config.cache_classes = false
+  config.consider_all_requests_local       = true
   config.eager_load = false
-
-  # Raise errors if a translation is missing
-  config.action_view.raise_on_missing_translations = true
 end

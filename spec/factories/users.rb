@@ -41,7 +41,7 @@ FactoryBot.define do
       street { 'N42' }
     end
 
-    User.guises.each do |guise|
+    User.guise_options.values.each do |guise|
       trait_name = guise.underscore.to_sym
       trait trait_name do
         after(:create) do |user, proxy|
@@ -55,7 +55,7 @@ FactoryBot.define do
     title { User.guises.sample }
     user
 
-    User.guises.each do |guise|
+    User.guise_options.values.each do |guise|
       trait_name = guise.underscore.to_sym
       trait trait_name do
         title { guise }

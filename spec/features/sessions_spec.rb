@@ -15,7 +15,7 @@ RSpec.feature 'Sessions' do
     expect(current_path).to eq new_user_session_path
     expect(notifications).to have_content I18n.t('devise.failure.unconfirmed')
 
-    user.confirm!
+    user.confirm
 
     fill_in 'Email', with: 'guy@fake-email.com'
     fill_in 'Password', with: 'password'

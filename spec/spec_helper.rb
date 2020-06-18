@@ -35,11 +35,14 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
+  config.example_status_persistence_file_path = "tmp/rspec-failures"
+  config.expose_dsl_globally = false
+
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
   config.infer_spec_type_from_file_location!
-  config.expose_dsl_globally = false
   config.order = 'random'
 
   config.before(:suite) do

@@ -28,12 +28,12 @@ class User < ActiveRecord::Base
 
     def terms
       @terms ||= sanitized_query.split.map do |term|
-        "#{term}%"
+        Arel.quote("#{term}%")
       end
     end
 
     def matches_full_name
-      full_name.matches("#{sanitized_query}%")
+      full_name.matches(Arel.quote("#{sanitized_query}%"))
     end
 
     def matches_last_name
@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
     end
 
     def full_name
-      Arel::Nodes::NamedFunction.new('concat', [table[:first_name], ' ', table[:last_name]])
+      Arel::Nodes::NamedFunction.new('concat', [table[:first_name], Arel.quote(' '), table[:last_name]])
     end
 
     def table

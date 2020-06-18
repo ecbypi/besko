@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe SessionsController do
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   before do
     request.env['devise.mapping'] = Devise.mappings[:user]

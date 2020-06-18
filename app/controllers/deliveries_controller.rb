@@ -44,7 +44,7 @@ class DeliveriesController < ApplicationController
 
     if delivery.persisted?
       delivery.receipt_ids.each do |receipt_id|
-        Mailer.delay.package_confirmation(receipt_id)
+        Mailer.package_confirmation(receipt_id).deliver_later
       end
     end
 

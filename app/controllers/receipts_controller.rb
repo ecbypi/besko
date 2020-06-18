@@ -26,7 +26,7 @@ class ReceiptsController < ApplicationController
 
   private
 
-  def interpolation_options
+  def flash_interpolation_options
     { recipient: @receipt.user.name, deliverer: @receipt.delivery.deliverer }
   end
 end

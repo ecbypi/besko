@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.5'
+gem 'rails', '~> 4.2.0'
 
 gem 'pg'
 gem 'devise'
@@ -8,7 +8,7 @@ gem 'cancan'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'guise'
-gem 'active_model_serializers'
+gem 'active_model_serializers', "~> 0.8.1"
 gem 'kaminari'
 gem 'cocaine'
 gem 'posix-spawn'
@@ -19,7 +19,6 @@ gem 'responders'
 gem 'dotenv'
 gem 'paraphrase'
 gem 'faker', require: false
-gem "rake", "< 11"
 
 # assets
 gem 'jquery-rails'
@@ -33,6 +32,7 @@ group :development do
   gem 'capistrano', '< 3'
   gem 'capistrano-sidekiq'
   gem 'capistrano-env', git: 'https://github.com/ecbypi/capistrano-env'
+  gem "web-console", "~> 2.0"
 end
 
 group :development, :test do

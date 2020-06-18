@@ -26,18 +26,6 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :login, uniqueness: { allow_nil: true, case_sensitive: false }
 
-  def self.guise_options
-    Guise.registry[self.table_name.classify]
-  end
-
-  def self.guises
-    guise_options[:names]
-  end
-
-  def self.guise_titles
-    guises.map { |title| [title.titleize, title] }
-  end
-
   def self.search(query)
     SearchQuery.new(query).result
   end

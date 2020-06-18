@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe DeliveriesController do
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   describe 'DELETE destroy' do
     it 'denies anyone not logged in' do
