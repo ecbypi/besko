@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/bradphelan/jasminerice
-  revision: 091349c27343bfa728b8e5745675f9ddbb7d9699
-  specs:
-    jasminerice (0.1.0)
-      coffee-rails
-
-GIT
   remote: https://github.com/ecbypi/capistrano-env
   revision: 4c82fa02d670e5a1a8822399b8693a15eaed890e
   specs:
@@ -334,7 +327,6 @@ DEPENDENCIES
   guise
   haml-rails
   honeybadger
-  jasminerice!
   jquery-rails
   js-routes
   kaminari
