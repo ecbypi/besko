@@ -41,7 +41,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'pry-remote'
-  gem 'quiet_assets'
 end
 
 group :test do
