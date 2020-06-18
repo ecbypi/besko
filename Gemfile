@@ -33,7 +33,6 @@ gem 'js-routes'
 
 group :development do
   gem 'capistrano', '< 3'
-  gem 'respec'
   gem 'capistrano-sidekiq'
   gem 'capistrano-env', git: 'https://github.com/ecbypi/capistrano-env'
 end
