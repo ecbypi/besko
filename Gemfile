@@ -36,9 +36,6 @@ gem 'js-routes'
 
 group :development do
   gem 'capistrano', '< 3'
-  gem 'meta_request'
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'respec'
   gem 'capistrano-sidekiq'
   gem 'capistrano-env', github: 'ecbypi/capistrano-env'
