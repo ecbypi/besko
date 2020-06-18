@@ -18,7 +18,6 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'dalli'
 gem 'carmen-rails'
 gem 'responders'
-gem 'honeybadger'
 gem 'dotenv'
 gem 'paraphrase'
 gem 'faker', require: false

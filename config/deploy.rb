@@ -5,10 +5,6 @@ require 'dotenv'
 
 Dotenv.load!
 
-# honeybadger configuration/tasks
-require './config/boot'
-require 'honeybadger/capistrano'
-
 set :stages, %w( production staging )
 set :default_stage, 'staging'
 require 'capistrano/ext/multistage'

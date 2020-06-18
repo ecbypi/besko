@@ -132,8 +132,6 @@ GEM
       railties (>= 4.0.1)
     highline (1.6.21)
     hike (1.2.3)
-    honeybadger (1.16.4)
-      json
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jquery-rails (2.2.1)
@@ -310,7 +308,6 @@ DEPENDENCIES
   faker
   guise
   haml-rails
-  honeybadger
   jquery-rails
   js-routes
   kaminari
