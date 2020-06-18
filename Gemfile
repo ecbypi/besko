@@ -45,7 +45,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'jasminerice', git: 'https://github.com/bradphelan/jasminerice'
-  gem 'fuubar'
   gem 'pry-remote'
   gem 'quiet_assets'
 end
