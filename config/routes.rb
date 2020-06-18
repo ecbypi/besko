@@ -1,5 +1,4 @@
 require 'sidekiq/web'
-require 'sidetiq/web'
 
 Besko::Application.routes.draw do
   devise_for :users,

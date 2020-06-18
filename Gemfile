@@ -19,7 +19,6 @@ gem 'dalli'
 gem 'carmen-rails'
 gem 'responders'
 gem 'honeybadger'
-gem 'sidetiq'
 gem 'dotenv'
 gem 'paraphrase'
 gem 'faker', require: false
