@@ -30,20 +30,20 @@ gem 'jquery-rails'
 gem 'sass-rails', "~> 4.0.0"
 gem 'uglifier', '>= 1.3.0'
 gem 'bourbon'
-gem 'backbone-support', github: 'thoughtbot/backbone-support'
+gem 'backbone-support', git: 'https://github.com/thoughtbot/backbone-support'
 gem 'js-routes'
 
 group :development do
   gem 'capistrano', '< 3'
   gem 'respec'
   gem 'capistrano-sidekiq'
-  gem 'capistrano-env', github: 'ecbypi/capistrano-env'
+  gem 'capistrano-env', git: 'https://github.com/ecbypi/capistrano-env'
 end
 
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'jasminerice', github: 'bradphelan/jasminerice'
+  gem 'jasminerice', git: 'https://github.com/bradphelan/jasminerice'
   gem 'fuubar'
   gem 'pry-remote'
   gem 'quiet_assets'

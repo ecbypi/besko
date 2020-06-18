@@ -1,19 +1,19 @@
 GIT
-  remote: git://github.com/bradphelan/jasminerice.git
+  remote: https://github.com/bradphelan/jasminerice
   revision: 091349c27343bfa728b8e5745675f9ddbb7d9699
   specs:
     jasminerice (0.1.0)
       coffee-rails
 
 GIT
-  remote: git://github.com/ecbypi/capistrano-env.git
-  revision: b479ee2fbb279ba4fee17e23967c8cd65508f78e
+  remote: https://github.com/ecbypi/capistrano-env
+  revision: 4c82fa02d670e5a1a8822399b8693a15eaed890e
   specs:
     capistrano-env (0.2.0)
       aws-sdk (~> 1.15)
 
 GIT
-  remote: git://github.com/thoughtbot/backbone-support.git
+  remote: https://github.com/thoughtbot/backbone-support
   revision: 06d971593c92a55bc4af73f4c22746a70055ee25
   specs:
     backbone-support (0.5.1)
@@ -51,11 +51,11 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    aws-sdk (1.52.0)
-      aws-sdk-v1 (= 1.52.0)
-    aws-sdk-v1 (1.52.0)
+    aws-sdk (1.67.0)
+      aws-sdk-v1 (= 1.67.0)
+    aws-sdk-v1 (1.67.0)
       json (~> 1.4)
-      nokogiri (>= 1.4.4)
+      nokogiri (~> 1)
     bcrypt (3.1.7)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
