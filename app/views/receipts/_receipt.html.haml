@@ -3,10 +3,10 @@
   %td.package-count.align-center= receipt.number_packages
   %td.delivered-by
     = receipt.delivery.deliverer
-    .timestamp= receipt.format_timestamp(:created_at)
+    .timestamp= l receipt.created_at, format: :full
   %td.comment= receipt.comment
   %td.signed-out-status.align-center
     - if receipt.signed_out?
-      = receipt.format_timestamp(:signed_out_at)
+      = l receipt.signed_out_at, format: :full
     - else
       = t '.waiting_pickup'

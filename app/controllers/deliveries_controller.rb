@@ -11,7 +11,7 @@ class DeliveriesController < ApplicationController
       per(20)
 
     @query = DeliveryQuery.new(params, deliveries)
-    @deliveries = PaginatingDecorator.decorate(@query.result)
+    @deliveries = @query.result
 
     if request.headers["X-PJAX"]
       render(

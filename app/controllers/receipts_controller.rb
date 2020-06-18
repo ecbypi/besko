@@ -5,11 +5,9 @@ class ReceiptsController < ApplicationController
   authorize_resource
 
   def index
-    receipts = current_user.receipts
+    @receipts = current_user.receipts
       .includes(delivery: :user)
       .page(params[:page]).per(10)
-
-    @receipts = PaginatingDecorator.decorate(receipts)
   end
 
   def new
