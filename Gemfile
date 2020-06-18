@@ -11,7 +11,6 @@ gem 'haml-rails'
 gem 'guise'
 gem 'active_model_serializers'
 gem 'kaminari'
-gem 'oj'
 gem 'cocaine'
 gem 'posix-spawn'
 gem 'ldaptic'
@@ -33,8 +32,7 @@ gem 'sass-rails', "~> 4.0.0"
 gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', '>= 1.3.0'
 gem 'bourbon'
-gem 'therubyracer', require: 'v8' # for precompiling assets
-gem 'backbone-support', github: 'ecbypi/backbone-support'
+gem 'backbone-support', github: 'thoughtbot/backbone-support'
 gem 'js-routes'
 
 group :development do

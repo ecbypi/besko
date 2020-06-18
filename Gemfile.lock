@@ -13,10 +13,10 @@ GIT
       aws-sdk (~> 1.15)
 
 GIT
-  remote: git://github.com/ecbypi/backbone-support.git
-  revision: d44e180a90b8a34af98ddd5c9946416de5be3c9a
+  remote: git://github.com/thoughtbot/backbone-support.git
+  revision: 06d971593c92a55bc4af73f4c22746a70055ee25
   specs:
-    backbone-support (0.4.0)
+    backbone-support (0.5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -166,14 +166,13 @@ GEM
       thor (>= 0.14, < 2.0)
     js-routes (0.9.4)
       rails (>= 3.2)
-    json (1.8.1)
+    json (1.8.6)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     ldaptic (0.2.2)
-    libv8 (3.16.14.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -183,7 +182,7 @@ GEM
       railties
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_portile (0.6.0)
+    mini_portile2 (2.4.0)
     minitest (5.4.1)
     multi_json (1.10.1)
     net-scp (1.1.2)
@@ -194,9 +193,8 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     newrelic_rpm (3.9.1.236)
-    nokogiri (1.6.3.1)
-      mini_portile (= 0.6.0)
-    oj (2.6.0)
+    nokogiri (1.10.9)
+      mini_portile2 (~> 2.4.0)
     orderly (0.0.2)
     orm_adapter (0.5.0)
     paraphrase (0.11.0)
@@ -248,7 +246,6 @@ GEM
     redis (3.1.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
-    ref (1.0.5)
     request_store (1.0.8)
     respec (0.5.0)
       rspec (>= 2.0.0)
@@ -321,9 +318,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    therubyracer (0.12.0)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -382,7 +376,6 @@ DEPENDENCIES
   ldaptic
   meta_request
   newrelic_rpm
-  oj
   orderly
   paraphrase
   pg
@@ -402,6 +395,8 @@ DEPENDENCIES
   sidetiq
   simple_form
   sinatra (>= 1.3.0)
-  therubyracer
   timecop
   uglifier (>= 1.3.0)
+
+BUNDLED WITH
+   1.17.2
