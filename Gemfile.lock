@@ -189,7 +189,6 @@ GEM
     net-ssh (2.8.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.9.1.236)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     orderly (0.0.2)
@@ -366,7 +365,6 @@ DEPENDENCIES
   launchy
   ldaptic
   meta_request
-  newrelic_rpm
   orderly
   paraphrase
   pg

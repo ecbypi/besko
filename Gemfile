@@ -21,7 +21,6 @@ gem 'carmen-rails'
 gem 'responders'
 gem 'honeybadger'
 gem 'sidetiq'
-gem 'newrelic_rpm'
 gem 'dotenv'
 gem 'paraphrase'
 gem 'faker', require: false
