@@ -2,7 +2,7 @@ class ReceiptsController < ApplicationController
   responders :flash
   respond_to :html
 
-  authorize_resource
+  before_action :authorize_resource!
 
   def index
     @receipts = current_user.receipts

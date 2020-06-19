@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 5.0.0'
 
 gem 'pg'
 gem 'devise'
@@ -22,7 +22,7 @@ gem 'faker', require: false
 
 # assets
 gem 'jquery-rails'
-gem 'sass-rails', "~> 4.0.0"
+gem 'sass-rails', "5.0.7"
 gem 'uglifier', '>= 1.3.0'
 gem 'bourbon'
 gem 'backbone-support', git: 'https://github.com/thoughtbot/backbone-support'
@@ -32,6 +32,7 @@ group :development do
   gem 'capistrano', '< 3'
   gem 'capistrano-sidekiq'
   gem 'capistrano-env', git: 'https://github.com/ecbypi/capistrano-env'
+  gem "listen"
   gem "web-console", "~> 2.0"
 end
 

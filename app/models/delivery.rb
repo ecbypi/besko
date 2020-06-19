@@ -31,7 +31,7 @@ class Delivery < ActiveRecord::Base
   end
 
   def self.waiting_for_pickup
-    joins(:receipts).where(receipts: { signed_out_at: nil }).uniq
+    joins(:receipts).where(receipts: { signed_out_at: nil }).distinct
   end
 
   def package_count

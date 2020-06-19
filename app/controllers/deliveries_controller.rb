@@ -2,7 +2,7 @@ class DeliveriesController < ApplicationController
   responders :flash, :collection
   respond_to :html
 
-  authorize_resource
+  before_action :authorize_resource!
 
   def index
     deliveries = Delivery.

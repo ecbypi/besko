@@ -7,7 +7,7 @@ RSpec.describe DeliveriesController do
     it 'denies anyone not logged in' do
       delivery = create(:delivery)
 
-      delete :destroy, id: delivery.id
+      delete :destroy, params: { id: delivery.id }
 
       expect(Delivery.exists?(delivery.id)).to be true
     end
@@ -17,7 +17,7 @@ RSpec.describe DeliveriesController do
 
       sign_in create(:user)
 
-      delete :destroy, id: delivery.id
+      delete :destroy, params: { id: delivery.id }
 
       expect(Delivery.exists?(delivery.id)).to be true
     end
@@ -27,7 +27,7 @@ RSpec.describe DeliveriesController do
 
       sign_in create(:user, :desk_worker)
 
-      delete :destroy, id: delivery.id
+      delete :destroy, params: { id: delivery.id }
 
       expect(Delivery.exists?(delivery.id)).to be true
     end
@@ -37,7 +37,7 @@ RSpec.describe DeliveriesController do
 
       sign_in create(:user, :admin)
 
-      delete :destroy, id: delivery.id
+      delete :destroy, params: { id: delivery.id }
 
       expect(Delivery.exists?(delivery.id)).to be false
     end

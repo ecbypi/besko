@@ -18,4 +18,10 @@ class ApplicationController < ActionController::Base
       format.json { head :unauthorized }
     end
   end
+
+  private
+
+  def authorize_resource!
+    CanCan::ControllerResource.new(self).authorize_resource
+  end
 end
