@@ -330,7 +330,6 @@ DEPENDENCIES
   capistrano-sidekiq
   carmen-rails
   cocaine
-  coffee-rails (~> 4.0.0)
   dalli
   database_cleaner
   devise
