@@ -6,6 +6,7 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
   config.active_support.deprecation = :raise
 
+  config.assets.debug = true
   config.assets.quiet = true
   config.assets.raise_runtime_errors = true
 
@@ -20,7 +21,7 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => 'public, max-age=172800'
+      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
     }
   else
     config.action_controller.perform_caching = false
