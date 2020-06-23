@@ -26,7 +26,7 @@ gem "uglifier", ">= 1.3.0"
 
 group :development do
   gem "listen"
-  gem "web-console", "~> 2.0"
+  gem "web-console"
 end
 
 group :development, :test do
