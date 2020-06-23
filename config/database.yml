@@ -1,15 +1,16 @@
-development:
+defaults: &defaults
   adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV["RAILS_MAX_THREADS"] || 5 %>
+
+development:
+  <<: *defaults
   database: besko
-  host: localhost
-  encoding: utf8
-  pool: 30
 
 test:
-  adapter: postgresql
+  <<: *defaults
   database: besko_test
-  host: localhost
-  encoding: utf8
-  <% if ENV['TRAVIS'] %>
-  username: travis
-  <% end %>
+
+production:
+  <<: *defaults
+  url: <%= ENV["DATABASE_URL"] %>
