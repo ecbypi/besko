@@ -84,10 +84,7 @@ GEM
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (3.0.0)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.3)
-      climate_control (>= 0.0.3, < 1.0)
+    climate_control (0.2.0)
     coderay (1.1.0)
     concurrent-ruby (1.1.6)
     connection_pool (2.0.0)
@@ -306,6 +303,8 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     temple (0.8.2)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -343,7 +342,6 @@ DEPENDENCIES
   bourbon
   cancan
   capybara
-  cocaine
   database_cleaner
   devise
   dotenv
@@ -373,6 +371,7 @@ DEPENDENCIES
   sidekiq
   simple_form
   sinatra (>= 1.3.0)
+  terrapin
   timecop
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

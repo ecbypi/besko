@@ -47,7 +47,7 @@ class DirectorySearch
   private
 
   def command
-    @command ||= Cocaine::CommandLine.new(
+    @command ||= Terrapin::CommandLine.new(
       'ldapsearch',
       command_options,
       expected_outcodes: [0, 4, 11],
@@ -58,7 +58,7 @@ class DirectorySearch
   def command_output
     begin
       command.run(filter: filter.to_s, server: ENV['LDAP_SERVER'])
-    rescue Cocaine::ExitStatusError
+    rescue Terrapin::ExitStatusError
       ''
     end
   end

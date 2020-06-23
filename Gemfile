@@ -10,7 +10,7 @@ gem 'haml-rails'
 gem 'guise'
 gem 'active_model_serializers', "~> 0.8.1"
 gem 'kaminari'
-gem 'cocaine'
+gem "terrapin"
 gem 'posix-spawn'
 gem 'ldaptic'
 gem 'sidekiq'
