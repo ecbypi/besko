@@ -1,10 +1,7 @@
-ENV["RAILS_ENV"] ||= 'test'
-ENV['DEVISE_EMAIL'] ||= 'besko-test@mit.edu'
-ENV['HOST_FOR_EMAIL_URLS'] ||= 'besko-test.mit.edu'
-ENV['LDAP_SERVER'] ||= 'ldap.foo.edu'
-ENV["SHIBBOLETH_LOGIN_HANDLER"] ||= "https://testshib.org/Shibboleth.sso/Login"
-ENV["SHIBBOLETH_LOGOUT_HANDLER"] ||= "https://testshib.org/Shibboleth.sso/Logout"
-ENV["DESK_WORKERS_GROUP"] ||= "fakegroup"
+require "dotenv"
+Dotenv.load! ".env.test"
+
+ENV["RAILS_ENV"] ||= "test"
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
