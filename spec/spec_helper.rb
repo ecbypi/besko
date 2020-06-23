@@ -29,6 +29,7 @@ end
 Capybara.configure do |config|
   config.javascript_driver = :chrome_headless
   config.ignore_hidden_elements = true
+  config.server = :webrick
 end
 
 Shoulda::Matchers.configure do |config|
