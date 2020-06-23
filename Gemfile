@@ -21,7 +21,6 @@ gem "responders"
 gem "sass-rails"
 gem "sidekiq"
 gem "simple_form"
-gem "sinatra", ">= 1.3.0", require: nil
 gem "terrapin"
 gem "uglifier", ">= 1.3.0"
 
