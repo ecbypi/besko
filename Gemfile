@@ -1,32 +1,29 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.0'
-
-gem 'pg'
-gem 'devise'
-gem 'cancan'
-gem 'simple_form'
-gem 'haml-rails'
-gem 'guise'
-gem 'active_model_serializers', "~> 0.8.1"
-gem 'kaminari'
+gem "active_model_serializers", "~> 0.8.1"
+gem "backbone-support", git: "https://github.com/thoughtbot/backbone-support"
+gem "bourbon"
+gem "cancan"
+gem "devise"
+gem "dotenv"
+gem "faker", require: false
+gem "guise"
+gem "haml-rails"
+gem "jquery-rails"
+gem "js-routes"
+gem "kaminari"
+gem "ldaptic"
+gem "paraphrase"
+gem "pg"
+gem "posix-spawn"
+gem "rails", "~> 6.0.0"
+gem "responders"
+gem "sass-rails"
+gem "sidekiq"
+gem "simple_form"
+gem "sinatra", ">= 1.3.0", require: nil
 gem "terrapin"
-gem 'posix-spawn'
-gem 'ldaptic'
-gem 'sidekiq'
-gem 'sinatra', '>= 1.3.0', require: nil
-gem 'responders'
-gem 'dotenv'
-gem 'paraphrase'
-gem 'faker', require: false
-
-# assets
-gem 'jquery-rails'
-gem 'sass-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'bourbon'
-gem 'backbone-support', git: 'https://github.com/thoughtbot/backbone-support'
-gem 'js-routes'
+gem "uglifier", ">= 1.3.0"
 
 group :development do
   gem "listen"
@@ -34,20 +31,20 @@ group :development do
 end
 
 group :development, :test do
-  gem 'pry-rails'
-  gem 'rspec-rails'
-  gem 'pry-remote'
+  gem "pry-rails"
+  gem "pry-remote"
+  gem "rspec-rails"
 end
 
 group :test do
   gem "capybara"
-  gem 'orderly'
-  gem 'shoulda-matchers'
-  gem 'timecop'
-  gem 'launchy'
-  gem 'factory_bot_rails'
-  gem 'database_cleaner'
-  gem 'email_spec'
-  gem 'selenium-webdriver'
+  gem "database_cleaner"
+  gem "email_spec"
+  gem "factory_bot_rails"
+  gem "launchy"
+  gem "orderly"
+  gem "selenium-webdriver"
+  gem "shoulda-matchers"
+  gem "timecop"
   gem "webdrivers"
 end
