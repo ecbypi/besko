@@ -29,9 +29,6 @@ gem 'backbone-support', git: 'https://github.com/thoughtbot/backbone-support'
 gem 'js-routes'
 
 group :development do
-  gem 'capistrano', '< 3'
-  gem 'capistrano-sidekiq'
-  gem 'capistrano-env', git: 'https://github.com/ecbypi/capistrano-env'
   gem "listen"
   gem "web-console", "~> 2.0"
 end
