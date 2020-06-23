@@ -16,7 +16,6 @@ en:
       waiting_pickup: 'Awaiting Pickup'
   deliveries:
     index:
-      all_deliveries_signed_out: "All deliveries have been signed out."
       delivery_search:
         filter_labels:
           waiting: 'Waiting for Pickup'
@@ -28,3 +27,6 @@ en:
       confirm_deletion: 'Delete delivery from %{deliverer} received by %{worker}?'
     new:
       confirm_cancel_new_delivery: 'Are you sure you want to stop logging this delivery?'
+
+    search_results:
+      all_deliveries_signed_out: "All deliveries have been signed out."

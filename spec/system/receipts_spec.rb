@@ -59,7 +59,7 @@ RSpec.describe 'Package receipts page', type: :system do
   it 'can be signed out by desk workers' do
     worker = create(:user, :desk_worker, first_name: 'Hugh', last_name: 'Lang')
     recipient = create(:user, first_name: 'Whip', last_name: 'Whitaker')
-    receipt = build(:receipt, user: recipient)
+    receipt = create(:receipt, user: recipient)
     create(:delivery, receipts: [receipt], user: worker, deliverer: 'UPS')
 
     sign_out!
