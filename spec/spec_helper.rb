@@ -31,6 +31,14 @@ Capybara.configure do |config|
   config.ignore_hidden_elements = true
 end
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :active_model
+    with.library :active_record
+  end
+end
+
 RSpec.configure do |config|
   config.example_status_persistence_file_path = "tmp/rspec-failures"
   config.expose_dsl_globally = false
