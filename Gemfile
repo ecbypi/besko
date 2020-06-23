@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
 
 gem 'pg'
 gem 'devise'
@@ -22,7 +22,7 @@ gem 'faker', require: false
 
 # assets
 gem 'jquery-rails'
-gem 'sass-rails', "5.0.7"
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'bourbon'
 gem 'backbone-support', git: 'https://github.com/thoughtbot/backbone-support'

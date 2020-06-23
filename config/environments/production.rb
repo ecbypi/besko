@@ -3,10 +3,8 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.active_record.dump_schema_after_migration = false
   config.active_support.deprecation = :notify
-
   config.assets.compile = false
   config.assets.js_compressor = :uglifier
-
   config.cache_classes = true
   config.consider_all_requests_local       = false
   config.eager_load = true
@@ -17,7 +15,6 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  config.read_encrypted_secrets = true
   config.require_master_key = false
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?

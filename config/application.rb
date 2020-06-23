@@ -8,6 +8,8 @@ require "active_record/railtie"
 # require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
 require "sprockets/railtie"
@@ -29,6 +31,7 @@ module Besko
       host: ENV['HOST_FOR_EMAIL_URLS'],
       protocol: 'https'
     }
+    config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
     # SMTP settings
     config.action_mailer.smtp_settings = {
       address: 'outgoing.mit.edu',
