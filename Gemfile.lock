@@ -179,7 +179,6 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    orderly (0.0.2)
     orm_adapter (0.5.0)
     paraphrase (0.14.0)
       activemodel (>= 4.2)
@@ -356,7 +355,6 @@ DEPENDENCIES
   launchy
   ldaptic
   listen
-  orderly
   paraphrase
   pg
   posix-spawn

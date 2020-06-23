@@ -41,7 +41,6 @@ group :test do
   gem "email_spec"
   gem "factory_bot_rails"
   gem "launchy"
-  gem "orderly"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "timecop"
