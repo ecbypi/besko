@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "Delivery", :js, type: :system do
-  include EmailSpec::Matchers
-  include EmailSpec::Helpers
-
   before do
     sign_in create(:user, :desk_worker)
   end
@@ -315,7 +312,7 @@ RSpec.describe "Delivery", :js, type: :system do
       click_button 'Send Notifications'
 
       expect(page).to have_content 'Notifications Sent'
-      expect(last_email).to be_delivered_to 'mrhalp@mit.edu'
+      expect(last_email_sent).to be_delivered_to 'mrhalp@mit.edu'
 
       expect(current_path).to eq deliveries_path
       expect(page).to have_content 'Jon Snow 1'

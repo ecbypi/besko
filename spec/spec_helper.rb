@@ -5,7 +5,9 @@ ENV["RAILS_ENV"] ||= "test"
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+
 require 'capybara/rspec'
+require "email_spec/rspec"
 require 'sidekiq/testing/inline'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -64,16 +66,8 @@ RSpec.configure do |config|
     end
   end
 
-  config.after(:each) do
-    reset_email
-  end
-
-  config.include EmailSpec::Matchers, type: :mailer
-  config.include EmailSpec::Helpers, type: :mailer
   config.include FactoryBot::Syntax::Methods
-
   config.include CommandStubbing
-  config.include EmailSteps
 
   config.include SessionSteps, type: :system
   config.include DOMElementSteps, type: :system
