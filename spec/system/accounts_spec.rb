@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.feature 'Accounts can be edited' do
-  scenario 'to change their email address and password' do
+RSpec.describe 'Accounts can be edited', type: :system do
+  it 'to change their email address and password' do
     sign_in create(:user, password: 'sekrit', password_confirmation: 'sekrit')
 
     visit edit_user_registration_path

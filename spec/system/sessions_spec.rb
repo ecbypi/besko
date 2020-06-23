@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.feature 'Sessions' do
-  scenario 'are allowed for confirmed and activated users' do
+RSpec.describe 'Sessions', type: :system do
+  it 'are allowed for confirmed and activated users' do
     user = create(:user, :unconfirmed, :inactive, email: 'guy@fake-email.com', password: 'password')
 
     visit root_path
@@ -41,7 +41,7 @@ RSpec.feature 'Sessions' do
     expect(notifications).to have_content 'Signed in successfully.'
   end
 
-  scenario "are available via touchstone if login handler is configured via ENV" do
+  it "are available via touchstone if login handler is configured via ENV" do
     visit new_user_session_path
 
     expect(page).to have_button 'Sign In with Touchstone'

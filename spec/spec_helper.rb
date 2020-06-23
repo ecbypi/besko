@@ -50,17 +50,21 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
   config.order = 'random'
+  config.use_transactional_fixtures = true
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-  end
+  config.before(:each, type: :system) do |example|
+    # Rails always sets this to `:puma` before each system test; we want to use `:webrick`
+    # because it's simpler
+    Capybara.server = :webrick
 
-  config.before(:each) do
-    DatabaseCleaner.start
+    if example.metadata[:js]
+      driven_by Capybara.javascript_driver
+    else
+      driven_by Capybara.default_driver
+    end
   end
 
   config.after(:each) do
-    DatabaseCleaner.clean
     reset_email
   end
 
@@ -71,7 +75,6 @@ RSpec.configure do |config|
   config.include CommandStubbing
   config.include EmailSteps
 
-  config.include SessionSteps, type: :feature
-  config.include DOMElementSteps, type: :feature
-  config.include PageRenderHelper, type: :feature, js: true
+  config.include SessionSteps, type: :system
+  config.include DOMElementSteps, type: :system
 end

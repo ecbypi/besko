@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature 'Sidekiq admin dashboard' do
+RSpec.describe 'Sidekiq admin dashboard', type: :system do
   # FIXME: Either provide a cleaner user experience or extract the dashboard
   # into a it's own rack application
   it 'is only accessible to admins' do

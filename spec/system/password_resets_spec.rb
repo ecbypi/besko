@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-RSpec.feature 'Password resets' do
+RSpec.describe 'Password resets', type: :system do
   include EmailSpec::Matchers
   include EmailSpec::Helpers
   include ExtractDeviseTokenFromEmail
 
-  scenario 'can be done from the login page' do
+  it 'can be done from the login page' do
     user = create(:user, email: 'forgetful@mit.edu')
 
     visit new_user_session_path

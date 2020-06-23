@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-RSpec.feature 'Package receipts page' do
+RSpec.describe 'Package receipts page', type: :system do
   let(:user) { create(:user) }
 
-  background do
+  before do
     sign_in user
   end
 
-  scenario 'shows package receipt details' do
+  it 'shows package receipt details' do
     delivery = create(:delivery, deliverer: 'UPS', user: create(:mrhalp, :desk_worker))
     receipt = create(
       :receipt,
@@ -37,7 +37,7 @@ RSpec.feature 'Package receipts page' do
     end
   end
 
-  scenario 'is paginated and maintains page after releasing package' do
+  it 'is paginated and maintains page after releasing package' do
     create_list(:receipt, 11, user: user)
 
     visit receipts_path
@@ -47,7 +47,7 @@ RSpec.feature 'Package receipts page' do
     expect(page).to have_receipt_element count: 1
   end
 
-  scenario 'is shown only to signed in users' do
+  it 'is shown only to signed in users' do
     sign_out!
 
     visit receipts_path
@@ -56,7 +56,7 @@ RSpec.feature 'Package receipts page' do
     expect(page).not_to have_link 'Packages', href: receipts_path
   end
 
-  scenario 'can be signed out by desk workers' do
+  it 'can be signed out by desk workers' do
     worker = create(:user, :desk_worker, first_name: 'Hugh', last_name: 'Lang')
     recipient = create(:user, first_name: 'Whip', last_name: 'Whitaker')
     receipt = build(:receipt, user: recipient)

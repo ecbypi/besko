@@ -90,7 +90,6 @@ GEM
     concurrent-ruby (1.1.6)
     connection_pool (2.0.0)
     crass (1.0.6)
-    database_cleaner (1.8.5)
     debug_inspector (0.0.3)
     devise (4.7.2)
       bcrypt (~> 3.0)
@@ -344,7 +343,6 @@ DEPENDENCIES
   bourbon
   cancan
   capybara
-  database_cleaner
   devise
   dotenv
   email_spec

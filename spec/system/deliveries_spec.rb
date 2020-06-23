@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-RSpec.feature "Delivery", :js do
+RSpec.describe "Delivery", :js, type: :system do
   include EmailSpec::Matchers
   include EmailSpec::Helpers
 
-  background do
+  before do
     sign_in create(:user, :desk_worker)
   end
 
   context 'reviewal' do
-    scenario 'shows worker, number of packages, deliverer and timestamp of delivery' do
+    it 'shows worker, number of packages, deliverer and timestamp of delivery' do
       mshalp = create(:mshalp)
       mrhalp = create(:mrhalp, :desk_worker)
 
@@ -47,7 +47,7 @@ RSpec.feature "Delivery", :js do
       end
     end
 
-    scenario "defaults to only showing deliveries with receipts waiting pickup" do
+    it "defaults to only showing deliveries with receipts waiting pickup" do
       robert = create(:user, :desk_worker, first_name: "Kiel", last_name: "Henderson")
       sarah = create(:user, first_name: "Sarah", last_name: "Hurnt")
       leslie = create(:user, first_name: "Leslie", last_name: "Meyens")
@@ -116,7 +116,7 @@ RSpec.feature "Delivery", :js do
       end
     end
 
-    scenario 'allows sorting by time of day received, remembering sorting across page refresh' do
+    it 'allows sorting by time of day received, remembering sorting across page refresh' do
       richard = create(:user, first_name: "Richard")
       alfred = create(:user, first_name: "Alfred")
       Timecop.travel(5.minutes.ago) do
@@ -144,7 +144,7 @@ RSpec.feature "Delivery", :js do
       expect("Alfred").to appear_before "Richard"
     end
 
-    scenario 'allows deletion by admins' do
+    it 'allows deletion by admins' do
       create(:delivery, deliverer: 'FedEx', user: create(:mrhalp))
       create(:delivery, deliverer: 'FedEx', user: create(:mshalp))
 
@@ -178,7 +178,7 @@ RSpec.feature "Delivery", :js do
       stub_ldap!
     end
 
-    scenario 'validates delivery is ready to be created' do
+    it 'validates delivery is ready to be created' do
       visit new_delivery_path
 
       # Force show the receipts table in the event that we are left in an
@@ -195,7 +195,7 @@ RSpec.feature "Delivery", :js do
       expect(notifications).to have_content 'At least one recipient is required.'
     end
 
-    scenario 'auto-increments number of packages for a user that is added twice' do
+    it 'auto-increments number of packages for a user that is added twice' do
       create(:user, first_name: 'Walter', last_name: 'White')
 
       visit new_delivery_path
@@ -215,7 +215,7 @@ RSpec.feature "Delivery", :js do
       end
     end
 
-    scenario 'package quantity in the url properly tracks input value' do
+    it 'package quantity in the url properly tracks input value' do
       batman = create(:user, first_name: 'Bruce', last_name: 'Wayne')
 
       visit new_delivery_path
@@ -230,7 +230,7 @@ RSpec.feature "Delivery", :js do
       expect(current_url).to include new_delivery_path(:r => { batman.id => 20 })
     end
 
-    scenario 'remembers the recipients that were added and how many packages they have' do
+    it 'remembers the recipients that were added and how many packages they have' do
       jimmy = create(:user, first_name: 'Jimmy', last_name: 'McNulty')
       bunk = create(:user, first_name: 'William', last_name: 'Moreland')
 
@@ -288,7 +288,7 @@ RSpec.feature "Delivery", :js do
       expect(page).not_to have_receipt_element text: 'Jimmy McNulty'
     end
 
-    scenario 'allows adding local DB and LDAP records' do
+    it 'allows adding local DB and LDAP records' do
       create(:user, first_name: 'Jon', last_name: 'Snow')
 
       visit new_delivery_path
@@ -324,7 +324,7 @@ RSpec.feature "Delivery", :js do
   end
 
   context "searching can be done by the" do
-    scenario "company that delivered the packages" do
+    it "company that delivered the packages" do
       create(:delivery, deliverer: "LaserShip")
       create(:delivery, deliverer: "USPS")
 
@@ -339,7 +339,7 @@ RSpec.feature "Delivery", :js do
     end
   end
 
-  scenario 'is accessible to besk workers' do
+  it 'is accessible to besk workers' do
     sign_out!
     sign_in
 
