@@ -16,6 +16,8 @@ Selenium::WebDriver::Chrome::Service.driver_path = Webdrivers::Chromedriver.upda
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+ActiveRecord::Migration.maintain_test_schema!
+
 Capybara.register_driver(:chrome_headless) do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
