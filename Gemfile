@@ -30,6 +30,7 @@ group :development do
 end
 
 group :development, :test do
+  gem "byebug"
   gem "pry-rails"
   gem "pry-remote"
   gem "rspec-rails"
