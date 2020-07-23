@@ -10,11 +10,11 @@ require 'capybara/rspec'
 require "email_spec/rspec"
 require 'sidekiq/testing/inline'
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
 require "webdrivers/chromedriver"
 Webdrivers.cache_time = 0
 Selenium::WebDriver::Chrome::Service.driver_path = Webdrivers::Chromedriver.update
+
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 Capybara.register_driver(:chrome_headless) do |app|
   options = Selenium::WebDriver::Chrome::Options.new
