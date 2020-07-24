@@ -33,13 +33,6 @@ Besko::Application.routes.draw do
   resources :deliveries, only: [:index, :new, :create, :destroy]
   resources :users, only: [:index, :show, :create]
 
-  scope '/accounts' do
-    resource :address, as: :forwarding_address, controller: :forwarding_addresses, only: [:create, :update]
-    scope 'address' do
-      resources :subregions, only: :index
-    end
-  end
-
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/admin/sidekiq'
   end
