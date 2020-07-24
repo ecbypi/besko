@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     end
 
     unless options[:local_only]
-      users.concat User.directory_search(query)
+      users.concat DirectorySearch.lookup(query)
     end
 
     users.uniq! { |user| user.email }

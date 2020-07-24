@@ -1,42 +1,29 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe DirectorySearch do
-  it 'handles unexpected outcodes' do
-    expect_any_instance_of(Terrapin::CommandLine).to receive(:run).and_raise(Terrapin::ExitStatusError)
+  it "returns proxies with the same methods as `User`" do
+    PeopleApiStub.setup
 
-    expect(DirectorySearch.search('mrhalp')).to eq []
+    users = DirectorySearch.new('micro helpline').run
+
+    expect(users).not_to be_empty # Ensures stubbing worked correctly
+
+    user = users.first
+
+    expect(user.first_name).to eq 'Micro'
+    expect(user.last_name).to eq 'Helpline'
+    expect(user.email).to eq 'mrhalp@mit.edu'
   end
 
-  it 'times out after 2 seconds' do
-    Timeout.timeout(3) do
-      allow_any_instance_of(Terrapin::CommandLine).to receive(:run) { sleep 120 }
+  it "filters out results missing required attributes" do
+    required_attributes = %w( givenname surname email )
 
-      expect(DirectorySearch.search('mrhalp')).to eq []
-    end
-  end
+    required_attributes.each do |attribute|
+      PeopleApiStub.setup(attribute.to_sym => '')
 
-  describe 'search' do
-    it 'is idempotent per instance' do
-      stub_ldap!
+      users = DirectorySearch.new('micro helpline').run
 
-      expect_any_instance_of(DirectorySearch).to receive(:command_output).
-        exactly(:once).
-        and_call_original
-
-      search = DirectorySearch.new('mrhalp')
-
-      search.results
-      search.results
-    end
-
-    it 'does not search if LDAP_SERVER is not configured' do
-      ldap_server = ENV.delete('LDAP_SERVER')
-
-      search = DirectorySearch.search('mrhalp')
-
-      expect(search).to eq []
-
-      ENV['LDAP_SERVER'] = ldap_server
+      expect(users).to be_empty
     end
   end
 end

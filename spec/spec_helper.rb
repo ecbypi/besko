@@ -14,6 +14,9 @@ require "webdrivers/chromedriver"
 Webdrivers.cache_time = 0
 Selenium::WebDriver::Chrome::Service.driver_path = Webdrivers::Chromedriver.update
 
+require "webmock/rspec"
+WebMock.disable_net_connect!(allow_localhost: true)
+
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 ActiveRecord::Migration.maintain_test_schema!
@@ -34,6 +37,7 @@ Capybara.configure do |config|
   config.javascript_driver = :chrome_headless
   config.ignore_hidden_elements = true
   config.server = :webrick
+  config.server_errors.concat [WebMock::NetConnectNotAllowedError, SyntaxError]
 end
 
 Shoulda::Matchers.configure do |config|
@@ -56,6 +60,13 @@ RSpec.configure do |config|
   config.order = 'random'
   config.use_transactional_fixtures = true
 
+  config.before(:suite) do
+    # Setup `API` constant after WebMock is enabled; otherwise it remains a regular `Net::HTTP`
+    # instance
+    DirectorySearch.send(:remove_const, :API)
+    DirectorySearch.send(:const_set, :API, PeopleApi.new)
+  end
+
   config.before(:each, type: :system) do |example|
     # Rails always sets this to `:puma` before each system test; we want to use `:webrick`
     # because it's simpler
@@ -69,7 +80,6 @@ RSpec.configure do |config|
   end
 
   config.include FactoryBot::Syntax::Methods
-  config.include CommandStubbing
 
   config.include SessionSteps, type: :system
   config.include DOMElementSteps, type: :system

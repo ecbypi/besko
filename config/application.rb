@@ -43,3 +43,4 @@ module Besko
 end
 
 require "ext/arel"
+require "people_api"

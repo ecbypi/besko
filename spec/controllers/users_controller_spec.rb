@@ -18,20 +18,20 @@ RSpec.describe UsersController do
 
     it "searches database and MIT directory if no options are specified" do
       expect(User).to receive(:search).with('micro helpline').and_return([])
-      expect(User).to receive(:directory_search).with('micro helpline').and_return([])
+      expect(DirectorySearch).to receive(:lookup).with('micro helpline').and_return([])
 
       get :index, params: { format: :json, term: 'micro helpline' }
     end
 
     it "only searches the database if :local_only param is true" do
       expect(User).to receive(:search).with('micro helpline').and_return([])
-      expect(User).not_to receive(:directory_search)
+      expect(DirectorySearch).not_to receive(:lookup)
 
       get :index, params: { format: :json, term: 'micro helpline', options: { local_only: true } }
     end
 
     it "only searches the MIT directory if :directory_only param is true" do
-      expect(User).to receive(:directory_search).with('micro helpline').and_return([])
+      expect(DirectorySearch).to receive(:lookup).with('micro helpline').and_return([])
       expect(User).not_to receive(:search)
 
       get :index, params: { format: :json, term: 'micro helpline', options: { directory_only: true } }
@@ -39,7 +39,7 @@ RSpec.describe UsersController do
 
     it "returns unique results based on email" do
       create(:user, email: 'mrhalp@mit.edu')
-      stub_ldap! # Stubs LDAP with mrhalp user
+      PeopleApiStub.setup
 
       get :index, params: { format: :json, term: 'micro helpline' }
 

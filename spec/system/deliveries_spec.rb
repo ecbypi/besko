@@ -172,7 +172,7 @@ RSpec.describe "Delivery", :js, type: :system do
 
   context 'creation' do
     before do
-      stub_ldap!
+      PeopleApiStub.setup
     end
 
     it 'validates delivery is ready to be created' do

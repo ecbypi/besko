@@ -12,7 +12,6 @@ gem "haml-rails"
 gem "jquery-rails"
 gem "js-routes"
 gem "kaminari"
-gem "ldaptic"
 gem "paraphrase"
 gem "pg"
 gem "posix-spawn"
@@ -21,7 +20,6 @@ gem "responders"
 gem "sass-rails"
 gem "sidekiq"
 gem "simple_form"
-gem "terrapin"
 gem "uglifier", ">= 1.3.0"
 
 group :development do
@@ -45,4 +43,5 @@ group :test do
   gem "shoulda-matchers"
   gem "timecop"
   gem "webdrivers"
+  gem "webmock"
 end

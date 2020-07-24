@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :ldap_entry, class: OpenStruct do
-    givenName { 'Micro' }
-    sn        { 'Helpline' }
-    uid       { 'mrhalp' }
-    street    { 'N42' }
-    cn        { |proxy| "#{proxy.givenName} #{proxy.sn}" }
-    mail      { |proxy| "#{proxy.uid}@mit.edu" }
+    givenname { 'Micro' }
+    surname   { 'Helpline' }
+    id        { 'mrhalp' }
+    office    { ['N42'] }
+    name      { |proxy| "#{proxy.givenname} #{proxy.surname}" }
+    email     { |proxy| ["#{proxy.id}@mit.edu"] }
+    url       { |proxy| "https:\/\/m.mit.edu\/apis\/people\/#{proxy.id}" }
   end
 end

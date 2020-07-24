@@ -52,33 +52,6 @@ RSpec.describe User do
     end
   end
 
-  describe ".directory_search" do
-    it "instantiates new users from ldap results" do
-      stub_ldap!
-      users = User.directory_search('micro helpline')
-
-      expect(users).not_to be_empty # Ensures stubbing worked correctly
-
-      user = users.first
-
-      expect(user.first_name).to eq 'Micro'
-      expect(user.last_name).to eq 'Helpline'
-      expect(user.email).to eq 'mrhalp@mit.edu'
-    end
-
-    it "filters out results missing required attributes" do
-      required_attributes = %w( givenName sn mail )
-
-      required_attributes.each do |attribute|
-        stub_ldap!(attribute.to_sym => '')
-
-        users = User.directory_search('micro helpline')
-
-        expect(users).to be_empty
-      end
-    end
-  end
-
   describe "#assign_password" do
     it "assigns a randomly generated password and password confirmation" do
       user = build(:user, password: nil, password_confirmation: nil)
