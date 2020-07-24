@@ -1,52 +1,50 @@
-.new-delivery {
-  &.open .receipts {
-    display: table;
+.log-delivery {
+  margin: 0 auto;
+
+  @media (min-width: $screen-size-medium) {
+    max-width: 70%;
+  }
+}
+
+.log-delivery-receipt {
+  margin-top: $spacing-large;
+
+  @media (min-width: $screen-size-medium) {
+    padding-left: $spacing-small;
   }
 
-  .inline-inputs {
-    width: 620px;
-    margin: 0 auto;
+  legend {
+    margin-bottom: $spacing-micro;
 
-    .error, .hint {
-      margin-left: 150px;
+    @media (min-width: $screen-size-medium) {
+      margin-left: -$spacing-small;
     }
   }
 
-  .autocomplete-input {
-    margin-left: -4px;
-  }
+  button {
+    width: 100%;
 
-  .autocomplete-input-wrapper {
-    display: inline;
-  }
-
-  .autocomplete-fetching {
-    top: 12px;
-  }
-
-  .autocomplete-close {
-    top: 3px;
-  }
-
-  .autocomplete-results {
-    margin-left: 150px;
-  }
-
-  table.receipts {
-    display: none;
-    padding: 0;
-
-    td {
-      text-align: center;
-      width: 250px;
-
-      &:first-child, &:last-child {
-        width: 200px;
-      }
+    @media (min-width: $screen-size-medium) {
+      margin-left: 50%;
+      width: 50%;
     }
+  }
+}
 
-    &.open {
-      display: table;
-    }
+.log-delivery-receipt-recipient {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-small;
+}
+
+.log-delivery-receipt-attributes {
+  display: flex;
+  padding-left: $spacing-default;
+}
+
+.btn-log-delivery {
+  @media (max-width: $screen-size-medium-less-one) {
+    width: 100%;
   }
 }

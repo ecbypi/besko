@@ -15,7 +15,7 @@ fieldset {
 
 legend {
   border-bottom: $border-defaults;
-  font-size: 18px;
+  font-size: 1.2em;
   font-weight: $font-weight-bold;
   margin-bottom: $spacing-small;
   padding: 0;
@@ -32,10 +32,6 @@ select {
 
 label {
   font-weight: $font-weight-bold;
-
-  @media (min-width: $screen-size-medium) {
-    margin-bottom: $spacing-micro;
-  }
 }
 
 #{$all-text-inputs},

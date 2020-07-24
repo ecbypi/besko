@@ -196,7 +196,7 @@
   AutocompleteResetButton = Support.CompositeView.extend({
     tagName: 'button',
 
-    className: 'link-button autocomplete-close close',
+    className: 'btn-icon autocomplete-close icon-close',
 
     attributes: {
       type: 'button'

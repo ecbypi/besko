@@ -41,14 +41,6 @@
       return this;
     },
 
-    hideShowTable: function() {
-      if ( this.$receipts.children().length ) {
-        this.$el.addClass('open');
-      } else {
-        this.$el.removeClass('open');
-      }
-    },
-
     addRecipient: function(recipient) {
       if ( recipient.id ) {
         if ( this.recipients[recipient.id] ) {
@@ -76,7 +68,6 @@
         dataType: 'html'
       }).then(function(markup) {
         view.$receipts.append(markup);
-        view.hideShowTable();
         view.recipients[recipient.id] = 1;
 
         updateState(view);
@@ -91,7 +82,6 @@
 
       delete this.recipients[recipientId];
       $receipt.remove();
-      this.hideShowTable();
       updateState(this);
 
       return false;
@@ -113,7 +103,6 @@
       this.$deliverer.val('');
 
       this.$receipts.empty();
-      this.hideShowTable();
       this.search.reset();
       this.recipients = {};
 

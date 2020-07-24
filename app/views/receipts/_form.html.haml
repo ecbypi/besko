@@ -1,8 +1,10 @@
-%tr{ data: { resource: :receipt, recipient: receipt.user_id } }
-  = simple_fields_for 'delivery[receipts_attributes][]', receipt do |f|
-    %td
-      = receipt.user.name
-      = f.input_field :user_id, as: :hidden, value: receipt.user_id, id: receipt_field_id(receipt, :user_id)
-    %td= f.input_field :number_packages, min: 1, id: receipt_field_id(receipt, :number_packages)
-    %td= f.input_field :comment, id: receipt_field_id(receipt, :comment)
-    %td= link_to 'Remove', '#', class: 'btn', data: { remove: true }
+%fieldset.log-delivery-receipt{ data: { resource: :receipt, recipient: receipt.user_id } }
+  %legend= receipt.user.name
+
+  = simple_fields_for :delivery, defaults: { wrapper: :inline } do |f|
+    = f.simple_fields_for :receipts_attributes, receipt, index: receipt.user_id do |f|
+      = f.hidden_field :user_id, value: receipt.user_id
+      = f.input :number_packages, input_html: { min: 1 }
+      = f.input :comment, input_html: { rows: 2 }
+
+      = button_tag t(".actions.remove"), class: 'btn', data: { remove: true }, type: :button

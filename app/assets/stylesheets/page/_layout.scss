@@ -186,5 +186,5 @@
 .page-content {
   margin: 0 auto;
   padding: 0 $spacing-small;
-  width: $screen-size-large;
+  max-width: $screen-size-large;
 }

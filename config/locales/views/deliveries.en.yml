@@ -4,4 +4,8 @@ en:
       page_heading: "Deliveries"
 
     new:
+      delivery:
+        receipts:
+          heading: "Recipients"
+
       page_heading: "Deliveries"

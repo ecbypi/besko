@@ -7,10 +7,13 @@
 
 @import "page/layout";
 
+@import "components/visibility";
+@import "components/positioning";
 @import "components/input-wrappers";
 @import "components/autocomplete-input";
 @import "components/pagination";
 @import "components/notifications";
+@import "components/icons";
 
 // Login page
 @import 'sessions/new';

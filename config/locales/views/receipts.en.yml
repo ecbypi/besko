@@ -1,4 +1,8 @@
 en:
   receipts:
+    form:
+      actions:
+        remove: "Remove"
+
     index:
       page_heading: "Package Receipts"

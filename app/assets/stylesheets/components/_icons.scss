@@ -1,0 +1,6 @@
+.icon-close {
+  @include size(24px);
+  text-indent: 100%;
+  background: image-url("x.svg") no-repeat;
+  background-size: 24px;
+}

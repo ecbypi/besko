@@ -39,3 +39,9 @@
   - mixins/_all.scss
   - mixins/_boundary-shadows.scss
   - mixins/_inline-definition-list.scss
+- name: simple-form-config
+  installed_at: 2020-07-24 09:22:37.838808000 Z
+  installed_to: "."
+  files:
+  - config/initializers/simple_form.rb
+  - config/locales/simple_form.en.yml

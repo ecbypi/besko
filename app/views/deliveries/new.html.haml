@@ -1,26 +1,17 @@
 = page_heading
 
-= simple_form_for @delivery, html: { id: 'new-delivery', class: ['new-delivery', @delivery.receipts.empty? ? '' : 'open'] } do |f|
-  .inputs.inline-inputs
-    = f.input :deliverer, as: :select, collection: Delivery::Deliverers
+= simple_form_for @delivery, html: { id: "new-delivery", class: "log-delivery" } do |f|
+  = f.input :deliverer, as: :select, collection: Delivery::Deliverers
 
-    .input.search.autocomplete-search{ data: { recipient_search: true } }
-      = label_tag 'autocomplete-search', 'Recipient'
-      = search_field_tag 'autocomplete-search', nil, autofocus: true, class: 'autocomplete-input', placeholder: t('simple_form.placeholders.delivery.recipients')
-      .hint= t('simple_form.hints.delivery.recipients')
+  .input-wrapper.autocomplete-search{ data: { recipient_search: true } }
+    = label_tag 'autocomplete-search', t("simple_form.labels.delivery.recipients")
+    = search_field_tag 'autocomplete-search', nil, autofocus: true, class: 'autocomplete-input', placeholder: t('simple_form.placeholders.delivery.recipients')
+    .input-hint= t('simple_form.hints.delivery.recipients')
 
-  %table.receipts
-    %thead
-      %tr
-        %th Recipient
-        %th Number of packages
-        %th Comment
-        %th
-    %tbody{ data: { collection: :receipts } }
-      = render partial: 'receipts/form', collection: @delivery.receipts, as: :receipt
-    %tfoot
-      %tr
-        %td
-        %td= f.button :submit
-        %td= link_to 'Cancel', '#', data: { reset: true }
-        %td
+  %div{ data: { collection: :receipts } }
+    = render partial: 'receipts/form', collection: @delivery.receipts, as: :receipt
+
+  %hr
+
+  .center-align
+    = f.button :submit, class: "btn-log-delivery"

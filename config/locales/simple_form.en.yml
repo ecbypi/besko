@@ -13,6 +13,7 @@ en:
     labels:
       delivery:
         deliverer: 'Delivery Company'
+        recipients: "Recipient"
       user:
         first_name: 'First Name'
         last_name: 'Last Name'
@@ -22,7 +23,7 @@ en:
         password_confirmation: 'Confirm New Password'
     hints:
       delivery:
-        recipients: "add all recipients in the same delivery"
+        recipients: "you can add multiple people"
       user:
         first_name: 'read-only'
         last_name: 'read-only'
@@ -32,4 +33,4 @@ en:
           password: 'leave blank if no change desired'
     placeholders:
       delivery:
-        recipients: "enter recipients' name or email"
+        recipients: "enter recipient's name or email"

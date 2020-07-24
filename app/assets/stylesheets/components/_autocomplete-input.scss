@@ -5,16 +5,16 @@
 
   .autocomplete-fetching {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 21px;
+    right: 20px;
   }
 
   .autocomplete-close {
     display: none;
     opacity: 0.5;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 8px;
 
     &.open {
       display: block;
@@ -27,18 +27,14 @@
 
   .autocomplete-results {
     position: absolute;
-    z-index: 10;
-    background-color: #fff;
-    padding: 0;
-    margin: 0;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #000;
+    z-index: map-get($z-indexes, modal);
+    background-color: $background-color-viewport;
+    border-radius: $border-radius-default;
+    box-shadow: 0 0 5px $dark-gray;
 
     .autocomplete-result {
-      font-size: 18px;
-      list-style: none;
-      padding: 5px;
-      width: 310px;
+      padding: $spacing-micro;
+      width: 100%;
 
       &.focused {
         background-color: #acdaf9;
@@ -48,7 +44,7 @@
     }
 
     .result-details, .autocomplete-close {
-      font-size: 13px;
+      font-size: 0.75em;
     }
   }
 }
