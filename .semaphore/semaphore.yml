@@ -1,0 +1,65 @@
+version: v1.0
+name: besko
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+auto_cancel:
+  running:
+    when: "true"
+
+fail_fast:
+  cancel:
+    when: "true"
+
+blocks:
+  - name: Setup
+    task:
+      jobs:
+        - name: bundle
+          commands:
+            - checkout
+
+            - sem-version ruby $(cat .ruby-version)
+
+            - cache restore
+            - bundle install --deployment -j 4 -r 3 --path vendor/bundle
+            - cache store
+
+  - name: Tests
+    task:
+      secrets:
+        - name: besko
+
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+        - name: PGHOST
+          value: localhost
+        - name: PGUSER
+          value: postgres
+
+      prologue:
+        commands:
+          - checkout
+          - sem-version ruby $(cat .ruby-version)
+
+          - sem-service start postgres 11
+          - sem-service start redis 5.0
+
+          - cache restore
+          - bundle install --deployment -j 4 -r 3 --path vendor/bundle
+
+          - cp .env.test .env
+          - bundle exec rake db:create
+
+      jobs:
+        - name: System Tests
+          commands:
+            - bundle exec rspec spec/system
+
+        - name: Unit Tests
+          commands:
+            - bundle exec rspec -t ~type:system
