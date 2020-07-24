@@ -1,0 +1,25 @@
+table {
+  border-collapse: collapse;
+  font-feature-settings: "kern", "liga", "tnum";
+  margin: $spacing-small 0;
+  table-layout: fixed;
+  width: 100%;
+}
+
+th {
+  border-bottom: 1px solid darken($border-defaults-color, 15%);
+  font-weight: 600;
+  padding: $spacing-small 0;
+  text-align: left;
+}
+
+td {
+  border-bottom: $border-defaults;
+  padding: $spacing-small 0;
+}
+
+tr,
+td,
+th {
+  vertical-align: middle;
+}

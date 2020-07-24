@@ -1,0 +1,17 @@
+en:
+  layouts:
+    application:
+      navigation:
+        menu:
+          close: "Close"
+          open: "Menu"
+
+        primary:
+          deliveries: "Deliveries"
+          log_delivery: "Log New Delivery"
+          receipts: "Your Packages"
+
+        session:
+          profile: "Profile"
+          login: "Log In"
+          logout: "Logout"

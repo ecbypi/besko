@@ -1,0 +1,20 @@
+%anchor {
+  color: $font-color-anchor;
+}
+
+@mixin anchor-defaults {
+  @extend %anchor;
+  text-decoration: none;
+  transition: color 0.1s linear;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: darken($font-color-anchor, 15%);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}

@@ -1,6 +1,41 @@
 ---
+- name: actionview-link-to-with-active
+  installed_at: 2020-07-24 06:05:03.785264000 Z
+  installed_to: "."
+  files:
+  - app/helpers/link_to_with_active_helper.rb
+  - app/presenters/link_to_with_active_css_class.rb
 - name: actionview-page-heading-helper
   installed_at: 2020-07-24 04:18:55.962525000 Z
   installed_to: "."
   files:
   - app/helpers/page_heading_helper.rb
+- name: scss-starter-kit
+  installed_at: 2020-07-24 06:47:26.457714000 Z
+  installed_to: app/assets/stylesheets
+  files:
+  - base/_anchor-defaults.scss
+  - base/_base.scss
+  - base/_buttons.scss
+  - base/_forms.scss
+  - base/_layout.scss
+  - base/_lists.scss
+  - base/_tables.scss
+  - base/_typography.scss
+  - base/_variables.scss
+  - components/_all.scss
+  - components/_animations.scss
+  - components/_breadcrumbs.scss
+  - components/_callout-messages.scss
+  - components/_content-header.scss
+  - components/_input-wrappers.scss
+  - components/_modals.scss
+  - components/_page-header.scss
+  - components/_positioning.scss
+  - components/_status-indicators.scss
+  - components/_sticky.scss
+  - components/_visibility.scss
+  - mixins/_accessibly-hidden.scss
+  - mixins/_all.scss
+  - mixins/_boundary-shadows.scss
+  - mixins/_inline-definition-list.scss

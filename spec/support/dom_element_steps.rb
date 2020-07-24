@@ -14,7 +14,7 @@ module DOMElementSteps
   end
 
   def navigation
-    find('.primary-nav')
+    find('.page-primary-nav')
   end
 
   def models_element(model_name)

@@ -1,0 +1,20 @@
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.clear-right {
+  clear: right;
+  padding-top: $spacing-small;
+}

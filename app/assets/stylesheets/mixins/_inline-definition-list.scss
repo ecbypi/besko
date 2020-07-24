@@ -1,0 +1,33 @@
+@mixin inline-definition-list($dt-width, $margin-bottom: $spacing-small) {
+  @media (min-width: $screen-size-medium) {
+    @include clearfix;
+
+    dt {
+      clear: left;
+      float: left;
+      margin-top: 0;
+      width: $dt-width;
+
+      &:not(:first-of-type) + dd {
+        margin-top: $margin-bottom;
+      }
+
+      + dd {
+        float: left;
+        margin-left: $spacing-small;
+      }
+    }
+
+    dd {
+      + dd {
+        clear: left;
+        margin-left: $dt-width;
+        padding-left: $spacing-small;
+      }
+
+      + dt {
+        margin-top: $margin-bottom;
+      }
+    }
+  }
+}

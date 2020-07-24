@@ -1,0 +1,108 @@
+// Forms
+$form-box-shadow-background-color: rgba(#000, 0.06) !default;
+$form-box-shadow: inset 0 1px 3px $form-box-shadow-background-color !default;
+$form-box-shadow-focus: $form-box-shadow, 0 0 2px adjust-color($colors-action, $lightness: -5%, $alpha: -0.3) !default;
+$form-error-box-shadow-focus: $form-box-shadow, 0 0 2px adjust-color($colors-alert, $lightness: -5%, $alpha: -0.3) !default;
+
+fieldset {
+  border: none;
+  margin: 0 0 $spacing-small;
+  padding: {
+    left: 0;
+    right: 0;
+  }
+}
+
+legend {
+  border-bottom: $border-defaults;
+  font-size: 18px;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-small;
+  padding: 0;
+  width: 100%;
+}
+
+input,
+label,
+select {
+  display: block;
+  font-family: $font-family-body;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: $font-weight-bold;
+
+  @media (min-width: $screen-size-medium) {
+    margin-bottom: $spacing-micro;
+  }
+}
+
+#{$all-text-inputs},
+select[multiple=multiple],
+textarea {
+  background-color: $background-color-default;
+  border: $border-defaults;
+  border-radius: $border-radius-default;
+  box-shadow: $form-box-shadow;
+  box-sizing: border-box;
+  font-family: $font-family-body;
+  font-size: 1rem;
+  padding: $spacing-default / 3;
+  transition: border-color;
+  width: 100%;
+
+  &:hover {
+    border-color: darken($border-defaults-color, 10%);
+  }
+
+  &:focus {
+    border-color: $colors-action;
+    box-shadow: $form-box-shadow-focus;
+    outline: none;
+
+    .field-with-errors & {
+      box-shadow: $form-error-box-shadow-focus;
+    }
+  }
+
+  .field-with-errors & {
+    border-color: $colors-alert;
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="search"] {
+  appearance: none;
+}
+
+[type="checkbox"],
+[type="radio"] {
+  display: inline;
+  margin-right: $spacing-micro;
+
+  + label {
+    display: inline-block;
+  }
+}
+
+input[type="file"] {
+  padding-bottom: $spacing-small;
+  width: 100%;
+}
+
+input[type=number] {
+  text-align: center;
+}
+
+select {
+  width: 100%;
+
+  @media (min-width: $screen-size-medium) {
+    max-width: 100%;
+    width: auto;
+  }
+}

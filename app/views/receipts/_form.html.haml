@@ -5,4 +5,4 @@
       = f.input_field :user_id, as: :hidden, value: receipt.user_id, id: receipt_field_id(receipt, :user_id)
     %td= f.input_field :number_packages, min: 1, id: receipt_field_id(receipt, :number_packages)
     %td= f.input_field :comment, id: receipt_field_id(receipt, :comment)
-    %td= link_to 'Remove', '#', class: 'button', data: { remove: true }
+    %td= link_to 'Remove', '#', class: 'btn', data: { remove: true }

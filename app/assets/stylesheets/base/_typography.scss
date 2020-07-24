@@ -1,0 +1,57 @@
+html {
+  color: $font-color-body;
+  font-family: $font-family-body;
+  font-feature-settings: "kern", "liga", "pnum";
+  font-size: $font-size-body;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: $font-weight-body;
+  line-height: $line-height-body;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $font-color-heading;
+  font-family: $font-family-heading;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-heading;
+  margin: $spacing-small * 1rem / 1em 0;
+}
+
+h1 {
+  font-size: modular-scale(3);
+}
+
+h2 {
+  font-size: modular-scale(2);
+}
+
+h3 {
+  font-size: modular-scale(1);
+}
+
+p {
+  margin: 0 0 $spacing-small;
+}
+
+a {
+  @include anchor-defaults;
+}
+
+hr {
+  border-bottom: $border-defaults;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  margin: $spacing-default 0;
+}
+
+img,
+picture {
+  margin: 0;
+  max-width: 100%;
+}

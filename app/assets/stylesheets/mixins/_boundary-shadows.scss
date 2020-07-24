@@ -1,0 +1,10 @@
+@mixin boundary-shadows($background-color: $background-color-viewport, $shadow-color: $light-gray) {
+  // https://gist.github.com/tbmiller/6675197
+  background: linear-gradient($background-color 30%, $background-color),
+    linear-gradient($background-color 10px, $background-color 70%) bottom,
+    radial-gradient(at top, $shadow-color, transparent 70%),
+    radial-gradient(at bottom, $shadow-color, transparent 70%) bottom;
+  background-attachment: local, local, scroll, scroll;
+  background-repeat: no-repeat;
+  background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
+}

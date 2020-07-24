@@ -1,0 +1,14 @@
+.page-breadcrumbs {
+  margin-top: $spacing-micro;
+
+  li {
+    display: inline-block;
+    margin-right: $spacing-micro;
+
+    &:not(:last-child)::after {
+      content: "\203A";
+      font-size: 1.25em;
+      margin-left: $spacing-micro;
+    }
+  }
+}

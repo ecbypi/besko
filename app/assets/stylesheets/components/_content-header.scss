@@ -1,0 +1,19 @@
+.content-header {
+  @include clearfix;
+  margin: $spacing-micro 0;
+  position: relative;
+  z-index: 0;
+
+  h1,
+  .content-header-heading {
+    ~ .content-header-actions {
+      position: absolute;
+      right: 0;
+      top: -$spacing-micro;
+    }
+  }
+}
+
+.content-header-actions {
+  text-align: right;
+}

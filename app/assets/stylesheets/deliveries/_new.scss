@@ -6,7 +6,6 @@
   .inline-inputs {
     width: 620px;
     margin: 0 auto;
-    @include user-search(150px);
 
     .error, .hint {
       margin-left: 150px;

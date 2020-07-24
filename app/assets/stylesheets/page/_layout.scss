@@ -1,0 +1,190 @@
+.freeze-scrolling {
+  overflow: hidden;
+}
+
+.page-header {
+  font-size: 1.1em;
+
+  @media (max-width: $screen-size-medium-less-one) {
+    border-bottom: $border-defaults;
+    text-align: right;
+  }
+
+  @media (min-width: $screen-size-medium) {
+    padding-top: $spacing-default;
+    padding-bottom: $spacing-default;
+  }
+
+  a,
+  .btn-link {
+    color: $font-color-body;
+
+    &:hover {
+      color: $font-color-body;
+    }
+  }
+}
+
+.btn-page-nav-toggle {
+  padding: 1em $spacing-small;
+
+  @media (min-width: $screen-size-medium) {
+    display: none;
+  }
+}
+
+.page-nav {
+  @media (max-width: $screen-size-medium-less-one) {
+    @include size(100%);
+    background-color: $background-color-viewport;
+    border-top: $border-defaults;
+    display: none;
+    left: 0;
+    padding-top: $spacing-micro;
+    position: absolute;
+    z-index: map-get($z-indexes, header-nav);
+  }
+
+  @media (min-width: $screen-size-medium) {
+    padding: 0 $spacing-small;
+  }
+
+  @media (min-width: $screen-size-large) {
+    padding: 0 $spacing-default;
+  }
+
+  &.page-nav-open {
+    display: block;
+  }
+}
+
+.page-nav-primary {
+  @media (min-width: $screen-size-medium) {
+    align-items: start;
+    display: flex;
+    justify-content: flex-end;
+
+    > li {
+      margin-left: 0.3em;
+    }
+  }
+
+  @media (min-width: $screen-size-large) {
+    > li {
+      margin-left: $spacing-small;
+    }
+  }
+
+  @media (max-width: $screen-size-medium-less-one) {
+    li {
+      margin-bottom: $spacing-micro;
+    }
+  }
+}
+
+.page-nav-item {
+  color: $font-color-body;
+  display: block;
+  padding: $spacing-micro $spacing-small;
+
+  @media (min-width: $screen-size-medium) {
+    border-bottom: 2px solid $background-color-viewport;
+    padding: $spacing-micro;
+    transition: border-color 0.1s;
+  }
+
+  &:hover,
+  &.current-path-link {
+    border-color: $font-color-body;
+  }
+}
+
+.page-subnav {
+  position: relative;
+
+  .page-nav-item {
+    border-bottom-color: transparent;
+  }
+}
+
+.btn-subnav-toggle {
+  align-items: center;
+  display: none;
+
+  @media (min-width: $screen-size-medium) {
+    display: flex;
+  }
+
+  &::before,
+  &::after {
+    @include triangle($direction: down, $width: 0.947rem, $height: 0.526rem, $color: $font-color-body)
+    content: "";
+  }
+
+  &::before {
+    margin-left: 4px;
+    margin-top: 3px;
+    order: 2;
+  }
+
+  &::after {
+    border-top-color: $background-color-viewport;
+    margin-left: -18px;
+    margin-top: -2px;
+    order: 3;
+  }
+
+  span {
+    order: 1;
+  }
+}
+
+.page-nav-secondary {
+  border-top: $border-defaults;
+  margin-top: $spacing-micro;
+  padding-top: $spacing-micro;
+
+  @media (min-width: $screen-size-medium) {
+    background-color: $background-color-viewport;
+    border: $border-defaults;
+    border-radius: $border-radius-default;
+    box-shadow: 0 0 2px $medium-gray;
+    display: none;
+    margin-top: (-6rem / 19);
+    min-width: px-to-em(222);
+    padding: $spacing-micro 0;
+    right: 0;
+    z-index: map-get($z-indexes, header-nav);
+  }
+
+  .btn-subnav-toggle-open + & {
+    display: block;
+    position: absolute;
+  }
+
+  .page-nav-item {
+    @media (min-width: $screen-size-medium) {
+      padding-right: $spacing-small;
+      padding-left: $spacing-small;
+
+      &:hover {
+        background: $blue;
+      }
+    }
+  }
+}
+
+.page-nav-sign-in {
+  color: $font-color-body;
+  padding: 1em $spacing-small;
+
+  &:hover {
+    color: $font-color-body;
+  }
+}
+
+.page-content {
+  margin: 0 auto;
+  padding: 0 $spacing-small;
+  width: $screen-size-large;
+}

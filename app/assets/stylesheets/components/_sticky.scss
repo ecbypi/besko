@@ -1,0 +1,9 @@
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: map-get($z-indexes, sticky);
+}
+
+.sticky-shadow {
+  z-index: map-get($z-indexes, sticky) - 1;
+}

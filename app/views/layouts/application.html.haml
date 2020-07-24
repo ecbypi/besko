@@ -8,31 +8,78 @@
     %meta{ name: :robots, content: 'NOINDEX, NOFOLLOW' }
 
   %body{ class: body_css_class }
-    %header.header
-      %nav.navigation.inside
-        %ul.nav-group.session-nav
-          - if current_user
-            %li.nav-group-item
-              = link_to 'Account', edit_user_registration_path
-            %li.nav-group-item
-              = link_to 'Logout', destroy_user_session_path, method: :delete
-          - else
-            %li.nav-group-item
-              = link_to 'Log In', new_user_session_path
+    %header.page-header
+      - if user_signed_in?
+        = button_tag class: "btn-link btn-page-nav-toggle",
+          data: { page_navigation_toggle: "" },
+          type: :button do
+          %span= t(".navigation.menu.open")
 
-        - if current_user
-          %ul.nav-group.primary-nav
+        %nav.page-nav{ data: { page_navigation: "" } }
+          %ul.page-nav-primary
             - if can? :read, Receipt
-              %li.nav-group-item
-                = link_to 'Your Packages', receipts_path
-            - if can? :read, Delivery
-              %li.nav-group-item
-                = link_to 'Deliveries', deliveries_path
-            - if can? :create, Delivery
-              %li.nav-group-item
-                = link_to 'Log New Delivery', new_delivery_path
+              %li
+                = link_to_with_active_css_class t(".navigation.primary.receipts"),
+                  receipts_path,
+                  class: "page-nav-item"
 
-    #wrapper.container
+            - if can? :read, Delivery
+              %li
+                = link_to_with_active_css_class t(".navigation.primary.deliveries"),
+                  deliveries_path,
+                  class: "page-nav-item",
+                  match: :path_only
+
+            - if can? :create, Delivery
+              %li
+                = link_to_with_active_css_class t(".navigation.primary.log_delivery"),
+                  new_delivery_path,
+                  class: "page-nav-item",
+                  match: :path_only
+
+            %li.page-subnav
+              = button_tag class: "btn-link page-nav-item btn-subnav-toggle",
+                data: { page_session_toggle: "" },
+                type: :button do
+                %span= current_user.first_name
+
+              %ul.page-nav-secondary{ data: { page_session: "" } }
+                %li
+                  = link_to_with_active_css_class t(".navigation.session.profile"),
+                    edit_user_registration_path,
+                    class: "page-nav-item"
+
+                %li
+                  = link_to t(".navigation.session.logout"),
+                    destroy_user_session_path,
+                    method: :delete,
+                    class: "page-nav-item"
+
+      - else
+        = link_to t(".navigation.session.login"),
+          new_user_session_path,
+          class: "page-nav-sign-in"
+
+      :javascript
+        (function() {
+          "use strict";
+
+          var pageNavButton = document.querySelector("[data-page-navigation-toggle]");
+          var pageNav = document.querySelector("[data-page-navigation]");
+
+          pageNavButton.addEventListener("click", function(event) {
+            pageNav.classList.toggle("page-nav-open");
+            document.documentElement.classList.toggle("freeze-scrolling");
+          });
+
+          var sessionNavButton = document.querySelector("[data-page-session-toggle]");
+
+          sessionNavButton.addEventListener("click", function(event) {
+            sessionNavButton.classList.toggle("btn-subnav-toggle-open");
+          });
+        })();
+
+    %main.page-content{ role: :main }
       #notifications.notices.inside
         - if alert
           .message.error
@@ -43,7 +90,4 @@
         - if alert || notice
           = link_to 'Close', 'javascript:void(0)', class: 'close close-message'
 
-      #content.content.inside
-        = yield
-
-    %footer
+      = yield

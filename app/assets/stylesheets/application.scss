@@ -1,15 +1,16 @@
 @import 'normalize';
-@import 'jquery-ui-1.8.19.custom';
 @import 'bourbon';
 
-// Shared Styles
-@import 'shared/layout';
-@import 'shared/notifications';
-@import 'shared/forms';
-@import 'shared/elements';
-@import 'shared/pagination';
-@import 'shared/actionable';
-@import 'shared/autocomplete-input';
+@import "base/base";
+@import "mixins/all";
+@import "functions/all";
+
+@import "page/layout";
+
+@import "components/input-wrappers";
+@import "components/autocomplete-input";
+@import "components/pagination";
+@import "components/notifications";
 
 // Login page
 @import 'sessions/new';
@@ -17,12 +18,6 @@
 // Receipts
 @import 'receipts/index';
 
-// Signups
-@import 'registrations/new';
-
 // Deliveries
 @import 'deliveries/index';
 @import 'deliveries/new';
-
-// Roles
-@import 'user_roles/index';

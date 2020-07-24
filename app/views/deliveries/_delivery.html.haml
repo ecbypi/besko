@@ -7,6 +7,6 @@
     %td.delivered-by= delivery.deliverer
     %td.package-count= delivery.package_count
     %td
-      = button_to 'Delete', delivery, method: :delete, class: 'button delete-delivery', data: { confirm: t('.confirm_deletion', deliverer: delivery.deliverer, worker: delivery.user.name) }
+      = button_to 'Delete', delivery, method: :delete, class: 'btn delete-delivery', data: { confirm: t('.confirm_deletion', deliverer: delivery.deliverer, worker: delivery.user.name) }
 
   = render partial: "receipt", collection: delivery.receipts

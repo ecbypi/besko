@@ -1,0 +1,81 @@
+// Bourbon overrides
+$bourbon: (
+  "modular-scale-ratio": $minor-third
+);
+
+// Typography
+$font-family-body: $font-stack-helvetica;
+$font-family-heading: $font-family-body;
+
+// Font Sizes
+$em-base: 19;
+$font-size-body: $em-base / 16 * 1em;
+
+// Line height
+$line-height-body: 1.5;
+$line-height-heading: $line-height-body;
+
+// Other Sizes
+$border-radius-default: 3px;
+$spacing-default: $line-height-body * 1em;
+$spacing-small: $spacing-default / 2;
+$spacing-micro: $spacing-small / 2;
+$spacing-large: $spacing-default * 2;
+
+// Color Values
+$dark-gray: #333;
+$medium-gray: #999;
+$light-gray: #ddd;
+$white: #fff;
+$black: #000;
+
+$red: rgb(244, 0, 12);
+$blue: #477dca;
+
+// Generic Style Colors
+$colors-action: $blue;
+$colors-alert: $red;
+
+// Font Colors
+$font-color-body: $dark-gray;
+$font-color-heading: $font-color-body;
+$font-color-anchor: $colors-action;
+
+// Font Weights
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-body: $font-weight-normal;
+
+// Background Colors
+$background-color-default: #fff;
+$background-color-viewport: $background-color-default;
+
+// Button colors
+$button-colors: (
+  danger: $red
+);
+
+// Border
+$border-defaults-color: $light-gray;
+$border-defaults: 1px solid $border-defaults-color;
+
+// z-index levels
+$z-indexes: (
+  base: 0,
+  reset: -1,
+  button-menu: 100,
+  header-nav: 1000,
+  sticky: 10000,
+  modal: 100000,
+  datepicker: 1000000
+);
+
+// Screen sizes
+$screen-size-small: 420px;
+$screen-size-small-plus-one: $screen-size-small + 1px;
+$screen-size-medium: 620px;
+$screen-size-medium-less-one: $screen-size-medium - 1px;
+$screen-size-large: 860px;
+$screen-size-large-less-one: $screen-size-large - 1px;
+
+$page-max-width: 1080px;
