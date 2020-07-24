@@ -1,5 +1,4 @@
-- content_for :title do
-  Your Account
+= page_heading
 
 = simple_form_for current_user, url: user_registration_path do |f|
   = f.error_notification

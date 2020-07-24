@@ -39,6 +39,8 @@ module Besko
     }
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.paths["config/locales"].glob = File.join("**", "*.{yml,rb}")
   end
 end
 

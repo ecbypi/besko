@@ -1,0 +1,6 @@
+---
+- name: actionview-page-heading-helper
+  installed_at: 2020-07-24 04:18:55.962525000 Z
+  installed_to: "."
+  files:
+  - app/helpers/page_heading_helper.rb

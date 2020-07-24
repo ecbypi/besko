@@ -1,0 +1,5 @@
+en:
+  devise:
+    registrations:
+      edit:
+        page_heading: "Your Account"

@@ -1,5 +1,4 @@
-- content_for :title do
-  Sign In
+= page_heading
 
 = simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'actionable local-sign-in new-session' } do |f|
   .actionable-header

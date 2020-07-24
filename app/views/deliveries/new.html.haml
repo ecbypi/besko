@@ -1,5 +1,4 @@
-- content_for :title do
-  Deliveries
+= page_heading
 
 = simple_form_for @delivery, html: { id: 'new-delivery', class: ['new-delivery', @delivery.receipts.empty? ? '' : 'open'] } do |f|
   .inputs.inline-inputs

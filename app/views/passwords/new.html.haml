@@ -1,5 +1,4 @@
-- content_for :title do
-  Request Password Reset
+= page_heading
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   = f.error_notification

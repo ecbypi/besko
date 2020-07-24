@@ -43,8 +43,6 @@
         - if alert || notice
           = link_to 'Close', 'javascript:void(0)', class: 'close close-message'
 
-      %h1.inside= yield :title
-
       #content.content.inside
         = yield
 

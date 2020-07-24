@@ -1,0 +1,5 @@
+en:
+  devise:
+    sessions:
+      new:
+        page_heading: "Sign In"
