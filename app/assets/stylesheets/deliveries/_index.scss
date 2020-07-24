@@ -40,12 +40,12 @@
       top: 14px;
       right: 10px;
 
-      @include triangle(15px, #000, down);
+      @include triangle($direction: down, $width: 15px, $height: 15px, $color: #000);
     }
 
     &.up:after {
       top: 8px;
-      @include triangle(15px, #000, up);
+      @include triangle($direction: up, $width: 15px, $height: 15px, $color: #000);
     }
   }
 
