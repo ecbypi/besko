@@ -1,93 +1,111 @@
-.delivery-search {
-  width: 100%;
-  padding: 10px;
-  background-color: #F8F8F8;
-  margin-bottom: 15px;
+.deliveries-pagination {
+  margin: $spacing-micro 0;
 
-  .input {
-    display: inline-block;
-    width: auto;
-    margin-right: 15px;
+  @media (max-width: $screen-size-small) {
+    margin-left: -$spacing-small;
+    margin-right: -$spacing-small;
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+
+    @media (min-width: $screen-size-small-plus-one) {
+      justify-content: flex-end;
+    }
+  }
+
+  li {
+    &:not(:last-child) {
+      border-right: $border-defaults;
+    }
+
+    @media (max-width: $screen-size-small) {
+      flex-basis: 33%;
+    }
   }
 }
 
-.deliveries-listing {
-  width: 100%;
+.deliveries-pagination-week {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: $spacing-micro;
 
-  thead {
-    background-color: #F8F8F8;
+  @media (max-width: $screen-size-small) {
+    font-size: 0.9em;
+    letter-spacing: -1.3px;
+    text-align: center;
   }
 
-  thead, tbody {
-    border: 1px solid #DDD;
+  @media (min-width: $screen-size-small-plus-one) {
+    padding-left: $spacing-small;
+    padding-right: $spacing-small;
   }
+}
 
-  th {
-    text-align: left;
-  }
-
-  .sortable-column {
-    position: relative;
-  }
-
-  .sort-column {
-    color: #000;
-    text-decoration: underline;
-
-    &:after {
+@media (min-width: $screen-size-small-plus-one) {
+  .deliveries-pagination-prev-week {
+    &::before,
+    &::after {
+      @include triangle($direction: left, $width: 0.526rem, $height: 0.947rem, $color: $font-color-body)
       content: "";
-      position: absolute;
-      top: 14px;
-      right: 10px;
-
-      @include triangle($direction: down, $width: 15px, $height: 15px, $color: #000);
     }
 
-    &.up:after {
-      top: 8px;
-      @include triangle($direction: up, $width: 15px, $height: 15px, $color: #000);
+    &::before {
+      border-right-color: $background-color-viewport;
+      margin-right: 5px;
+      order: -1;
+    }
+
+    &::after {
+      margin-right: -8px;
+      order: -2;
     }
   }
 
-  .delivered-at {
-    text-align: center;
-    width: 150px;
-  }
+  .deliveries-pagination-next-week {
+    &::before,
+    &::after {
+      @include triangle($direction: right, $width: 0.526rem, $height: 0.947rem, $color: $font-color-body)
+      content: "";
+    }
 
-  .received-by {
-    width: 250px;
-  }
+    &::before {
+      margin-left: 7px;
+      order: 2;
+    }
 
-  .delivered-by {
-    width: 165px;
-  }
-
-  th.package-count, .package-count {
-    text-align: center;
-  }
-
-  .package-count {
-    width: 185px;
-  }
-
-  .delete-delivery {
-    display: none;
-  }
-
-  .delivery-receipt-details td {
-    padding-top: 0;
-    vertical-align: top;
-  }
-
-  .delivery-signed-out-receipt {
-    display: none;
-  }
-
-  &.all-deliveries-listing .delivery-signed-out-receipt {
-    display: table-row;
+    &::after {
+      border-left-color: $background-color-viewport;
+      margin-left: -12px;
+      order: 3;
+    }
   }
 }
 
-body.admin .deliveries-listing .delete-delivery {
-  display: inline-block;
+.deliveries-day-group {
+  @media (max-width: $screen-size-small) {
+    margin: 0 (-1 * $spacing-small);
+  }
+}
+
+.deliveries-day-group-label {
+  display: block;
+  background-color: $light-gray;
+  padding: $spacing-micro / 2 $spacing-micro;
+}
+
+.delivery-summary {
+  padding: $spacing-small;
+
+  &:not(:last-child) {
+    border-bottom: $border-defaults;
+  }
+}
+
+.delivery-summary-company-with-time {
+  align-items: start;
+  display: flex;
+  justify-content: space-between;
 }

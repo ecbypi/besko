@@ -1,4 +1,11 @@
 ---
+- name: actionview-human-attribute-name
+  installed_at: 2020-08-01 05:36:28.170838000 Z
+  installed_to: "."
+  files:
+  - app/helpers/human_attribute_name_helper.rb
+  - app/presenters/human_attribute_name.rb
+  - config/locales/actionview.en.yml
 - name: actionview-link-to-with-active
   installed_at: 2020-07-24 06:05:03.785264000 Z
   installed_to: "."

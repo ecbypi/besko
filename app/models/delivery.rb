@@ -34,7 +34,20 @@ class Delivery < ActiveRecord::Base
     joins(:receipts).where(receipts: { signed_out_at: nil }).distinct
   end
 
+  def self.with_package_count
+    joins(:receipts).
+      select(arel_table[Arel.star]).
+      select(Receipt.arel_table[:number_packages].sum.as(%{"package_count"})).
+      group(:id)
+  end
+
   def package_count
-    receipts.map(&:number_packages).reduce(:+)
+    attributes.fetch("package_count") do
+      if receipts.loaded?
+        receipts.inject(0) { |sum, receipt| sum + receipt.number_packages }
+      else
+        receipts.sum(:number_packages)
+      end
+    end
   end
 end

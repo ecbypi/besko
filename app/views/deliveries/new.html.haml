@@ -3,7 +3,7 @@
 = simple_form_for @delivery, html: { id: "new-delivery", class: "log-delivery" } do |f|
   = f.input :deliverer, as: :select, collection: Delivery::Deliverers
 
-  .input-wrapper.autocomplete-search{ data: { recipient_search: true } }
+  .input-wrapper.autocomplete-search{ data: { recipient_search: "", input_wrapper: "" } }
     = label_tag 'autocomplete-search', t("simple_form.labels.delivery.recipients")
     = search_field_tag 'autocomplete-search', nil, autofocus: true, class: 'autocomplete-input', placeholder: t('simple_form.placeholders.delivery.recipients')
     .input-hint= t('simple_form.hints.delivery.recipients')

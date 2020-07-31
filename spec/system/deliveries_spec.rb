@@ -5,168 +5,32 @@ RSpec.describe "Delivery", :js, type: :system do
     sign_in create(:user, :desk_worker)
   end
 
-  context 'reviewal' do
-    it 'shows worker, number of packages, deliverer and timestamp of delivery' do
+  context "list" do
+    it "shows who received the delivery, number of packages in it, " \
+      "delivery company and time of day" do
       mshalp = create(:mshalp)
       mrhalp = create(:mrhalp, :desk_worker)
 
-      Timecop.travel(Time.zone.local(2011, 11, 11, 15, 12, 9)) do
-        build(:delivery, user: mrhalp, deliverer: "LaserShip") do |delivery|
-          delivery.receipts.build(
-            attributes_for(:receipt, user_id: mshalp.id, number_packages: 3455)
-          )
-          delivery.receipts.build(
-            attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
-          )
+      delivered_at = Time.zone.local(2011, 11, 11, 15, 12)
 
-          delivery.save!
-        end
-      end
+      delivery = build(
+        :delivery,
+        user: mrhalp,
+        deliverer: "LaserShip",
+        created_at: delivered_at,
+        updated_at: delivered_at
+      )
+      delivery.receipts.build attributes_for(:receipt, user_id: mshalp.id, number_packages: 9)
+      delivery.receipts.build attributes_for(:receipt, user_id: mrhalp.id, number_packages: 2)
+      delivery.save!
 
       visit deliveries_path
 
       within delivery_element(text: 'LaserShip') do
-        expect(page).to have_link 'Micro Helpline', href: 'mailto:mrhalp@mit.edu'
-        expect(page).to have_content "Nov 11, 2011"
-        expect(page).to have_content '03:12:09 pm'
-        expect(page).to have_content '3457'
-        expect(page).not_to have_button 'Delete'
-
-        within receipt_element(text: "Micro Helpline") do
-          expect(page).to have_content "Micro Helpline"
-          expect(page).to have_content "2"
-        end
-
-        within receipt_element(text: "Ms Helpline") do
-          expect(page).to have_content "Ms Helpline"
-          expect(page).to have_content "3455"
-        end
+        expect(page).to have_content "Micro Helpline"
+        expect(page).to have_content '3:12 pm'
+        expect(page).to have_content human_attribute_name(Delivery, :package_count, count: 11)
       end
-    end
-
-    it "defaults to only showing deliveries with receipts waiting pickup" do
-      robert = create(:user, :desk_worker, first_name: "Kiel", last_name: "Henderson")
-      sarah = create(:user, first_name: "Sarah", last_name: "Hurnt")
-      leslie = create(:user, first_name: "Leslie", last_name: "Meyens")
-
-      build(:delivery, user: robert, deliverer: "Amazon") do |delivery|
-        delivery.receipts.build(
-          attributes_for(:receipt, :signed_out, user_id: sarah.id)
-        )
-        delivery.receipts.build(
-          attributes_for(:receipt, user_id: robert.id)
-        )
-        delivery.save!
-      end
-
-      build(:delivery, user: robert, deliverer: "USPS") do |delivery|
-        delivery.receipts.build(
-          attributes_for(:receipt, :signed_out, user_id: leslie.id)
-        )
-        delivery.receipts.build(
-          attributes_for(:receipt, :signed_out, user_id: sarah.id)
-        )
-        delivery.save!
-      end
-
-      build(:delivery, user: robert, deliverer: "UPS") do |delivery|
-        delivery.receipts.build(attributes_for(:receipt, :signed_out, user_id: robert.id))
-        delivery.receipts.build(attributes_for(:receipt, user_id: sarah.id))
-        delivery.save!
-      end
-
-      visit deliveries_path
-
-      expect(page).to have_select "Filter by", selected: "Waiting for Pickup"
-      expect(page).not_to have_delivery_element text: "USPS"
-      expect("UPS").to appear_before "Amazon"
-
-      within delivery_element(text: "Amazon") do
-        expect(page).to have_receipt_element text: "Kiel Henderson"
-        expect(page).not_to have_receipt_element text: "Sarah Hurnt"
-      end
-
-      within delivery_element(text: "UPS") do
-        expect(page).to have_receipt_element text: "Sarah Hurnt"
-        expect(page).not_to have_receipt_element text: "Kiel Henderson"
-      end
-
-      select "All Deliveries", from: "Filter by"
-      sleep 1
-
-      expect("UPS").to appear_before "USPS"
-      expect("USPS").to appear_before "Amazon"
-
-      within delivery_element(text: "Amazon") do
-        expect(page).to have_receipt_element text: "Kiel Henderson"
-        expect(page).to have_receipt_element text: "Sarah Hurnt"
-      end
-
-      within delivery_element(text: "UPS") do
-        expect(page).to have_receipt_element text: "Sarah Hurnt"
-        expect(page).to have_receipt_element text: "Kiel Henderson"
-      end
-
-      within delivery_element(text: "USPS") do
-        expect(page).to have_receipt_element text: "Leslie Meyens"
-        expect(page).to have_receipt_element text: "Sarah Hurnt"
-      end
-    end
-
-    it 'allows sorting by time of day received, remembering sorting across page refresh' do
-      richard = create(:user, first_name: "Richard")
-      alfred = create(:user, first_name: "Alfred")
-      Timecop.travel(5.minutes.ago) do
-        create(:delivery, user: richard)
-      end
-      create(:delivery, user: alfred)
-
-      visit deliveries_path
-
-      expect(page).to have_select "Sort by", selected: "Newest"
-      expect("Alfred").to appear_before "Richard"
-
-      select "Oldest", from: "Sort by"
-      sleep 1
-
-      expect("Richard").to appear_before "Alfred"
-
-      visit current_url
-
-      expect("Richard").to appear_before "Alfred"
-
-      select "Newest", from: "Sort by"
-      sleep 1
-
-      expect("Alfred").to appear_before "Richard"
-    end
-
-    it 'allows deletion by admins' do
-      create(:delivery, deliverer: 'FedEx', user: create(:mrhalp))
-      create(:delivery, deliverer: 'FedEx', user: create(:mshalp))
-
-      visit deliveries_path
-
-      within deliveries_element do
-        expect(page).not_to have_button 'Delete'
-      end
-
-      click_link 'Logout'
-
-      sign_in create(:user, :admin)
-
-      visit deliveries_path
-
-      expect(page).to have_delivery_element text: 'FedEx', count: 2
-
-      within delivery_element(text: 'Micro Helpline') do
-        accept_confirm do
-          click_button 'Delete'
-        end
-      end
-
-      expect(page).to have_delivery_element text: 'FedEx', count: 1
-      expect(current_url).to include deliveries_path(filter: "waiting", sort: "newest")
     end
   end
 

@@ -1,12 +1,12 @@
-%tbody{ data: { resource: :delivery } }
-  %tr.delivery-row
-    %td.delivered-at
-      .delivery-date-of-delivery= l delivery.created_at, format: "%b %d, %Y"
-      .delivery-time-of-delivery= l delivery.created_at, format: "%I:%M:%S %P"
-    %td.received-by= mail_to delivery.user.email, delivery.user.name
-    %td.delivered-by= delivery.deliverer
-    %td.package-count= delivery.package_count
-    %td
-      = button_to 'Delete', delivery, method: :delete, class: 'btn delete-delivery', data: { confirm: t('.confirm_deletion', deliverer: delivery.deliverer, worker: delivery.user.name) }
+%li.delivery-summary{ data: { resource: :delivery } }
+  .delivery-summary-company-with-time
+    %span
+      %strong= delivery.deliverer
+      %div= human_attribute_name delivery, :package_count, count: delivery.package_count
 
-  = render partial: "receipt", collection: delivery.receipts
+    %span
+      = l delivery.created_at, format: "%l:%M %P"
+
+  %div
+    = human_attribute_name delivery, :received_by, name: delivery.user.name
+

@@ -4,35 +4,7 @@
   Besko.Router = Backbone.Router.extend({
 
     routes: {
-      'deliveries/new(?:params)' : 'newDelivery',
-      'deliveries(?:params)' : 'deliverySearch',
-      'accounts/edit' : 'editAccount'
-    },
-
-    deliverySearch: function(params) {
-      var queryParams = {
-        filter: null,
-        sort: null
-      }
-
-      params = $.parseQueryObject(params);
-      _.extend(queryParams, params);
-
-      if ( !queryParams.filter ) {
-        queryParams.filter = 'waiting';
-      }
-
-      if ( !queryParams.sort ) {
-        queryParams.sort = 'newest';
-      }
-
-      window.history.replaceState(null, document.title, Routes.deliveries_path(queryParams));
-
-      var search = new Besko.Views.DeliverySearch({
-        el: $('#delivery-search')
-      });
-
-      search.render();
+      'deliveries/new(?:params)' : 'newDelivery'
     },
 
     newDelivery: function(params) {
@@ -50,12 +22,6 @@
       });
 
       deliveryForm.render();
-    },
-
-    editAccount: function() {
-      new Besko.Views.EditAddressForm({
-        el: $('#edit-address')
-      });
     }
   });
 })();

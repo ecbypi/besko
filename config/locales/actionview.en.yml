@@ -1,0 +1,10 @@
+en:
+  actionview:
+    attributes:
+      delivery:
+        package_count:
+          zero: ""
+          one: "1 package"
+          other: "%{count} packages"
+        received_by: "Received by %{name}"
+

@@ -1,17 +1,28 @@
 = page_heading
 
-= form_tag deliveries_path, method: :get, id: "delivery-search", class: "delivery-search actionable" do
-  .input
-    = label_tag :filter, "Filter by"
-    = select_tag :filter, options_for_select(delivery_search_filter_options, @query.filter)
+%nav.deliveries-pagination
+  %ul
+    %li
+      = link_to @pagination.previous_week,
+        { week_containing: @pagination.previous_week.start },
+        { class: "deliveries-pagination-week deliveries-pagination-prev-week" }
 
-  .input
-    = label_tag :sort, "Sort by"
-    = select_tag :sort, options_for_select(delivery_search_sort_options, @query.sort)
+    %li
+      .deliveries-pagination-week.deliveries-pagination-current-week
+        = @pagination.current_week
 
-  .input
-    = label_tag :delivered_by, "Delivered by"
-    = select_tag :delivered_by, options_for_select(delivery_search_deliverer_options, @query.delivered_by), include_blank: true
+    %li
+      = link_to @pagination.next_week,
+        { week_containing: @pagination.next_week.start },
+        { class: "deliveries-pagination-week deliveries-pagination-next-week" }
 
-#delivery-search-results{ data: { pjax_container: true } }
-  = render 'search_results', deliveries: @deliveries, query: @query
+%ul
+  - @pagination.current_week.days.reverse_each do |day|
+    - if @deliveries[0] && @deliveries[0].delivered_on == day
+      %li.deliveries-day-group
+        %strong.deliveries-day-group-label.sticky
+          = l day, format: :short
+
+        %ul
+          - while @deliveries[0] && @deliveries[0].delivered_on == day
+            = render @deliveries.shift

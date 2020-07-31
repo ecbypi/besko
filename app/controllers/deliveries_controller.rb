@@ -5,26 +5,14 @@ class DeliveriesController < ApplicationController
   before_action :authorize_resource!
 
   def index
-    deliveries = Delivery.
-      includes(:user, receipts: :user).
-      page(params[:page]).
-      per(20)
+    @pagination = WeekPagination.new(params[:week_containing])
 
-    @query = DeliveryQuery.new(params, deliveries)
-    @deliveries = @query.result
-
-    if request.headers["X-PJAX"]
-      render(
-        partial: "search_results",
-        layout: false,
-        locals: {
-          deliveries: @deliveries,
-          query: @query
-        }
-      )
-    else
-      respond_with(@deliveries)
-    end
+    @deliveries = Delivery.
+      preload(:user).
+      with_package_count.
+      where(delivered_on: @pagination.current_week.to_range).
+      order(delivered_on: :desc, created_at: :desc).
+      to_a
   end
 
   def new
