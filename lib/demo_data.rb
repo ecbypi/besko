@@ -49,30 +49,43 @@ class DemoData
   def create_desk_workers!
     user_ids = User.pluck(:id).sample(4)
 
-    user_ids.each { |user_id| UserRole.create(user_id: user_id, title: 'DeskWorker') }
+    user_ids.each { |user_id| UserRole.create!(user_id: user_id, title: 'DeskWorker') }
   end
 
   def create_deliveries!
     desk_worker_ids = User.desk_workers.pluck(:id)
     user_ids = User.pluck(:id)
 
-    30.times do
-      receipts_attributes = []
+    deliveries_per_day = (1..5).to_a
+    recipients_per_delivery = (1..4).to_a
+    number_packages_per_recipient = (1..3).to_a
+    delivered_at_hours = (9..19).to_a
+    delivered_at_minutes = (0..59).to_a
 
-      (1..3).to_a.sample.times do
-        receipts_attributes << {
-          user_id: user_ids.sample,
-          number_packages: (1..3).to_a.sample,
-          comment: [1, 2].sample % 2 == 0 ? Faker::Lorem.sentence(2, true) : nil
-        }
+    (2.weeks.ago.to_date..Date.current).each do |date|
+      deliveries_per_day.sample.times do
+        receipts_attributes = []
+
+        recipients_per_delivery.sample.times do |i|
+          receipts_attributes << {
+            user_id: user_ids.sample,
+            number_packages: number_packages_per_recipient.sample,
+            comment: i % 3 == 0 ? Faker::Lorem.sentence(2, true) : nil
+          }
+        end
+
+        delivered_at = date.in_time_zone
+        delivered_at = delivered_at.change(hour: delivered_at_hours.sample, min: delivered_at_minutes.sample)
+
+        Delivery.create!(
+          deliverer: Delivery::Deliverers.sample,
+          user_id: desk_worker_ids.sample,
+          receipts_attributes: receipts_attributes,
+          delivered_on: date,
+          created_at: delivered_at,
+          updated_at: delivered_at
+        )
       end
-
-      Delivery.create!(
-        deliverer: Delivery::Deliverers.sample,
-        user_id: desk_worker_ids.sample,
-        receipts_attributes: receipts_attributes,
-        created_at: Time.zone.now - (1..7).to_a.sample.days
-      )
     end
   end
 end
