@@ -8,3 +8,4 @@ rerun.txt
 .env
 backup-data
 backup.sql
+Brewfile.lock.json

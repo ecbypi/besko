@@ -1,3 +1,2 @@
-install postgres
-install redis
-install memcached
+brew "postgresql@11"
+brew "redis"
