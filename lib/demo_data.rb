@@ -21,11 +21,11 @@ class DemoData
       user.password = ENV.fetch('ADMIN_PASSWORD', Devise.friendly_token).dup
       user.confirmed_at = Time.zone.now
       user.activated_at = Time.zone.now
-      user.user_roles.build([
+      user.save!
+      user.user_roles.create!([
         { title: 'DeskWorker' },
         { title: 'Admin' }
       ])
-      user.save!
     end
   end
 
