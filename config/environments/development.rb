@@ -19,6 +19,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.hosts << "besko.test"
+  config.hosts << /besko\.\d+\.\d+\.\d+\.\d+\.xip\.io/
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
