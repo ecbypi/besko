@@ -12,20 +12,21 @@ class DemoData
 
   def create_admin_user!
     first_name, last_name = ENV.fetch('ADMIN_NAME', Faker::Name.name).dup.split(/\s+/, 2)
+    email = ENV.fetch('ADMIN_EMAIL', 'admin@example.com').dup
+    password = ENV.fetch('ADMIN_PASSWORD', Devise.friendly_token).dup
 
-    User.new(
+    user = User.where(email: email).first_or_initialize
+    user.password = password
+
+    user.update!(
       first_name: first_name,
       last_name: last_name,
-      email: ENV.fetch('ADMIN_EMAIL', 'admin@example.com').dup
-    ) do |user|
-      user.password = ENV.fetch('ADMIN_PASSWORD', Devise.friendly_token).dup
-      user.confirmed_at = Time.zone.now
-      user.activated_at = Time.zone.now
-      user.save!
-      user.user_roles.create!([
-        { title: 'DeskWorker' },
-        { title: 'Admin' }
-      ])
+      confirmed_at: Time.zone.now,
+      activated_at: Time.zone.now
+    )
+
+    %w( DeskWorker Admin ).each do |title|
+      user.user_roles.where(title: title).first_or_create!
     end
   end
 
@@ -49,7 +50,9 @@ class DemoData
   def create_desk_workers!
     user_ids = User.pluck(:id).sample(4)
 
-    user_ids.each { |user_id| UserRole.create!(user_id: user_id, title: 'DeskWorker') }
+    user_ids.each do |user_id|
+      UserRole.find_or_create_by!(user_id: user_id, title: 'DeskWorker')
+    end
   end
 
   def create_deliveries!

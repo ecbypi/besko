@@ -8,6 +8,8 @@ For an explanation of the functionality of the application, see
 
 ## Setup
 
+Setup requires having [homebrew](https://brew.sh) installed.
+
 ### Clone the Repository
 
 Clone the repository to your local machine.
@@ -26,7 +28,8 @@ Using your ruby version manager of choice ([`rbenv`] is recommended), use
 rbenv install
 ```
 
-Next, run the setup script:
+Next, run the setup script.  You'll be prompted for information to create your
+account in the local database for testing.
 
 ```shell
 ./bin/setup
